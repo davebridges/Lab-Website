@@ -152,3 +152,9 @@ LOGGING = {
         },
     }
 }
+
+#try to import localsettings.py first
+try:
+    from local_settings import *
+except:
+    pass

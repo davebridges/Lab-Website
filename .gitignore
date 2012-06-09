@@ -1,4 +1,6 @@
-#compiles python files
+#compiled python files
 *.pyc
 *.pyo
 
+#the filled in localsettings.py
+localsettings.py
