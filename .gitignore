@@ -1,0 +1,4 @@
+#compiles python files
+*.pyc
+*.pyo
+
