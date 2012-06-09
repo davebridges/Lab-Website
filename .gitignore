@@ -4,3 +4,6 @@
 
 #the filled in localsettings.py
 localsettings.py
+
+#automatically generated cruft
+.DS_STORE
