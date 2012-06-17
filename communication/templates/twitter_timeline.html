@@ -1,0 +1,25 @@
+<html>
+<head>
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+<title>Twitter Timeline for @{{screen_name}}</title>
+
+</head>
+<body>
+<h1>Twitter Timeline for <a href="https://twitter.com/intent/user?screen_name={{screen_name}}">@{{screen_name}}</a></h1>
+<div id=status>
+Twitter API Status: {{status}}
+</div>
+
+<div id=tweets>
+<ul>
+{% for tweet in timeline %}
+<li><time><a href="https://twitter.com/{{screen_name}}/status/{{tweet.id_str}}">{{tweet.created_at_cleaned|date}}</a></time>: {{tweet.text}}
+<a href="https://twitter.com/intent/tweet?in_reply_to={{tweet.id_str}}">Reply</a>
+<a href="https://twitter.com/intent/retweet?tweet_id={{tweet.id_str}}">Retweet</a>
+<a href="https://twitter.com/intent/favorite?tweet_id={{tweet.id_str}}">Favorite</a></li>
+{% endfor %}
+</ul>
+</div>
+<body>
+
+</html>

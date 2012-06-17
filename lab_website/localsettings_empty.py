@@ -66,3 +66,6 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+#Communication and API keys
+TWITTER_NAME = '' #the laboratory's twitter name if used, enter inside single quotes
