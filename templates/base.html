@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+{% block scripts %}
+{% endblock scripts %}
+
+{% block title %}<title>Generic Page Title</title>{% endblock %}
+</head>
+
+<body>
+<header>
+{% block header %}
+{% endblock %}
+<nav>
+<ul>
+<li>Who Are We?</li>
+<li>What Do We Do?</li>
+<li>Connect With Us</li>
+</ul>
+</nav>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</header>
+
+{% block content %}
+{% endblock %}
+
+<footer>
+{% block footer %}
+{% endblock %}
+</footer>
+
+</body>
+
+</html>

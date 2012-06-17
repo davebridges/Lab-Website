@@ -7,6 +7,8 @@ import datetime, time
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.views.generic import View
+from django.template import RequestContext
+from django.contrib import messages
 
 
 def generate_timeline(screen_name):
@@ -36,10 +38,13 @@ class TwitterView(View):
         '''This sets the GET function for TwitterView.'''
         try: 
             timeline = generate_timeline(settings.TWITTER_NAME)
-            status = 'Good'
+            return render_to_response('twitter_timeline.html',
+            {'timeline':timeline, 'screen_name':settings.TWITTER_NAME},
+             mimetype='text/html',
+             context_instance=RequestContext(request))
         except urllib2.HTTPError:
-            return 'No Response from twitter.  Are you sure that %s is a valid twitter name?' % TWITTER_NAME
-            status = 'Fail'	    
-        return render_to_response('twitter_timeline.html',
-            {'timeline':timeline, 'status':status, 'screen_name':settings.TWITTER_NAME},
-             mimetype='text/html')
+            messages.error(request, 'No Response from twitter.  Are you sure that %s is a valid twitter name?' % settings.TWITTER_NAME)	    
+            return render_to_response('twitter_timeline.html',
+            {'screen_name':settings.TWITTER_NAME},
+             mimetype='text/html',
+             context_instance=RequestContext(request))
