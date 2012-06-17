@@ -68,4 +68,7 @@ DATABASES = {
 }
 
 #Communication and API keys
+LAB_NAME = 'Bridges Laboratory' #the lab name, ie Bridges Laboratory
 TWITTER_NAME = '' #the laboratory's twitter name if used, enter inside single quotes
+GOOGLE_PLUS_ID = ''#the laboratory's google plus page id.
+FACEBOOK_NAME = '' #the name of the laboratory's facebook page.

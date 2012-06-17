@@ -2,15 +2,15 @@
 {% block scripts %}
 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 {% endblock %}
-{% block title %}
-<title>Twitter Timeline for @{{screen_name}}</title>
+
+{% block title %}<title>Twitter Timeline for @{{screen_name}}</title>{% endblock %}
+
+{% block header %}
+<h1>Twitter Timeline for <a href="https://twitter.com/intent/user?screen_name={{screen_name}}">@{{screen_name}} <img src="{{ STATIC_URL }}images/bird_blue_48.png" alt="Twitter"></a></h1>
 {% endblock %}
-</head>
 
 {% block content %}
-<h1>Twitter Timeline for <a href="https://twitter.com/intent/user?screen_name={{screen_name}}">@{{screen_name}} <img src="{{ STATIC_URL }}images/bird_blue_48.png" alt="Twitter"></a></h1>
-
-<div id=tweets>
+<div id="tweets">
 <ul>
 {% for tweet in timeline %}
 <li><time><a href="https://twitter.com/{{screen_name}}/status/{{tweet.id_str}}">{{tweet.created_at_cleaned|date}}</a></time>: {{tweet.text}}
