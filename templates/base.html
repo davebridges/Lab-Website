@@ -20,6 +20,7 @@
 	})();
 </script>
 {% include "twitter_anywhere_script.html" %}
+{% include "jquery_script.html" %}
 
 {% block scripts %}
 {% endblock %}
@@ -28,6 +29,16 @@
 </head>
 
 <body class="container">
+<!-- This script is for rendering the Facebook Button -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 
 <header class="span-24">
 {% block header %}
@@ -54,11 +65,7 @@ Header Information
 </ul>
 <div id="follow-buttons">
 <h2>Follow Us:</h2>
-<div class="facebook">
-<!-- Facebook Badge START -->
-<span style="font-family: &quot;lucida grande&quot;,tahoma,verdana,arial,sans-serif; font-size: 11px; line-height: 16px; font-variant: normal; font-style: normal; font-weight: normal; color: #555555; text-decoration: none;"></span><a href="https://www.facebook.com/BridgesLab" target="_TOP" title="Bridges Laboratory"><img src="https://badge.facebook.com/badge/447068338637332.3189.2136426172.png" style="border: 0px;" /></a>
-<!-- Facebook Badge END -->
-</div>
+<div class="fb-like-box" data-href="http://www.facebook.com/{{facebook}}" data-width="300" data-show-faces="true" data-stream="false" data-header="false" data-border-color="gainsboro"></div>
 <div class="g-plus" data-href="https://plus.google.com/{{google_plus}}?rel=author" data-width="300" data-height="69"></div>
 <div class="twitter">
 <a href="https://twitter.com/{{twitter}}" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @{{twitter}}</a>
