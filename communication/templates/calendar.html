@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>Calendar</title>{% endblock %}
+
+{% block header %}
+<h1>Calendar</h1>
+{% endblock %}
+
+{% block content %}
+<div id="calendar">
+<table>
+{% for event in calendar.feed.entry %}
+<tr>
+<td>{{ event }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

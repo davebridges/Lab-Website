@@ -18,5 +18,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^twitter/$', views.TwitterView.as_view()), 
+    url(r'^twitter/$', views.TwitterView.as_view(), name="twitter"),
+    url(r'^calendar/$', views.GoogleCalendarView.as_view(), name="google-calendar"),
+    url(r'^wikipedia/$', views.WikipedaEditsView.as_view(), name="wikipedia") 
 )

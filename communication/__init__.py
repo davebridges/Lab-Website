@@ -12,7 +12,7 @@ import json
 
 #this downloads the timeline for a user
 TWITTER_NAME = 'dave_bridges'
-values = {'screen_name':TWITTER_NAME, 'count':50, 'rts':'true', 'trim_user':'true', 'exclude_replies':'true'}
+values = {'screen_name':TWITTER_NAME, 'count':200, 'rts':'true', 'trim_user':'true', 'exclude_replies':'true'}
 params = urllib.urlencode(values)
 target_site = 'https://api.twitter.com/1/statuses/user_timeline.json?' + params
 response = urllib2.urlopen(target_site)

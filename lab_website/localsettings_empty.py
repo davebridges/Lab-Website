@@ -71,4 +71,6 @@ DATABASES = {
 LAB_NAME = 'Bridges Laboratory' #the lab name, ie Bridges Laboratory
 TWITTER_NAME = '' #the laboratory's twitter name if used, enter inside single quotes
 GOOGLE_PLUS_ID = ''#the laboratory's google plus page id.
+GOOGLE_CALENDAR_ID = '' #the calendar id.  You can find this under Calendar Details
 FACEBOOK_NAME = '' #the name of the laboratory's facebook page.
+WIKIPEDIA_USERNAME = ''#the wikipedia username(s) to search by.

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block scripts %}
+<link rel="alternate" type="application/rss+xml" title="{{username}} Wikipedia Edits" href="http://en.wikipedia.org/w/api.php?action=feedcontributions&user={{username}}" />
+{% endblock %}
+
+{% block title %}<title>Wikipedia Edits for {{ username }}</title>{% endblock %}
+
+{% block header %}
+<h1>Wikipedia Edits for {{ username }}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="wikipedia">
+Follow edits vis RSS <a href="http://en.wikipedia.org/w/api.php?action=feedcontributions&user={{username}}"><img src="{{STATIC_URL}}img/feed-icon-14x14.png" alt="RSS Icon"></a>
+<table>
+<th>Page</th><th>Time</th>
+{% for page in pages.query.usercontribs %}
+<tr>
+<td><a href="http://en.wikipedia.org/wiki/{{ page.title|urlencode }}">{{ page.title }}</a></td>
+<td><time datetime="{{ page.timestamp_cleaned|date:"c" }}">{{ page.timestamp_cleaned|date }}</time></td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}
