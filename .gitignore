@@ -7,3 +7,7 @@ localsettings.py
 
 #automatically generated cruft
 .DS_STORE
+
+
+#private keys from oauth
+*.pkl
