@@ -3,23 +3,17 @@
 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 {% endblock %}
 
-{% block title %}<title>Twitter Timeline for @{{screen_name}}</title>{% endblock %}
+{% block title %}<title>Tweets By @{{screen_name}}</title>{% endblock %}
 
 {% block header %}
-<h1>Twitter Timeline for <a href="https://twitter.com/intent/user?screen_name={{screen_name}}">@{{screen_name}} <img src="{{ STATIC_URL }}images/bird_blue_48.png" alt="Twitter"></a></h1>
+<h1>Tweets By <a href="https://twitter.com/intent/user?screen_name={{screen_name}}">@{{screen_name}} <img src="{{ STATIC_URL }}images/bird_blue_48.png" alt="Twitter"></a></h1>
 {% endblock %}
 
 {% block content %}
 <div id="tweets">
 <table>
 {% for tweet in timeline %}
-<tr>
-<td><time><a href="https://twitter.com/{{screen_name}}/status/{{tweet.id_str}}">{{tweet.created_at_cleaned|date}}</a></time></td>
-<td> {{tweet.text}}
-<a href="https://twitter.com/intent/tweet?in_reply_to={{tweet.id_str}}"><img src="{{ STATIC_URL }}images/reply.png" alt="Reply"/></a>
-<a href="https://twitter.com/intent/retweet?tweet_id={{tweet.id_str}}"><img src="{{ STATIC_URL }}images/retweet.png" alt="Retweet"/></a>
-<a href="https://twitter.com/intent/favorite?tweet_id={{tweet.id_str}}"><img src="{{ STATIC_URL }}images/favorite.png" alt="Favorite"/></a>
-</td>
+{% include "tweet.html" %}
 {% endfor %}
 </table>
 </div>
