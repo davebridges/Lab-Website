@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'lab_website',
     'personnel',
     'communication',
+    'papers',
     'south',
     'debug_toolbar'
 )
