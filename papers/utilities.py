@@ -3,6 +3,7 @@ from mendeley_client import MendeleyClient
 
 from django.conf import settings
 
+from papers.models import Publication
 
 def get_mendeley_authored_documents():
     '''This function gets all of the authored documents in the authorized library.
@@ -22,3 +23,20 @@ def get_mendeley_authored_documents():
         details = mendeley.document_details(document)
         authored_document_list[document] = details
     return authored_document_list
+    
+def write_mendeley_papers_to_database(documents):
+    '''This function will take a document list and update the Publication model in the database.
+    
+    To call this you have to get a document list, for example from get_mendeley_authored_documents() 
+    the output of that function is then passed to this function.'''
+    for key in documents.keys():
+        paper = Publication(mendeley_url = documents[key]['mendeley_url'],    
+        	title = documents[key]['title'],  
+        	id = documents[key]['canonical_id'],
+        	doi = documents[key]['doi'],  
+        	year = documents[key]['year'],
+            issue = documents[key]['issue'], 
+            pages = documents[key]['pages'],
+            abstract = documents[key]['abstract'],
+            type = documents[key]['type'])
+        paper.save()
