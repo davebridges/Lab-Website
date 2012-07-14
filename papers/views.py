@@ -35,11 +35,11 @@ class InterestingPaperList(ListView):
         return context       
 
 class PaperDetailView(DetailView):
-    '''This class generates toe view for paper-details located at **/papers/<title-slug>**.
+    '''This class generates the view for paper-details located at **/papers/<title_slug>**.
     
     '''
     model = Publication
     slug_field = "title_slug"
-    slug_url_kwarg = "title-slug"
+    slug_url_kwarg = "title_slug"
     template_name = "paper-detail.html"
     
