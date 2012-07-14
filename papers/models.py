@@ -17,6 +17,8 @@ class Publication(models.Model):
     abstract = models.TextField(blank=True, null=True)
     laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
     interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
+    date_last_modified = models.DateField(auto_now=True)
+    date_added = models.DateField(auto_now_add=True)    
     
     def __unicode__(self):
         '''The unicode representation for a Publication is its title'''
