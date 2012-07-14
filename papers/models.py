@@ -15,6 +15,8 @@ class Publication(models.Model):
     issue = models.CharField(max_length=15, blank=True, null=True)
     pages = models.CharField(max_length=15, blank=True, null=True)
     abstract = models.TextField(blank=True, null=True)
+    laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
+    interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
     
     def __unicode__(self):
         '''The unicode representation for a Publication is its title'''
@@ -23,7 +25,7 @@ class Publication(models.Model):
     @models.permalink
     def get_absolute_url(self):
         '''the permalink for a paper detail page is /papers/[title_slug]'''
-        return ('papers.views.paper-details', [str(self.title_slug)])   
+        return ('paper-details', [str(self.title_slug)])   
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''
