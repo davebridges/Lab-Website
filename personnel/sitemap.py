@@ -21,4 +21,4 @@ class LabPersonnelSitemap(Sitemap):
         
     def lastmod(self, person):
         '''lastmod uses the last modification of the paper (not the comments).'''
-        return person.date_last_modified
+        return person.updated
