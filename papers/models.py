@@ -1,6 +1,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
+from personnel.models import Personnel
+
 class Publication(models.Model):
     '''This model covers publications of several types.
     
@@ -8,6 +10,7 @@ class Publication(models.Model):
     '''
     mendeley_url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=150)
+    authors = models.ManyToManyField(Personnel, blank=True, null=True)
     title_slug = models.SlugField()
     mendeley_id = models.IntegerField(blank=True, null=True)
     doi = models.CharField(blank=True, null=True, max_length=50)
