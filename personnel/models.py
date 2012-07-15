@@ -25,7 +25,7 @@ class Personnel(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     additional_names = models.CharField(max_length=100, null=True, blank=True, help_text='other (i.e. middle) names')
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
     phone = models.CharField(max_length=40, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     website = models.URLField(help_text='Personal Website', null=True, blank=True)
@@ -45,6 +45,15 @@ class Personnel(models.Model):
     updated = models.DateField(auto_now=True)
     name_slug = models.SlugField(unique=True, editable=False)
     
+    def __unicode__(self):
+        '''The unicode representation for a Personnel object is its full name'''
+        return self.full_name()
+        
+    @models.permalink
+    def get_absolute_url(self):
+        '''the permalink for a paper detail page is /personnel/[name_slug]'''
+        return ('personnel-details', [str(self.name_slug)])   
+    
     def full_name(self):
         '''this function creates a full_name representation for both unicode and slug field displays.'''
         return "%s %s" %(self.first_name, self.last_name)
@@ -52,8 +61,13 @@ class Personnel(models.Model):
     def save(self, *args, **kwargs):
         '''Over-rides save to generate name_slug field.  This is only set upon creation to keep stability.'''
         if not self.id:
-            self.name_slug = slugify(self.full_name)
-        super(LabMember, self).save(*args, **kwargs)    
+            self.name_slug = slugify(self.full_name())
+        super(Personnel, self).save(*args, **kwargs) 
+
+    class Meta:
+        '''The meta options for Personnel models.'''
+        ordering = ["last_name"]
+        verbose_name_plural = "Personnel"
          
 class Role(models.Model):
     ''''This model describes the type of job a ::class`LabMember` had.
