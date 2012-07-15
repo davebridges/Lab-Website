@@ -1,0 +1,27 @@
+[
+    {
+        "pk": 1, 
+        "model": "personnel.personnel", 
+        "fields": {
+            "website": "", 
+            "first_name": "John", 
+            "last_name": "Doe", 
+            "home_address": null, 
+            "work_address": null, 
+            "created": "2012-07-15", 
+            "current_roles": [], 
+            "gender": null, 
+            "current_lab_member": true, 
+            "past_roles": [], 
+            "updated": "2012-07-15", 
+            "birthdate": null, 
+            "phone": "", 
+            "name_slug": "john-doe", 
+            "additional_names": "", 
+            "lab_roles": [], 
+            "awards": [], 
+            "degrees": [], 
+            "email": ""
+        }
+    }
+]
