@@ -5,16 +5,20 @@ class Publication(models.Model):
     '''This model covers publications of several types.
     
     The publication fields are based on Mendeley and PubMed fields.
-    ''''
-    mendeley_url = models.URLField()
+    '''
+    mendeley_url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=150)
     title_slug = models.SlugField()
-    id = models.IntegerField()
-    doi = models.CharField(blank=True, null=True)
-    year = models.IntegerField()
-    issue = models.CharField(max_length=15)
-    pages = models.CharField(max_length=15)
-    abstract = models.TextField(max_length)
+    mendeley_id = models.IntegerField(blank=True, null=True)
+    doi = models.CharField(blank=True, null=True, max_length=50)
+    year = models.IntegerField(blank=True, null=True)
+    issue = models.CharField(max_length=15, blank=True, null=True)
+    pages = models.CharField(max_length=15, blank=True, null=True)
+    abstract = models.TextField(blank=True, null=True)
+    laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
+    interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
+    date_last_modified = models.DateField(auto_now=True)
+    date_added = models.DateField(auto_now_add=True)    
     
     def __unicode__(self):
         '''The unicode representation for a Publication is its title'''
@@ -23,7 +27,7 @@ class Publication(models.Model):
     @models.permalink
     def get_absolute_url(self):
         '''the permalink for a paper detail page is /papers/[title_slug]'''
-        return ('papers.views.paper-details', [str(self.title_slug)])   
+        return ('paper-details', [str(self.title_slug)])   
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''

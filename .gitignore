@@ -11,3 +11,6 @@ localsettings.py
 
 #private keys from oauth
 *.pkl
+
+#database files from sqlite
+*.db
