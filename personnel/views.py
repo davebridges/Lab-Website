@@ -14,7 +14,8 @@ class LaboratoryPersonnelList(ListView):
     This is filtered based on whether the ::class:`Personnel` object is marked as current_lab_member = True.
     '''
     queryset = Personnel.objects.filter(current_lab_member=True)
-    template_name = "personnel-list.html"
+    template_name = "personnel_list.html"
+    context_object_name = 'person'
     
     def get_context_data(self, **kwargs):
         '''This method adds to the context the personnel-type  = current.'''
@@ -29,4 +30,5 @@ class LaboratoryPersonnelDetail(DetailView):
     model = Personnel
     slug_field = "name_slug"
     slug_url_kwarg = "name_slug"
-    template_name = "personnel-detail.html"        
+    template_name = "personnel_detail.html"  
+    context_object_name = 'person'    
