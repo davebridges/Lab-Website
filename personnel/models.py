@@ -15,7 +15,7 @@ ORGANIZATION_TYPE_CHOICES = (
 	('Other', 'Other')
 ) 
 
-class LabMember(models.Model):
+class Personnel(models.Model):
     '''This class describes laboratory members.
     
     This class will include current and former laboratory members.
@@ -36,10 +36,11 @@ class LabMember(models.Model):
     home_address = models.ForeignKey('Address', blank=True, null=True, related_name='home-address')
     work_address = models.ForeignKey('Address', blank=True, null=True, related_name='work-address')
     #these fields describe the role while in the laboratory or either before/after their time there.
+    current_lab_member = models.BooleanField()
     lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab-role')
     current_roles = models.ManyToManyField('Role', help_text="Current Position(s)", blank=True, null=True, related_name='current-role')
     past_roles = models.ManyToManyField('Role', help_text="Previous Position(s)", blank=True, null=True, related_name='past-role')
-    #these fields describe updating information
+    #these fields describe updating information and are automatically filled
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     name_slug = models.SlugField(unique=True, editable=False)
