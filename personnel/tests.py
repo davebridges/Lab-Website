@@ -86,12 +86,12 @@ class PersonnelViewTests(TestCase):
         test_response = self.client.get('/personnel/')
 
         self.assertEqual(test_response.status_code, 200)
-        self.assertTrue('person' in test_response.context)
+        self.assertTrue('personnel' in test_response.context)
         self.assertTemplateUsed(test_response, 'personnel_list.html')
         self.assertEqual(test_response.context['personnel-type'], 'current')
-        self.assertEqual(test_response.context['person'][0].pk, 1)
-        self.assertEqual(test_response.context['person'][0].first_name, 'John')        
-        self.assertEqual(test_response.context['person'][0].last_name, 'Doe')  
+        self.assertEqual(test_response.context['personnel'][0].pk, 1)
+        self.assertEqual(test_response.context['personnel'][0].first_name, 'John')        
+        self.assertEqual(test_response.context['personnel'][0].last_name, 'Doe')  
 
     def test_personnel_detail(self):
         '''This function tests the personnel-details view.''' 

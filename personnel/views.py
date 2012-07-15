@@ -15,7 +15,7 @@ class LaboratoryPersonnelList(ListView):
     '''
     queryset = Personnel.objects.filter(current_lab_member=True)
     template_name = "personnel_list.html"
-    context_object_name = 'person'
+    context_object_name = 'personnel'     
     
     def get_context_data(self, **kwargs):
         '''This method adds to the context the personnel-type  = current.'''
