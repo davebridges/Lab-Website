@@ -17,7 +17,7 @@ class LabPublicationsSitemap(Sitemap):
     
     def items(self):
         '''Filters Publications to show only laboratory papers.'''
-        return Publications.objects.filter(laboratory_papers=True)
+        return Publication.objects.filter(laboratory_paper=True)
         
     def lastmod(self, paper):
         '''lastmod uses the last modification of the paper (not the comments).'''
