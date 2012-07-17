@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block scripts %}
+
+{% endblock %}
+
+{% block title %}<title>Papers</title>{% endblock %}
+
+{% block header %}
+<h1>Papers</h1>
+{% endblock %}
+
+{% block content %}
+{% for paper in publication_list %}
+{% include "paper_detail_snippet.html" %}
+{% endblock %}
