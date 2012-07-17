@@ -1,0 +1,1 @@
+'''This package sets up the admin interface for the personnel app.'''from django.contrib import adminfrom papers.models import Publicationclass PublicationAdmin(admin.ModelAdmin):    passadmin.site.register(Publication, PublicationAdmin)
