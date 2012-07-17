@@ -30,13 +30,20 @@ def write_mendeley_papers_to_database(documents):
     To call this you have to get a document list, for example from get_mendeley_authored_documents() 
     the output of that function is then passed to this function.'''
     for key in documents.keys():
-        paper = Publication(mendeley_url = documents[key]['mendeley_url'],    
-        	title = documents[key]['title'],  
-        	id = documents[key]['canonical_id'],
-        	doi = documents[key]['doi'],  
-        	year = documents[key]['year'],
-            issue = documents[key]['issue'], 
-            pages = documents[key]['pages'],
-            abstract = documents[key]['abstract'],
-            type = documents[key]['type'])
+        document_dict = {'mendeley_url' : documents[key]['mendeley_url'],    
+        	'title' : documents[key]['title'], 
+        	'journal' : documents[key]['published_in'], 
+        	'id' : documents[key]['id'],
+        	'doi' : documents[key]['doi'],
+        	'pmid' : documents[key]['pmid'],
+        	'issn' : documents[key]['issn'],  
+        	'year' : documents[key]['year'],
+        	'volume' : documents[key]['volume'],
+            'issue' : documents[key]['issue'], 
+            'pages' : documents[key]['pages'],
+            'abstract' : documents[key]['abstract'],
+            'type' : documents[key]['type']}
+        paper = Publication(document_dict)
         paper.save()
+        for author in documents[key]['authors']:
+            paper.author_set.add('first_name'=author['forename'], 'last_name'=[author]['surname'])
