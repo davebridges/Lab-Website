@@ -10,5 +10,9 @@
 {% endblock %}
 
 {% block content %}
-
+<ul>
+{% for person in personnel %}
+<li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+{% endfor %}
+</ul>
 {% endblock %}
