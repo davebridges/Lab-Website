@@ -10,5 +10,8 @@
 {% endblock %}
 
 {% block content %}
-
+<h2>Publications</h2>
+{% for paper in person.publication_set.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
 {% endblock %}
