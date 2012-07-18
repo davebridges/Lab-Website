@@ -24,6 +24,10 @@ class Publication(models.Model):
     date_last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)    
     
+    def doi_link(self):
+        '''This turns the DOI into a link.'''
+        return 'http://dx.doi.org/%s' % self.doi
+    
     def __unicode__(self):
         '''The unicode representation for a Publication is its title'''
         return self.title
