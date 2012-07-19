@@ -74,3 +74,5 @@ GOOGLE_PLUS_ID = ''#the laboratory's google plus page id.
 GOOGLE_CALENDAR_ID = '' #the calendar id.  You can find this under Calendar Details
 FACEBOOK_NAME = '' #the name of the laboratory's facebook page.
 WIKIPEDIA_USERNAME = ''#the wikipedia username(s) to search by.
+MENDELEY_LAB_PAPERS_GROUP = '' #the public Mendeley group id containing the lab's papers
+MENDELEY_CONSUMER_KEY = '' #the Mendeley consumer key
