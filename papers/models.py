@@ -7,10 +7,11 @@ class Publication(models.Model):
     '''This model covers publications of several types.
     
     The publication fields are based on Mendeley and PubMed fields.
+    For the author, there is a ManyToMany link to a group of authors with the order and other details.  See `::class:AuthorDetails`.
     '''
     mendeley_url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=150)
-    authors = models.ManyToManyField(Personnel, blank=True, null=True)
+    authors = models.ManyToManyField(AuthorDetails, blank=True, null=True)
     title_slug = models.SlugField(blank=True, null=True, max_length=150)
     mendeley_id = models.IntegerField(blank=True, null=True)
     doi = models.CharField(blank=True, null=True, max_length=50)
@@ -42,3 +43,18 @@ class Publication(models.Model):
         if not self.id:
             self.title_slug = slugify(self.title)
         super(Publication, self).save(*args, **kwargs)
+        
+class AuthorDetails(models.Model):
+    '''This is a group of authors for a specific paper.
+        
+    Because each `::class:Publicaiton` has a list of authors and the order matters, the authors are listed in this linked model.
+    This model has a ManyToMany link with a paper as well as marks for order, and whether an author is a corresponding or equally contributing author.
+    '''
+    author = models.ForeignKey(Personnel)
+    order = models.IntegerField(help_text='The order in which the author appears (do not duplicate numbers)')
+    corresponding_author = models.BooleanField()
+    equal_contributors = models.BooleanField(help_text='Check both equally contributing authors')
+        
+    def __unicode__(self):
+        '''The unicode representation is the author name.'''
+        return '%s' %self.author
