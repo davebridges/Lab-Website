@@ -68,7 +68,7 @@ class PublicationModelTests(TestCase):
                     
 class AuthorDetailsModelTests(TestCase):
     '''This class tests varios aspects of the `::class:AuthorDetails` model.'''
-    fixtures = ['fixture_personnel']
+    fixtures = ['fixture_publication', 'fixture_publication_personnel']
 
     def setUp(self):
         '''Instantiate the test client.  Creates a test user.'''
@@ -91,7 +91,7 @@ class AuthorDetailsModelTests(TestCase):
         '''This test creates a `::class:AuthorDetails` with the required information only.'''
         test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
             order = 1)
-        test_authordetail.save() 
+        test_authordetail.save()
         
     def test_create_new_authordetail_all(self):
         '''This test creates a `::class:AuthorDetails` with the required information only.'''
@@ -106,4 +106,4 @@ class AuthorDetailsModelTests(TestCase):
         test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
             order = 1)
         test_authordetail.save() 
-        self.assertEqual(test_authordetail.__unicode__(), 'John Doe')
+        self.assertEqual(test_authordetail.__unicode__(), 'Dave Bridges')
