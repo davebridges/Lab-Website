@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block scripts %}
-
 {% endblock %}
 
 {% block title %}<title>{{ publication }}</title>{% endblock %}
@@ -16,4 +15,13 @@
 {% endfor %}
 <h2>Abstract</h2>
 <p>{{ publication.abstract }}</p>
+<h2>Metrics</h2>
+<script type='text/javascript'>
+$.getJSON('http://api.altmetric.com/v1/doi/{{ publication.doi }}', function(data) {
+	$('#altmetrics').html("<p>Tweets: "+data.cited_by_posts_count+" readers: "+data.readers_count+" score: "+data.score+" </p>");
+       
+});
+</script>
+<div id='altmetrics'>
+</div>
 {% endblock %}
