@@ -69,6 +69,7 @@ DATABASES = {
 
 #Communication and API keys
 LAB_NAME = '' #the lab name, ie Bridges Laboratory
+DISQUS_SHORTNAME = '' #forum name as registered on disqus
 TWITTER_NAME = '' #the laboratory's twitter name if used, enter inside single quotes
 GOOGLE_PLUS_ID = ''#the laboratory's google plus page id.
 GOOGLE_CALENDAR_ID = '' #the calendar id.  You can find this under Calendar Details

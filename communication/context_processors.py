@@ -14,4 +14,5 @@ def social_media_accounts(request):
     dict['google_plus'] = settings.GOOGLE_PLUS_ID
     dict['facebook'] = settings.FACEBOOK_NAME
     dict['lab_name'] = settings.LAB_NAME
+    dict['disqus_forum'] = settings.DISQUS_SHORTNAME
     return dict
