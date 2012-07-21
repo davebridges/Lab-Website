@@ -3,12 +3,17 @@
 
 {% endblock %}
 
-{% block title %}<title>{{person}}</title>{% endblock %}
+{% block title %}<title>{{ publication }}</title>{% endblock %}
 
 {% block header %}
-<h1>{{person}}</h1>
+<h1>{{ publication }}</h1>
 {% endblock %}
 
 {% block content %}
-
+<h2>Authors</h2>
+{% for author in publication.authors.all %}
+{% if forloop.revcounter = 1 %} and {% endif %} {{ author }}{% if forloop.revcounter > 1 %}, {% endif %} 
+{% endfor %}
+<h2>Abstract</h2>
+<p>{{ publication.abstract }}</p>
 {% endblock %}
