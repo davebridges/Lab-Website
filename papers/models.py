@@ -3,6 +3,33 @@ from django.template.defaultfilters import slugify
 
 from personnel.models import Personnel
 
+#Publication types are based on http://apidocs.mendeley.com/home/documenttypes
+PUBLICATION_TYPES = (
+	('Most Common', (
+			('Journal Article','Journal Article'),
+			('Book Section', 'Book Section'),
+			)
+	),
+	('Less Common', (		
+		('Bill', 'Bill'),
+		('Book', 'Book'),
+		('Case', 'Case'),
+		('Computer Program', 'Computer Program'),
+		('Conference Proceedings', 'Conference Proceedings'),
+		('Encyclopedia Article', 'Encyclopedia Article'),
+		('Film', 'Film'),
+		('Generic', 'Generic'),
+		('Magazine Article','Magazine Article'),
+		('Newspaper Article','Newspaper Article'),
+		('Patent', 'Patent'),
+		('Report','Report'),
+		('Statute', 'Statute'),
+		('Television Broadcast', 'Television Broadcast'),
+		('Web Page', 'Web Page'),
+		)
+	),
+)
+
 class Publication(models.Model):
     '''This model covers publications of several types.
     
@@ -22,7 +49,7 @@ class Publication(models.Model):
     issue = models.CharField(max_length=15, blank=True, null=True)
     pages = models.CharField(max_length=15, blank=True, null=True)
     abstract = models.TextField(blank=True, null=True)
-    type = models.CharField(max_length=20, blank=True, null=True)
+    type = models.CharField(choices = PUBLICATION_TYPES, max_length=20, blank=True, null=True)
     laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
     interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
     date_last_modified = models.DateField(auto_now=True)
