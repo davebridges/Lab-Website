@@ -6,26 +6,26 @@ from personnel.models import Personnel
 #Publication types are based on http://apidocs.mendeley.com/home/documenttypes
 PUBLICATION_TYPES = (
 	('Most Common', (
-			('Journal Article','Journal Article'),
-			('Book Section', 'Book Section'),
+			('journal-article','Journal Article'),
+			('book-section', 'Book Section'),
 			)
 	),
 	('Less Common', (		
-		('Bill', 'Bill'),
-		('Book', 'Book'),
-		('Case', 'Case'),
-		('Computer Program', 'Computer Program'),
-		('Conference Proceedings', 'Conference Proceedings'),
-		('Encyclopedia Article', 'Encyclopedia Article'),
-		('Film', 'Film'),
-		('Generic', 'Generic'),
-		('Magazine Article','Magazine Article'),
-		('Newspaper Article','Newspaper Article'),
-		('Patent', 'Patent'),
-		('Report','Report'),
-		('Statute', 'Statute'),
-		('Television Broadcast', 'Television Broadcast'),
-		('Web Page', 'Web Page'),
+		('bill', 'Bill'),
+		('book', 'Book'),
+		('case', 'Case'),
+		('computer-program', 'Computer Program'),
+		('conference-proceedings', 'Conference Proceedings'),
+		('encyclopedia-article', 'Encyclopedia Article'),
+		('film', 'Film'),
+		('generic', 'Generic'),
+		('magazine-article','Magazine Article'),
+		('newspaper-article','Newspaper Article'),
+		('patent', 'Patent'),
+		('report','Report'),
+		('statute', 'Statute'),
+		('television-broadcast', 'Television Broadcast'),
+		('web-page', 'Web Page'),
 		)
 	),
 )
