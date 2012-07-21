@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block scripts %}
-
+<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
 {% endblock %}
 
 {% block title %}<title>Papers</title>{% endblock %}
@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+<h2>{{ publication_list.count }} papers</h2>
 {% for paper in publication_list %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
