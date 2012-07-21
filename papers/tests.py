@@ -8,8 +8,9 @@ from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
 
-from papers.models import Publication, AuthorDetails
+from papers.models import Publication, AuthorDetails, Personnel
 
+MODELS = [Publication, AuthorDetails]
 
 class PublicationModelTests(TestCase):
     '''This class tests varios aspects of the `::class:Publication` model.'''
@@ -35,36 +36,36 @@ class PublicationModelTests(TestCase):
     def test_create_new_paper_minimum(self):
         '''This test creates a `::class:Publication` with the required information only.'''
         test_publication = Publication(title='Test Publication')
-        test_pubilcation.save()
+        test_publication.save()
         
     def test_create_new_paper_all(self):
         '''This test creates a `::class:Publication` with the required information only.'''
         test_publication = Publication(title='Test Publication') #add more fields
-        test_pubilcation.save()        
+        test_publication.save()        
         
     def test_paper_unicode(self):
         '''This tests the unicode representation of a `::class:Publication`.'''
         test_publication = Publication(title='Test Publication')
-        test_pubilcation.save()
-        self.AssertEqual(test_publication.__unicode__(), "Test Publication")
+        test_publication.save()
+        self.assertEqual(test_publication.__unicode__(), "Test Publication")
         
     def test_paper_title_slug(self):
         '''This tests the title_slug field of a `::class:Publication`.'''
         test_publication = Publication(title='Test Publication')
-        test_pubilcation.save()
-        self.AssertEqual(test_publication.title_slug, "test-publication")  
+        test_publication.save()
+        self.assertEqual(test_publication.title_slug, "test-publication")  
         
     def test_paper_absolute_url(self):
         '''This tests the title_slug field of a `::class:Publication`.'''
-        test_publication = Publication(title='Test Publication')
-        test_pubilcation.save()
-        self.AssertEqual(test_publication.get_absolute_url, "/papers/test-publication") 
+        test_publication = Publication(title='Test Publication', laboratory_paper=True)
+        test_publication.save()
+        self.assertEqual(test_publication.get_absolute_url(), "/papers/test-publication/") 
      
     def test_paper_doi_link(self):
         '''This tests the title_slug field of a `::class:Publication`.'''
         test_publication = Publication(title='Test Publication', doi='10.1126/stke.2422004re10')
-        test_pubilcation.save()
-        self.AssertEqual(test_publication.doi_link, "http://dx.doi/org/10.1126/stke.2422004re10")                       
+        test_publication.save()
+        self.assertEqual(test_publication.doi_link(), "http://dx.doi.org/10.1126/stke.2422004re10")                       
                     
 class AuthorDetailsModelTests(TestCase):
     '''This class tests varios aspects of the `::class:AuthorDetails` model.'''
@@ -98,7 +99,7 @@ class AuthorDetailsModelTests(TestCase):
         test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
             order = 1,
             corresponding_author = True,
-            equal_contribution = True)
+            equal_contributors = True)
         test_authordetail.save()             
             
     def test_authordetail_unicode(self):
@@ -106,4 +107,4 @@ class AuthorDetailsModelTests(TestCase):
         test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
             order = 1)
         test_authordetail.save() 
-        self.AssertEqual(test_authordetail.__unicode__(), 'John Doe')
+        self.assertEqual(test_authordetail.__unicode__(), 'John Doe')

@@ -10,6 +10,6 @@ from papers import views
 
 urlpatterns = patterns('',
     url(r'^$', views.LaboratoryPaperList.as_view(), name="laboratory-papers"), 
-    url(r'^/interesting/$', views.InterestingPaperList.as_view(), name="interesting-papers"), 
-    url(r'^/(?P<title_slug>[-w]+)/$', views.PaperDetailView.as_view(), name="paper-details"),     
+    url(r'^interesting/$', views.InterestingPaperList.as_view(), name="interesting-papers"), 
+    url(r'^(?P<title_slug>[-\w]+)/$', views.PaperDetailView.as_view(), name="paper-details"),     
 )
