@@ -1,0 +1,46 @@
+[
+    {
+        "pk": 1, 
+        "model": "papers.publication", 
+        "fields": {
+            "mendeley_url": "", 
+            "date_last_modified": "2012-07-21", 
+            "title_slug": "14-3-3-proteins-a-number-of-functions-for-a-numbered-protein", 
+            "title": "14-3-3 proteins: a number of functions for a numbered protein.", 
+            "mendeley_id": null, 
+            "type": "Journal Article", 
+            "abstract": "Many signal transduction events are orchestrated by specific interactions of proteins mediated through discrete phosphopeptide-binding motifs. Although several phosphospecific-binding domains are now known, 14-3-3s were the first proteins recognized to specifically bind a discrete phosphoserine or phosphothreonine motif. The 14-3-3 proteins are a family of ubiquitously expressed, exclusively eukaryotic proteins with an astonishingly large number of binding partners. Consequently, 14-3-3s modulate an enormous and diverse group of cellular processes. The effects of 14-3-3 proteins on their targets can be broadly defined using three categories: (i) conformational change; (ii) physical occlusion of sequence-specific or structural protein features; and (iii) scaffolding. This review will describe the current state of knowledge on 14-3-3 proteins, highlighting several important advances, and will attempt to provide a framework by which 14-3-3 functions can be understood.", 
+            "authors": [], 
+            "interesting_paper": false, 
+            "volume": "2005", 
+            "doi": "10.1126/stke.2962005re10", 
+            "laboratory_paper": false, 
+            "year": 2005, 
+            "date_added": "2012-07-21", 
+            "pmid": 16091624, 
+            "issue": "296", 
+            "pages": "re10", 
+            "pmcid": null
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "papers.authordetails", 
+        "fields": {
+            "corresponding_author": false, 
+            "equal_contributors": false, 
+            "order": 1, 
+            "author": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "papers.authordetails", 
+        "fields": {
+            "corresponding_author": true, 
+            "equal_contributors": false, 
+            "order": 2, 
+            "author": 2
+        }
+    }
+]

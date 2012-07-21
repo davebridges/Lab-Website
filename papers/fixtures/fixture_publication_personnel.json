@@ -1,0 +1,52 @@
+[
+    {
+        "pk": 1, 
+        "model": "personnel.personnel", 
+        "fields": {
+            "website": "", 
+            "first_name": "Dave", 
+            "last_name": "Bridges", 
+            "home_address": null, 
+            "work_address": null, 
+            "created": "2012-07-17", 
+            "current_roles": [], 
+            "gender": null, 
+            "current_lab_member": true, 
+            "past_roles": [], 
+            "updated": "2012-07-17", 
+            "birthdate": null, 
+            "phone": "", 
+            "name_slug": "dave-bridges", 
+            "additional_names": "", 
+            "lab_roles": [], 
+            "awards": [], 
+            "degrees": [], 
+            "email": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "personnel.personnel", 
+        "fields": {
+            "website": "", 
+            "first_name": "Greg", 
+            "last_name": "Moorhead", 
+            "home_address": null, 
+            "work_address": null, 
+            "created": "2012-07-17", 
+            "current_roles": [], 
+            "gender": null, 
+            "current_lab_member": false, 
+            "past_roles": [], 
+            "updated": "2012-07-17", 
+            "birthdate": null, 
+            "phone": "", 
+            "name_slug": "greg-moorhead", 
+            "additional_names": "", 
+            "lab_roles": [], 
+            "awards": [], 
+            "degrees": [], 
+            "email": ""
+        }
+    }
+]
