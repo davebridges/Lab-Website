@@ -107,3 +107,38 @@ class AuthorDetailsModelTests(TestCase):
             order = 1)
         test_authordetail.save() 
         self.assertEqual(test_authordetail.__unicode__(), 'Dave Bridges')
+        
+class PublicationResourceTests(TestCase):  
+    '''This class tests varios aspects of the `::class:PublicationResource` API model.'''
+    fixtures = ['fixture_publication', 'fixture_publication_personnel']
+
+    def setUp(self):
+        '''Instantiate the test client.  Creates a test user.'''
+        self.client = Client()
+        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
+        self.test_user.is_superuser = True
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.assertEqual(self.test_user.is_superuser, True)
+        login = self.client.login(username='testuser', password='testpassword')
+        self.failUnless(login, 'Could not log in')
+    
+    def tearDown(self):
+        '''Depopulate created model instances from test database.'''
+        for model in MODELS:
+            for obj in model.objects.all():
+                obj.delete()
+                
+    def api_publication_list_test(self):
+        '''This tests that the API correctly renders a list of publications.'''
+        response = self.client.get('/api/v1/publications/?format=json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json; charset=utf-8')
+        
+    def api_publication_detail_test(self):
+        '''This tests that the API correctly renders a list of publications.'''
+        response = self.client.get('/api/v1/publications/1/?format=json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json; charset=utf-8')  
+        print response      
+                  
