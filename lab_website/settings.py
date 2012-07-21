@@ -79,7 +79,8 @@ INSTALLED_APPS = (
     'communication',
     'papers',
     'south',
-    'debug_toolbar'
+    'debug_toolbar',
+    'tastypie'
 )
 
 # A sample logging configuration. The only tangible logging

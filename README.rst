@@ -9,11 +9,13 @@ For detailed installation instructions for Django see `Django Installation Instr
 
 The current version uses Python 2.7 and Django 1.4.  
 
-There are two python package dependencies, South and PIL.  If you want to be able to update the documentation you will also need to install Sphinx.  This can be installed with pip by entering on a command line:: 
+There are three python package dependencies, South, PIL and django-tastypie.  If you want to be able to update the documentation you will also need to install Sphinx.  This can be installed with pip by entering on a command line:: 
 
     pip install South
     pip install PIL
+    pip install django-tastypie
     pip install Sphinx
+
 
 This project also includes links to three other apps which would have to be installed and configured separately:
 
