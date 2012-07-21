@@ -58,6 +58,10 @@ class Publication(models.Model):
     def doi_link(self):
         '''This turns the DOI into a link.'''
         return 'http://dx.doi.org/%s' % self.doi
+        
+    def full_pmcid(self):
+        '''Converts the integer to a full PMCID'''
+        return 'PMC%s' % self.pmcid    
     
     def __unicode__(self):
         '''The unicode representation for a Publication is its title'''

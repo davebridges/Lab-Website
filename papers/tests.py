@@ -64,7 +64,13 @@ class PublicationModelTests(TestCase):
     def test_paper_doi_link(self):
         '''This tests the title_slug field of a `::class:Publication`.'''
         test_publication = Publication.objects.get(title="14-3-3 proteins: a number of functions for a numbered protein.")
-        self.assertEqual(test_publication.doi_link(), "http://dx.doi.org/10.1126/stke.2962005re10")                       
+        self.assertEqual(test_publication.doi_link(), "http://dx.doi.org/10.1126/stke.2962005re10") 
+        
+    def test_full_pmcid(self):
+        '''This tests that a correct full PMCID can be generated for a `::class:Publication`.'''
+        test_publication = Publication(title="Test Publication", pmcid = "12345")
+        test_publication.save()
+        self.assertEqual(test_publication.full_pmcid(), 'PMC12345')                         
                     
 class AuthorDetailsModelTests(TestCase):
     '''This class tests varios aspects of the `::class:AuthorDetails` model.'''
