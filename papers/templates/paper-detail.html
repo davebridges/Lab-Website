@@ -11,7 +11,7 @@
 {% block content %}
 <h2>Authors</h2>
 {% for author in publication.authors.all %}
-{% if forloop.revcounter = 1 %} and {% endif %} {{ author }}{% if forloop.revcounter > 1 %}, {% endif %} 
+{% if forloop.revcounter = 1 %} and {% endif %} <a href='{{ author.author.get_absolute_url }}'>{{ author }}</a>{% if forloop.revcounter > 2 %}, {% endif %} 
 {% endfor %}
 <h2>Abstract</h2>
 <p>{{ publication.abstract }}</p>
