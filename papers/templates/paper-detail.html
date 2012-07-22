@@ -24,23 +24,13 @@
 {% include 'disqus_snippet.html' %}
 </div>
 
+<div id="metrics" class="container">
 <h2>Metrics</h2>
 
 {% if publication.doi %}
-<script type='text/javascript'>
-$.getJSON('http://api.altmetric.com/v1/doi/{{ publication.doi }}', function(data) {
-	$('#altmetric-metrics').html("<li><strong>Tweets:</strong> "+data.cited_by_posts_count+"</li><li><strong>Readers:</strong> "+data.readers_count+"</li><li><strong>Score:</strong> "+data.score+" </li></ul>");
-});
-</script>
-
-<div class="box span-3">
-<h3>Altmetric.com</h3>
-<ul id='altmetric-metrics'>
-</ul>
-Data provided by <a href='http://altmetric.com'>Altmetric.com</a>.
-</div>
+{% include 'altmetric_snippet.html' %}
 {% endif %}
-
+</div>
 
 
 {% endblock %}
