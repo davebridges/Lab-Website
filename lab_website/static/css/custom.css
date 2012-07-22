@@ -1,6 +1,11 @@
 h1 {
 	text-align: center;
 	}
+	
+a.plain-link {
+	text-decoration:none;
+	color: black;
+}	
 
 ul#navbar {
 	list-style-type:none;
