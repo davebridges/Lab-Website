@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block scripts %}
-
+<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
 {% endblock %}
 
-{% block title %}<title>{{person}}</title>{% endblock %}
+{% block title %}<title>{{ person }}</title>{% endblock %}
 
 {% block header %}
-<h1>{{person}}</h1>
+<h1>{{ person }}</h1>
 {% endblock %}
 
 {% block content %}
 <h2>Publications</h2>
-{% for paper in person.publication_set.all %}
+{% for detail in person.authordetails_set.all %}
+{% for paper in detail.publication_set.all %}
 {% include "paper-detail-snippet.html" %}
+{% endfor %}
 {% endfor %}
 {% endblock %}
