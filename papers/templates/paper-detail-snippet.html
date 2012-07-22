@@ -1,4 +1,11 @@
 <div class ="paper box">
+{% for author in paper.authors.all %}
+{% if forloop.revcounter = 1 %} and {% endif %} <a href='{{ author.author.get_absolute_url }}'>{{ author }}</a>{% if forloop.revcounter > 2 %}, {% endif %} 
+{% endfor %}
 <a href='{{ paper.get_absolute_url }}'>{{paper}}</a>  {{ paper.year }}. {{ paper.volume }}({{ paper.issue }}):{{ paper.pages }}  DOI: <a href="{{ paper.doi_link }}">{{ paper.doi }}</a>
-<div class='altmetric-embed' data-doi="{{ paper.doi }}"></div>
+<div class="container" id="paper-share-widgets">
+	<div class='altmetric-embed span-3' data-doi="{{ paper.doi }}"></div>
+	<a href="https://twitter.com/share" class="twitter-share-button span-3" data-lang="en" data-url="{{ paper.doi_link }}" count-url="{{ paper.doi_link }}" data-via="{{ twitter }}" data-text="{{ paper.title }}">Tweet</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
 </div>
