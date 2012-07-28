@@ -44,6 +44,7 @@ class Publication(models.Model):
     doi = models.CharField(blank=True, null=True, max_length=50, help_text="Digital Object Identifier", verbose_name="DOI")
     pmid = models.IntegerField(blank=True, null=True, help_text='PubMed Idenfifier', verbose_name="PMID")
     pmcid = models.IntegerField(blank=True, null=True, help_text='PubMed Central Idenfifier', verbose_name="PMCID")    
+    journal = models.CharField(max_length=100, blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
     volume = models.CharField(max_length=15, blank=True, null=True)    
     issue = models.CharField(max_length=15, blank=True, null=True)
