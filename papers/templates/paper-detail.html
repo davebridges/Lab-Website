@@ -12,25 +12,29 @@
 {% endblock %}
 
 {% block content %}
-<article id='paper'>
+<article itemscope itemtype="http://schema.org/ScholarlyArticle" id='paper'>
+<meta itemprop="name" content="{{ publication.title }}" />
 
-<section id="authors">
-<h2>Authors</h2>
+<section id="authors" class="large">
 {% for author in publication.authors.all %}
-{% if forloop.revcounter = 1 %} and {% endif %} <a href='{{ author.author.get_absolute_url }}' class='plain-link'>{{ author }}</a>{% if forloop.revcounter > 2 %}, {% endif %} 
+{% if forloop.revcounter = 1 %} and {% endif %} <a itemprop = "author" itemscope itemtype ="http://schema.org/Person" href='{{ author.author.get_absolute_url }}' class='plain-link'><span itemprop="name">{{ author }}</span></a>{% if forloop.revcounter > 2 %}, {% endif %} 
 {% endfor %}
 </section>
 
+<section id='publication' class='large'>
+<strong itemprop='publisher'>{{ publication.journal }}</strong> <span itemprop='copyrightYear datePublished' >{{ publication.year }}</span>.  {{ publication.volume}}({{ publication.issue }}): {{ publication.pages }}.
+</section>
 
 <h2>Abstract</h2>
 <section id='abstract'>
-<p>{{ publication.abstract }}</p>
+<p itemprop='description'>{{ publication.abstract }}</p>
 {% if publication.doi %}
-<p><a href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
+<p><a itemprop='url' href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
+<meta itemprop='discussionUrl' content='{{ request.build_absolute_uri }}'/>
 {% endif %}
 </section>
 
-<section id="comments span-12">
+<section id="comments class="span-12">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
