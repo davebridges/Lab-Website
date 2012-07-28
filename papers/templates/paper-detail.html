@@ -9,37 +9,44 @@
 {% endblock %}
 
 {% block sidebar-insertion %}
-<h2>Share This Paper</h2>
-{% include 'paper_sharing_widgets.html' %}
 {% endblock %}
 
 {% block content %}
-<div id="authors">
+<article id='paper'>
+
+<section id="authors">
 <h2>Authors</h2>
 {% for author in publication.authors.all %}
 {% if forloop.revcounter = 1 %} and {% endif %} <a href='{{ author.author.get_absolute_url }}' class='plain-link'>{{ author }}</a>{% if forloop.revcounter > 2 %}, {% endif %} 
 {% endfor %}
-</div>
+</section>
 
 
 <h2>Abstract</h2>
+<section id='abstract'>
 <p>{{ publication.abstract }}</p>
 {% if publication.doi %}
 <p><a href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
 {% endif %}
+</section>
 
-<div id="comments span-12">
+<section id="comments span-12">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
-</div>
+</section>
 
-<div id="metrics" class="container">
+<section id ='sharing' class='span-6'>
+<h2>Share This Paper</h2>
+{% include 'paper_sharing_widgets.html' %}
+</section>
+
+<section id="metrics" class='span-6'>
 <h2>Metrics</h2>
 
 {% if publication.doi %}
 {% include 'altmetric_snippet.html' %}
 {% endif %}
-</div>
-
+</section>
+</article>
 
 {% endblock %}
