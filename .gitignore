@@ -14,3 +14,6 @@ localsettings.py
 
 #database files from sqlite
 *.db
+
+#migrations
+*migration*
