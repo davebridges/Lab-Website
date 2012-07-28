@@ -79,6 +79,11 @@ class Publication(models.Model):
             self.title_slug = slugify(self.title)
         super(Publication, self).save(*args, **kwargs)
         
+    class Meta:
+        '''The meta options for the `::class:Publicaiton` model is ordering set by publication year then secondarily by the date the publication was added to the database.'''
+        ordering = ['-year', 'date_added']
+        
+        
 class AuthorDetails(models.Model):
     '''This is a group of authors for a specific paper.
         
