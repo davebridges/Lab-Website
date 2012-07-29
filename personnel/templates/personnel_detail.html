@@ -20,16 +20,19 @@ $('#image').attr('src', link);
 {% endblock %}
 
 {% block content %}
-<article>
+<article itemscope itemtype='http://schema.org/Person'>
+<meta itemprop='familyName' content='{{ person.last_name }}' />
+<meta itemprop='givenName' content='{{ person.first_name }}' />
+<meta itemprop='name' content='{{ person }}' />
 <section id='bio' class='container'>
 {% if person.email %}
-<img id='image' class='span-4' alt='{{ person }} Image' src='{{ STATIC_URL }}/img/ajax-loader.gif'/>
+<img id='image' alt='{{ person }} Image' src='{{ STATIC_URL }}img/ajax-loader.gif'/>
 {% endif %}
 <div class='span-6' id='details'>
 <h2>Details</h2>
 <dl>
 	<dt>Email</dt>
-	<dd><a href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
+	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
 </dl>
 </div>
 </section>
