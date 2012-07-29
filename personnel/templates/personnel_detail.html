@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block scripts %}
-<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+<script type='text/javascript'>
+// get the email
+$(document).ready(function () {
+var email = '{{ person.email }}';
+var hash = CryptoJS.MD5(email);
+var link = 'http://www.gravatar.com/avatar/' + hash + '?s=150&d=mm';
+// set the size as whatever you like (1-2048)
+$('#image').attr('src', link);
+});
+</script>
 {% endblock %}
 
 {% block title %}<title>{{ person }}</title>{% endblock %}
@@ -10,6 +20,21 @@
 {% endblock %}
 
 {% block content %}
+<article>
+<section id='bio' class='container'>
+{% if person.email %}
+<img id='image' class='span-4' alt='{{ person }} Image'/>
+{% endif %}
+<div class='span-6' id='details'>
+<h2>Details</h2>
+<dl>
+	<dt>Email</dt>
+	<dd><a href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
+</dl>
+</div>
+</section>
+
+<section id='papers'>
 <h2>Publications</h2>
 {% for detail in person.authordetails_set.all %}
 {% for paper in detail.publication_set.all %}
@@ -17,3 +42,5 @@
 {% endfor %}
 {% endfor %}
 {% endblock %}
+</section>
+</article>

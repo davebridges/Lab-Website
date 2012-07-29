@@ -20,7 +20,8 @@ class Personnel(models.Model):
     
     This class will include current and former laboratory members.
     
-    The basis for this model is the http://schema.org/Person markup.'''
+    The basis for this model is the http://schema.org/Person markup.
+    Currently the image field for a person is a gravatar based on their email.'''
 	#these fields are for identification
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
