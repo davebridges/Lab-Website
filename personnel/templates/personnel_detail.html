@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block scripts %}
-<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+<script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
 <script type='text/javascript'>
 // get the email
 $(document).ready(function () {
@@ -23,7 +23,7 @@ $('#image').attr('src', link);
 <article>
 <section id='bio' class='container'>
 {% if person.email %}
-<img id='image' class='span-4' alt='{{ person }} Image'/>
+<img id='image' class='span-4' alt='{{ person }} Image' src='{{ STATIC_URL }}/img/ajax-loader.gif'/>
 {% endif %}
 <div class='span-6' id='details'>
 <h2>Details</h2>
