@@ -3,8 +3,10 @@
 '''
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.template import RequestContext
 
 from papers.models import Publication
+from papers.context_processors import api_keys
 
 class LaboratoryPaperList(ListView):
     '''This class generates the view for laboratory-papers located at **/papers**.
@@ -42,4 +44,9 @@ class PaperDetailView(DetailView):
     slug_field = "title_slug"
     slug_url_kwarg = "title_slug"
     template_name = "paper-detail.html"
+    
+    def render_to_response(self, context, **kwargs):
+        '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
+        return super(PaperDetailView, self).render_to_response(
+                RequestContext(self.request, context, processors=[api_keys]), **kwargs)
     
