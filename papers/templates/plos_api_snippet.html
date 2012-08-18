@@ -1,0 +1,61 @@
+<div class="box span-4">
+<script type='text/javascript'>
+var plos_twitter = "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=twitter&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_counter = "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=counter&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_pmc = "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=pmc&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_mendeley= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=mendeley&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_citeulike= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=citeulike&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_facebook= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=facebook&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_crossref= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=crossref&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_pubmed= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=pubmed&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_scopus= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=scopus&api_key=fPuK4IyEpySiecZc&callback=?"
+var plos_researchblogging= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=researchblogging&api_key=fPuK4IyEpySiecZc&callback=?"
+
+$.getJSON(plos_counter, function(data) {
+	$('#plos-readers').append("<li><strong>PLOS:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_twitter, function(data) {
+	$('#plos-social-networks').append("<li><strong>Tweets:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_mendeley, function(data) {
+	$('#plos-readers').append("<li><strong>Mendeley:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_pmc, function(data) {
+	$('#plos-readers').append("<li><strong>PMC:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_citeulike, function(data) {
+	$('#plos-readers').append("<li><strong>CiteULike:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_facebook, function(data) {
+	$('#plos-social-networks').append("<li><strong>Facebook:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_crossref, function(data) {
+	$('#plos-citations').append("<li><strong>CrossRef:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_pubmed, function(data) {
+	$('#plos-citations').append("<li><strong>PMC:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_scopus, function(data) {
+	$('#plos-citations').append("<li><strong>Scopus:</strong> "+ data.article.events_count);
+});
+$.getJSON(plos_researchblogging, function(data) {
+	$('#plos-citations').append("<li><strong>Blogs:</strong> "+ data.article.events_count);
+});
+</script>
+
+<h3>Article Level Metrics</h3>
+<h4>Readers</h4>
+<ul id='plos-readers'>
+</ul>
+<h4>Citations</h4>
+<ul id='plos-citations'>
+</ul>
+<h4>Social Networks</h4>
+<ul id='plos-social-networks'>
+</ul>
+Data provided by <a href="http://api.plos.org/">PLoS</a>.
+<!--This can only be included upon approval by PLoS. See http://api.plos.org/api-display-policy/
+<a href="http://api.plos.org/"><img src="{{STATIC_URL}}img/pbp4.jpeg" class="span-4" alt="PLOS Logo"/></a>
+-->
+</div>
+
