@@ -39,7 +39,7 @@ class Publication(models.Model):
     mendeley_url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=150)
     authors = models.ManyToManyField('AuthorDetails', blank=True, null=True)
-    title_slug = models.SlugField(blank=True, null=True, max_length=150)
+    title_slug = models.SlugField(blank=True, null=True, max_length=150, editable=False, unique=True)
     mendeley_id = models.IntegerField(blank=True, null=True)
     doi = models.CharField(blank=True, null=True, max_length=50, help_text="Digital Object Identifier", verbose_name="DOI")
     pmid = models.IntegerField(blank=True, null=True, help_text='PubMed Idenfifier', verbose_name="PMID")
@@ -98,3 +98,8 @@ class AuthorDetails(models.Model):
     def __unicode__(self):
         '''The unicode representation is the author name.'''
         return '%s' %self.author
+        
+    class Meta:
+        '''The meta options set this field to be ordered based on order and sets the verbose name.'''
+        verbose_name_plural = "author details"
+        ordering = ['order', ]    
