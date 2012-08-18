@@ -8,7 +8,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
 
-from papers.models import Publication, AuthorDetails, Personnel
+from papers.models import Publication, AuthorDetails, Person
 
 MODELS = [Publication, AuthorDetails]
 
@@ -95,13 +95,13 @@ class AuthorDetailsModelTests(TestCase):
                 
     def test_create_new_authordetail_minimum(self):
         '''This test creates a `::class:AuthorDetails` with the required information only.'''
-        test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
+        test_authordetail = AuthorDetails(author=Person.objects.get(pk=1), 
             order = 1)
         test_authordetail.save()
         
     def test_create_new_authordetail_all(self):
         '''This test creates a `::class:AuthorDetails` with the required information only.'''
-        test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
+        test_authordetail = AuthorDetails(author=Person.objects.get(pk=1), 
             order = 1,
             corresponding_author = True,
             equal_contributors = True)
@@ -109,7 +109,7 @@ class AuthorDetailsModelTests(TestCase):
             
     def test_authordetail_unicode(self):
         '''This tests that the unicode representaton of an authordetail is correct.'''
-        test_authordetail = AuthorDetails(author=Personnel.objects.get(pk=1), 
+        test_authordetail = AuthorDetails(author=Person.objects.get(pk=1), 
             order = 1)
         test_authordetail.save() 
         self.assertEqual(test_authordetail.__unicode__(), 'Dave Bridges')

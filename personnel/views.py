@@ -5,7 +5,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-from personnel.models import Personnel
+from personnel.models import Person
 
     
 class LaboratoryPersonnelList(ListView):
@@ -13,7 +13,7 @@ class LaboratoryPersonnelList(ListView):
     
     This is filtered based on whether the ::class:`Personnel` object is marked as current_lab_member = True.
     '''
-    queryset = Personnel.objects.filter(current_lab_member=True)
+    queryset = Person.objects.filter(current_lab_member=True)
     template_name = "personnel_list.html"
     context_object_name = 'personnel'     
     
@@ -27,7 +27,7 @@ class LaboratoryPersonnelDetail(DetailView):
     '''This class generates the view for personnel-details located at **/personnel/<name_slug>**.
     
     '''
-    model = Personnel
+    model = Person
     slug_field = "name_slug"
     slug_url_kwarg = "name_slug"
     template_name = "personnel_detail.html"  

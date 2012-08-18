@@ -9,9 +9,9 @@ from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
 
-from personnel.models import Personnel
+from personnel.models import Person
 
-MODELS = [Personnel]
+MODELS = [Person]
 
 class PersonnelModelTests(TestCase):
     """Tests the model attributes of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""
@@ -36,23 +36,23 @@ class PersonnelModelTests(TestCase):
                 obj.delete()
                 
     def test_full_name(self):
-        '''This is a test for the rendering of the full name from a ::class:`Personnel` object.'''
-        fixture_personnel = Personnel.objects.get(first_name='John', last_name='Doe') 
+        '''This is a test for the rendering of the full name from a ::class:`Person` object.'''
+        fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
         self.assertEquals(fixture_personnel.full_name(), 'John Doe')        
     
     def test_name_slug(self):
-        '''This is a test for the rendering of the name_slug field from a ::class:`Personnel` object.'''
-        fixture_personnel = Personnel.objects.get(first_name='John', last_name='Doe') 
+        '''This is a test for the rendering of the name_slug field from a ::class:`Person` object.'''
+        fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
         self.assertEquals(fixture_personnel.name_slug, 'john-doe')   
 
     def test_personnel_permalink(self):
-        '''This is a test that the permalink for a ::class:`Personnel` object is correctly rendered as **/personnel/<name_slug>**'''
-        fixture_personnel = Personnel.objects.get(first_name='John', last_name='Doe') 
+        '''This is a test that the permalink for a ::class:`Person` object is correctly rendered as **/personnel/<name_slug>**'''
+        fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
         self.assertEquals(fixture_personnel.get_absolute_url(), '/people/john-doe/')          
     
     def test_create_labmember_minimal(self):
-        '''This is a test for creating a new ::class:`Personnel` object, with only the minimum fields being entered'''
-        test_labmember = Personnel(first_name = 'Joe',
+        '''This is a test for creating a new ::class:`Person` object, with only the minimum fields being entered'''
+        test_labmember = Person(first_name = 'Joe',
         	last_name = 'Blow')
         test_labmember.save()
         #test that the slugfiy function works correctly

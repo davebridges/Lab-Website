@@ -1,1 +1,1 @@
-'''This package sets up the admin interface for the personnel app.'''from django.contrib import adminfrom personnel.models import Personnelclass PersonnelAdmin(admin.ModelAdmin):    passadmin.site.register(Personnel, PersonnelAdmin)
+'''This package sets up the admin interface for the personnel app.'''from django.contrib import adminfrom personnel.models import Personclass PersonAdmin(admin.ModelAdmin):    passadmin.site.register(Person, PersonAdmin)

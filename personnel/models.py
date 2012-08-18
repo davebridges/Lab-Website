@@ -15,7 +15,7 @@ ORGANIZATION_TYPE_CHOICES = (
 	('Other', 'Other')
 ) 
 
-class Personnel(models.Model):
+class Person(models.Model):
     '''This class describes laboratory members.
     
     This class will include current and former laboratory members.
@@ -62,7 +62,7 @@ class Personnel(models.Model):
         '''Over-rides save to generate name_slug field.  This is only set upon creation to keep stability.'''
         if not self.id:
             self.name_slug = slugify(self.full_name())
-        super(Personnel, self).save(*args, **kwargs) 
+        super(Person, self).save(*args, **kwargs) 
 
     class Meta:
         '''The meta options for Personnel models.'''

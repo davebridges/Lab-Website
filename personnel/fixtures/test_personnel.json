@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "personnel.personnel", 
+        "model": "personnel.person", 
         "fields": {
             "website": "", 
             "first_name": "John", 

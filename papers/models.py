@@ -1,7 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from personnel.models import Personnel
+from personnel.models import Person
 
 #Publication types are based on http://apidocs.mendeley.com/home/documenttypes
 PUBLICATION_TYPES = (
@@ -90,7 +90,7 @@ class AuthorDetails(models.Model):
     Because each `::class:Publicaiton` has a list of authors and the order matters, the authors are listed in this linked model.
     This model has a ManyToMany link with a paper as well as marks for order, and whether an author is a corresponding or equally contributing author.
     '''
-    author = models.ForeignKey(Personnel)
+    author = models.ForeignKey('personnel.Person')
     order = models.IntegerField(help_text='The order in which the author appears (do not duplicate numbers)')
     corresponding_author = models.BooleanField()
     equal_contributors = models.BooleanField(help_text='Check both equally contributing authors')
