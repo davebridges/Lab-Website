@@ -48,7 +48,7 @@ class PersonnelModelTests(TestCase):
     def test_personnel_permalink(self):
         '''This is a test that the permalink for a ::class:`Personnel` object is correctly rendered as **/personnel/<name_slug>**'''
         fixture_personnel = Personnel.objects.get(first_name='John', last_name='Doe') 
-        self.assertEquals(fixture_personnel.get_absolute_url(), '/personnel/john-doe/')          
+        self.assertEquals(fixture_personnel.get_absolute_url(), '/people/john-doe/')          
     
     def test_create_labmember_minimal(self):
         '''This is a test for creating a new ::class:`Personnel` object, with only the minimum fields being entered'''
@@ -83,7 +83,7 @@ class PersonnelViewTests(TestCase):
     def test_laboratory_personnel(self):
         '''This function tests the laboratory-personnel view.''' 
         
-        test_response = self.client.get('/personnel/')
+        test_response = self.client.get('/people/')
 
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('personnel' in test_response.context)
@@ -96,7 +96,7 @@ class PersonnelViewTests(TestCase):
     def test_personnel_detail(self):
         '''This function tests the personnel-details view.''' 
         
-        test_response = self.client.get('/personnel/john-doe/')
+        test_response = self.client.get('/people/john-doe/')
 
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('person' in test_response.context)
