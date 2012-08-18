@@ -44,12 +44,17 @@
 {% include 'paper_sharing_widgets.html' %}
 </section>
 
-<section id="metrics" class='span-6'>
+<section id="metrics" class='container'>
 <h2>Metrics</h2>
+
+{% if "PLOS" in publication.journal %}
+{% include 'plos_api_snippet.html' %}
+{% endif %}
 
 {% if publication.doi %}
 {% include 'altmetric_snippet.html' %}
 {% endif %}
+
 </section>
 </article>
 
