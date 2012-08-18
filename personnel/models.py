@@ -23,7 +23,9 @@ class Person(models.Model):
     This class will include current and former laboratory members.
     There are no required fields since this object can be created with a User instance creation.  
     This is the UserProfile model and can be accessed from request.User.get_profile().
-    The basis for this model is the http://schema.org/Person markup.'''
+    The basis for this model is the http://schema.org/Person markup.
+    Currently the image field for a person is a gravatar based on their email.'''
+    
 	#these fields are for identification
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
