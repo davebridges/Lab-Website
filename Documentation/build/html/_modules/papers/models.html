@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>papers.models &mdash; Lab Website 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Lab Website 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Lab Website 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for papers.models</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.template.defaultfilters</span> <span class="kn">import</span> <span class="n">slugify</span>
+
+<span class="kn">from</span> <span class="nn">personnel.models</span> <span class="kn">import</span> <span class="n">Person</span>
+
+<span class="c">#Publication types are based on http://apidocs.mendeley.com/home/documenttypes</span>
+<span class="n">PUBLICATION_TYPES</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="p">(</span><span class="s">&#39;Most Common&#39;</span><span class="p">,</span> <span class="p">(</span>
+			<span class="p">(</span><span class="s">&#39;journal-article&#39;</span><span class="p">,</span><span class="s">&#39;Journal Article&#39;</span><span class="p">),</span>
+			<span class="p">(</span><span class="s">&#39;book-section&#39;</span><span class="p">,</span> <span class="s">&#39;Book Section&#39;</span><span class="p">),</span>
+			<span class="p">)</span>
+	<span class="p">),</span>
+	<span class="p">(</span><span class="s">&#39;Less Common&#39;</span><span class="p">,</span> <span class="p">(</span>		
+		<span class="p">(</span><span class="s">&#39;bill&#39;</span><span class="p">,</span> <span class="s">&#39;Bill&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;book&#39;</span><span class="p">,</span> <span class="s">&#39;Book&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;case&#39;</span><span class="p">,</span> <span class="s">&#39;Case&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;computer-program&#39;</span><span class="p">,</span> <span class="s">&#39;Computer Program&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;conference-proceedings&#39;</span><span class="p">,</span> <span class="s">&#39;Conference Proceedings&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;encyclopedia-article&#39;</span><span class="p">,</span> <span class="s">&#39;Encyclopedia Article&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;film&#39;</span><span class="p">,</span> <span class="s">&#39;Film&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;generic&#39;</span><span class="p">,</span> <span class="s">&#39;Generic&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;magazine-article&#39;</span><span class="p">,</span><span class="s">&#39;Magazine Article&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;newspaper-article&#39;</span><span class="p">,</span><span class="s">&#39;Newspaper Article&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;patent&#39;</span><span class="p">,</span> <span class="s">&#39;Patent&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;report&#39;</span><span class="p">,</span><span class="s">&#39;Report&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;statute&#39;</span><span class="p">,</span> <span class="s">&#39;Statute&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;television-broadcast&#39;</span><span class="p">,</span> <span class="s">&#39;Television Broadcast&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s">&#39;web-page&#39;</span><span class="p">,</span> <span class="s">&#39;Web Page&#39;</span><span class="p">),</span>
+		<span class="p">)</span>
+	<span class="p">),</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="Publication"><a class="viewcode-back" href="../../papers.html#papers.models.Publication">[docs]</a><span class="k">class</span> <span class="nc">Publication</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This model covers publications of several types.</span>
+<span class="sd">    </span>
+<span class="sd">    The publication fields are based on Mendeley and PubMed fields.</span>
+<span class="sd">    For the author, there is a ManyToMany link to a group of authors with the order and other details.  See `::class:AuthorDetails`.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">mendeley_url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+    <span class="n">authors</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;AuthorDetails&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">title_slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">SlugField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">mendeley_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">doi</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;Digital Object Identifier&quot;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;DOI&quot;</span><span class="p">)</span>
+    <span class="n">pmid</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;PubMed Idenfifier&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;PMID&quot;</span><span class="p">)</span>
+    <span class="n">pmcid</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s">&#39;PubMed Central Idenfifier&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">&quot;PMCID&quot;</span><span class="p">)</span>    
+    <span class="n">journal</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    
+    <span class="n">issue</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">pages</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">abstract</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">choices</span> <span class="o">=</span> <span class="n">PUBLICATION_TYPES</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">laboratory_paper</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">help_text</span><span class="o">=</span><span class="s">&quot;Is this paper from our lab?&quot;</span><span class="p">)</span>
+    <span class="n">interesting_paper</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">help_text</span><span class="o">=</span><span class="s">&quot;Is this paper of interest but from another lab?&quot;</span><span class="p">)</span>
+    <span class="n">date_last_modified</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">date_added</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    
+    
+<div class="viewcode-block" id="Publication.doi_link"><a class="viewcode-back" href="../../papers.html#papers.models.Publication.doi_link">[docs]</a>    <span class="k">def</span> <span class="nf">doi_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This turns the DOI into a link.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s">&#39;http://dx.doi.org/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">doi</span>
+        </div>
+<div class="viewcode-block" id="Publication.full_pmcid"><a class="viewcode-back" href="../../papers.html#papers.models.Publication.full_pmcid">[docs]</a>    <span class="k">def</span> <span class="nf">full_pmcid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Converts the integer to a full PMCID&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s">&#39;PMC</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">pmcid</span>    
+    </div>
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The unicode representation for a Publication is its title&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span>
+        
+    <span class="nd">@models.permalink</span>
+<div class="viewcode-block" id="Publication.get_absolute_url"><a class="viewcode-back" href="../../papers.html#papers.models.Publication.get_absolute_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;the permalink for a paper detail page is /papers/[title_slug]&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s">&#39;paper-details&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title_slug</span><span class="p">)])</span>   
+</div>
+<div class="viewcode-block" id="Publication.save"><a class="viewcode-back" href="../../papers.html#papers.models.Publication.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The title is slugified upon saving into title_slug.&#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">title_slug</span> <span class="o">=</span> <span class="n">slugify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Publication</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        </div>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;The meta options for the `::class:Publicaiton` model is ordering set by publication year then secondarily by the date the publication was added to the database.&#39;&#39;&#39;</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;-year&#39;</span><span class="p">,</span> <span class="s">&#39;date_added&#39;</span><span class="p">]</span>
+        
+        </div>
+<div class="viewcode-block" id="AuthorDetails"><a class="viewcode-back" href="../../papers.html#papers.models.AuthorDetails">[docs]</a><span class="k">class</span> <span class="nc">AuthorDetails</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This is a group of authors for a specific paper.</span>
+<span class="sd">        </span>
+<span class="sd">    Because each `::class:Publicaiton` has a list of authors and the order matters, the authors are listed in this linked model.</span>
+<span class="sd">    This model has a ManyToMany link with a paper as well as marks for order, and whether an author is a corresponding or equally contributing author.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;personnel.Person&#39;</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">help_text</span><span class="o">=</span><span class="s">&#39;The order in which the author appears (do not duplicate numbers)&#39;</span><span class="p">)</span>
+    <span class="n">corresponding_author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">()</span>
+    <span class="n">equal_contributors</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">help_text</span><span class="o">=</span><span class="s">&#39;Check both equally contributing authors&#39;</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The unicode representation is the author name.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">author</span>
+        
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;The meta options set this field to be ordered based on order and sets the verbose name.&#39;&#39;&#39;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;author details&quot;</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;order&#39;</span><span class="p">,</span> <span class="p">]</span>    </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Lab Website 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Dave Bridges.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

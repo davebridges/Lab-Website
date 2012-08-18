@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>papers.views &mdash; Lab Website 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Lab Website 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Lab Website 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for papers.views</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;This app contains the views for the papers app.</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">django.views.generic.detail</span> <span class="kn">import</span> <span class="n">DetailView</span>
+<span class="kn">from</span> <span class="nn">django.views.generic.list</span> <span class="kn">import</span> <span class="n">ListView</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+
+<span class="kn">from</span> <span class="nn">papers.models</span> <span class="kn">import</span> <span class="n">Publication</span>
+<span class="kn">from</span> <span class="nn">papers.context_processors</span> <span class="kn">import</span> <span class="n">api_keys</span>
+
+<div class="viewcode-block" id="LaboratoryPaperList"><a class="viewcode-back" href="../../papers.html#papers.views.LaboratoryPaperList">[docs]</a><span class="k">class</span> <span class="nc">LaboratoryPaperList</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This class generates the view for laboratory-papers located at **/papers**.</span>
+<span class="sd">    </span>
+<span class="sd">    This is filtered based on whether the publication is marked as laboratory_paper = True.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Publication</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">laboratory_paper</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&quot;paper-list.html&quot;</span>
+    
+<div class="viewcode-block" id="LaboratoryPaperList.get_context_data"><a class="viewcode-back" href="../../papers.html#papers.views.LaboratoryPaperList.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This method adds to the context the paper-list-type  = interesting.&#39;&#39;&#39;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LaboratoryPaperList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;paper-list-type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;laboratory&quot;</span>
+        <span class="k">return</span> <span class="n">context</span>    
+    </div></div>
+<div class="viewcode-block" id="InterestingPaperList"><a class="viewcode-back" href="../../papers.html#papers.views.InterestingPaperList">[docs]</a><span class="k">class</span> <span class="nc">InterestingPaperList</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This class generates the view for interesting-papers located at **/papers/interesting**.</span>
+<span class="sd">    </span>
+<span class="sd">    This is filtered based on whether the publication is marked as interesting_paper = True.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Publication</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">interesting_paper</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&quot;paper-list.html&quot;</span>
+    
+<div class="viewcode-block" id="InterestingPaperList.get_context_data"><a class="viewcode-back" href="../../papers.html#papers.views.InterestingPaperList.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This method adds to the context the paper-list-type  = interesting.&#39;&#39;&#39;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LaboratoryPaperList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s">&#39;paper-list-type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;interesting&quot;</span>
+        <span class="k">return</span> <span class="n">context</span>       
+</div></div>
+<div class="viewcode-block" id="PaperDetailView"><a class="viewcode-back" href="../../papers.html#papers.views.PaperDetailView">[docs]</a><span class="k">class</span> <span class="nc">PaperDetailView</span><span class="p">(</span><span class="n">DetailView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This class generates the view for paper-details located at **/papers/&lt;title_slug&gt;**.</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Publication</span>
+    <span class="n">slug_field</span> <span class="o">=</span> <span class="s">&quot;title_slug&quot;</span>
+    <span class="n">slug_url_kwarg</span> <span class="o">=</span> <span class="s">&quot;title_slug&quot;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s">&quot;paper-detail.html&quot;</span>
+    
+<div class="viewcode-block" id="PaperDetailView.render_to_response"><a class="viewcode-back" href="../../papers.html#papers.views.PaperDetailView.render_to_response">[docs]</a>    <span class="k">def</span> <span class="nf">render_to_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;The render_to_response for this view is over-ridden to add the api_keys context processor.&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PaperDetailView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">render_to_response</span><span class="p">(</span>
+                <span class="n">RequestContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="p">[</span><span class="n">api_keys</span><span class="p">]),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    </div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Lab Website 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Dave Bridges.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

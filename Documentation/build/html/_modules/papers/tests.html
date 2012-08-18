@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>papers.tests &mdash; Lab Website 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Lab Website 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Lab Website 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for papers.tests</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This package contains the unit tests for the papers app.</span>
+
+<span class="sd">It contains view and model tests for each model, grouped together.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+<span class="kn">from</span> <span class="nn">django.test.client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+
+<span class="kn">from</span> <span class="nn">papers.models</span> <span class="kn">import</span> <span class="n">Publication</span><span class="p">,</span> <span class="n">AuthorDetails</span><span class="p">,</span> <span class="n">Person</span>
+
+<span class="n">MODELS</span> <span class="o">=</span> <span class="p">[</span><span class="n">Publication</span><span class="p">,</span> <span class="n">AuthorDetails</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PublicationModelTests"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests">[docs]</a><span class="k">class</span> <span class="nc">PublicationModelTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This class tests varios aspects of the `::class:Publication` model.&#39;&#39;&#39;</span>
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;fixture_publication&#39;</span><span class="p">,</span> <span class="s">&#39;fixture_publication_personnel&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PublicationModelTests.setUp"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Instantiate the test client.  Creates a test user.&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s">&#39;testuser&#39;</span><span class="p">,</span> <span class="s">&#39;blah@blah.com&#39;</span><span class="p">,</span> <span class="s">&#39;testpassword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">login</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&#39;testuser&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&#39;testpassword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span><span class="n">login</span><span class="p">,</span> <span class="s">&#39;Could not log in&#39;</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="PublicationModelTests.tearDown"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Depopulate created model instances from test database.&#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                </div>
+<div class="viewcode-block" id="PublicationModelTests.test_create_new_paper_minimum"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.test_create_new_paper_minimum">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_new_paper_minimum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This test creates a `::class:Publication` with the required information only.&#39;&#39;&#39;</span>
+        <span class="n">test_publication</span> <span class="o">=</span> <span class="n">Publication</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Test Publication.&#39;</span><span class="p">)</span>
+        <span class="n">test_publication</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_publication</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        
+    <span class="c">#def test_create_new_paper_all(self):</span>
+        <span class="c">#&#39;&#39;&#39;This test creates a `::class:Publication` with the required information only.&#39;&#39;&#39;</span>
+        <span class="c">#test_publication = Publication(title=&#39;Test Publication&#39;) #add more fields</span>
+        <span class="c">#test_publication.save()        </span>
+        </div>
+<div class="viewcode-block" id="PublicationModelTests.test_paper_unicode"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.test_paper_unicode">[docs]</a>    <span class="k">def</span> <span class="nf">test_paper_unicode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests the unicode representation of a `::class:Publication`.&#39;&#39;&#39;</span>
+        <span class="n">test_publication</span> <span class="o">=</span> <span class="n">Publication</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">title_slug</span><span class="o">=</span><span class="s">&#39;14-3-3-proteins-a-number-of-functions-for-a-numbered-protein&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_publication</span><span class="o">.</span><span class="n">__unicode__</span><span class="p">(),</span> <span class="s">&quot;14-3-3 proteins: a number of functions for a numbered protein.&quot;</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="PublicationModelTests.test_paper_title_slug"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.test_paper_title_slug">[docs]</a>    <span class="k">def</span> <span class="nf">test_paper_title_slug</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests the title_slug field of a `::class:Publication`.&#39;&#39;&#39;</span>
+        <span class="n">test_publication</span> <span class="o">=</span> <span class="n">Publication</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Test Publication.&#39;</span><span class="p">)</span>
+        <span class="n">test_publication</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_publication</span><span class="o">.</span><span class="n">title_slug</span><span class="p">,</span> <span class="s">&quot;test-publication&quot;</span><span class="p">)</span>  
+        </div>
+<div class="viewcode-block" id="PublicationModelTests.test_paper_absolute_url"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.test_paper_absolute_url">[docs]</a>    <span class="k">def</span> <span class="nf">test_paper_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests the title_slug field of a `::class:Publication`.&#39;&#39;&#39;</span>
+        <span class="n">test_publication</span> <span class="o">=</span> <span class="n">Publication</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Test Publication&#39;</span><span class="p">,</span> <span class="n">laboratory_paper</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">test_publication</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_publication</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">(),</span> <span class="s">&quot;/papers/test-publication/&quot;</span><span class="p">)</span> 
+     </div>
+<div class="viewcode-block" id="PublicationModelTests.test_paper_doi_link"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.test_paper_doi_link">[docs]</a>    <span class="k">def</span> <span class="nf">test_paper_doi_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests the title_slug field of a `::class:Publication`.&#39;&#39;&#39;</span>
+        <span class="n">test_publication</span> <span class="o">=</span> <span class="n">Publication</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;14-3-3 proteins: a number of functions for a numbered protein.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_publication</span><span class="o">.</span><span class="n">doi_link</span><span class="p">(),</span> <span class="s">&quot;http://dx.doi.org/10.1126/stke.2962005re10&quot;</span><span class="p">)</span> 
+        </div>
+<div class="viewcode-block" id="PublicationModelTests.test_full_pmcid"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationModelTests.test_full_pmcid">[docs]</a>    <span class="k">def</span> <span class="nf">test_full_pmcid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests that a correct full PMCID can be generated for a `::class:Publication`.&#39;&#39;&#39;</span>
+        <span class="n">test_publication</span> <span class="o">=</span> <span class="n">Publication</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Test Publication&quot;</span><span class="p">,</span> <span class="n">pmcid</span> <span class="o">=</span> <span class="s">&quot;12345&quot;</span><span class="p">)</span>
+        <span class="n">test_publication</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_publication</span><span class="o">.</span><span class="n">full_pmcid</span><span class="p">(),</span> <span class="s">&#39;PMC12345&#39;</span><span class="p">)</span>                         
+                    </div></div>
+<div class="viewcode-block" id="AuthorDetailsModelTests"><a class="viewcode-back" href="../../papers.html#papers.tests.AuthorDetailsModelTests">[docs]</a><span class="k">class</span> <span class="nc">AuthorDetailsModelTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This class tests varios aspects of the `::class:AuthorDetails` model.&#39;&#39;&#39;</span>
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;fixture_publication&#39;</span><span class="p">,</span> <span class="s">&#39;fixture_publication_personnel&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="AuthorDetailsModelTests.setUp"><a class="viewcode-back" href="../../papers.html#papers.tests.AuthorDetailsModelTests.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Instantiate the test client.  Creates a test user.&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s">&#39;testuser&#39;</span><span class="p">,</span> <span class="s">&#39;blah@blah.com&#39;</span><span class="p">,</span> <span class="s">&#39;testpassword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">login</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&#39;testuser&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&#39;testpassword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span><span class="n">login</span><span class="p">,</span> <span class="s">&#39;Could not log in&#39;</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="AuthorDetailsModelTests.tearDown"><a class="viewcode-back" href="../../papers.html#papers.tests.AuthorDetailsModelTests.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Depopulate created model instances from test database.&#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                </div>
+<div class="viewcode-block" id="AuthorDetailsModelTests.test_create_new_authordetail_minimum"><a class="viewcode-back" href="../../papers.html#papers.tests.AuthorDetailsModelTests.test_create_new_authordetail_minimum">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_new_authordetail_minimum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This test creates a `::class:AuthorDetails` with the required information only.&#39;&#39;&#39;</span>
+        <span class="n">test_authordetail</span> <span class="o">=</span> <span class="n">AuthorDetails</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> 
+            <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">test_authordetail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        </div>
+<div class="viewcode-block" id="AuthorDetailsModelTests.test_create_new_authordetail_all"><a class="viewcode-back" href="../../papers.html#papers.tests.AuthorDetailsModelTests.test_create_new_authordetail_all">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_new_authordetail_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This test creates a `::class:AuthorDetails` with the required information only.&#39;&#39;&#39;</span>
+        <span class="n">test_authordetail</span> <span class="o">=</span> <span class="n">AuthorDetails</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> 
+            <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">corresponding_author</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+            <span class="n">equal_contributors</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">test_authordetail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>             
+            </div>
+<div class="viewcode-block" id="AuthorDetailsModelTests.test_authordetail_unicode"><a class="viewcode-back" href="../../papers.html#papers.tests.AuthorDetailsModelTests.test_authordetail_unicode">[docs]</a>    <span class="k">def</span> <span class="nf">test_authordetail_unicode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests that the unicode representaton of an authordetail is correct.&#39;&#39;&#39;</span>
+        <span class="n">test_authordetail</span> <span class="o">=</span> <span class="n">AuthorDetails</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> 
+            <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">test_authordetail</span><span class="o">.</span><span class="n">save</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">test_authordetail</span><span class="o">.</span><span class="n">__unicode__</span><span class="p">(),</span> <span class="s">&#39;Dave Bridges&#39;</span><span class="p">)</span>
+        </div></div>
+<div class="viewcode-block" id="PublicationResourceTests"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationResourceTests">[docs]</a><span class="k">class</span> <span class="nc">PublicationResourceTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;This class tests varios aspects of the `::class:PublicationResource` API model.&#39;&#39;&#39;</span>
+    <span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;fixture_publication&#39;</span><span class="p">,</span> <span class="s">&#39;fixture_publication_personnel&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PublicationResourceTests.setUp"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationResourceTests.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Instantiate the test client.  Creates a test user.&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s">&#39;testuser&#39;</span><span class="p">,</span> <span class="s">&#39;blah@blah.com&#39;</span><span class="p">,</span> <span class="s">&#39;testpassword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test_user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">login</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&#39;testuser&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s">&#39;testpassword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span><span class="n">login</span><span class="p">,</span> <span class="s">&#39;Could not log in&#39;</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="PublicationResourceTests.tearDown"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationResourceTests.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Depopulate created model instances from test database.&#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">MODELS</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                </div>
+<div class="viewcode-block" id="PublicationResourceTests.api_publication_list_test"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationResourceTests.api_publication_list_test">[docs]</a>    <span class="k">def</span> <span class="nf">api_publication_list_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests that the API correctly renders a list of publications.&#39;&#39;&#39;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;/api/v1/publications/?format=json&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s">&#39;Content-Type&#39;</span><span class="p">],</span> <span class="s">&#39;application/json; charset=utf-8&#39;</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="PublicationResourceTests.api_publication_detail_test"><a class="viewcode-back" href="../../papers.html#papers.tests.PublicationResourceTests.api_publication_detail_test">[docs]</a>    <span class="k">def</span> <span class="nf">api_publication_detail_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This tests that the API correctly renders a list of publications.&#39;&#39;&#39;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;/api/v1/publications/1/?format=json&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s">&#39;Content-Type&#39;</span><span class="p">],</span> <span class="s">&#39;application/json; charset=utf-8&#39;</span><span class="p">)</span>  
+        <span class="k">print</span> <span class="n">response</span>      
+                  </div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Lab Website 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Dave Bridges.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
