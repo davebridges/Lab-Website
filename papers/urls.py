@@ -1,4 +1,4 @@
-'''This package has the url encodings for the papers app.'''
+'''This package has the url encodings for the :mod:`papers` app.'''
 
 from django.conf.urls import patterns, include, url
 

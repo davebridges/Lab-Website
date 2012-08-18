@@ -1,4 +1,6 @@
-'''This app contains the views for the papers app.
+'''This app contains the views for the :mod`papers` app.
+
+There are three views for this app, :class:`~papers.views.LaboratoryPaperList`, :class:`~papers.views.InterestingPaperList` and :class:`~papers.views.PaperDetailView`
 
 '''
 from django.views.generic.detail import DetailView
@@ -11,7 +13,7 @@ from papers.context_processors import api_keys
 class LaboratoryPaperList(ListView):
     '''This class generates the view for laboratory-papers located at **/papers**.
     
-    This is filtered based on whether the publication is marked as laboratory_paper = True.
+    This is filtered based on whether the :class:`~papers.models.Publication` is marked as laboratory_paper = True.
     '''
     queryset = Publication.objects.filter(laboratory_paper=True)
     template_name = "paper-list.html"
@@ -25,7 +27,7 @@ class LaboratoryPaperList(ListView):
 class InterestingPaperList(ListView):
     '''This class generates the view for interesting-papers located at **/papers/interesting**.
     
-    This is filtered based on whether the publication is marked as interesting_paper = True.
+    This is filtered based on whether the :class:`~papers.models.Publication` is marked as interesting_paper = True.
     '''
     queryset = Publication.objects.filter(interesting_paper=True)
     template_name = "paper-list.html"

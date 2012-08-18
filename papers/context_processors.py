@@ -1,6 +1,7 @@
-'''This file contains context processors to pass api keys to each template.
+'''This file contains context processors to pass api keys to templates as part of the :mod:`papers` app.
 
-These are needed to properly render the PLOS APIs'''
+This is needed to properly render the PLOS API requests.
+'''
 
 from django.conf import settings
 

@@ -1,18 +1,20 @@
-'''This package controls api access to the papers app
+'''This package controls api access to the :mod:`papers` app
 
-These urls are served at /api/papers.'''
+These urls are served at **/api/papers**.'''
 
 from tastypie.resources import ModelResource
 
 from papers.models import Publication
 
 class PublicationResource(ModelResource):
-    '''This generates the API resource for Publications.
+    '''This generates the API resource for :class:`~papers.models.Publication` objects.
     
     It returns all publications in the database.
-    Authors are currently not linked, as that would require an API to personnel.'''
+    Authors are currently not linked, as that would require an API to the :mod:`personnel` app.
+    '''
+    
     class Meta:
-        '''The Meta class sets the conditions for the API.'''
+        '''The API serves all :class:`~papers.models.Publication` objects in the database..'''
         queryset = Publication.objects.all()
         resource_name = 'publications'
         list_allowed_methods = ['get']

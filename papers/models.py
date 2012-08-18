@@ -1,3 +1,8 @@
+'''This file is the model configuration file for the :mod`papers` app.
+
+There are two models in this app, :class:`~papers.models.Publication` and :class:`~papers.models.AuthorDetails`
+'''
+
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -31,10 +36,10 @@ PUBLICATION_TYPES = (
 )
 
 class Publication(models.Model):
-    '''This model covers publications of several types.
+    '''This model covers :class:`~papers.models.Publication` objects of several types.
     
     The publication fields are based on Mendeley and PubMed fields.
-    For the author, there is a ManyToMany link to a group of authors with the order and other details.  See `::class:AuthorDetails`.
+    For the author, there is a ManyToMany link to a group of authors with the order and other details, see :class:`~papers.models.AuthorDetails`.
     '''
     mendeley_url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=150)
@@ -65,12 +70,12 @@ class Publication(models.Model):
         return 'PMC%s' % self.pmcid    
     
     def __unicode__(self):
-        '''The unicode representation for a Publication is its title'''
+        '''The unicode representation for a :class:`~papers.models.Publication` is its title'''
         return self.title
         
     @models.permalink
     def get_absolute_url(self):
-        '''the permalink for a paper detail page is /papers/[title_slug]'''
+        '''the permalink for a paper detail page is **/papers/<title_slug>**'''
         return ('paper-details', [str(self.title_slug)])   
 
     def save(self, *args, **kwargs):
@@ -80,14 +85,15 @@ class Publication(models.Model):
         super(Publication, self).save(*args, **kwargs)
         
     class Meta:
-        '''The meta options for the `::class:Publicaiton` model is ordering set by publication year then secondarily by the date the publication was added to the database.'''
+        '''The meta options for the :class:`papers.models.Publicaiton` model is ordering set by publication year then secondarily by the date the publication was added to the database.'''
         ordering = ['-year', 'date_added']
         
         
 class AuthorDetails(models.Model):
     '''This is a group of authors for a specific paper.
         
-    Because each `::class:Publicaiton` has a list of authors and the order matters, the authors are listed in this linked model.
+    Because each :class:`~papers.models.Publication` has a list of authors and the order matters, the authors are listed in this linked model.
+    The authors are defined by the :class:`~personnel.models.Person` model class, which is also the UserProfile class.
     This model has a ManyToMany link with a paper as well as marks for order, and whether an author is a corresponding or equally contributing author.
     '''
     author = models.ForeignKey('personnel.Person')
