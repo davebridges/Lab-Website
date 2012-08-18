@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block scripts %}
-<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
+<script type='text/javascript'>
+// get the email
+$(document).ready(function () {
+var email = '{{ person.email }}';
+var hash = CryptoJS.MD5(email);
+var link = 'http://www.gravatar.com/avatar/' + hash + '?s=150&d=mm';
+// set the size as whatever you like (1-2048)
+$('#image').attr('src', link);
+});
+</script>
 {% endblock %}
 
 {% block title %}<title>{{ person }}</title>{% endblock %}
@@ -10,6 +20,24 @@
 {% endblock %}
 
 {% block content %}
+<article itemscope itemtype='http://schema.org/Person'>
+<meta itemprop='familyName' content='{{ person.last_name }}' />
+<meta itemprop='givenName' content='{{ person.first_name }}' />
+<meta itemprop='name' content='{{ person }}' />
+<section id='bio' class='container'>
+{% if person.email %}
+<img id='image' alt='{{ person }} Image' src='{{ STATIC_URL }}img/ajax-loader.gif'/>
+{% endif %}
+<div class='span-6' id='details'>
+<h2>Details</h2>
+<dl>
+	<dt>Email</dt>
+	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
+</dl>
+</div>
+</section>
+
+<section id='papers'>
 <h2>Publications</h2>
 {% for detail in person.authordetails_set.all %}
 {% for paper in detail.publication_set.all %}
@@ -17,3 +45,5 @@
 {% endfor %}
 {% endfor %}
 {% endblock %}
+</section>
+</article>
