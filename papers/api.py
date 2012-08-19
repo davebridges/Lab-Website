@@ -4,7 +4,11 @@ Overview
 --------
 
 The API for the :mod:`papers` application provides data on publications.  The data can be provided as either a group of publications or as a single publication.  Only GET requests are accepted.
-These urls are served at the endpoint **/api/v1/publications/**, and depends on your server url.  For these examples we will presume that you can reach this endpoint at **http://yourserver.org/api/v1/publications/**.  Currently for all requests, no authentication is required.
+These urls are served at the endpoint **/api/v1/publications/**, and depends on your server url.  For these examples we will presume that you can reach this endpoint at **http://yourserver.org/api/v1/publications/**.  Currently for all requests, no authentication is required.  The entire API schema is available at::
+
+    http://yourserver.org/api/v1/publications/schema/?format=xml
+    http://yourserver.org/api/v1/publications/schema/?format=json
+    
 
 Sample Code
 -----------
@@ -23,7 +27,10 @@ The meta object contains fields for the limit, next, offset, previous and total_
 
     http://yourserver.org/api/v1/publications/?format=json&year=2012     
     http://yourserver.org/api/v1/publications/?format=json&type=journal-article 
-    http://yourserver.org/api/v1/publications/?format=json&type=journal-article&year=2012            
+    http://yourserver.org/api/v1/publications/?format=json&type=journal-article&year=2012
+    http://yourserver.org/api/v1/publications/set/1;3/?format=json 
+    
+The last example requests the publications with id numbers 1 and 3.                    
 
 For a single publication
 ````````````````````````
@@ -41,7 +48,7 @@ Reference
 Request Parameters
 ``````````````````
 
-The following are the potential request variables.  You must supply a format, but can also filter based on other parameters.
+The following are the potential request variables.  You must supply a format, but can also filter based on other parameters.  By default 20 items are returned but you can increase this to all by setting limit=0.
 
 +------------------+-----------------------------------------+
 | Parameter        | Potential Values                        |
@@ -54,6 +61,8 @@ The following are the potential request variables.  You must supply a format, bu
 +------------------+-----------------------------------------+
 | laboratory_paper | **true** or **false**                   |
 +------------------+-----------------------------------------+
+| limit            | **0** for all, any other number         |
++------------------|-----------------------------------------+
 
 Response Values
 ```````````````
