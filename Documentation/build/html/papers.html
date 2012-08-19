@@ -320,8 +320,168 @@ Currently only the two model tests <a class="reference internal" href="#papers.t
 </div>
 <div class="section" id="module-papers.api">
 <span id="api"></span><h3>API<a class="headerlink" href="#module-papers.api" title="Permalink to this headline">¶</a></h3>
-<p>This package controls api access to the <a class="reference internal" href="#module-papers" title="papers"><tt class="xref py py-mod docutils literal"><span class="pre">papers</span></tt></a> app</p>
-<p>These urls are served at <strong>/api/papers</strong>.</p>
+<p>This package controls API access to the <a class="reference internal" href="#module-papers" title="papers"><tt class="xref py py-mod docutils literal"><span class="pre">papers</span></tt></a> app.</p>
+<div class="section" id="overview">
+<h4>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h4>
+<p>The API for the <a class="reference internal" href="#module-papers" title="papers"><tt class="xref py py-mod docutils literal"><span class="pre">papers</span></tt></a> application provides data on publications.  The data can be provided as either a group of publications or as a single publication.  Only GET requests are accepted.
+These urls are served at the endpoint <strong>/api/v1/publications/</strong>, and depends on your server url.  For these examples we will presume that you can reach this endpoint at <strong>http://yourserver.org/api/v1/publications/</strong>.  Currently for all requests, no authentication is required.</p>
+</div>
+<div class="section" id="sample-code">
+<h4>Sample Code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h4>
+<p>Either group requests or single publication requests can be served depending on if the primary key is provided.  The request URI has several parts including the servername, the api version (currently v1) then the item type (publications).  There must be a trailing slash before the request parameters (which are after a <strong>?</strong> sign and separated by a <strong>&amp;</strong> sign).</p>
+<div class="section" id="for-a-collection-of-publications">
+<h5>For a collection of publications<a class="headerlink" href="#for-a-collection-of-publications" title="Permalink to this headline">¶</a></h5>
+<p>For a collection of publications you can request:</p>
+<div class="highlight-python"><pre>http://yourserver.org/api/v1/publications/?format=json </pre>
+</div>
+<p>This would return all publications in the database.  This would return the following json response with two JSON objects, meta and objects.
+The meta object contains fields for the limit, next, offset, previous and total_count for the series of objects requested.  The objects portion is an array of the returned publications.  Note the id field of a publication.  This is used for retrieving a single publication.  Collections can also be filtered based on type or year:</p>
+<div class="highlight-python"><pre>http://yourserver.org/api/v1/publications/?format=json&amp;year=2012     
+http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article 
+http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article&amp;year=2012            </pre>
+</div>
+</div>
+<div class="section" id="for-a-single-publication">
+<h5>For a single publication<a class="headerlink" href="#for-a-single-publication" title="Permalink to this headline">¶</a></h5>
+<p>To retrieve a single publication you need to know the primary key of the object.  This can be found from the id parameter of a collection (see above) or from the actual object page.  You can retrieve details about a single article with a call such as:</p>
+<div class="highlight-python"><pre>http://yourserver.org/api/v1/publications/2/?format=json  </pre>
+</div>
+<p>In this case <strong>2</strong> is the primary key (or id field) of the publication in question.</p>
+</div>
+</div>
+<div class="section" id="reference">
+<h4>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="request-parameters">
+<h5>Request Parameters<a class="headerlink" href="#request-parameters" title="Permalink to this headline">¶</a></h5>
+<p>The following are the potential request variables.  You must supply a format, but can also filter based on other parameters.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Potential Values</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>format</td>
+<td><strong>json</strong> or <strong>xml</strong></td>
+</tr>
+<tr class="row-odd"><td>year</td>
+<td><strong>2008</strong></td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td><strong>journal-article</strong> or <strong>book-section</strong></td>
+</tr>
+<tr class="row-odd"><td>laboratory_paper</td>
+<td><strong>true</strong> or <strong>false</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="response-values">
+<h5>Response Values<a class="headerlink" href="#response-values" title="Permalink to this headline">¶</a></h5>
+<p>The response (in either json or xml) provides the following fields for each object (or for the only object in the case of a single object request).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="40%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Explanation</th>
+<th class="head">Sample Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>absolute_url</td>
+<td>the url of the page on this site</td>
+<td>/papers/tc10-is-regulated-by-caveolin-in-3t3-l1-adipocytes/</td>
+</tr>
+<tr class="row-odd"><td>abstract</td>
+<td>abstract or summary</td>
+<td>some text...</td>
+</tr>
+<tr class="row-even"><td>date_added</td>
+<td>data added to this database</td>
+<td>2012-08-18</td>
+</tr>
+<tr class="row-odd"><td>date_last_modified</td>
+<td>last modified in database</td>
+<td>2012-08-25</td>
+</tr>
+<tr class="row-even"><td>doi</td>
+<td>digital object identifier</td>
+<td>10.1371/journal.pone.0042451</td>
+</tr>
+<tr class="row-odd"><td>id</td>
+<td>the database id number</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>interesting_paper</td>
+<td>whether the paper is marked as an interesting paper</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>issue</td>
+<td>the issue of the journal</td>
+<td>8</td>
+</tr>
+<tr class="row-even"><td>journal</td>
+<td>the name of the journal</td>
+<td>PLOS One</td>
+</tr>
+<tr class="row-odd"><td>laboratory_paper</td>
+<td>whether the paper is from this laboratory</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>mendeley_id</td>
+<td>the mendeley id number for the paper</td>
+<td>null</td>
+</tr>
+<tr class="row-odd"><td>mendeley_url</td>
+<td>the mendeley url for the paper</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>pages</td>
+<td>page range for the paper</td>
+<td>e42451</td>
+</tr>
+<tr class="row-odd"><td>pmcid</td>
+<td>PubMed Central id number</td>
+<td>null</td>
+</tr>
+<tr class="row-even"><td>pmid</td>
+<td>PubMed id number</td>
+<td>22900022</td>
+</tr>
+<tr class="row-odd"><td>resource_uri</td>
+<td>a link to the api for this publication</td>
+<td>/api/v1/publications/1/</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>the title of the paper</td>
+<td>TC10 Is Regulated by Caveolin in 3T3-L1 Adipocytes.</td>
+</tr>
+<tr class="row-odd"><td>title_slug</td>
+<td>slugified title of the paper</td>
+<td>tc10-is-regulated-by-caveolin-in-3t3-l1-adipocytes</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>type of publication</td>
+<td>journal-article</td>
+</tr>
+<tr class="row-odd"><td>volume</td>
+<td>volume of the article in a journal</td>
+<td>7</td>
+</tr>
+<tr class="row-even"><td>year</td>
+<td>publication year</td>
+<td>2012</td>
+</tr>
+</tbody>
+</table>
 <dl class="class">
 <dt id="papers.api.PublicationResource">
 <em class="property">class </em><tt class="descclassname">papers.api.</tt><tt class="descname">PublicationResource</tt><big>(</big><em>api_name=None</em><big>)</big><a class="reference internal" href="_modules/papers/api.html#PublicationResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#papers.api.PublicationResource" title="Permalink to this definition">¶</a></dt>
@@ -342,6 +502,8 @@ Authors are currently not linked, as that would require an API to the <tt class=
 
 </dd></dl>
 
+</div>
+</div>
 </div>
 <div class="section" id="module-papers.sitemap">
 <span id="sitemap"></span><h3>Sitemap<a class="headerlink" href="#module-papers.sitemap" title="Permalink to this headline">¶</a></h3>
@@ -370,7 +532,7 @@ Authors are currently not linked, as that would require an API to the <tt class=
 <div class="section" id="module-papers.context_processors">
 <span id="context-processors"></span><h3>Context Processors<a class="headerlink" href="#module-papers.context_processors" title="Permalink to this headline">¶</a></h3>
 <p>This file contains context processors to pass api keys to templates as part of the <a class="reference internal" href="#module-papers" title="papers"><tt class="xref py py-mod docutils literal"><span class="pre">papers</span></tt></a> app.</p>
-<p>This are needed to properly render the PLOS API requests.</p>
+<p>This is needed to properly render the PLOS API requests.</p>
 <dl class="function">
 <dt id="papers.context_processors.api_keys">
 <tt class="descclassname">papers.context_processors.</tt><tt class="descname">api_keys</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/papers/context_processors.html#api_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#papers.context_processors.api_keys" title="Permalink to this definition">¶</a></dt>
@@ -399,7 +561,20 @@ Authors are currently not linked, as that would require an API to the <tt class=
 <li><a class="reference internal" href="#module-papers.urls">URLS</a></li>
 <li><a class="reference internal" href="#module-papers.tests">Tests</a></li>
 <li><a class="reference internal" href="#module-papers.admin">Admin</a></li>
-<li><a class="reference internal" href="#module-papers.api">API</a></li>
+<li><a class="reference internal" href="#module-papers.api">API</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#sample-code">Sample Code</a><ul>
+<li><a class="reference internal" href="#for-a-collection-of-publications">For a collection of publications</a></li>
+<li><a class="reference internal" href="#for-a-single-publication">For a single publication</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reference">Reference</a><ul>
+<li><a class="reference internal" href="#request-parameters">Request Parameters</a></li>
+<li><a class="reference internal" href="#response-values">Response Values</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-papers.sitemap">Sitemap</a></li>
 <li><a class="reference internal" href="#module-papers.context_processors">Context Processors</a></li>
 </ul>

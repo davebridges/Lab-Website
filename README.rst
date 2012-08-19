@@ -15,6 +15,7 @@ There are three python package dependencies, South, PIL and django-tastypie.  If
     pip install PIL
     pip install django-tastypie
     pip install Sphinx
+    pip install lxml
 
 
 This project also includes links to three other apps which would have to be installed and configured separately:
