@@ -70,9 +70,13 @@ DATABASES = {
 #Communication and API keys
 LAB_NAME = '' #the lab name, ie Bridges Laboratory
 DISQUS_SHORTNAME = '' #forum name as registered on disqus
+#Twitter settings
 TWITTER_NAME = '' #the laboratory's twitter name if used, enter inside single quotes
 TWITTER_CONSUMER_KEY = ''  #Register your application at https://dev.twitter.com/apps to get a key and secret
 TWITTER_CONSUMER_SECRET = ''  #Register your application at https://dev.twitter.com/apps to get a key and secret
+TWITTER_ACCESS_TOKEN = '' #This is available at https://dev.twitter.com/apps and should be for your own account
+TWITTER_ACCESS_TOKEN_SECRET = '' #This is available at https://dev.twitter.com/apps and should be for your own account
+#google settings
 GOOGLE_PLUS_ID = ''#the laboratory's google plus page id.
 GOOGLE_CALENDAR_ID = '' #the calendar id.  You can find this under Calendar Details
 FACEBOOK_NAME = '' #the name of the laboratory's facebook page.

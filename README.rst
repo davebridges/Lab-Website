@@ -16,7 +16,9 @@ There are three python package dependencies, South, PIL and django-tastypie.  If
     pip install django-tastypie
     pip install Sphinx
     pip install lxml
+    pip install httplib2
 
+Another python package dependency is the python-oauth2 library.  This can be downloaded and installed from https://github.com/brosner/python-oauth2.
 
 This project also includes links to three other apps which would have to be installed and configured separately:
 
