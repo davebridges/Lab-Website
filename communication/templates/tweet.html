@@ -1,8 +1,18 @@
-<div class="tweet box span-3">
-<time><a href="https://twitter.com/{{screen_name}}/status/{{tweet.id_str}}">{{tweet.created_at_cleaned|date}}</a></time>: {{tweet.text}}
-<a href="https://twitter.com/intent/tweet?in_reply_to={{tweet.id_str}}"><img src="{{ STATIC_URL }}images/reply.png" alt="Reply"/></a>
-<a href="https://twitter.com/intent/retweet?tweet_id={{tweet.id_str}}"><img src="{{ STATIC_URL }}images/retweet.png" alt="Retweet"/></a>
-<a href="https://twitter.com/intent/favorite?tweet_id={{tweet.id_str}}"><img src="{{ STATIC_URL }}images/favorite.png" alt="Favorite"/></a>
-<a href={% url twitter %}><img src="{{STATIC_URL}}images/bird_blue_16.png"></a>
-</hr>
+<div class="tweet container box span-17">
+    <div class="avatar span-3 first">
+    <a href="https://twitter.com/intent/user?screen_name={{ tweet.user.screen_name }}"><img class="span-2 first" src="{{ tweet.user.profile_image_url_https }}"/></a>
+    </div>
+    <div id="twitter-names-text class="last span-14 container">
+        <div id="twitter-names span-14">
+        <a href="https://twitter.com/intent/user?screen_name={{ tweet.user.screen_name }}" class="span-4">{{ tweet.user.name }}</a>
+        <a href="https://twitter.com/intent/user?screen_name={{ tweet.user.screen_name }}" class="span-4">@{{ tweet.user.screen_name }}</a>
+        <time class="last span-4" style="text-align:right"><a href="https://twitter.com/{{ tweet.user.screen_name }}/status/{{ tweet.id }}">{{ tweet.created_at_cleaned }}</a></time>        
+        </div>
+        <p id="tweet-text" class="span-10">{{ tweet.text }}
+        <a href="https://twitter.com/intent/tweet?in_reply_to={{ tweet.id }}"><img src="{{ STATIC_URL }}images/reply.png" alt="Reply"/></a>
+        <a href="https://twitter.com/intent/retweet?tweet_id={{ tweet.id }}"><img src="{{ STATIC_URL }}images/retweet.png" alt="Reply"/></a>
+        <a href="https://twitter.com/intent/favorite?tweet_id={{ tweet.id }}"><img src="{{ STATIC_URL }}images/favorite.png" alt="Reply"/></a>
+        </p>
+    </div>
+</div>
 </div>
