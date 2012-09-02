@@ -10,13 +10,16 @@
 
 {% block content %}
 {% load markup %}
-<div>
+<article>
 {% if lab_rules_source %}
 {{ lab_rules|restructuredtext }}
 <p>This file was downloaded from <a href="{{ lab_rules_source }}">here</a> and was automatically formatted.</p>
 {% else %}
 <p>The laboratory rules source file was not available.  Please check your settings file.</p>
 {% endif %}
-</div>
+</article>
+
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
 
 {% endblock %}
