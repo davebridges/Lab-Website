@@ -8,7 +8,7 @@ import datetime, time
 
 from django.conf import settings
 from django.shortcuts import render_to_response
-from django.views.generic import View
+from django.views.generic.base import View, TemplateView
 from django.template import RequestContext
 from django.contrib import messages
 
@@ -71,7 +71,7 @@ class TwitterView(View):
     def get(self, request, *args, **kwargs):
         '''This sets the GET function for TwitterView.  
         It sets the API request to be the most recent 20 tweets excluding replies but including retweets.'''
-        values = {'count':20, 
+        values = {'count':100, 
                   'rts':'true', 
                   'exclude_replies':'true', 
                   'include_rts':'true',
@@ -151,4 +151,38 @@ class WikipedaEditsView(View):
             return render_to_response('wikipedia_edits.html',
             {'username':settings.WIKIPEDIA_USERNAME},
              mimetype='text/html',
-             context_instance=RequestContext(request))      
+             context_instance=RequestContext(request))
+             
+class LabRulesView(TemplateView):
+    '''This view gets the lab rules markdown and displays this file.
+    
+    This file must be supplied in LAB_RULES_FILE in localsettings.py
+    The template will markup this file and display it as formatted HTML.
+    If this file is not provided or is unavailable, an error will be displayed.
+    '''
+    
+    template_name = 'lab_rules.html'
+    
+    def get_context_data(self, **kwargs):
+        '''This function provides the context which is passed to this view.
+        
+        It will check if the markdown file is available, download it and pass  it to the template.
+        If there is no markdown file, then it will generate a no file presented note.'''
+        context = super(LabRulesView, self).get_context_data(**kwargs)
+        request = urllib2.Request(settings.LAB_RULES_FILE)
+        try:
+            response = urllib2.urlopen(request)
+        except urllib2.URLError, e:
+            if e.code == 404:
+                lab_rules = "Lab Rules File is not Available."
+            else:
+                #this is for a non-404 URLError.
+                lab_rules = "Lab Rules File is not Available."
+        except ValueError:
+            lab_rules = "Lab Rules File is not Available."        
+        else:
+             #successful connection
+             lab_rules = response.read()         
+        context['lab_rules'] = lab_rules
+        context['lab_rules_source'] = settings.LAB_RULES_FILE
+        return context                       

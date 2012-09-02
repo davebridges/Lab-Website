@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>Lab Rules</title>{% endblock %}
+
+{% block header %}
+<h1>Lab Rules</h1>
+{% endblock %}
+
+{% block content %}
+{% load markup %}
+<div>
+{% if lab_rules_source %}
+{{ lab_rules|restructuredtext }}
+<p>This file was downloaded from <a href="{{ lab_rules_source }}">here</a> and was automatically formatted.</p>
+{% else %}
+<p>The laboratory rules source file was not available.  Please check your settings file.</p>
+{% endif %}
+</div>
+
+{% endblock %}

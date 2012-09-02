@@ -84,3 +84,6 @@ WIKIPEDIA_USERNAME = ''#the wikipedia username(s) to search by.
 MENDELEY_LAB_PAPERS_GROUP = '' #the public Mendeley group id containing the lab's papers
 MENDELEY_CONSUMER_KEY = '' #the Mendeley consumer key
 PLOS_API_KEY = '' #the PLOS API key for PLOS altmetrics
+
+#other settings
+LAB_RULES_FILE = '' #URL for an optional laboratory rules file in restructured text format.
