@@ -1,7 +1,4 @@
 {% extends "base.html" %}
-{% block scripts %}
-<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-{% endblock %}
 
 {% block title %}<title>Tweets By @{{screen_name}}</title>{% endblock %}
 
@@ -11,10 +8,8 @@
 
 {% block content %}
 <div id="tweets">
-<table>
 {% for tweet in timeline %}
-{% include "tweet.html" %}
+{% include "tweet-oembed.html" %}
 {% endfor %}
-</table>
 </div>
 {% endblock %}

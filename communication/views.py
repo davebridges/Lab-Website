@@ -73,9 +73,10 @@ class TwitterView(View):
         It sets the API request to be the most recent 20 tweets excluding replies but including retweets.'''
         values = {'count':100, 
                   'rts':'true', 
-                  'exclude_replies':'true', 
-                  'include_rts':'true',
-                  'include_entities':'true'}
+                  'exclude_replies':'t', 
+                  'include_rts': 't',
+                  'trim_user': 't',
+                  'include_entities':'t'}
         params = urllib.urlencode(values)
         target_site = 'https://api.twitter.com/1/statuses/user_timeline.json?' + params
         try: 

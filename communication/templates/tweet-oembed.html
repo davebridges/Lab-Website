@@ -1,0 +1,8 @@
+<script type="text/javascript">
+var tweet_url = "https://api.twitter.com/1/statuses/oembed.json?id={{ tweet.id }}&callback=?"
+$.getJSON("https://api.twitter.com/1/statuses/oembed.json?id={{ tweet.id }}&callback=?", function(data) {
+	$(data.html).appendTo('#embedded-tweets');
+});
+</script>
+<div id="embedded-tweets">
+</div>
