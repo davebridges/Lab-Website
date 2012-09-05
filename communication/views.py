@@ -75,10 +75,9 @@ class TwitterView(View):
                   'rts':'true', 
                   'exclude_replies':'t', 
                   'include_rts': 't',
-                  'trim_user': 't',
-                  'include_entities':'t'}
+                  'trim_user': 't'}
         params = urllib.urlencode(values)
-        target_site = 'https://api.twitter.com/1/statuses/user_timeline.json?' + params
+        target_site = 'https://api.twitter.com/1.1/statuses/user_timeline.json?' + params
         try: 
             timeline_json = twitter_oauth_req(target_site)
             timeline = json.loads(timeline_json)
