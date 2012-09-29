@@ -6,6 +6,10 @@ There are three views for this app, :class:`~papers.views.LaboratoryPaperList`, 
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.template import RequestContext
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
+
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from papers.models import Publication
 from papers.context_processors import api_keys
@@ -34,7 +38,7 @@ class InterestingPaperList(ListView):
     
     def get_context_data(self, **kwargs):
         '''This method adds to the context the paper-list-type  = interesting.'''
-        context = super(LaboratoryPaperList, self).get_context_data(**kwargs)
+        context = super(InterestingPaperList, self).get_context_data(**kwargs)
         context['paper-list-type'] = "interesting"
         return context       
 
@@ -51,4 +55,38 @@ class PaperDetailView(DetailView):
         '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
         return super(PaperDetailView, self).render_to_response(
                 RequestContext(self.request, context, processors=[api_keys]), **kwargs)
+                
+class PaperCreate(PermissionRequiredMixin, CreateView):
+    '''This view is for creating a new :class:`~papers.models.Publication`.
+    
+    It requires the permissions to create a new paper and is found at the url **/paper/new**.'''
+    
+    permission_required = 'papers.create_publication'
+    model = Publication
+    template_name = 'publication_form.html'
+    
+class PaperUpdate(PermissionRequiredMixin, UpdateView):
+    '''This view is for updating a :class:`~papers.models.Publication`.
+    
+    It requires the permissions to update a paper and is found at the url **/paper/<slug>/edit**.'''
+    
+    permission_required = 'papers.update_publication'
+    model = Publication
+    slug_field = "title_slug"
+    slug_url_kwarg = "title_slug"
+    template_name = 'publication_form.html' 
+    
+class PaperDelete(PermissionRequiredMixin, DeleteView):
+    '''This view is for deleting a :class:`~papers.models.Publication`.
+    
+    It requires the permissions to delete a paper and is found at the url **/paper/<slug>/delete**.'''
+    
+    permission_required = 'papers.delete_publication'
+    model = Publication
+    slug_field = "title_slug"
+    slug_url_kwarg = "title_slug"
+    template_name = 'confirm_delete.html'
+    template_object_name = 'object' 
+    success_url = reverse_lazy('laboratory-papers')        
+                   
     
