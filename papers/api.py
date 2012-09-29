@@ -62,7 +62,7 @@ The following are the potential request variables.  You must supply a format, bu
 | laboratory_paper | **true** or **false**                   |
 +------------------+-----------------------------------------+
 | limit            | **0** for all, any other number         |
-+------------------|-----------------------------------------+
++------------------+-----------------------------------------+
 
 Response Values
 ```````````````

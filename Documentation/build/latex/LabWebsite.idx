@@ -1,0 +1,66 @@
+\indexentry{papers (module)|hyperpage}{3}
+\indexentry{papers.models (module)|hyperpage}{3}
+\indexentry{AuthorDetails (class in papers.models)|hyperpage}{4}
+\indexentry{Publication (class in papers.models)|hyperpage}{4}
+\indexentry{doi\_link() (papers.models.Publication method)|hyperpage}{4}
+\indexentry{full\_pmcid() (papers.models.Publication method)|hyperpage}{4}
+\indexentry{get\_absolute\_url() (papers.models.Publication method)|hyperpage}{4}
+\indexentry{save() (papers.models.Publication method)|hyperpage}{4}
+\indexentry{papers.views (module)|hyperpage}{4}
+\indexentry{InterestingPaperList (class in papers.views)|hyperpage}{4}
+\indexentry{get\_context\_data() (papers.views.InterestingPaperList method)|hyperpage}{4}
+\indexentry{LaboratoryPaperList (class in papers.views)|hyperpage}{4}
+\indexentry{get\_context\_data() (papers.views.LaboratoryPaperList method)|hyperpage}{4}
+\indexentry{PaperCreate (class in papers.views)|hyperpage}{4}
+\indexentry{model (papers.views.PaperCreate attribute)|hyperpage}{4}
+\indexentry{PaperDelete (class in papers.views)|hyperpage}{4}
+\indexentry{model (papers.views.PaperDelete attribute)|hyperpage}{4}
+\indexentry{PaperDetailView (class in papers.views)|hyperpage}{5}
+\indexentry{model (papers.views.PaperDetailView attribute)|hyperpage}{5}
+\indexentry{render\_to\_response() (papers.views.PaperDetailView method)|hyperpage}{5}
+\indexentry{PaperUpdate (class in papers.views)|hyperpage}{5}
+\indexentry{model (papers.views.PaperUpdate attribute)|hyperpage}{5}
+\indexentry{papers.urls (module)|hyperpage}{5}
+\indexentry{papers.tests (module)|hyperpage}{5}
+\indexentry{AuthorDetailsModelTests (class in papers.tests)|hyperpage}{5}
+\indexentry{setUp() (papers.tests.AuthorDetailsModelTests method)|hyperpage}{5}
+\indexentry{tearDown() (papers.tests.AuthorDetailsModelTests method)|hyperpage}{5}
+\indexentry{test\_authordetail\_unicode() (papers.tests.AuthorDetailsModelTests method)|hyperpage}{5}
+\indexentry{test\_create\_new\_authordetail\_all() (papers.tests.AuthorDetailsModelTests method)|hyperpage}{5}
+\indexentry{test\_create\_new\_authordetail\_minimum() (papers.tests.AuthorDetailsModelTests method)|hyperpage}{5}
+\indexentry{PublicationModelTests (class in papers.tests)|hyperpage}{5}
+\indexentry{setUp() (papers.tests.PublicationModelTests method)|hyperpage}{5}
+\indexentry{tearDown() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{test\_create\_new\_paper\_minimum() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{test\_full\_pmcid() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{test\_paper\_absolute\_url() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{test\_paper\_doi\_link() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{test\_paper\_title\_slug() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{test\_paper\_unicode() (papers.tests.PublicationModelTests method)|hyperpage}{6}
+\indexentry{PublicationResourceTests (class in papers.tests)|hyperpage}{6}
+\indexentry{api\_publication\_detail\_test() (papers.tests.PublicationResourceTests method)|hyperpage}{6}
+\indexentry{api\_publication\_list\_test() (papers.tests.PublicationResourceTests method)|hyperpage}{6}
+\indexentry{setUp() (papers.tests.PublicationResourceTests method)|hyperpage}{6}
+\indexentry{tearDown() (papers.tests.PublicationResourceTests method)|hyperpage}{6}
+\indexentry{PublicationViewTests (class in papers.tests)|hyperpage}{6}
+\indexentry{setUp() (papers.tests.PublicationViewTests method)|hyperpage}{6}
+\indexentry{tearDown() (papers.tests.PublicationViewTests method)|hyperpage}{6}
+\indexentry{test\_interesting\_papers\_list() (papers.tests.PublicationViewTests method)|hyperpage}{6}
+\indexentry{test\_lab\_papers\_list() (papers.tests.PublicationViewTests method)|hyperpage}{6}
+\indexentry{test\_publication\_view() (papers.tests.PublicationViewTests method)|hyperpage}{6}
+\indexentry{test\_publication\_view\_create() (papers.tests.PublicationViewTests method)|hyperpage}{6}
+\indexentry{test\_publication\_view\_delete() (papers.tests.PublicationViewTests method)|hyperpage}{7}
+\indexentry{test\_publication\_view\_edit() (papers.tests.PublicationViewTests method)|hyperpage}{7}
+\indexentry{papers.admin (module)|hyperpage}{7}
+\indexentry{AuthorDetailsAdmin (class in papers.admin)|hyperpage}{7}
+\indexentry{PublicationAdmin (class in papers.admin)|hyperpage}{7}
+\indexentry{papers.api (module)|hyperpage}{7}
+\indexentry{PublicationResource (class in papers.api)|hyperpage}{9}
+\indexentry{PublicationResource.Meta (class in papers.api)|hyperpage}{9}
+\indexentry{object\_class (papers.api.PublicationResource.Meta attribute)|hyperpage}{9}
+\indexentry{papers.sitemap (module)|hyperpage}{9}
+\indexentry{LabPublicationsSitemap (class in papers.sitemap)|hyperpage}{9}
+\indexentry{items() (papers.sitemap.LabPublicationsSitemap method)|hyperpage}{9}
+\indexentry{lastmod() (papers.sitemap.LabPublicationsSitemap method)|hyperpage}{9}
+\indexentry{papers.context\_processors (module)|hyperpage}{10}
+\indexentry{api\_keys() (in module papers.context\_processors)|hyperpage}{10}

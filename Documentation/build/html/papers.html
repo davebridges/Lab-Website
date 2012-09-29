@@ -154,6 +154,32 @@ For the author, there is a ManyToMany link to a group of authors with the order 
 </dd></dl>
 
 <dl class="class">
+<dt id="papers.views.PaperCreate">
+<em class="property">class </em><tt class="descclassname">papers.views.</tt><tt class="descname">PaperCreate</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#papers.views.PaperCreate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view is for creating a new <a class="reference internal" href="#papers.models.Publication" title="papers.models.Publication"><tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></a>.</p>
+<p>It requires the permissions to create a new paper and is found at the url <strong>/paper/new</strong>.</p>
+<dl class="attribute">
+<dt id="papers.views.PaperCreate.model">
+<tt class="descname">model</tt><a class="headerlink" href="#papers.views.PaperCreate.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="papers.views.PaperDelete">
+<em class="property">class </em><tt class="descclassname">papers.views.</tt><tt class="descname">PaperDelete</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#papers.views.PaperDelete" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view is for deleting a <a class="reference internal" href="#papers.models.Publication" title="papers.models.Publication"><tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></a>.</p>
+<p>It requires the permissions to delete a paper and is found at the url <strong>/paper/&lt;slug&gt;/delete</strong>.</p>
+<dl class="attribute">
+<dt id="papers.views.PaperDelete.model">
+<tt class="descname">model</tt><a class="headerlink" href="#papers.views.PaperDelete.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="papers.views.PaperDetailView">
 <em class="property">class </em><tt class="descclassname">papers.views.</tt><tt class="descname">PaperDetailView</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/papers/views.html#PaperDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#papers.views.PaperDetailView" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class generates the view for paper-details located at <strong>/papers/&lt;title_slug&gt;</strong>.</p>
@@ -171,6 +197,19 @@ For the author, there is a ManyToMany link to a group of authors with the order 
 
 </dd></dl>
 
+<dl class="class">
+<dt id="papers.views.PaperUpdate">
+<em class="property">class </em><tt class="descclassname">papers.views.</tt><tt class="descname">PaperUpdate</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#papers.views.PaperUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This view is for updating a <a class="reference internal" href="#papers.models.Publication" title="papers.models.Publication"><tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></a>.</p>
+<p>It requires the permissions to update a paper and is found at the url <strong>/paper/&lt;slug&gt;/edit</strong>.</p>
+<dl class="attribute">
+<dt id="papers.views.PaperUpdate.model">
+<tt class="descname">model</tt><a class="headerlink" href="#papers.views.PaperUpdate.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-papers.urls">
 <span id="urls"></span><h3>URLS<a class="headerlink" href="#module-papers.urls" title="Permalink to this headline">¶</a></h3>
@@ -180,7 +219,19 @@ For the author, there is a ManyToMany link to a group of authors with the order 
 <span id="tests"></span><h3>Tests<a class="headerlink" href="#module-papers.tests" title="Permalink to this headline">¶</a></h3>
 <p>This package contains the unit tests for the <a class="reference internal" href="#module-papers" title="papers"><tt class="xref py py-mod docutils literal"><span class="pre">papers</span></tt></a> app.</p>
 <p>It contains view and model tests for each model, grouped together.
-Currently only the two model tests <a class="reference internal" href="#papers.tests.PublicationModelTests" title="papers.tests.PublicationModelTests"><tt class="xref py py-class docutils literal"><span class="pre">PublicationModelTests</span></tt></a> and <a class="reference internal" href="#papers.tests.AuthorDetailsModelTests" title="papers.tests.AuthorDetailsModelTests"><tt class="xref py py-class docutils literal"><span class="pre">AuthorDetailsModelTests</span></tt></a> and the API test (<a class="reference internal" href="#papers.tests.PublicationResourceTests" title="papers.tests.PublicationResourceTests"><tt class="xref py py-class docutils literal"><span class="pre">PublicationResourceTests</span></tt></a>) are present.</p>
+Contains the two model tests:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#papers.tests.PublicationModelTests" title="papers.tests.PublicationModelTests"><tt class="xref py py-class docutils literal"><span class="pre">PublicationModelTests</span></tt></a></li>
+<li><a class="reference internal" href="#papers.tests.AuthorDetailsModelTests" title="papers.tests.AuthorDetailsModelTests"><tt class="xref py py-class docutils literal"><span class="pre">AuthorDetailsModelTests</span></tt></a></li>
+</ul>
+<p>The API tests:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#papers.tests.PublicationResourceTests" title="papers.tests.PublicationResourceTests"><tt class="xref py py-class docutils literal"><span class="pre">PublicationResourceTests</span></tt></a></li>
+</ul>
+<p>And the view tests:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#papers.tests.PublicationViewTests" title="papers.tests.PublicationViewTests"><tt class="xref py py-class docutils literal"><span class="pre">PublicationViewTests</span></tt></a></li>
+</ul>
 <dl class="class">
 <dt id="papers.tests.AuthorDetailsModelTests">
 <em class="property">class </em><tt class="descclassname">papers.tests.</tt><tt class="descname">AuthorDetailsModelTests</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="_modules/papers/tests.html#AuthorDetailsModelTests"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#papers.tests.AuthorDetailsModelTests" title="Permalink to this definition">¶</a></dt>
@@ -301,6 +352,66 @@ Currently only the two model tests <a class="reference internal" href="#papers.t
 
 </dd></dl>
 
+<dl class="class">
+<dt id="papers.tests.PublicationViewTests">
+<em class="property">class </em><tt class="descclassname">papers.tests.</tt><tt class="descname">PublicationViewTests</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class tests the views for <a class="reference internal" href="#papers.models.Publication" title="papers.models.Publication"><tt class="xref py py-class docutils literal"><span class="pre">Publication</span></tt></a> objects.</p>
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate the test client.  Creates a test user.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depopulate created model instances from test database.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.test_interesting_papers_list">
+<tt class="descname">test_interesting_papers_list</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.test_interesting_papers_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the interesting-papers view ensuring that templates are loaded correctly.</p>
+<p>This view uses a user with superuser permissions so does not test the permission levels for this view.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.test_lab_papers_list">
+<tt class="descname">test_lab_papers_list</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.test_lab_papers_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the laboratory-papers view ensuring that templates are loaded correctly.</p>
+<p>This view uses a user with superuser permissions so does not test the permission levels for this view.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.test_publication_view">
+<tt class="descname">test_publication_view</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.test_publication_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the paper-details view, ensuring that templates are loaded correctly.</p>
+<p>This view uses a user with superuser permissions so does not test the permission levels for this view.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.test_publication_view_create">
+<tt class="descname">test_publication_view_create</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.test_publication_view_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the paper-new view, ensuring that templates are loaded correctly.</p>
+<p>This view uses a user with superuser permissions so does not test the permission levels for this view.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.test_publication_view_delete">
+<tt class="descname">test_publication_view_delete</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.test_publication_view_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the paper-delete view, ensuring that templates are loaded correctly.</p>
+<p>This view uses a user with superuser permissions so does not test the permission levels for this view.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="papers.tests.PublicationViewTests.test_publication_view_edit">
+<tt class="descname">test_publication_view_edit</tt><big>(</big><big>)</big><a class="headerlink" href="#papers.tests.PublicationViewTests.test_publication_view_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the paper-edit view, ensuring that templates are loaded correctly.</p>
+<p>This view uses a user with superuser permissions so does not test the permission levels for this view.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-papers.admin">
 <span id="admin"></span><h3>Admin<a class="headerlink" href="#module-papers.admin" title="Permalink to this headline">¶</a></h3>
@@ -324,7 +435,10 @@ Currently only the two model tests <a class="reference internal" href="#papers.t
 <div class="section" id="overview">
 <h4>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h4>
 <p>The API for the <a class="reference internal" href="#module-papers" title="papers"><tt class="xref py py-mod docutils literal"><span class="pre">papers</span></tt></a> application provides data on publications.  The data can be provided as either a group of publications or as a single publication.  Only GET requests are accepted.
-These urls are served at the endpoint <strong>/api/v1/publications/</strong>, and depends on your server url.  For these examples we will presume that you can reach this endpoint at <strong>http://yourserver.org/api/v1/publications/</strong>.  Currently for all requests, no authentication is required.</p>
+These urls are served at the endpoint <strong>/api/v1/publications/</strong>, and depends on your server url.  For these examples we will presume that you can reach this endpoint at <strong>http://yourserver.org/api/v1/publications/</strong>.  Currently for all requests, no authentication is required.  The entire API schema is available at:</p>
+<div class="highlight-python"><pre>http://yourserver.org/api/v1/publications/schema/?format=xml
+http://yourserver.org/api/v1/publications/schema/?format=json</pre>
+</div>
 </div>
 <div class="section" id="sample-code">
 <h4>Sample Code<a class="headerlink" href="#sample-code" title="Permalink to this headline">¶</a></h4>
@@ -338,8 +452,10 @@ These urls are served at the endpoint <strong>/api/v1/publications/</strong>, an
 The meta object contains fields for the limit, next, offset, previous and total_count for the series of objects requested.  The objects portion is an array of the returned publications.  Note the id field of a publication.  This is used for retrieving a single publication.  Collections can also be filtered based on type or year:</p>
 <div class="highlight-python"><pre>http://yourserver.org/api/v1/publications/?format=json&amp;year=2012     
 http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article 
-http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article&amp;year=2012            </pre>
+http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article&amp;year=2012
+http://yourserver.org/api/v1/publications/set/1;3/?format=json </pre>
 </div>
+<p>The last example requests the publications with id numbers 1 and 3.</p>
 </div>
 <div class="section" id="for-a-single-publication">
 <h5>For a single publication<a class="headerlink" href="#for-a-single-publication" title="Permalink to this headline">¶</a></h5>
@@ -353,7 +469,7 @@ http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article&
 <h4>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="request-parameters">
 <h5>Request Parameters<a class="headerlink" href="#request-parameters" title="Permalink to this headline">¶</a></h5>
-<p>The following are the potential request variables.  You must supply a format, but can also filter based on other parameters.</p>
+<p>The following are the potential request variables.  You must supply a format, but can also filter based on other parameters.  By default 20 items are returned but you can increase this to all by setting limit=0.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="31%" />
@@ -376,6 +492,9 @@ http://yourserver.org/api/v1/publications/?format=json&amp;type=journal-article&
 </tr>
 <tr class="row-odd"><td>laboratory_paper</td>
 <td><strong>true</strong> or <strong>false</strong></td>
+</tr>
+<tr class="row-even"><td>limit</td>
+<td><strong>0</strong> for all, any other number</td>
 </tr>
 </tbody>
 </table>
