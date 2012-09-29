@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+<title>{% if publication %}Update {{ publication }} {% else %}New Publication{% endif %}</title>
+{% endblock %}
+{% block content %}
+<h1>{% if publication %}Update {{ publication }} {% else %}New Publication{% endif %}</h1>
+<form method="POST" action="{% if publication %}{% url paper-edit publication.title_slug %} {% else %} {% url paper-new %}{% endif %}">{% csrf_token %}
+<table>{{ form }}</table>
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}
