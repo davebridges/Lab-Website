@@ -2,7 +2,18 @@
 This package contains the unit tests for the :mod:`papers` app.
 
 It contains view and model tests for each model, grouped together.
-Currently only the two model tests :class:`~papers.tests.PublicationModelTests` and :class:`~papers.tests.AuthorDetailsModelTests` and the API test (:class:`~PublicationResourceTests`) are present.
+Contains the two model tests:
+
+* :class:`~papers.tests.PublicationModelTests` 
+* :class:`~papers.tests.AuthorDetailsModelTests` 
+
+The API tests:
+
+* :class:`~PublicationResourceTests`
+
+And the view tests:
+
+* :class:`~papers.tests.PublicationViewTests` 
 """
 
 from django.test import TestCase
@@ -15,7 +26,8 @@ MODELS = [Publication, AuthorDetails]
 
 class PublicationModelTests(TestCase):
     '''This class tests various aspects of the :class:`~papers.models.Publication` model.'''
-    fixtures = ['fixture_publication', 'fixture_publication_personnel']
+    
+    fixtures = ['test_publication', 'test_publication_personnel']
 
     def setUp(self):
         '''Instantiate the test client.  Creates a test user.'''
@@ -38,7 +50,7 @@ class PublicationModelTests(TestCase):
         '''This test creates a :class:`~papers.models.Publication` with the required information only.'''
         test_publication = Publication(title='Test Publication.')
         test_publication.save()
-        self.assertEqual(test_publication.pk, 2)
+        self.assertEqual(test_publication.pk, 3)
         
     #def test_create_new_paper_all(self):
         #'''This test creates a `::class:Publication` with the required information only.'''
@@ -60,7 +72,7 @@ class PublicationModelTests(TestCase):
         '''This tests the title_slug field of a :class:`~papers.models.Publication`.'''
         test_publication = Publication(title='Test Publication', laboratory_paper=True)
         test_publication.save()
-        self.assertEqual(test_publication.get_absolute_url(), "/papers/test-publication/") 
+        self.assertEqual(test_publication.get_absolute_url(), "/papers/test-publication") 
      
     def test_paper_doi_link(self):
         '''This tests the title_slug field of a :class:`~papers.models.Publication`.'''
@@ -76,7 +88,7 @@ class PublicationModelTests(TestCase):
 class AuthorDetailsModelTests(TestCase):
     '''This class tests varios aspects of the :class:`~papers.models.AuthorDetails` model.'''
 
-    fixtures = ['fixture_publication', 'fixture_publication_personnel']
+    fixtures = ['test_publication', 'test_publication_personnel']
 
     def setUp(self):
         '''Instantiate the test client.  Creates a test user.'''
@@ -119,7 +131,7 @@ class AuthorDetailsModelTests(TestCase):
 class PublicationResourceTests(TestCase):  
     '''This class tests varios aspects of the :class:`~papers.api.PublicationResource` API model.'''
 
-    fixtures = ['fixture_publication', 'fixture_publication_personnel']
+    fixtures = ['test_publication', 'test_publication_personnel']
 
     def setUp(self):
         '''Instantiate the test client.  Creates a test user.'''
@@ -149,5 +161,124 @@ class PublicationResourceTests(TestCase):
         response = self.client.get('/api/v1/publications/1/?format=json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json; charset=utf-8')  
-        print response      
+        print response    
+       
+class PublicationViewTests(TestCase):
+    '''This class tests the views for :class:`~papers.models.Publication` objects.'''
+
+    fixtures = ['test_publication', 'test_publication_personnel']
+
+    def setUp(self):
+        """Instantiate the test client.  Creates a test user."""
+        self.client = Client()
+        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
+        self.test_user.is_superuser = True
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.assertEqual(self.test_user.is_superuser, True)
+        login = self.client.login(username='testuser', password='testpassword')
+        self.failUnless(login, 'Could not log in')
+
+    def tearDown(self):
+        """Depopulate created model instances from test database."""
+        for model in MODELS:
+            for obj in model.objects.all():
+                obj.delete()
+
+    def test_publication_view(self):
+        """This tests the paper-details view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('publication' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'paper-detail.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
+        self.assertTemplateUsed(test_response, 'paper_sharing_widgets.html')
+        self.assertTemplateUsed(test_response, 'altmetric_snippet.html')                        
+        self.assertEqual(test_response.context['publication'].pk, 1)
+        self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
+        
+    def test_lab_papers_list(self):
+        """This tests the laboratory-papers view ensuring that templates are loaded correctly.
+        
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('publication_list' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'paper-list.html')
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')   
+        self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')
+        self.assertEqual(test_response.context['publication_list'][0].pk, 1)
+        self.assertEqual(test_response.context['publication_list'][0].title, u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        
+    def test_interesting_papers_list(self):
+        """This tests the interesting-papers view ensuring that templates are loaded correctly.
+        
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/interesting')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('publication_list' in test_response.context)       
+        self.assertTemplateUsed(test_response, 'paper-list.html')
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')   
+        self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')                                
+        self.assertEqual(test_response.context['publication_list'][0].pk, 2)
+        self.assertEqual(test_response.context['publication_list'][0].title, u"THE RELATION OF ADENOSINE-3', 5'-PHOSPHATE AND PHOSPHORYLASE TO THE ACTIONS OF CATECHOLAMINES AND OTHER HORMONES.")           
+
+    def test_publication_view_create(self):
+        """This tests the paper-new view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/new/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'publication_form.html')
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')           
+
+    def test_publication_view_edit(self):
+        """This tests the paper-edit view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/edit/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('publication' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'publication_form.html')
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')        
+        self.assertEqual(test_response.context['publication'].pk, 1)
+        self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
+
+        #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
+        null_response = self.client.get('/papers/not-a-real-paper/edit/')
+        self.assertEqual(null_response.status_code, 404)   
+
+    def test_publication_view_delete(self):
+        """This tests the paper-delete view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/delete/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('publication' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'confirm_delete.html')
+        self.assertEqual(test_response.context['publication'].pk, 1)
+        self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
+
+        #verifies that a non-existent object returns a 404 error.
+        null_response = self.client.get('/papers/not-a-real-paper/delete/')
+        self.assertEqual(null_response.status_code, 404)           
                   
