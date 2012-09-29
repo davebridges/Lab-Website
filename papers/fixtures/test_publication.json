@@ -24,6 +24,31 @@
         }
     }, 
     {
+        "pk": 2, 
+        "model": "papers.publication", 
+        "fields": {
+            "mendeley_url": "", 
+            "date_last_modified": "2012-07-21", 
+            "title_slug": "the-relation-of-adenosine-3-5-phosphate-and-phosphorylase-to-the-actions-of-catecholamines-and-other-hormones", 
+            "title": "THE RELATION OF ADENOSINE-3', 5'-PHOSPHATE AND PHOSPHORYLASE TO THE ACTIONS OF CATECHOLAMINES AND OTHER HORMONES.", 
+            "mendeley_id": null, 
+            "type": "journal-article", 
+            "abstract": "Many signal transduction events are orchestrated by specific interactions of proteins mediated through discrete phosphopeptide-binding motifs. Although several phosphospecific-binding domains are now known, 14-3-3s were the first proteins recognized to specifically bind a discrete phosphoserine or phosphothreonine motif. The 14-3-3 proteins are a family of ubiquitously expressed, exclusively eukaryotic proteins with an astonishingly large number of binding partners. Consequently, 14-3-3s modulate an enormous and diverse group of cellular processes. The effects of 14-3-3 proteins on their targets can be broadly defined using three categories: (i) conformational change; (ii) physical occlusion of sequence-specific or structural protein features; and (iii) scaffolding. This review will describe the current state of knowledge on 14-3-3 proteins, highlighting several important advances, and will attempt to provide a framework by which 14-3-3 functions can be understood.", 
+            "authors": [],
+            "journal": "Pharmacol Rev", 
+            "interesting_paper": true, 
+            "volume": "12", 
+            "doi": null, 
+            "laboratory_paper": false, 
+            "year": 1960, 
+            "date_added": "2012-09-30", 
+            "pmid": null, 
+            "issue": "3", 
+            "pages": "265-299", 
+            "pmcid": null
+        }
+    },
+    {
         "pk": 1, 
         "model": "papers.authordetails", 
         "fields": {
