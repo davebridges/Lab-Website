@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {% block scripts %}
 <script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
+<link rel="alternate" type="application/rss+xml" title="Papers From the {{ lab_name }}" href="lab-papers-feed"> 
+<link rel="alternate" type="application/rss+xml" title="Papers of Interest" href="interesting-papers-feed"> 
 {% endblock %}
 
-{% block title %}<title>Papers</title>{% endblock %}
+{% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}Papers</title>{% endblock %}
 
 {% block header %}
-<h1>Papers</h1>
+<h1>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}Papers </h1>
 {% endblock %}
 
 {% block content %}
-<h2>{{ publication_list.count }} papers</h2>
+<h2>{{ publication_list.count }} papers {% if paper_list_type == "laboratory" %}<a href="{% url lab-papers-feed %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
+{% if paper_list_type == "interesting" %}<a href="{% url interesting-papers-feed %}><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h2>
 {% for paper in publication_list %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
