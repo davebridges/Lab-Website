@@ -4,6 +4,8 @@ from django.contrib import admin
 
 from tastypie.api import Api
 
+from communication.views import FeedDetailView
+
 from personnel.sitemap import LabPersonnelSitemap
 from papers.sitemap import LabPublicationsSitemap
 
@@ -32,6 +34,7 @@ urlpatterns = patterns('',
     url(r'^papers/', include('papers.urls')),
     url(r'^people/', include('personnel.urls')),
     
+    url(r'^feeds/?$', FeedDetailView.as_view(), name="feed-details"),
     url(r'^feeds/lab-papers/?$', LabPapersFeed(), name="lab-papers-feed"),
     url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
        

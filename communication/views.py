@@ -185,4 +185,11 @@ class LabRulesView(TemplateView):
              lab_rules = response.read()         
         context['lab_rules'] = lab_rules
         context['lab_rules_source'] = settings.LAB_RULES_FILE
-        return context                       
+        return context 
+        
+from django.views.generic import TemplateView
+
+class FeedDetailView(TemplateView):
+    '''This view redirects to a template describing RSS feeds.'''
+    
+    template_name = "feed_details.html"                              
