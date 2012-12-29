@@ -26,7 +26,12 @@ class LaboratoryPaperList(ListView):
         '''This method adds to the context the paper-list-type  = interesting.'''
         context = super(LaboratoryPaperList, self).get_context_data(**kwargs)
         context['paper_list_type'] = "laboratory"
-        return context    
+        return context  
+        
+    def render_to_response(self, context, **kwargs):
+        '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
+        return super(LaboratoryPaperList, self).render_to_response(
+                RequestContext(self.request, context, processors=[api_keys]), **kwargs)          
     
 class InterestingPaperList(ListView):
     '''This class generates the view for interesting-papers located at **/papers/interesting**.
@@ -40,7 +45,12 @@ class InterestingPaperList(ListView):
         '''This method adds to the context the paper-list-type  = interesting.'''
         context = super(InterestingPaperList, self).get_context_data(**kwargs)
         context['paper_list_type'] = "interesting"
-        return context       
+        return context  
+      
+    def render_to_response(self, context, **kwargs):
+        '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
+        return super(InterestingPaperList, self).render_to_response(
+                RequestContext(self.request, context, processors=[api_keys]), **kwargs)             
 
 class PaperDetailView(DetailView):
     '''This class generates the view for paper-details located at **/papers/<title_slug>**.

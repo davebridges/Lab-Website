@@ -12,4 +12,5 @@ def api_keys(request):
     '''
     dict = {}
     dict['plos_api_key'] = settings.PLOS_API_KEY
+    dict['impact_story_api_key'] = settings.IMPACT_STORY_API_KEY
     return dict
