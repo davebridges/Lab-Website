@@ -25,7 +25,7 @@ class LaboratoryPaperList(ListView):
     def get_context_data(self, **kwargs):
         '''This method adds to the context the paper-list-type  = interesting.'''
         context = super(LaboratoryPaperList, self).get_context_data(**kwargs)
-        context['paper-list-type'] = "laboratory"
+        context['paper_list_type'] = "laboratory"
         return context    
     
 class InterestingPaperList(ListView):
@@ -39,7 +39,7 @@ class InterestingPaperList(ListView):
     def get_context_data(self, **kwargs):
         '''This method adds to the context the paper-list-type  = interesting.'''
         context = super(InterestingPaperList, self).get_context_data(**kwargs)
-        context['paper-list-type'] = "interesting"
+        context['paper_list_type'] = "interesting"
         return context       
 
 class PaperDetailView(DetailView):
