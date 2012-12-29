@@ -26,12 +26,7 @@ class LaboratoryPaperList(ListView):
         '''This method adds to the context the paper-list-type  = interesting.'''
         context = super(LaboratoryPaperList, self).get_context_data(**kwargs)
         context['paper_list_type'] = "laboratory"
-        return context  
-        
-    def render_to_response(self, context, **kwargs):
-        '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
-        return super(LaboratoryPaperList, self).render_to_response(
-                RequestContext(self.request, context, processors=[api_keys]), **kwargs)          
+        return context           
     
 class InterestingPaperList(ListView):
     '''This class generates the view for interesting-papers located at **/papers/interesting**.
@@ -45,12 +40,7 @@ class InterestingPaperList(ListView):
         '''This method adds to the context the paper-list-type  = interesting.'''
         context = super(InterestingPaperList, self).get_context_data(**kwargs)
         context['paper_list_type'] = "interesting"
-        return context  
-      
-    def render_to_response(self, context, **kwargs):
-        '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
-        return super(InterestingPaperList, self).render_to_response(
-                RequestContext(self.request, context, processors=[api_keys]), **kwargs)             
+        return context               
 
 class PaperDetailView(DetailView):
     '''This class generates the view for paper-details located at **/papers/<title_slug>**.
@@ -60,11 +50,6 @@ class PaperDetailView(DetailView):
     slug_field = "title_slug"
     slug_url_kwarg = "title_slug"
     template_name = "paper-detail.html"
-    
-    def render_to_response(self, context, **kwargs):
-        '''The render_to_response for this view is over-ridden to add the api_keys context processor.'''
-        return super(PaperDetailView, self).render_to_response(
-                RequestContext(self.request, context, processors=[api_keys]), **kwargs)
                 
 class PaperCreate(PermissionRequiredMixin, CreateView):
     '''This view is for creating a new :class:`~papers.models.Publication`.
