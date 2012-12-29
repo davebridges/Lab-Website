@@ -58,6 +58,7 @@ class Publication(models.Model):
     type = models.CharField(choices = PUBLICATION_TYPES, max_length=20, blank=True, null=True)
     laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
     interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
+    publication_date = models.DateField(help_text="The official publicaiton date of the paper", blank=True, null=True)
     date_last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)    
     
@@ -86,7 +87,7 @@ class Publication(models.Model):
         
     class Meta:
         '''The meta options for the :class:`papers.models.Publicaiton` model is ordering set by publication year then secondarily by the date the publication was added to the database.'''
-        ordering = ['-year', 'date_added']
+        ordering = ['-publication_date', '-year', 'date_added']
         
         
 class AuthorDetails(models.Model):
