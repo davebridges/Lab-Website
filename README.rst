@@ -24,8 +24,8 @@ This project also includes links to three other apps which would have to be inst
 
 * Blog: any blogging software served at http://yourserver/blog
 * Protocol Wiki: a wikimedia based protocol site served at http://yourserver/wiki
-* MouseDB: a database for animal colony management which can optionally be served at http://yoursever/mousedb.  Based on software available at http://davebridges.github.com/mousedb
-* ExperimentDB: a data and laboratory inventory management tool which can optionally be served at http://yourserver/experimentdb.  Uses software available at http://davebridges.github.com/experimentdb
+* MouseDB: a database for animal colony management which can optionally be served at http://yoursever/mousedb.  Based on software available at http://github.com/davebridges/mousedb
+* ExperimentDB: a data and laboratory inventory management tool which can optionally be served at http://yourserver/experimentdb.  Uses software available at https://github.com/davebridges/ExperimentDB
 
 Installation and Setup
 ======================
