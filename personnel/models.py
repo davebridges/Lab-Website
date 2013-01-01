@@ -40,6 +40,10 @@ class Person(models.Model):
     birthdate = models.DateField(blank=True, null=True)
     home_address = models.ForeignKey('Address', blank=True, null=True, related_name='home-address')
     work_address = models.ForeignKey('Address', blank=True, null=True, related_name='work-address')
+    #these fields describe social networking usernames or id numbers
+    google_plus_user_id = models.CharField(max_length=25, blank=True, null=True, verbose_name="Google Plus Id")
+    twitter_username = models.CharField(max_length=15, blank=True, null=True)
+    facebook_user_id = models.CharField(max_length=15, blank=True, null=True)
     #these fields describe the role while in the laboratory or either before/after their time there.
     current_lab_member = models.BooleanField()
     lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab-role')
