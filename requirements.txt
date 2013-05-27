@@ -1,0 +1,7 @@
+Django==1.4.1
+South
+PIL
+django-tastypie
+Sphinx
+lxml
+httplib2
