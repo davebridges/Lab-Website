@@ -1,0 +1,98 @@
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8" />
+
+<link rel="stylesheet" href="{{STATIC_URL}}css/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="{{STATIC_URL}}css/print.css" type="text/css" media="print"> 
+<!--[if lt IE 8]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+<link rel="stylesheet" href="{{STATIC_URL}}css/custom.css" type="text/css" media="screen"> 
+
+<link rel="stylesheet" href="{{STATIC_URL}}css/isotope.css" type="text/css" media="screen">
+<!-- This is for linking a google plus profile to this website --!>
+<link href="https://plus.google.com/{{google_plus}}" rel="publisher" />
+{% include "jquery_script.html" %}
+<script src="{{STATIC_URL}}javascript/jquery.isotope.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(window).load(function(){
+    var $container = $('.isotope-container');
+    $container.isotope({
+        sortyBy: 'random',
+        masonryHorizontal: '*',
+        filter: '*',
+        animationOptions: {
+            duration: 750,
+            easing: 'linear',
+            queue: false
+        }
+    });
+ 
+    $('.itemFilter a').click(function(){
+        $('.itemFilter .current').removeClass('current');
+        $(this).addClass('current');
+ 
+        var selector = $(this).attr('data-filter');
+        $container.isotope({
+            filter: selector,
+            animationOptions: {
+                duration: 750,
+                easing: 'linear',
+                queue: false
+            }
+         });
+         return false;
+    }); 
+});
+</script>
+</head>
+
+<title>Bridges Lab Homepage</title>
+
+<body>
+<h1>Welcome to the Bridges Lab</h1>
+ 
+{% block content %} 
+<div class="isotope-container">
+ 
+        <img class='isotope-item pictures information' src='{{ general_data.cover.source }}'>
+        <p class='isotope-item information'>{{ general_data.about }}</p>
+        <p class='isotope-item papers'>{{ data.about }}</p>  
+        
+        {% for milestone in milestones.data %}                 
+        <p class='isotope-item information'>{{ milestone.title }} on {{ milestone.end_time|truncatechars:13 }}</p>
+        {% endfor %}
+        
+        {% for post in posts.data %}
+        <div class='isotope-item posts'>
+        <a href="https://facebook.com/{{ post.id }}" class="plain-link">   
+        {% if post.picture %}<img src='{{post.picture}}' alt='Image from Post'>{% endif %}              
+        <p>{{ post.message }}</p>
+        </a>
+        </div>
+        {% endfor %}
+         
+        {% for picture in photos.data %}         
+        <img src="{{ picture.source }}" alt='Image' class='pictures'>
+        {% endfor %}      
+</div>
+
+
+<div class="itemFilter">
+ 
+    <a href="#" data-filter="*" class="current">All Categories</a>
+    <a href="#" data-filter=".pictures">Images</a>
+    <a href="#" data-filter=".posts">Recent Posts</a>
+    <a href="#" data-filter=".information">Information</a>  
+    <a href="#" data-filter=".papers">Publications</a>        
+ 
+</div>
+{% endblock content %}
+
+</body>
+
+</html>
