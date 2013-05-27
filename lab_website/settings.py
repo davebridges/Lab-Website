@@ -49,7 +49,6 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-AUTH_PROFILE_MODULE = 'personnel.Person'
 ROOT_URLCONF = 'lab_website.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
