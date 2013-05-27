@@ -5,10 +5,23 @@ Installation and Setup
 ======================
 1. Clone or download this code and extract it somewhere on your system.
 2. Inside the lab_website directory, open **localsettings_empty.py** with a text editor and fill in **'django.db.backends.sqlite3'** under DATABASES... ENGINE and enter a location for your SQLite database to be stored under NAME.  To use other database types see the `Django Documentation on Databases <https://docs.djangoproject.com/en/1.4/ref/databases/>`_.
-3. Optional:  Fill in the the ADMINS, TIME_ZONE and LANGUAGE_CODE as needed.
+3. Optional:  Fill in the the ADMINS, TIME_ZONE and LANGUAGE_CODE as needed.  
+4. Save this file as **localsettings.py** in the same directory.
 4. Run the following command within the Lab Website directory to populate the database.  Enter the superuser information when prompted::
 
+    python manage.py schemamigration communication --initial
+    python manage.py schemamigration papers --initial
+    python manage.py schemamigration personnel --initial
+    python manage.py migrate
     python manage.py syncdb
+    
+Testing
+--------
+Run the test suite with::
+
+    python manage.py test
+    
+In localsettings.py, set Debug=FALSE when you have verified everything is working.    
     
 Dependencies and Other Apps
 ===========================
