@@ -11,13 +11,8 @@ The current version uses Python 2.7 and Django 1.4.
 
 There are three python package dependencies, South, PIL and django-tastypie.  If you want to be able to update the documentation you will also need to install Sphinx.  This can be installed with pip by entering on a command line:: 
 
-    pip install South
-    pip install PIL
-    pip install django-tastypie
-    pip install Sphinx
-    pip install lxml
-    pip install httplib2
-
+    pip install -r requirements.txt
+    
 Another python package dependency is the python-oauth2 library.  This can be downloaded and installed from https://github.com/brosner/python-oauth2.
 
 This project also includes links to three other apps which would have to be installed and configured separately:
@@ -29,7 +24,7 @@ This project also includes links to three other apps which would have to be inst
 
 Installation and Setup
 ======================
-1. Clone or download the code and extract it somewhere on your system.
+1. Clone or download this code and extract it somewhere on your system.
 2. Inside the lab_website directory, open **localsettings_empty.py** with a text editor and fill in **'django.db.backends.sqlite3'** under DATABASES... ENGINE and enter a location for your SQLite database to be stored.  To use other database types see the `Django Documentation on Databases <https://docs.djangoproject.com/en/1.4/ref/databases/>`_.
 3. Optional:  Fill in the the ADMINS, TIME_ZONE and LANGUAGE_CODE as needed.
 4. Run the following command within the Lab Website directory to populate the database.  Enter the superuser information when prompted::
