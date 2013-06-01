@@ -63,6 +63,12 @@ $(window).load(function(){
         <p class='isotope-item information'>{{ general_data.about }}</p>
         <p class='isotope-item papers'>{{ data.about }}</p>  
         
+
+        {% for paper in papers %}
+        <div class='isotope-item papers'>{% include 'paper-detail-snippet.html'%}</div>
+        {% endfor %}
+                
+        
         {% for milestone in milestones.data %}                 
         <p class='isotope-item information'>{{ milestone.title }} on {{ milestone.end_time|truncatechars:13 }}</p>
         {% endfor %}
@@ -83,19 +89,15 @@ $(window).load(function(){
         <img src="{{ picture.source }}" alt='Image' class='pictures' id='{{ picture.updated_time }}'>
         {% endfor %}      
 
-        {% for paper in papers %}
-        <div class='isotope-item papers' id='publication_date'>{% include 'paper-detail-snippet.html'%}</div>
-        {% endfor %}
-        
         {% for tweet in tweets %}
         <script type="text/javascript">
             var tweet_url = "https://api.twitter.com/1/statuses/oembed.json?id={{ tweet.id }}&callback=?"
             $.getJSON(tweet_url, function(data) {
-	        $(data.html).appendTo('#{{tweet.created_at}}');
+	        $(data.html).appendTo('#tweet-{{tweet.id}}');
 });
 </script> 
         
-        <div id='{{tweet.created_at}}' class='isotope-item posts'></div>
+        <div id='tweet-{{tweet.id}}' class='isotope-item posts'></div>
         {% endfor %}
 </div>
 
