@@ -1,6 +1,6 @@
 <div class ="paper box">
 {% for author in paper.authors.all %}
-{% if forloop.revcounter = 1 %} and {% endif %} <a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author }}</a>{% if forloop.revcounter > 2 %}, {% endif %}{% if forloop.last %}.{% endif %} 
+{% if forloop.revcounter = 1 %} and {% endif %} {% if author.author.current_lab_member %}<a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author }}</a>{% else %}{{ author }}{% endif %}{% if forloop.revcounter > 2 %}, {% endif %}{% if forloop.last %}.{% endif %} 
 {% endfor %}
 <a href='{{ paper.get_absolute_url }}' class="plain-link">{{ paper }}</a>  {{ paper.year }}. {{ paper.volume }}{% if paper.issue %}({{ paper.issue }}){% endif %}:{{ paper.pages }}  <a href="{{ paper.doi_link }}">Full Text</a>.  <a href='{{ paper.get_absolute_url }}'>Details</a>.
 </div>
