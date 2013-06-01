@@ -5,3 +5,4 @@ django-tastypie
 Sphinx
 lxml
 httplib2
+tweepy
