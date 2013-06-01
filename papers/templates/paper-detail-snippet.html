@@ -3,5 +3,4 @@
 {% if forloop.revcounter = 1 %} and {% endif %} <a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author }}</a>{% if forloop.revcounter > 2 %}, {% endif %}{% if forloop.last %}.{% endif %} 
 {% endfor %}
 <a href='{{ paper.get_absolute_url }}' class="plain-link">{{ paper }}</a>  {{ paper.year }}. {{ paper.volume }}{% if paper.issue %}({{ paper.issue }}){% endif %}:{{ paper.pages }}  <a href="{{ paper.doi_link }}">Full Text</a>.  <a href='{{ paper.get_absolute_url }}'>Details</a>.
-<div class="impactstory-embed" data-id="{{ paper.doi }}" data-id-type="doi" data-api-key="{{ impact_story_api_key }}" data-badge-type="icon" data-show-logo=FALSE></div>
 </div>

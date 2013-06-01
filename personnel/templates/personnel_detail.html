@@ -42,7 +42,12 @@ $('#image').attr('src', link);
 <h2>Publications</h2>
 {% for detail in person.authordetails_set.all %}
 {% for paper in detail.publication_set.all %}
+<div class="span-8">
 {% include "paper-detail-snippet.html" %}
+</div>
+<div class="span-4">
+{% include "impact_story_snippet_small.html" %}
+</div>
 {% endfor %}
 {% endfor %}
 {% endblock %}

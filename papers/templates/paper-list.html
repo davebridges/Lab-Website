@@ -16,6 +16,11 @@
 <h2>{{ publication_list.count }} papers {% if paper_list_type == "laboratory" %}<a href="{% url lab-papers-feed %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
 {% if paper_list_type == "interesting" %}<a href="{% url interesting-papers-feed %}><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h2>
 {% for paper in publication_list %}
+<div class="span-8">
 {% include "paper-detail-snippet.html" %}
+</div>
+<div class="span-4">
+{% include "impact_story_snippet_small.html" %}
+</div>
 {% endfor %}
 {% endblock %}
