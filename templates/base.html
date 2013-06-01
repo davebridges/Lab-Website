@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8" />
 
+<meta property="fb:app_id" content="{{ fb_app_id }}" />
+<meta property="fb:admins" content="{{ fb_admins }}" />
+
 <link rel="stylesheet" href="{{STATIC_URL}}css/screen.css" type="text/css" media="screen, projection">
 <link rel="stylesheet" href="{{STATIC_URL}}css/print.css" type="text/css" media="print"> 
 <!--[if lt IE 8]>
@@ -89,7 +92,7 @@
 <a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="{{twitter}}" data-url="{{request.get_full_path}}">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 <div class="span-3" id="facebook-like">
-<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{{request.get_full_path}}" layout="box_count" show_faces="true" width="450" font="lucida grande"></fb:like>
+<div class="fb-like" data-href="{{request.get_host}}" data-send="false" data-width="450" data-show-faces="true" data-font="lucida grande" data-layout="box_count"></div>
 </div>
 <div class="span-3" id="linkedin-like">
 <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-counter="top"></script>
