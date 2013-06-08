@@ -9,6 +9,32 @@
 {% endblock %}
 
 {% block content %}
+<section id="summary" class="span-12">
+<h2>Project Summary</h2>
+<p>{{ project.summary }}</p>
+</section>
+
+<section id="personnel" class="span-6">
+<h2>Who is Working on This?</h2>
+<ul>
+{% for person in project.current_personnel.all %}
+<li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+{% endfor %}
+</ul>
+</section>
+
+<section id="publications" class="span-6">
+<h2>Publications</h2>
+<h3>What Have We Published on This Topic?</h3>
+{% for paper in project.publications.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
+<h3>What Are Some other Key Papers on This Topic?</h3>
+{% for paper in project.other_publications.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
+</section>
+
 <section id="comments class="span-12">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}

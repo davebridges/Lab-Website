@@ -47,12 +47,12 @@ class Project(models.Model):
         blank=True,
         null=True,
         help_text = "What papers have we written for this project?",
-        related_name="publications_set")
+        related_name="publications")
     other_publications = models.ManyToManyField(Publication,
         blank=True,
         null=True,
         help_text = "What key papers have others written about this project?",
-        related_name ="other_publications_set") 
+        related_name ="other_publications") 
            
     #these fields are automatically generated.    
     date_last_modified = models.DateField(auto_now=True)
