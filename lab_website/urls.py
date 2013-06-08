@@ -1,6 +1,8 @@
 '''This package has the url encodings for the main app.'''
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 from tastypie.api import Api
 
@@ -53,5 +55,5 @@ urlpatterns = patterns('',
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     (r'^$', IndexView.as_view())
-    )
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
