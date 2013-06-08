@@ -6,3 +6,4 @@ Sphinx
 lxml
 httplib2
 tweepy
+defusedxml
