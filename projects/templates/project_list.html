@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block scripts %}
-<link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% url projects-feed %}">
+<link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% url 'projects-feed' %}">
 {% endblock scripts %}
 
 {% block title %}
