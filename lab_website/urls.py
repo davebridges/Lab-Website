@@ -8,6 +8,7 @@ from communication.views import FeedDetailView
 
 from personnel.sitemap import LabPersonnelSitemap
 from papers.sitemap import LabPublicationsSitemap
+from projects.sitemap import ProjectsSitemap
 
 from papers.api import PublicationResource
 from papers.feeds import LabPapersFeed, InterestingPapersFeed
@@ -20,7 +21,8 @@ v1_api.register(PublicationResource())
 #this dictionary lists sitemap files which will be generated.
 sitemaps = {
     'personnel': LabPersonnelSitemap,
-    'papers': LabPublicationsSitemap
+    'papers': LabPublicationsSitemap,
+    'projects': ProjectsSitemap
     }
 
 # Uncomment the next two lines to enable the admin:
