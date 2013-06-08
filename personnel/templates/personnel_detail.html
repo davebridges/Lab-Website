@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 {% block scripts %}
 <script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
-<script type='text/javascript'>
-// get the email
-$(document).ready(function () {
-var email = '{{ person.email }}';
-var hash = CryptoJS.MD5(email);
-var link = 'http://www.gravatar.com/avatar/' + hash + '?s=150&d=mm';
-// set the size as whatever you like (1-2048)
-$('#image').attr('src', link);
-});
 </script>
 <script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
 {% endblock %}
@@ -26,14 +17,22 @@ $('#image').attr('src', link);
 <meta itemprop='givenName' content='{{ person.first_name }}' />
 <meta itemprop='name' content='{{ person }}' />
 <section id='bio' class='container'>
-{% if person.email %}
-<img id='image' alt='{{ person }} Image' src='{{ STATIC_URL }}img/ajax-loader.gif'/>
+{% if person.image %}
+<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='span-6'/>
 {% endif %}
 <div class='span-6' id='details'>
-<h2>Details</h2>
 <dl>
+    {% if person.lab_roles.all %}
+    <dt>Position</dt>
+    <dd>
+    {% for role in person.lab_roles.all %}
+    {{ role|safe }}.<br/>
+    {% endfor %}
+    {% endif %}
+    {% if person.email %}
 	<dt>Email</dt>
 	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
+	{% endif %}
 </dl>
 </div>
 </section>
