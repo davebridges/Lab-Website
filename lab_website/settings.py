@@ -61,6 +61,7 @@ TEMPLATE_DIRS = (
     'communication/templates',
     'papers/templates',
     'personnel/templates',
+    'projects/templates',
     'templates'
 )
 
@@ -81,6 +82,7 @@ INSTALLED_APPS = (
     'personnel',
     'communication',
     'papers',
+    'projects',
     'south',
     'debug_toolbar',
     'tastypie'
