@@ -11,7 +11,9 @@ from papers.sitemap import LabPublicationsSitemap
 from projects.sitemap import ProjectsSitemap
 
 from papers.api import PublicationResource
+
 from papers.feeds import LabPapersFeed, InterestingPapersFeed
+from projects.feeds import ProjectsFeed
 
 from views import IndexView
 
@@ -43,6 +45,7 @@ urlpatterns = patterns('',
     url(r'^feeds/?$', FeedDetailView.as_view(), name="feed-details"),
     url(r'^feeds/lab-papers/?$', LabPapersFeed(), name="lab-papers-feed"),
     url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
+    url(r'^feeds/projects/?', ProjectsFeed(), name="projects-feed"),
        
     (r'^api/',include(v1_api.urls)),   
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),

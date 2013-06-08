@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block scripts %}
+<link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% url projects-feed %}">
+{% endblock scripts %}
+
 {% block title %}
 <title>Current Projects in the Lab</title>
 {% endblock %}
@@ -9,9 +13,14 @@
 {% endblock %}
 
 {% block content %}
+<section id="projects">
 {% for project in project_list %}
+<article id="{{ project.title_slug }}">
 <h2>
-<a class="large" href="{{ project.get_absolute_url }}">{{ project }}<a>
+<a class="large plain-link" href="{{ project.get_absolute_url }}">{{ project }}</a>
 </h2>
+<p>{{ project.summary }}</p>
+</article>
 {% endfor %}
+</section>
 {% endblock content %}

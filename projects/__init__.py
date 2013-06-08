@@ -8,6 +8,7 @@ Current Functionality
 * Projects will also link to the people working on that project (see the :mod:`personnel` app).
 * Projects will also link to publications (see the :mod:`papers` app).
 * Shows up in the website's sitemap.
+* Projects show up in the lab projects RSS feeds.
 
 Longer Term Goals
 =================
