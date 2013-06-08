@@ -32,9 +32,11 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    
     url(r'^communication/', include('communication.urls')), 
     url(r'^papers/', include('papers.urls')),
     url(r'^people/', include('personnel.urls')),
+    url(r'^projects/', include('projects.urls')),
     
     url(r'^feeds/?$', FeedDetailView.as_view(), name="feed-details"),
     url(r'^feeds/lab-papers/?$', LabPapersFeed(), name="lab-papers-feed"),
