@@ -3,16 +3,15 @@
 
 {% endblock %}
 
-{% block title %}<title>Personnel</title>{% endblock %}
+{% block title %}<title>Members of the {{ lab_name }}</title>{% endblock %}
 
 {% block header %}
-<h1>Personnel</h1>
+<h1>Members of the {{ lab_name }}</h1>
 {% endblock %}
 
 {% block content %}
 <ul>
 {% for person in personnel %}
-<li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+{% include 'personnel_snippet.html' %}
 {% endfor %}
-</ul>
 {% endblock %}

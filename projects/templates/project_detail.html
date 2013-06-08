@@ -17,11 +17,9 @@
 {% if project.publications.all.count > 0 %}
 <section id="personnel" class="span-12">
 <h2>Who is Working on This?</h2>
-<ul>
 {% for person in project.current_personnel.all %}
-<li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+{% include 'personnel_snippet.html' %}
 {% endfor %}
-</ul>
 </section>
 {% endif %}
 
