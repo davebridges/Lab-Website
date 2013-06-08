@@ -14,7 +14,8 @@
 <p>{{ project.summary }}</p>
 </section>
 
-<section id="personnel" class="span-6">
+{% if project.publications.all.count > 0 %}
+<section id="personnel" class="span-12">
 <h2>Who is Working on This?</h2>
 <ul>
 {% for person in project.current_personnel.all %}
@@ -22,8 +23,10 @@
 {% endfor %}
 </ul>
 </section>
+{% endif %}
 
-<section id="publications" class="span-6">
+{% if project.publications.all.count > 0 %}
+<section id="publications" class="span-12">
 <h2>Publications</h2>
 <h3>What Have We Published on This Topic?</h3>
 {% for paper in project.publications.all %}
@@ -34,6 +37,7 @@
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
+{% endif %}
 
 <section id="comments class="span-12">
 <h2>Comments</h2>
