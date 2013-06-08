@@ -1,0 +1,19 @@
+[
+    {
+        "pk": 1, 
+        "model": "projects.project", 
+        "fields": {
+            "other_publications": [], 
+            "date_last_modified": "2013-06-08", 
+            "title_slug": "fixture-project", 
+            "title": "Fixture Project", 
+            "current_personnel": [], 
+            "summary": null, 
+            "priority": null, 
+            "publications": [], 
+            "date_added": "2013-06-08", 
+            "past_personnel": [], 
+            "start_date": null
+        }
+    }
+]

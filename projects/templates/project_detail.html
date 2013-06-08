@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ project }}</title>
+{% endblock %}
+
+{% block header %}
+<h1>{{ project }}</h1>
+{% endblock %}
+
+{% block content %}
+<section id="comments class="span-12">
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
+</section>
+{% endblock content %}
