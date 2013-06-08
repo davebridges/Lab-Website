@@ -17,3 +17,8 @@ localsettings.py
 
 #migrations
 *migration*
+
+#images embedded in photos folder
+photos/
+media/
+static/
