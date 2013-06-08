@@ -49,7 +49,7 @@ class ProjectModelTests(TestCase):
         '''This test creates a :class:`~projects.models.Project` with the required information only.'''
         test_project = Project(title='Test Project.')
         test_project.save()
-        self.assertEqual(test_project.pk, 3)
+        self.assertEqual(test_project.pk, 2)
         
     def test_create_new_project_all(self):
         '''This test creates a `:class:~projects.models.Project` with the required information only.'''
@@ -58,18 +58,18 @@ class ProjectModelTests(TestCase):
         
     def test_project_unicode(self):
         '''This tests the unicode representation of a :class:`~projects.models.Project`.'''
-        test_project = Project.objects.get(title_slug='Test Project')
-        self.assertEqual(test_project.__unicode__(), "Test Project")
+        test_project = Project.objects.get(title_slug='fixture-project')
+        self.assertEqual(test_project.__unicode__(), "Fixture Project")
         
     def test_project_title_slug(self):
         '''This tests the title_slug field of a :class:`~projects.models.Project`.'''
         test_project = Project(title='Test Project.')
         test_project.save()
-        self.assertEqual(test_publication.title_slug, "test-project")  
+        self.assertEqual(test_project.title_slug, "test-project")  
         
     def test_project_absolute_url(self):
-        '''This tests the title_slug field of a :class:`~papers.models.Publication`.'''
-        test_project = Publication(title='Test Project', laboratory_paper=True)
+        '''This tests the title_slug field of a :class:`~projects.models.Project`.'''
+        test_project = Project(title='Test Project')
         test_project.save()
         self.assertEqual(test_project.get_absolute_url(), "/projects/test-project") 
                           
@@ -136,16 +136,14 @@ class ProjectViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/fixture-project')
+        test_response = self.client.get('/projects/fixture-project')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
-        self.assertTemplateUsed(test_response, 'project-detail.html')
+        self.assertTemplateUsed(test_response, 'project_detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
-        self.assertTemplateUsed(test_response, 'paper_sharing_widgets.html')
-        self.assertTemplateUsed(test_response, 'altmetric_snippet.html')                        
+        self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
         self.assertEqual(test_response.context['project'].pk, 1)
         self.assertEqual(test_response.context['project'].title, u'Fixture Project')
         
@@ -157,11 +155,10 @@ class ProjectViewTests(TestCase):
         test_response = self.client.get('/projects/')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project_list' in test_response.context)        
-        self.assertTemplateUsed(test_response, 'project-list.html')
+        self.assertTemplateUsed(test_response, 'project_list.html')
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html')   
-        self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')
         self.assertEqual(test_response.context['project_list'][0].pk, 1)
         self.assertEqual(test_response.context['project_list'][0].title, u'Fixture Project')  
         
@@ -178,11 +175,11 @@ class ProjectViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'jquery_script.html')           
 
     def test_publication_view_edit(self):
-        """This tests the paper-edit view, ensuring that templates are loaded correctly.  
+        """This tests the project-edit view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/fixture-project/edit/')
+        test_response = self.client.get('/projects/fixture-project/edit/')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -201,7 +198,7 @@ class ProjectViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/fixture-project/delete/')
+        test_response = self.client.get('/projects/fixture-project/delete/')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
