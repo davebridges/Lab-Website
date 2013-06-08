@@ -9,6 +9,7 @@ Current Functionality
 * Projects will also link to publications (see the :mod:`papers` app).
 * Shows up in the website's sitemap.
 * Projects show up in the lab projects RSS feeds.
+* There is an API estabished which serves :class:`~projects.models.Project` information in json or xml format.  See :mod:`projects.api` for details.
 
 Longer Term Goals
 =================
@@ -19,5 +20,4 @@ Longer Term Goals
 * Potentially convert to a facebook app with custom actions and objects.
 * Markup with opengraph tags and incorporate twitter cards.
 * Projects are marked up with microdata markup from http://schema.org.  
-* There is an API estabished which serves some :class:`~projects.models.Projects` information in json or xml format.  See :mod:`projects.api` for details.
 '''
