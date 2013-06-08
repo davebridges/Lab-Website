@@ -14,6 +14,7 @@ from projects.sitemap import ProjectsSitemap
 
 from papers.api import PublicationResource
 from projects.api import ProjectResource
+from personnel.api import PersonnelResource
 
 from papers.feeds import LabPapersFeed, InterestingPapersFeed
 from projects.feeds import ProjectsFeed
@@ -23,6 +24,7 @@ from views import IndexView
 v1_api = Api(api_name='v1')
 v1_api.register(PublicationResource())
 v1_api.register(ProjectResource())
+v1_api.register(PersonnelResource())
 
 #this dictionary lists sitemap files which will be generated.
 sitemaps = {
