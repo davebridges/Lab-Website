@@ -34,7 +34,9 @@ class Person(models.Model):
     phone = models.CharField(max_length=40, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     website = models.URLField(help_text='Personal Website', null=True, blank=True)
-    image = models.ImageField(upload_to='photos/%Y/%m/%d', blank=True, null=True)
+    image = models.ImageField(upload_to='photos/%Y/%m/%d', 
+        blank=True, 
+        null=True)
     degrees = models.ManyToManyField('Degree', help_text="Graduate and Undergraduate Degrees", blank=True, null=True)
     awards = models.ManyToManyField('Award', blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
@@ -93,13 +95,17 @@ class Role(models.Model):
     
     A laboratory member could have one or more Roles over time.'''
     job_type = models.ForeignKey('JobType', max_length=50)
-    start_date = models.DateField()
+    start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     graduation_status = models.NullBooleanField(help_text='It this was a student role, did this person graduate?')
     graduation_date = models.DateField(blank=True, null=True)
     degree = models.ManyToManyField('Degree', blank=True, null=True)  
     organization = models.ForeignKey('Organization')
     public = models.BooleanField(help_text='Should this role be displayed publicly?')
+    
+    def __unicode__(self):
+        '''The unicode representation for a Role object is the jobtype'''
+        return u"<strong>%s</strong>, %s" %(self.job_type, self.organization)
     
 class JobType(models.Model):
     '''This model describes specific jobs.
@@ -110,6 +116,10 @@ class JobType(models.Model):
     trainee_status = models.BooleanField(help_text='Is this person a trainee?', verbose_name="Trainee?")    
     student_status = models.BooleanField(help_text='Is this person a student?', verbose_name="Student?")    
     employee_status = models.BooleanField(help_text='Is this person an employee?', verbose_name="Employee?")
+    
+    def __unicode__(self):
+        '''The unicode representation for a JobType object is the title'''
+        return u'%s' %self.job_title
         
 class Degree(models.Model):
     '''This model describes degrees, undergraduate and graduate.
@@ -126,8 +136,16 @@ class Award(models.Model):
     
 class Organization(models.Model):
     '''This class describes an business, institution or other organization.'''   
-    name = models.CharField(max_length=100, unique=True)
-    type = models.CharField(choices=ORGANIZATION_TYPE_CHOICES, max_length=100)  
+    name = models.CharField(max_length=100, 
+        unique=True, 
+        help_text="Name of the University or Institute")
+    department = models.CharField(max_length=100,
+        help_text="Name of the Department or Group")
+    type = models.CharField(choices=ORGANIZATION_TYPE_CHOICES, max_length=100)
+    
+    def __unicode__(self):
+        '''The unicode representation for an Organization object is the department and the institution separated by a linebreak'''
+        return u'%s, %s' %(self.department, self.name,)
     
 class Address(models.Model):
     '''This class describes an address.'''
