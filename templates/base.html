@@ -14,16 +14,6 @@
 <link rel="stylesheet" href="{{STATIC_URL}}css/custom.css" type="text/css" media="screen"> 
 <!-- This is for linking a google plus profile to this website --!>
 <link href="https://plus.google.com/{{google_plus}}" rel="publisher" />
-<!-- This script is for rendering the follow on Google Plus Button -->
-<script type="text/javascript">
-	window.___gcfg = {lang: 'en'};
-	(function() 
-	{var po = document.createElement("script");
-	po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
-	var s = document.getElementsByTagName("script")[0];
-	s.parentNode.insertBefore(po, s);
-	})();
-</script>
 {% include "twitter_anywhere_script.html" %}
 {% include "jquery_script.html" %}
 
@@ -38,6 +28,19 @@
 <div id="fb-root"></div>
 <script type="text/javascript" src="{{STATIC_URL}}javascript/facebook_sdk.js"></script>
 <header class="span-24">
+{% block navbar %}
+<div class="span-24 container" id="navbar">
+<nav>
+<ul id="navbar">
+<li class="span-5 colborder first"><a href="{% url 'laboratory-personnel' %} ">People</a></li>
+<li class="span-5 colborder"><a href="{% url 'project-list' %}">Projects</a></li>
+<li class="span-5 colborder"><a href="/research">Location</a></li>
+<li class="span-6 last"><a href="/communication">Contact</a></li>
+</ul>
+<hr/>
+{% block sidebar-insertion %}
+{% endblock %}
+
 {% block header %}
 
 {% endblock %}
@@ -52,26 +55,7 @@
 
 </header>
 
-{% block navbar %}
-<div class="span-8">
-<nav>
-<ul id="navbar">
-<li><a href="{% url 'laboratory-personnel' %} ">Who Are We?</a></li>
-<li><a href="{% url 'project-list' %}">What Do We Do?</a></li>
-<li><a href="/research">Where Can you Find Us?</a></li>
-<li><a href="/communication">What are We Talking About?</a></li>
-</ul>
-{% block sidebar-insertion %}
-{% endblock %}
-<div id="follow-buttons">
-<h2>Follow Us:</h2>
-<div class="fb-like-box" data-href="http://www.facebook.com/{{facebook}}" data-width="300" data-show-faces="true" data-stream="false" data-header="false" data-border-color="gainsboro"></div>
-<div class="g-plus" data-href="https://plus.google.com/{{google_plus}}?rel=author" data-width="300" data-height="69"></div>
-<div class="twitter">
-<a href="https://twitter.com/{{twitter}}" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @{{twitter}}</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
-</div>
+
 </nav>
 </div>
 {% endblock %}
@@ -83,21 +67,21 @@
 </div>
 
 <hr />
-<footer class="span-24">
-<div class="span-3" id="google-plus">
+<footer class="span-24 container">
+<div class="span-5" id="google-plus">
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 <g:plusone href="{{request.get_full_path}}" size="tall" annotation="bubble"></g:plusone>
 </div>
-<div class="span-3" id="twitter">
+<div class="span-4" id="twitter">
 <a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="{{twitter}}" data-url="{{request.get_full_path}}">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
-<div class="span-3" id="facebook-like">
+<div class="span-4" id="facebook-like">
 <div class="fb-like" data-href="{{request.get_host}}" data-send="false" data-width="450" data-show-faces="true" data-font="lucida grande" data-layout="box_count"></div>
 </div>
-<div class="span-3" id="linkedin-like">
+<div class="span-4" id="linkedin-like">
 <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-counter="top"></script>
 </div>
-<div class="span-3">
+<div class="span-4 last">
 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
 </div>
 {% block footer %}

@@ -9,13 +9,14 @@
 {% endblock %}
 
 {% block content %}
-<section id="summary" class="span-12">
+<article class="container append-2 prepend-2 span-20">
+<section id="summary" class="span-20">
 <h2>Project Summary</h2>
 <p>{{ project.summary }}</p>
 </section>
 
 {% if project.publications.all.count > 0 %}
-<section id="personnel" class="span-12">
+<section id="personnel" class="span-20">
 <h2>Who is Working on This?</h2>
 {% for person in project.current_personnel.all %}
 {% include 'personnel_snippet.html' %}
@@ -24,21 +25,26 @@
 {% endif %}
 
 {% if project.publications.all.count > 0 %}
-<section id="publications" class="span-12">
+<section id="publications" class="span-20 container">
 <h2>Publications</h2>
+<section class="span-9 border first">
 <h3>What Have We Published on This Topic?</h3>
 {% for paper in project.publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
+</section>
+<section class="span-9 last">
 <h3>What Are Some other Key Papers on This Topic?</h3>
 {% for paper in project.other_publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
+</section>
 {% endif %}
 
-<section id="comments class="span-12">
+<section id="comments class="span-20">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
+</article>
 {% endblock content %}

@@ -12,15 +12,15 @@
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype='http://schema.org/Person'>
+<article itemscope itemtype='http://schema.org/Person' class="prepend-2 span-20 append-2 container">
 <meta itemprop='familyName' content='{{ person.last_name }}' />
 <meta itemprop='givenName' content='{{ person.first_name }}' />
 <meta itemprop='name' content='{{ person }}' />
 <section id='bio' class='container'>
 {% if person.image %}
-<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='span-6'/>
+<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='span-5'/>
 {% endif %}
-<div class='span-6' id='details'>
+<div class='span-15' id='details'>
 <dl>
     {% if person.lab_roles.all %}
     <dt>Position</dt>
@@ -33,6 +33,13 @@
 	<dt>Email</dt>
 	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
 	{% endif %}
+	{% if person.twitter_username %}
+	<dt>Social Media</dt>
+	<dd>
+	<a href="https://twitter.com/{{ person.twitter_username }}" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @{{ person.twitter_username }}</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</dd>
+	{% endif %}
 </dl>
 </div>
 </section>
@@ -41,10 +48,10 @@
 <h2>Publications</h2>
 {% for detail in person.authordetails_set.all %}
 {% for paper in detail.publication_set.all %}
-<div class="span-8">
+<div class="span-14 border first">
 {% include "paper-detail-snippet.html" %}
 </div>
-<div class="span-4">
+<div class="span-4 last">
 {% include "impact_story_snippet_small.html" %}
 </div>
 {% endfor %}

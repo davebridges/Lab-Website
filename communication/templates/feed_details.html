@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block scripts %}
-<link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% 'url projects-feed' %}">
-<link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% 'url lab-papers-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% url 'projects-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}">
 <link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}">
 {% endblock scripts %}
 
@@ -15,13 +15,21 @@
 {% endblock %}
 
 {% block content %}
+<article class="container append-2 prepend-2 span-20">
+
+<section class="span-9 border">
 <h2>Publications</h2>
 <ul>
 <li><a href="{% url 'lab-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers from our lab.</a></li>
 <li><a href="{% url 'interesting-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we are interested in.</a></li>
 </ul>
+</section>
+
+<section class="span-9">
 <h2>Projects</h2>
 <ul>
-<li><a href="{% 'url projects-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Projects we are working on.</a></li>
+<li><a href="{% url 'projects-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Projects we are working on.</a></li>
 </ul>
+</section>
+</article>
 {% endblock %}

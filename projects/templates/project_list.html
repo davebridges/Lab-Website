@@ -13,14 +13,14 @@
 {% endblock %}
 
 {% block content %}
-<section id="projects">
+<article id="projects" class="container append-2 prepend-2 span-20">
 {% for project in project_list %}
-<article id="{{ project.title_slug }}">
+<section id="{{ project.title_slug }}" class="append-2 prepend-2 span-16">
 <h2>
 <a class="large plain-link" href="{{ project.get_absolute_url }}">{{ project }}</a>
 </h2>
 <p>{{ project.summary }}</p>
-</article>
-{% endfor %}
 </section>
+{% endfor %}
+</article>
 {% endblock content %}

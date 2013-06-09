@@ -1,13 +1,15 @@
 <a href="{{ person.get_absolute_url }}" class="plain-link">
-<div class="container span-12">
-<div class="span-4">
-<img src="{{ person.image.url }}" class="span-3"/>
+<section class="container span-20 append-bottom">
+<div class="span-6">
+{% if person.image.url %}
+<img src="{{ person.image }}" alt="{{ person }}" class="span-6" />
+{% endif %}
 </div>
-<div class="span-8 last">
+<div class="span-14 last">
 <h3>{{ person }}</h3>
 <hr/>
 {% for role in person.lab_roles.all %}
 {{ role|safe }}<br/>
 {% endfor %}
-</div>
+</section>
 </a>
