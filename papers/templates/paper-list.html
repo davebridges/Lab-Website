@@ -9,13 +9,12 @@
 {% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}Papers</title>{% endblock %}
 
 {% block header %}
-<h1>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}Papers </h1>
+<h1>{% if paper_list_type == "laboratory" %}Papers <a href="{% url 'lab-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
+{% if paper_list_type == "interesting" %}Interesting Papers <a href="{% url 'interesting-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h1>
 {% endblock %}
 
 {% block content %}
 <article  class="container append-2 prepend-2 span-20">
-<h2>{{ publication_list.count }} papers {% if paper_list_type == "laboratory" %}<a href="{% url 'lab-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
-{% if paper_list_type == "interesting" %}<a href="{% url 'interesting-papers-feed' %}><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h2>
 {% for paper in publication_list %}
 <section>
 <div class="span-14 border first">
