@@ -16,6 +16,14 @@
 <link href="https://plus.google.com/{{google_plus}}" rel="publisher" />
 {% include "twitter_anywhere_script.html" %}
 {% include "jquery_script.html" %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=429957963714035";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 {% block scripts %}
 {% endblock %}
@@ -71,18 +79,18 @@
 <footer class="span-24 container">
 <div class="span-5" id="google-plus">
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<g:plusone href="{{request.get_full_path}}" size="tall" annotation="bubble"></g:plusone>
+<g:plusone href="{{request.get_host}}" size="tall" annotation="bubble"></g:plusone>
 </div>
-<div class="span-4" id="twitter">
-<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="{{twitter}}" data-url="{{request.get_full_path}}">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<div class="span-5" id="twitter">
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="{{twitter}}" data-url="{{request.get_host}}">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
-<div class="span-4" id="facebook-like">
+<div class="span-5" id="facebook-like">
 <div class="fb-like" data-href="{{request.get_host}}" data-send="false" data-width="450" data-show-faces="true" data-font="lucida grande" data-layout="box_count"></div>
 </div>
-<div class="span-4" id="linkedin-like">
+<div class="span-5" id="linkedin-like">
 <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-counter="top"></script>
 </div>
-<div class="span-4 last">
+<div class="span-5 last">
 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
 </div>
 {% block footer %}

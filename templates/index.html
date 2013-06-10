@@ -1,117 +1,31 @@
+{% extends 'base.html' %}
 
-
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-<meta charset="utf-8" />
-
-<link rel="stylesheet" href="{{STATIC_URL}}css/screen.css" type="text/css" media="screen, projection">
-<link rel="stylesheet" href="{{STATIC_URL}}css/print.css" type="text/css" media="print"> 
-<!--[if lt IE 8]>
-  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
-<![endif]-->
-<link rel="stylesheet" href="{{STATIC_URL}}css/custom.css" type="text/css" media="screen"> 
-
-<link rel="stylesheet" href="{{STATIC_URL}}css/isotope.css" type="text/css" media="screen">
-<!-- This is for linking a google plus profile to this website --!>
-<link href="https://plus.google.com/{{google_plus}}" rel="publisher" />
-{% include "jquery_script.html" %}
-<script src="{{STATIC_URL}}javascript/jquery.isotope.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-
-$(window).load(function(){
-    var $container = $('.isotope-container');
-    $container.isotope({
-        sortyBy: 'random',
-        masonry: '*',
-        filter: '*',
-        animationOptions: {
-            duration: 1000,
-            easing: 'linear',
-            queue: false
-        }
-    });
- 
-    $('.itemFilter a').click(function(){
-        $('.itemFilter .current').removeClass('current');
-        $(this).addClass('current');
- 
-        var selector = $(this).attr('data-filter');
-        $container.isotope({
-            filter: selector,
-            animationOptions: {
-                duration: 750,
-                easing: 'linear',
-                queue: false
-            }
-         });
-         return false;
-    }); 
-});
-</script>
-</head>
-
+{% block title %}
 <title>Bridges Lab Homepage</title>
+{% endblock title %}
 
-<body>
-<h1>Welcome to the Bridges Lab</h1>
- 
-{% block content %} 
-<div class="isotope-container">
- 
-        <img class='isotope-item pictures information' src='{{ general_data.cover.source }}'>
-        <p class='isotope-item information'>{{ general_data.about }}</p>
-        <p class='isotope-item papers'>{{ data.about }}</p>  
-        
+{% block content %}
+<article class="span-24 container">
+<h1>Welcome to the {{ lab_name }}</h1> 
+<section id='general-info' class='span-12 first prepend-2 container'>
+<img class='span-12' src='{{ general_data.cover.source }}' alt='Lab Photo'>
+<p class='span-12' style='font-size:large;'>{{ general_data.about }}</p> 
+</section>
 
-        {% for paper in papers %}
-        <div class='isotope-item papers'>{% include 'paper-detail-snippet.html'%}</div>
-        {% endfor %}
-                
-        
-        {% for milestone in milestones.data %}                 
-        <p class='isotope-item information'>{{ milestone.title }} on {{ milestone.end_time|truncatechars:13 }}</p>
-        {% endfor %}
-        
-        {% for post in posts.data %}
-        {% if post.message %}
-        <div class='isotope-item facebook-post posts' id='{{post.updated_time}}'>
-        <a href="https://facebook.com/{{ post.id }}" class="plain-link">   
-        {% if post.picture %}<img src='{{post.picture}}' alt='Image from Post'>{% endif %}              
-        <p>{{ post.message }}</p>
-        </a>
-        </div>
-        {% endif %}
-        {% endfor %}
+<section class='span-8 last append-2'>
+<h2>Find Out More About Us:</h2>
+<ul>
+<li><a class="large" href="{% url 'laboratory-personnel' %}">The members of our group.</a></li>
+<li><a class="large" href="{% url 'project-list' %}">The projects we are working on.</a></li>
+<li><a class="large" href="{% url 'laboratory-papers' %}">Papers we have published.</a></li>
+<li><a class="large" href="/research">Where we are located.</a></li>
+<li><a class="large" href="/communication">How to get a hold of us.</a></li>
+</li>
+</section>
 
-         
-        {% for picture in photos.data %}         
-        <img src="{{ picture.source }}" alt='Image' class='pictures' id='{{ picture.updated_time }}'>
-        {% endfor %}      
-
-        {% for tweet in tweets %}
-        <script type="text/javascript">
-            var tweet_url = "https://api.twitter.com/1/statuses/oembed.json?id={{ tweet.id }}&callback=?"
-            $.getJSON(tweet_url, function(data) {
-	        $(data.html).appendTo('#tweet-{{tweet.id}}');
-});
-</script> 
-        
-        <div id='tweet-{{tweet.id}}' class='isotope-item posts'></div>
-        {% endfor %}
-</div>
-
-
-<div class="itemFilter">
- 
-    <a href="#" data-filter="*" class="current">All Categories</a>
-    <a href="#" data-filter=".pictures">Images</a>
-    <a href="#" data-filter=".posts">Recent Posts</a>
-    <a href="#" data-filter=".information">Information</a>  
-    <a href="#" data-filter=".papers">Publications</a>        
- 
-</div>
+</article>
 {% endblock content %}
+
 
 </body>
 
