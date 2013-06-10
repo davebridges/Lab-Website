@@ -10,9 +10,6 @@ import datetime
 from django.conf import settings
 from django.views.generic.base import View, TemplateView
 
-from papers.models import Publication
-from communication.utilities import twitter_oauth_tweepy
-
 
 class IndexView(TemplateView):
     '''This view redirects to the home page.'''
@@ -50,17 +47,4 @@ class IndexView(TemplateView):
          
         general_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID              
         context['general_data'] = facebook_request(general_request_url)
-        milestone_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID +'/milestones?access_token=' + settings.FACEBOOK_ACCESS_TOKEN           
-        context['milestones'] = facebook_request(milestone_request_url)
-        posts_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID +'/posts?access_token=' + settings.FACEBOOK_ACCESS_TOKEN + '&limit=10'          
-        context['posts'] = facebook_request(posts_request_url)        
-        photos_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ALBUM +'/photos?access_token=' + settings.FACEBOOK_ACCESS_TOKEN + '&limit=10'
-        context['photo_url'] = photos_request_url          
-        context['photos'] = facebook_request(photos_request_url)
-        
-        twitter_api = twitter_oauth_tweepy()
-        twitter_timeline = twitter_api.user_timeline(count=10)
-        context['tweets'] = twitter_timeline
-        
-        context['papers'] = Publication.objects.filter(laboratory_paper=True)
         return context                            
