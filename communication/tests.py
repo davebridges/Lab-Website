@@ -33,7 +33,7 @@ class CommunicationViewTests(BasicTests):
         It also tests whether the correct context is passed (if included).
         his view uses a user with superuser permissions so does not test the permission levels for this view.'''
         
-        test_response = self.client.get('/communication/lab-rules')
+        test_response = self.client.get('/contact/lab-rules')
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_rules.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -47,7 +47,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/communication/twitter')
+        test_response = self.client.get('/contact/twitter')
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'twitter_timeline.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -60,7 +60,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/communication/calendar')
+        test_response = self.client.get('/contact/calendar')
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'calendar.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -74,11 +74,37 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/communication/wikipedia')
+        test_response = self.client.get('/contact/wikipedia')
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'wikipedia_edits.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTrue('google_calendar_id' in test_response.context)                                 
+        self.assertTrue('pages' in test_response.context)                                 
                                 
+    def test_news_view(self):
+        '''This tests the lab-news view.
+        
+        Currently it just ensures that the template is loading correctly.
+        '''
+        test_response = self.client.get('/contact/news')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'lab_news.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTrue('statuses' in test_response.context) 
+        self.assertTrue('links' in test_response.context)           
+        self.assertTrue('milestones' in test_response.context) 
+        
+    def test_contact_page(self):
+        '''This tests the contact-page view.
+        
+        Currently it just ensures that the template is loading correctly.
+        '''
+        test_response = self.client.get('/contact/')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'contact.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')                                           

@@ -6,6 +6,7 @@ import json
 import urllib, urllib2
 import datetime, time
 import tweepy
+import dateutil
 
 from django.conf import settings
 from django.shortcuts import render_to_response
@@ -35,6 +36,32 @@ def generate_twitter_timeline(count):
     #    str_time = time.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
     #    tweet['created_at_cleaned'] = datetime.datetime(*str_time[:6])
     return timeline
+    
+def facebook_status_request(type, max):
+    '''This function takes a request url and token and returns deserialized data.
+        
+    It requires a type (general, milestones or posts) and a maximum number of entries to return
+    '''
+    values = {'access_token':settings.FACEBOOK_ACCESS_TOKEN}
+    params = urllib.urlencode(values)
+    request_url = 'https://graph.facebook.com/'+ settings.FACEBOOK_ID  + '/' + type + '?' + params    
+    request = urllib2.Request(request_url)
+    
+    try:
+        response = urllib2.urlopen(request)
+    except urllib2.URLError, e:
+        if e.code == 404:
+            data = "Facebook API is not Available."
+        else:
+            #this is for a non-404 URLError.
+            data = "Facebook API is not Available."
+    except ValueError:
+            data = "Facebook API is not Available."        
+    else:
+            #successful connection
+            json_data = response.read()
+            data = json.loads(json_data)
+            return data       
     
 def get_wikipedia_edits(username, count):
     '''This function gets the wikipedia edits for a particular user.
@@ -148,8 +175,7 @@ class LabRulesView(TemplateView):
         context['lab_rules'] = lab_rules
         context['lab_rules_source'] = settings.LAB_RULES_FILE
         return context 
-        
-from django.views.generic import TemplateView
+    
 
 class FeedDetailView(TemplateView):
     '''This view redirects to a template describing RSS feeds.'''
@@ -161,4 +187,27 @@ class FeedDetailView(TemplateView):
         context = super(FeedDetailView, self).get_context_data(**kwargs)
         context['google_calendar_id'] = settings.GOOGLE_CALENDAR_ID
         context['wikipedia_username'] = settings.WIKIPEDIA_USERNAME
-        return context                               
+        return context 
+        
+class NewsView(TemplateView):
+    '''This view parses the facebook feed and presents it as laboratory news.
+    '''
+    
+    template_name = "lab_news.html"
+    
+    def get_context_data(self, **kwargs):
+        '''This function adds milestones and posts to the context.'''
+                                              
+        context = super(NewsView, self).get_context_data(**kwargs)
+        context['statuses'] = facebook_status_request('statuses', 100)
+        context['links'] = facebook_status_request('links', 10)
+        milestones = facebook_status_request('milestones', 10)
+        for milestone in milestones['data']:
+            milestone['start_time_cleaned'] = dateutil.parser.parse(milestone['start_time'])
+        context['milestones'] = milestones
+        return context 
+        
+class ContactView(TemplateView):
+    '''This view provides lab-contact information.'''
+    
+    template_name = "contact.html"                                              
