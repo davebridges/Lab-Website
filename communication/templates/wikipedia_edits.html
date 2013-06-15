@@ -6,14 +6,13 @@
 {% block title %}<title>Wikipedia Edits for {{ username }}</title>{% endblock %}
 
 {% block header %}
-<h1>Wikipedia Edits for {{ username }}</h1>
+<h1>Wikipedia Edits for {{ username }} <a href="http://en.wikipedia.org/w/api.php?action=feedcontributions&user={{username}}"><img src="{{STATIC_URL}}img/feed-icon-14x14.png" alt="RSS Icon"></a></h1>
 {% endblock %}
 
 {% block content %}
-<div id="wikipedia">
-Follow edits vis RSS <a href="http://en.wikipedia.org/w/api.php?action=feedcontributions&user={{username}}"><img src="{{STATIC_URL}}img/feed-icon-14x14.png" alt="RSS Icon"></a>
+<article id="wikipedia" class="container append-6 prepend-6 span-12">
 <table>
-<th>Page</th><th>Time</th>
+<th class="large">Page</th><th class="large">Time</th>
 {% for page in pages.query.usercontribs %}
 <tr>
 <td><a href="http://en.wikipedia.org/wiki/{{ page.title|urlencode }}">{{ page.title }}</a></td>
@@ -21,5 +20,5 @@ Follow edits vis RSS <a href="http://en.wikipedia.org/w/api.php?action=feedcontr
 </tr>
 {% endfor %}
 </table>
-</div>
+</article>
 {% endblock %}
