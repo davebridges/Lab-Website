@@ -30,6 +30,11 @@
 <ul>
 <li><a href="{% url 'projects-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Projects we are working on.</a></li>
 </ul>
+
+<h2>Calendars</h2>
+<ul>
+<li><a href="https://www.google.com/calendar/ical/{{ google_calendar_id | urlencode }}/public/basic.ics" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Our calendar.</a></li>
+</ul>
 </section>
 </article>
 {% endblock %}

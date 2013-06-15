@@ -112,6 +112,7 @@ class GoogleCalendarView(TemplateView):
     template_name = 'calendar.html'
     
     def get_context_data(self, **kwargs):
+        '''This function adds the google_calendar_id to the context.'''
         context = super(GoogleCalendarView, self).get_context_data(**kwargs)
         context['google_calendar_id'] = settings.GOOGLE_CALENDAR_ID
         return context    
@@ -176,4 +177,10 @@ from django.views.generic import TemplateView
 class FeedDetailView(TemplateView):
     '''This view redirects to a template describing RSS feeds.'''
     
-    template_name = "feed_details.html"                              
+    template_name = "feed_details.html"   
+    
+    def get_context_data(self, **kwargs):
+        '''This function adds the google_calendar_id to the context.'''
+        context = super(FeedDetailView, self).get_context_data(**kwargs)
+        context['google_calendar_id'] = settings.GOOGLE_CALENDAR_ID
+        return context                               
