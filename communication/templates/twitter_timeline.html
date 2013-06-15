@@ -3,11 +3,11 @@
 {% block title %}<title>Tweets By @{{screen_name}}</title>{% endblock %}
 
 {% block header %}
-<h1>Tweets By <a href="https://twitter.com/intent/user?screen_name={{screen_name}}">@{{screen_name}} <img src="{{ STATIC_URL }}images/bird_blue_48.png" alt="Twitter"></a></h1>
+<h1>Tweets By <a href="https://twitter.com/intent/user?screen_name={{screen_name}}" class="plain-link">@{{screen_name}} <img src="{{ STATIC_URL }}images/bird_blue_48.png" alt="Twitter"></a></h1>
 {% endblock %}
 
 {% block content %}
-<div id="tweets">
+<div id="tweets" class="container append-6 prepend-6 span-12">
 {% for tweet in timeline %}
 {% include "tweet-oembed.html" %}
 {% endfor %}
