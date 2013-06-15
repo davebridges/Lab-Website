@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>{{ lab_name}} Contact Information</title>{% endblock %}
+
+{% block header %}
+<h1>{{ lab_name}} Contact Information</h1>
+{% endblock %}
+
+{% block content %}
+<article class="container append-2 prepend-2 span-20">
+
+<section class="container span-10 first">
+
+<div id='mailing-address'>
+<h2>Mailing Address</h2>
+{% for labaddress in labaddress_list %}
+{% if labaddress.type == 'Primary' %}
+<p>
+{{ labaddress.address.line_1 }}</br>
+{{ labaddress.address.line_2 }}</br>
+{{ labaddress.address.line_3 }}</br>
+{{ labaddress.address.line_4 }}</br>
+{{ labaddress.address.city }}, {{ labaddress.address.state }}, {{ labaddress.address.country}}, {{ labaddress.address.code }}</p>
+</p>
+{% endif %}
+{% endfor %}
+
+<h2>Email/Phone</h2>
+<p>To contact individual members of the lab, go to the <a href="{% url 'laboratory-personnel' %}">Lab Members Pages</a>.</p>
+
+</section>
+
+<section class="container span-10 last">
+<h2>Social Media Information</h2>
+
+<div class="twitter append-bottom">
+<a href="https://twitter.com/{{twitter}}" class="twitter-follow-button" data-show-count="true" data-size="large" data-width="300px">Follow @{{twitter}}</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+
+<div class="fb-like-box append-bottom" data-href="http://www.facebook.com/{{facebook}}" data-width="300" data-show-faces="true" data-stream="false" data-header="false" data-border-color="gainsboro"></div>
+
+<div class="g-plus append-bottom" data-href="https://plus.google.com/{{google_plus}}?rel=author" data-width="300" ></div>
+
+</section>
+</article>
+
+{% endblock %}

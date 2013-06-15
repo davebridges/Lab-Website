@@ -11,8 +11,11 @@ import dateutil
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.views.generic.base import View, TemplateView
+from django.views.generic import ListView
 from django.template import RequestContext
 from django.contrib import messages
+
+from communication.models import LabAddress
 
 def generate_twitter_timeline(count):
     '''This function generates a timeline from a twitter username.
@@ -207,7 +210,8 @@ class NewsView(TemplateView):
         context['milestones'] = milestones
         return context 
         
-class ContactView(TemplateView):
+class ContactView(ListView):
     '''This view provides lab-contact information.'''
     
-    template_name = "contact.html"                                              
+    template_name = "contact.html"
+    model = LabAddress                                              

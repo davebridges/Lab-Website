@@ -156,4 +156,8 @@ class Address(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=3, help_text="Use 2 letter abbreviations", blank=True, null=True)
     country = models.CharField(max_length=100, help_text="Use standard country codes, see <a href="">here<a>.")
-    code = models.CharField(max_length=15, blank=True, null=True)
+    code = models.CharField(max_length=15, blank=True, null=True, help_text="zip or postal code")
+    
+    def __unicode__(self):
+        '''The unicode representation of an Address is the address lines followed by linebreaks.'''
+        return u'%s\n%s\n%s\n%s\n%s, %s, %s, %s' %(self.line_1, self.line_2, self.line_3, self.line_4, self.city, self.state, self.country, self.code)

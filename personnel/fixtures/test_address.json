@@ -1,0 +1,16 @@
+[
+{
+    "pk": 1, 
+    "model": "personnel.address", 
+    "fields": {
+        "city": "Memphis", 
+        "code": "38163", 
+        "country": "USA", 
+        "state": "TN", 
+        "line_1": "Department of Physiology", 
+        "line_3": "894 Union Ave", 
+        "line_2": "Room 517", 
+        "line_4": "University of Tennessee Health Sciences Center"
+    }
+}
+]

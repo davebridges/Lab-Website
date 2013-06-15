@@ -1,13 +1,38 @@
 """
 This file contains the unit tests for the :mod:`communication` app.
 
-Since this app has no models there is only view tests:
+Since this app has no models there is model and view tests:
 
-* :class:`~communication.tests.FeedDetailViewTests` 
+* :class:`~communication.tests.CommunicationModelTests`
+* :class:`~communication.tests.CommunicationViewTests` 
 
 """
 
 from lab_website.tests import BasicTests
+
+from communication.models import LabAddress
+
+from personnel.models import Address
+
+class CommunicationModelTests(BasicTests):
+    '''This class tests the views associated with models in the :mod:`communication` app.'''
+    
+    fixtures = ['test_address',]
+    
+    def test_create_new_lab_address(self):
+        '''This test creates a :class:`~communication.models.LabAddress` with the required information.'''
+ 
+        test_address = LabAddress(type='Primary', address=Address.objects.get(pk=1)) #repeat for all required fields
+        test_address.save()
+        self.assertEqual(test_address.pk, 1) #presumes no models loaded in fixture data     
+        
+    def test_lab_address_unicode(self):
+        '''This tests the unicode representation of a :class:`~communication.models.LabAddress`.'''
+ 
+        test_address = LabAddress(type='Primary', address=Address.objects.get(pk=1)) #repeat for all required fields
+        test_address.save()
+        self.assertEqual(test_address.pk, 1) #presumes no models loaded in fixture data  
+        self.assertEqual(test_address.__unicode__(), Address.objects.get(pk=1).__unicode__())
 
 class CommunicationViewTests(BasicTests):
     '''This class tests the views associated with the :mod:`communication` app.'''
