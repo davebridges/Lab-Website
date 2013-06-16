@@ -1,4 +1,15 @@
-'''This package contains models for the :mod:`personnel` app.'''
+'''This package contains models for the :mod:`personnel` app.
+
+Currently the models in this are:
+
+* :class:`~personnel.models.Person`
+* :class:`~personnel.models.Role`
+* :class:`~personnel.models.JobType`
+* :class:`~personnel.models.Degree`
+* :class:`~personnel.models.Award`
+* :class:`~personnel.models.Organization`
+* :class:`~personnel.models.Address`
+'''
 
 from django.db import models
 from django.template.defaultfilters import slugify

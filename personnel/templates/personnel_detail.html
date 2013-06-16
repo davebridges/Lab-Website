@@ -36,8 +36,22 @@
 	{% if person.twitter_username %}
 	<dt>Social Media</dt>
 	<dd>
-	<a href="https://twitter.com/{{ person.twitter_username }}" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @{{ person.twitter_username }}</a>
+	<a href="https://twitter.com/{{ person.twitter_username }}" class="twitter-follow-button" data-show-count="true" data-lang="en" data-size="large">Follow @{{ person.twitter_username }}</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+{% if person.google_plus_user_id %}    
+    <!-- Place this tag where you want the badge to render. -->
+<div class="g-plus" data-width="300" data-height="69" data-href="//plus.google.com/{{ person.google_plus_user_id}}" data-rel="author"></div>
+
+<!-- Place this tag after the last badge tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+{% endif %}    
 	</dd>
 	{% endif %}
 </dl>
