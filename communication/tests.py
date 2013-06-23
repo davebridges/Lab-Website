@@ -178,4 +178,4 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTrue('location_list' in test_response.context)                                          
+        self.assertTrue('lablocation_list' in test_response.context)                                          

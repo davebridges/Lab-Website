@@ -50,7 +50,7 @@ class LabLocation(models.Model):
         blank = True, null = True)
     image = models.ImageField(help_text="A representative image of this location",
         blank=True, null=True,
-        upload_to = '/location_images')
+        upload_to = 'location_images')
     url = models.URLField(help_text="What is the official link for this location?",
         blank=True, null = True)
     description = models.TextField(help_text="A description of thise place",
