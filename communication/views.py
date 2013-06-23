@@ -15,7 +15,7 @@ from django.views.generic import ListView
 from django.template import RequestContext
 from django.contrib import messages
 
-from communication.models import LabAddress
+from communication.models import LabAddress, LabLocation
 
 def generate_twitter_timeline(count):
     '''This function generates a timeline from a twitter username.
@@ -214,4 +214,13 @@ class ContactView(ListView):
     '''This view provides lab-contact information.'''
     
     template_name = "contact.html"
-    model = LabAddress                                              
+    model = LabAddress  
+    
+class LabLocationView(ListView):
+    '''This view provides location information.
+    
+    Its passes the location_list parameter when the /location view is requested.
+    '''
+    
+    template_name = "location.html"
+    model = LabLocation                                            

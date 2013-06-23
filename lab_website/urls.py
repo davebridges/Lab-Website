@@ -6,7 +6,7 @@ from django.conf import settings
 
 from tastypie.api import Api
 
-from communication.views import FeedDetailView
+from communication.views import FeedDetailView, LabLocationView
 
 from personnel.sitemap import LabPersonnelSitemap
 from papers.sitemap import LabPublicationsSitemap
@@ -20,6 +20,7 @@ from papers.feeds import LabPapersFeed, InterestingPapersFeed
 from projects.feeds import ProjectsFeed
 
 from views import IndexView
+
 
 v1_api = Api(api_name='v1')
 v1_api.register(PublicationResource())
@@ -47,6 +48,8 @@ urlpatterns = patterns('',
     url(r'^papers/', include('papers.urls')),
     url(r'^people/', include('personnel.urls')),
     url(r'^projects/', include('projects.urls')),
+    
+    url(r'location/?$', LabLocationView.as_view(), name="location"),
     
     url(r'^feeds/?$', FeedDetailView.as_view(), name="feed-details"),
     url(r'^feeds/lab-papers/?$', LabPapersFeed(), name="lab-papers-feed"),

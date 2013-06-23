@@ -10,7 +10,7 @@ Since this app has no models there is model and view tests:
 
 from lab_website.tests import BasicTests
 
-from communication.models import LabAddress
+from communication.models import LabAddress,LabLocation
 
 from personnel.models import Address
 
@@ -33,6 +33,39 @@ class CommunicationModelTests(BasicTests):
         test_address.save()
         self.assertEqual(test_address.pk, 1) #presumes no models loaded in fixture data  
         self.assertEqual(test_address.__unicode__(), Address.objects.get(pk=1).__unicode__())
+        
+    def test_create_new_lab_location(self):
+        '''This test creates a :class:`~communication.models.LabLocation` with the required information only.'''
+ 
+        test_location = LabLocation(name = 'Memphis', 
+            type='City', 
+            priority=1) #repeat for all required fields
+        test_location.save()
+        self.assertEqual(test_location.pk, 1) #presumes no models loaded in fixture data         
+
+    def test_create_new_lab_location_all(self):
+        '''This test creates a :class:`~communication.models.LabLocation` with all fields included.'''
+ 
+        test_location = LabLocation(name = 'Memphis', 
+            type='City', 
+            priority=1,
+            address=Address.objects.get(pk=1),
+            url = 'www.cityofmemphis.org',
+            description = 'some description about the place',
+            lattitude = 35.149534,
+            longitude = -90.04898,) #repeat for all required fields
+        test_location.save()
+        self.assertEqual(test_location.pk, 1) #presumes no models loaded in fixture data
+        
+    def test_lab_location_unicode(self):
+        '''This test creates a :class:`~communication.models.LabLocation` with the required information only.'''
+ 
+        test_location = LabLocation(name = 'Memphis', 
+            type='City', 
+            priority=1) #repeat for all required fields
+        test_location.save()
+        self.assertEqual(test_location.pk, 1)
+        self.assertEqual(test_location.__unicode__(), 'Memphis') 
 
 class CommunicationViewTests(BasicTests):
     '''This class tests the views associated with the :mod:`communication` app.'''
@@ -132,4 +165,17 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'contact.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')                                           
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        
+    def test_location_page(self):
+        '''This tests the location view.
+        
+        Currently it ensures that the template is loading, and that that the location_list context is passed.
+        ''' 
+        test_response = self.client.get('/location')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'location.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTrue('location_list' in test_response.context)                                          
