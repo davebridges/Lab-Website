@@ -11,5 +11,17 @@
 {% for role in person.lab_roles.all %}
 {{ role|safe }}<br/>
 {% endfor %}
+<dl>
+{% if person.email %}
+<dt>Email</dt>
+<dd><a href = "mailto:{{ person.email }}">{{person.email}}</a><dd>
+{% endif %}
+
+{%if person.phone %}
+<dt>Phone</dt>
+<dd>{{ person.phone }}</dd>
+{% endif %}
+</dl>
+
 </section>
 </a>

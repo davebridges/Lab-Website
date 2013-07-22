@@ -42,6 +42,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=100, blank=True, null=True)
     additional_names = models.CharField(max_length=100, null=True, blank=True, help_text='other (i.e. middle) names')
     email = models.EmailField(blank=True, null=True)
+    biography = models.TextField(blank=True, null=True, help_text="Personal Biography.")
     phone = models.CharField(max_length=40, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     website = models.URLField(help_text='Personal Website', null=True, blank=True)

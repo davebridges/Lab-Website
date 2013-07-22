@@ -29,10 +29,21 @@
     {{ role|safe }}.<br/>
     {% endfor %}
     {% endif %}
-    {% if person.email %}
+        {% if person.email %}
 	<dt>Email</dt>
 	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
 	{% endif %}
+
+        {% if person.phone %}
+	<dt>Phone</dt>
+	<dd><span itemprop='telephone'>{{ person.phone }}</span></dd>
+	{% endif %}
+        
+         {% if person.biography %}
+        <dt>Bio</dt>
+        <dd>{{ person.biography }}</dd>
+        {% endif %}  
+
 	{% if person.twitter_username %}
 	<dt>Social Media</dt>
 	<dd>
