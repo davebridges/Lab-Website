@@ -15,7 +15,7 @@
 <p>{{ project.summary }}</p>
 </section>
 
-{% if project.publications.all.count > 0 %}
+{% if project.current_personnel.all.count > 0 %}
 <section id="personnel" class="span-20">
 <h2>Who is Working on This?</h2>
 {% for person in project.current_personnel.all %}
