@@ -104,8 +104,12 @@ class AuthorDetails(models.Model):
         
     def __unicode__(self):
         '''The unicode representation is the author name.'''
-        return '%s' %self.author
-        
+        return '%i - %s -  %s' %(self.order, self.publication_set.all(), self.author)
+    
+    def name(self):
+        '''The name representation shows the author name only.'''
+        return '%s' %str(self.author)
+    
     class Meta:
         '''The meta options set this field to be ordered based on order and sets the verbose name.'''
         verbose_name_plural = "author details"
