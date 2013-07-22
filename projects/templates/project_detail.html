@@ -24,23 +24,26 @@
 </section>
 {% endif %}
 
-{% if project.publications.all.count > 0 %}
 <section id="publications" class="span-20 container">
 <h2>Publications</h2>
+{% if project.publications.all.count > 0 %}
 <section class="span-9 border first">
-<h3>What Have We Published on This Topic?</h3>
+<h3>What have we published on this topic?</h3>
 {% for paper in project.publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
+{% endif %}
+
+{% if project.other_publications.all.count > 0 %}
 <section class="span-9 last">
-<h3>What Are Some other Key Papers on This Topic?</h3>
+<h3>What are some key papers on this topic?</h3>
 {% for paper in project.other_publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
-</section>
 {% endif %}
+</section>
 
 <section id="comments class="span-20">
 <h2>Comments</h2>
