@@ -26,3 +26,6 @@ application = get_wsgi_application()
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+import sys
+sys.path.append('/home/dbridge9/src/Lab-Website')
