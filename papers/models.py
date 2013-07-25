@@ -113,4 +113,30 @@ class AuthorDetails(models.Model):
     class Meta:
         '''The meta options set this field to be ordered based on order and sets the verbose name.'''
         verbose_name_plural = "author details"
-        ordering = ['order', ]    
+        ordering = ['order', ]
+
+class Commentary(models.Model):
+    '''This is a commentary by someone in our group on a paper we have discussed.
+
+    The requires fields are the :class:`~papers.models.Paper`, the author (:class:`~personnel.models.Person`).
+    There are autopopulated fields for creation and updates
+    '''
+    author = models.ForeignKey('personnel.Person')
+    paper = models.ForeignKey('Publication')
+    comments = models.TextField(help_text="Comments on this paper")
+
+    created = models.DateField(auto_now_add=True)
+    modified = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        '''The unicode representation is "Commentary on XXX" where XXX is the paper title'''
+        return "Commentary on %s" %self.paper
+
+    @models.permalink
+    def get_absolute_url(self):
+        '''The permalink of a commentary oage is **commentaries/<pk>**'''
+        return('commentary-details', [str(self.id)])
+
+    class Meta:
+        '''The meta options for this defines the ordering by the created field.'''
+        ordering = ['-created',]

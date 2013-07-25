@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
-from papers.models import Publication
+from papers.models import Publication, Commentary
 from papers.context_processors import api_keys
 from papers.forms import PublicationForm
 
@@ -88,3 +88,43 @@ class PaperDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('laboratory-papers')        
                    
     
+class CommentaryList(ListView):
+    '''This class generates the view for commentaries located at **/papers/commentary**.
+    '''
+    model = Commentary
+    template_name = "commentary-list.html"
+
+class CommentaryDetail(DetailView):
+    '''This class generates the view for commentary-detail located at **/papers/commentary/<pk>**.
+    '''
+    model = Commentary
+    template_name = "commentary-detail.html"
+                
+class CommentaryCreate(PermissionRequiredMixin, CreateView):
+    '''This view is for creating a new :class:`~papers.models.Commentary`.
+    
+    It requires the permissions to create a new paper and is found at the url **/papers/commentary/new**.'''
+    
+    permission_required = 'papers.create_commentary'
+    model = Commentary
+    template_name = "commentary-form.html"
+
+class CommentaryUpdate(PermissionRequiredMixin, UpdateView):
+    '''This view is for updating a :class:`~papers.models.Commentary`.
+    
+    It requires the permissions to update a commentary and is found at the url **/paper/commentary/<pk>/edit**.'''
+    
+    permission_required = 'papers.update_commentary'
+    model = Commentary
+    template_name = 'commentary-form.html' 
+    
+class CommentaryDelete(PermissionRequiredMixin, DeleteView):
+    '''This view is for deleting a :class:`~papers.models.Commentary`.
+    
+    It requires the permissions to delete a paper and is found at the url **/paper/commentary/<pk>/delete**.'''
+    
+    permission_required = 'papers.delete_commentary'
+    model = Commentary
+    template_name = 'confirm_delete.html'
+    template_object_name = 'object'
+    success_url = reverse_lazy('commentary-list') 
