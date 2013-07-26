@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-
+{% block scripts %}
+<link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
+{% endblock %}
 {% block title %}<title>Comments on Papers</title>{% endblock %}
 
 {% block header %}
