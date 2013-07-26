@@ -135,7 +135,7 @@ class Commentary(models.Model):
     @models.permalink
     def get_absolute_url(self):
         '''The permalink of a commentary oage is **commentaries/<pk>**'''
-        return('commentary-details', [str(self.id)])
+        return('commentary-detail', [str(self.id)])
 
     class Meta:
         '''The meta options for this defines the ordering by the created field.'''
