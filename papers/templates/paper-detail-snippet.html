@@ -2,5 +2,5 @@
 {% for author in paper.authors.all %}
 {% if forloop.revcounter = 1 %} and {% endif %} {% if author.author.current_lab_member %}<a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author.name }}</a>{% else %}{{ author.name }}{% endif %}{% if forloop.revcounter > 2 %}, {% endif %}{% if forloop.last %}.{% endif %} 
 {% endfor %}
-<a href='{{ paper.get_absolute_url }}' class="plain-link">{{ paper }}</a>  {{ paper.year }}. {{ paper.volume }}{% if paper.issue %}({{ paper.issue }}){% endif %}:{{ paper.pages }}  <a href="{{ paper.doi_link }}">Full Text</a>.  <a href='{{ paper.get_absolute_url }}'>Details</a>.
+<a href='{{ paper.get_absolute_url }}' class="plain-link">{{ paper }}</a>  {{ paper.year }}. {{ paper.volume }}{% if paper.issue %}({{ paper.issue }}){% endif %}:{{ paper.pages }}  <a href="{{ paper.doi_link }}">Full Text</a> {% if paper.commentary_set.all.exists %}{% for commentary in paper.commentary_set.all %}<a href="{{ commentary.get_absolute_url }}"> Our Thoughts</a> {% endfor %}{% endif %} <a href='{{ paper.get_absolute_url }}'> Details</a>.
 </div>
