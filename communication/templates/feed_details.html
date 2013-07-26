@@ -3,6 +3,7 @@
 <link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% url 'projects-feed' %}">
 <link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}">
 <link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
 {% endblock scripts %}
 
 {% block title %}<title>News Feeds</title>{% endblock %}
@@ -22,6 +23,7 @@
 <ul>
 <li><a href="{% url 'lab-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers from our lab.</a></li>
 <li><a href="{% url 'interesting-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we are interested in.</a></li>
+<li><a href="{% url 'commentary-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we have commented on.</a></li>
 </ul>
 
 <h2>Social Media</h2>
