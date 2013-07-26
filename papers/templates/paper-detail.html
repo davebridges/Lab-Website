@@ -16,10 +16,11 @@
 <article itemscope itemtype="http://schema.org/ScholarlyArticle" id='paper' class="container append-2 prepend-2 span-20">
 <meta itemprop="name" content="{{ publication.title }}" />
 
-<section id="authors" class="large">
-{% for author in publication.authors.all %}
+<section id="authors">
+<p>{% for author in publication.authors.all %}
 {% if forloop.revcounter = 1 %} and {% endif %} {% if author.author.current_lab_member %}<a itemprop = "author" itemscope itemtype ="http://schema.org/Person" href='{{ author.author.get_absolute_url }}' class='plain-link'><span itemprop="name">{{ author.name}}</span></a>{% else %}{{ author.name }}{% endif %}{% if forloop.revcounter > 2 %}, {% endif %} 
 {% endfor %}
+</p>
 </section>
 
 <section id='publication' class='large'>
@@ -27,7 +28,7 @@
 </section>
 
 <h2>Abstract</h2>
-<section id='abstract'>
+<section id='abstract' class="span-20">
 <p itemprop='description'>{{ publication.abstract }}</p>
 {% if publication.doi %}
 <p><a itemprop='url' href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
@@ -35,7 +36,17 @@
 {% endif %}
 </section>
 
-<section id="comments class="span-12">
+{% if publication.commentary_set.all.exists  %}
+<section id="commentary" class="span-20">
+<h2>Our Thoughts on This Paper</h2>
+<p>{% for commentary in publication.commentary_set.all %}
+<p>{{ commentary.comments|safe }}</p>
+<p>Written by <a href="{{ commentary.author.get_absolute_url }}">{{ commentary.author }}</a> on {{ commentary.created }}.</p>
+{% endfor %}
+</section>
+{% endif %}
+
+<section id="comments" class="span-20">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
@@ -45,7 +56,7 @@
 {% include 'paper_sharing_widgets.html' %}
 </section>
 
-<section id="metrics" class='container'>
+<section id="metrics" class='span-12 container'>
 <h2>Metrics</h2>
 
 {% if "PLOS" in publication.journal %}
