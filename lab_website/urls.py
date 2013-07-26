@@ -9,7 +9,7 @@ from tastypie.api import Api
 from communication.views import FeedDetailView, LabLocationView
 
 from personnel.sitemap import LabPersonnelSitemap
-from papers.sitemap import LabPublicationsSitemap
+from papers.sitemap import LabPublicationsSitemap, CommentarySitemap
 from projects.sitemap import ProjectsSitemap
 
 from papers.api import PublicationResource
@@ -31,6 +31,7 @@ v1_api.register(PersonnelResource())
 sitemaps = {
     'personnel': LabPersonnelSitemap,
     'papers': LabPublicationsSitemap,
+    'commentary': CommentarySitemap,
     'projects': ProjectsSitemap
     }
 
