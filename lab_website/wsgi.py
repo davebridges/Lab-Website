@@ -28,4 +28,4 @@ application = get_wsgi_application()
 # application = HelloWorldApplication(application)
 
 import sys
-sys.path.append('/home/dbridge9/src/Lab-Website')
+sys.path.append('/var/www/html/Lab-Website')
