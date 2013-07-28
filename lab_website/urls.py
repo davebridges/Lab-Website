@@ -7,6 +7,7 @@ from django.conf import settings
 
 from tastypie.api import Api
 
+import communication
 from communication.views import FeedDetailView, LabLocationView
 
 from personnel.sitemap import LabPersonnelSitemap
@@ -71,7 +72,15 @@ urlpatterns = patterns('',
     url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
     url(r'^feeds/commentaries/?$', CommentaryFeed(), name="commentary-feed"),
     url(r'^feeds/projects/?', ProjectsFeed(), name="projects-feed"),
-       
+      
+    url(r'^twitter/?$', communication.views.TwitterView.as_view(), name="twitter"),
+    url(r'^calendar/?$', communication.views.GoogleCalendarView.as_view(), name="google-calendar"),
+    url(r'^wikipedia/?$', communication.views.WikipedaEditsView.as_view(), name="wikipedia"),
+    url(r'^lab-rules/?$', communication.views.LabRulesView.as_view(), name="lab-rules"),
+    url(r'^publication-policy/?$', communication.views.PublicationPolicyView.as_view(), name="publication-policy"),
+    url(r'^news/?$', communication.views.NewsView.as_view(), name='lab-news'),
+
+ 
     (r'^api/',include(v1_api.urls)),   
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
