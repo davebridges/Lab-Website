@@ -1,6 +1,7 @@
 '''This package has the url encodings for the main app.'''
 from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from django.core.urlresolvers import reverse
+from django.contrib import admin, sitemaps
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -21,6 +22,18 @@ from projects.feeds import ProjectsFeed
 
 from views import IndexView
 
+class StaticViewSitemap(sitemaps.Sitemap):
+    '''This sitemap is for all static pages, including list views home and feeds.'''   
+ 
+    priority = 0.4
+    changefreq = 'weekly'
+
+    def items(self):
+        return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','project-list',
+                 'twitter','google-calendar','wikipedia','lab-rules','lab-news','contact-info']
+
+    def location(self, item):
+        return reverse(item)
 
 v1_api = Api(api_name='v1')
 v1_api.register(PublicationResource())
@@ -32,7 +45,8 @@ sitemaps = {
     'personnel': LabPersonnelSitemap,
     'papers': LabPublicationsSitemap,
     'commentary': CommentarySitemap,
-    'projects': ProjectsSitemap
+    'projects': ProjectsSitemap,
+    'static': StaticViewSitemap
     }
 
 # Uncomment the next two lines to enable the admin:
