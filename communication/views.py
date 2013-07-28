@@ -123,8 +123,6 @@ class GoogleCalendarView(TemplateView):
         context = super(GoogleCalendarView, self).get_context_data(**kwargs)
         context['google_calendar_id'] = settings.GOOGLE_CALENDAR_ID
         return context    
-
-
         
 class WikipedaEditsView(View):  
     '''This view class generates a page showing the wikipedia edits for a user.
@@ -179,6 +177,39 @@ class LabRulesView(TemplateView):
         context['lab_rules_source'] = settings.LAB_RULES_FILE
         return context 
     
+class PublicationPolicyView(TemplateView):
+    '''This view gets the publication policy markdown and displays this file.
+    
+    This file must be supplied in PUBLICATION_POLICY_FILE in localsettings.py
+    The template will markup this file and display it as formatted HTML.
+    If this file is not provided or is unavailable, an error will be displayed.
+    '''
+    
+    template_name = 'publication_policy.html'
+    
+    def get_context_data(self, **kwargs):
+        '''This function provides the context which is passed to this view.
+        
+        It will check if the markdown file is available, download it and pass  it to the template.
+        If there is no markdown file, then it will generate a no file presented note.'''
+        context = super(PublicationPolicyView, self).get_context_data(**kwargs)
+        request = urllib2.Request(settings.PUBLICATION_POLICY_FILE)
+        try:
+            response = urllib2.urlopen(request)
+        except urllib2.URLError, e:
+            if e.code == 404:
+                publication_policy = "Publication Policy File is not Available."
+            else:
+                #this is for a non-404 URLError.
+                publication_policy = "Publication Policy File is not Available."
+        except ValueError:
+            publication_policy = "Publication Policy File is not Available."        
+        else:
+             #successful connection
+             publication_policy = response.read()         
+        context['publication_policy'] = publication_policy
+        context['publication_policy_source'] = settings.PUBLICATION_POLICY_FILE
+        return context
 
 class FeedDetailView(TemplateView):
     '''This view redirects to a template describing RSS feeds.'''

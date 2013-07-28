@@ -87,4 +87,5 @@ PLOS_API_KEY = '' #the PLOS API key for PLOS altmetrics
 IMPACT_STORY_API_KEY = '' #the impact story API key
 
 #other settings
+PUBLICATION_POLICY_FILE = '' #URL for optional lab publication policy in restructured text format
 LAB_RULES_FILE = '' #URL for an optional laboratory rules file in restructured text format.

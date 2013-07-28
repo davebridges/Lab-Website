@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^calendar/?$', views.GoogleCalendarView.as_view(), name="google-calendar"),
     url(r'^wikipedia/?$', views.WikipedaEditsView.as_view(), name="wikipedia"),
     url(r'^lab-rules/?$', views.LabRulesView.as_view(), name="lab-rules"),
+    url(r'^publication-policy/?$', views.PublicationPolicyView.as_view(), name="publication-policy"),
     url(r'^news/?$', views.NewsView.as_view(), name='lab-news'),
     url(r'/?$', views.ContactView.as_view(), name='contact-info'),
 )

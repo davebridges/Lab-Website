@@ -30,7 +30,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
 
     def items(self):
         return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','project-list',
-                 'twitter','google-calendar','wikipedia','lab-rules','lab-news','contact-info']
+                 'twitter','google-calendar','wikipedia','lab-rules','publication-policy','lab-news','contact-info']
 
     def location(self, item):
         return reverse(item)

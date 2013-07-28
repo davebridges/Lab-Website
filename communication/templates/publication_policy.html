@@ -2,14 +2,14 @@
 {% block scripts %}
 {% endblock %}
 
-{% block title %}<title>Lab Rules</title>{% endblock %}
+{% block title %}<title>Publication Policy</title>{% endblock %}
 
 {% block content %}
 {% load markup_filters %}
 <article class="container append-2 prepend-2 span-20">
-{% if lab_rules_source %}
-{{ lab_rules|markdown_rst|safe }}
-<p>This file was downloaded from <a href="{{ lab_rules_source }}">here</a> and was automatically formatted.</p>
+{% if publication_policy_source %}
+{{ publication_policy|markdown_rst|safe }}
+<p>This file was downloaded from <a href="{{ publication_policy_source }}">here</a> and was automatically formatted.</p>
 {% else %}
 <p>The laboratory rules source file was not available.  Please check your settings file.</p>
 {% endif %}
@@ -18,5 +18,5 @@
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
-</arcticle>
+</article>
 {% endblock %}
