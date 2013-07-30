@@ -21,6 +21,14 @@
 <p>{{ commentary.comments|safe }}</p>
 </section>
 
+{% if commentary.citation %}
+<aside>
+<h3>Citation</h3>
+{{ commentary.citation|safe }}
+</aside>
+{% endif %}
+
+
 <section id="comments">
 <h2>Other Comments</h2>
 {% include 'disqus_snippet.html' %}

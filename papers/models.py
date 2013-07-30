@@ -124,6 +124,8 @@ class Commentary(models.Model):
     author = models.ForeignKey('personnel.Person')
     paper = models.ForeignKey('Publication')
     comments = models.TextField(help_text="Comments on this paper")
+    citation = models.TextField(blank=True, null=True,
+                 help_text="Generate citation at http://scienceseeker.org/generate-citations")
 
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
