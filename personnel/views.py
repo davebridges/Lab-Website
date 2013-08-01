@@ -5,7 +5,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-from personnel.models import Person
+from personnel.models import Person, JobPosting
 
     
 class LaboratoryPersonnelList(ListView):
@@ -21,6 +21,7 @@ class LaboratoryPersonnelList(ListView):
         '''This method adds to the context the personnel-type  = current.'''
         context = super(LaboratoryPersonnelList, self).get_context_data(**kwargs)
         context['personnel-type'] = "current"
+        context['postings'] = JobPosting.objects.filter(active=True)
         return context  
 
 class LaboratoryPersonnelDetail(DetailView):

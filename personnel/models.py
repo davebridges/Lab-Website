@@ -173,3 +173,21 @@ class Address(models.Model):
     def __unicode__(self):
         '''The unicode representation of an Address is the address lines followed by linebreaks.'''
         return u'%s\n%s\n%s\n%s\n%s, %s, %s, %s' %(self.line_1, self.line_2, self.line_3, self.line_4, self.city, self.state, self.country, self.code)
+
+
+class JobPosting(models.Model):
+    '''This class describes a job posting.
+
+    It includes the description, an active checkbox and a link to where to apply.
+    '''
+
+    description = models.TextField(help_text="Describe the available position")
+    link = models.URLField(help_text="Link to application")
+    active = models.BooleanField(help_text="Is this posting currently active")
+
+    created = models.DateField(auto_now_add=True)
+    modified = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        '''The unicode representation is the created field.'''
+        return u'%s Job Posting' %self.created

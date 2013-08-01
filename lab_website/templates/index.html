@@ -23,6 +23,16 @@
 </li>
 </section>
 
+
+{% if postings %}
+<aside id="job-postings" class="span-24 info">
+<h2>Positions Available</h2>
+{% for posting in postings %}
+<p>{{ posting.description }} To apply go to <a href="{{ posting.link }}">{{ posting.link }}</a><p>
+{% endfor %}
+{% endif %}
+</aside>
+
 </article>
 {% endblock content %}
 

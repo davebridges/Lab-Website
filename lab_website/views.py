@@ -10,6 +10,7 @@ import datetime
 from django.conf import settings
 from django.views.generic.base import View, TemplateView
 
+from personnel.models import JobPosting
 
 class IndexView(TemplateView):
     '''This view redirects to the home page.'''
@@ -47,4 +48,5 @@ class IndexView(TemplateView):
          
         general_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID              
         context['general_data'] = facebook_request(general_request_url)
+        context['postings'] = JobPosting.objects.filter(active=True)
         return context                            
