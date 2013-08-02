@@ -1,7 +1,6 @@
 {% if postings %}
+<h2>Positions Available</h2>
 {% for posting in postings %}
-<aside>
-<p class="info">{{ posting.description }}  To apply please go to <a href="{{ posting.link }}">{{ posting.link }}</a>.</p>
-</aside>
+<p class="info" itemscope itemtype="http://schema.org/JobPosting"><span itemprop="description">{{ posting.description }}</span>  To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.</p>
 {% endfor %}
 {% endif %}
