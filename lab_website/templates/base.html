@@ -12,19 +12,7 @@
   <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
 <![endif]-->
 <link rel="stylesheet" href="{{STATIC_URL}}css/custom.css" type="text/css" media="screen"> 
-<!-- This is for linking a google plus profile to this website --!>
-<link href="https://plus.google.com/{{google_plus}}" rel="publisher" />
-{% include "twitter_anywhere_script.html" %}
 {% include "jquery_script.html" %}
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=429957963714035";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 {% block scripts %}
 {% endblock %}
 
@@ -32,20 +20,17 @@
 </head>
 
 <body class="container">
-<!-- This script is for rendering the Facebook Button -->
-<div id="fb-root"></div>
-<script type="text/javascript" src="{{STATIC_URL}}javascript/facebook_sdk.js"></script>
 <header class="span-24">
 {% block navbar %}
-<div class="span-24 container" id="navbar">
-<nav>
-<ul id="navbar">
+<nav class="span-24 container" id="navbar">
+<ul id="navbar-items">
 <li class="span-4 colborder first"><a href="{% url 'laboratory-personnel' %} ">People</a></li>
 <li class="span-4 colborder"><a href="{% url 'project-list' %}">Projects</a></li>
 <li class="span-4 colborder"><a href="{% url 'laboratory-papers' %}">Papers</a></li>
 <li class="span-4 colborder"><a href="{% url 'location' %}">Location</a></li>
 <li class="span-4 last"><a href="{% url 'contact-info' %}">Contact</a></li>
 </ul>
+</nav>
 <hr/>
 {% block sidebar-insertion %}
 {% endblock %}
@@ -64,9 +49,6 @@
 
 </header>
 
-
-</nav>
-</div>
 {% endblock %}
 
 
@@ -74,29 +56,10 @@
 {% block content %}
 {% endblock %}
 </div>
-<!--
-<hr />
-<footer class="span-24 container">
-<div class="span-4" id="google-plus">
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-<g:plusone href="http://{{request.get_host}}" size="tall" annotation="bubble"></g:plusone>
-</div>
-<div class="span-4" id="twitter">
-<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="{{twitter}}" data-url="http://{{request.get_host}}">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-</div>
-<div class="span-4" id="facebook-like">
-<div class="fb-like" data-href="http://{{request.get_host}}" data-send="false" data-width="450" data-show-faces="true" data-font="lucida grande" data-layout="box_count"></div>
-</div>
-<div class="span-4" id="linkedin-like">
-<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-counter="top"></script>
-</div>
-<div class="span-4 last">
-<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
-</div>
+<footer>
 {% block footer %}
 {% endblock %}
 </footer>
--->
 {% include 'analytics_tracking.html'%}
 
 </body>
