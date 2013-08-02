@@ -1,0 +1,7 @@
+{% if postings %}
+{% for posting in postings %}
+<aside>
+<p class="info">{{ posting.description }}  To apply please go to <a href="{{ posting.link }}">{{ posting.link }}</a>.</p>
+</aside>
+{% endfor %}
+{% endif %}

@@ -20,23 +20,16 @@
 <li><a class="large" href="{% url 'laboratory-papers' %}">Papers we have published.</a></li>
 <li><a class="large" href="{% url 'location' %}">Where we are located.</a></li>
 <li><a class="large" href="{% url 'contact-info' %}">How to get a hold of us.</a></li>
-</li>
+</ul>
 </section>
 
-
-{% if postings %}
-<aside id="job-postings" class="span-24 info">
-<h2>Positions Available</h2>
-{% for posting in postings %}
-<p>{{ posting.description }} To apply go to <a href="{{ posting.link }}">{{ posting.link }}</a><p>
-{% endfor %}
-{% endif %}
+<aside class="span-24">
+{% include "job_posting_snippet.html" %}
 </aside>
 
-</article>
 {% endblock content %}
 
-
+</article>
 </body>
 
 </html>

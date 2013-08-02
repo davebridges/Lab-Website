@@ -12,13 +12,7 @@
 {% block content %}
 <article class="container append-2 prepend-2 span-20">
 
-{% if postings %}
-{% for posting in postings %}
-<aside>
-<p class="info">{{ posting.description }}  To apply please go to <a href="{{ posting.link }}">{{ posting.link }}</a>.</p>
-</aside>
-{% endfor %}
-{% endif %}
+{% include "job_posting_snippet.html" %}
 
 {% for person in personnel %}
 <section>
