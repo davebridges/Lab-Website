@@ -5,21 +5,21 @@
 {% endblock title %}
 
 {% block content %}
-<article class="span-24 container">
-<h1>Welcome to the {{ lab_name }}</h1> 
-<section id='general-info' class='span-12 first prepend-2 container'>
-<img class='span-12' src='{{ general_data.cover.source }}' alt='Lab Photo'>
-<p class='span-12' style='font-size:large;'>{{ general_data.about }}</p> 
+<article class="span-24 container" itemscope itemtype="http://schema.org/Organization">
+<h1>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
+<section id='general-info' class='span-10 first prepend-2 container'>
+<img class='span-10' src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image">
+<p class='span-10' style='font-size:large;' itemprop="description">{{ general_data.about }}</p> 
 </section>
 
-<section class='span-8 last append-2'>
+<section class='span-10 last append-2'>
 <h2>Find Out More About Us:</h2>
-<ul>
-<li><a class="large" href="{% url 'laboratory-personnel' %}">The members of our group.</a></li>
-<li><a class="large" href="{% url 'project-list' %}">The projects we are working on.</a></li>
-<li><a class="large" href="{% url 'laboratory-papers' %}">Papers we have published.</a></li>
-<li><a class="large" href="{% url 'location' %}">Where we are located.</a></li>
-<li><a class="large" href="{% url 'contact-info' %}">How to get a hold of us.</a></li>
+<ul id="home-links" style="list-style-type:none;">
+<li><a class="large" href="{% url 'laboratory-personnel' %}" itemprop="members"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
+<li><a class="large" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
+<li><a class="large" href="{% url 'laboratory-papers' %}"><img src="{{ STATIC_URL }}img/icons/file.png" alt="Papers"> Papers we have published.</a></li>
+<li><a class="large" href="{% url 'location' %}"><img src="{{ STATIC_URL }}img/icons/world.png" alt="Location"> Where we are located.</a></li>
+<li><a class="large" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
 </ul>
 </section>
 

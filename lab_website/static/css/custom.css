@@ -16,6 +16,12 @@ ul#navbar-items li a{
 	font-size: large;
    text-decoration: none;
 	}
+
+ul#home-links li a{
+    font-size:large;
+    text-decoration: none;
+    list-style-type: none;
+}
 	
 div.facebook-post
 {
