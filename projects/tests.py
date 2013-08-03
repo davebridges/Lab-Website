@@ -141,7 +141,6 @@ class ProjectViewTests(TestCase):
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'project_detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
         self.assertEqual(test_response.context['project'].pk, 1)
@@ -157,7 +156,6 @@ class ProjectViewTests(TestCase):
         self.assertTrue('project_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'project_list.html')
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html')   
         self.assertEqual(test_response.context['project_list'][0].pk, 1)
         self.assertEqual(test_response.context['project_list'][0].title, u'Fixture Project')  
@@ -171,7 +169,6 @@ class ProjectViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'project_form.html')
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html')           
 
     def test_publication_view_edit(self):
@@ -184,7 +181,6 @@ class ProjectViewTests(TestCase):
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'project_form.html')
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html')        
         self.assertEqual(test_response.context['project'].pk, 1)
         self.assertEqual(test_response.context['project'].title, u'Fixture Project')

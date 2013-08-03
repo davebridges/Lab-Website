@@ -80,7 +80,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'feed_details.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('google_calendar_id' in test_response.context)          
         
@@ -95,7 +94,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_rules.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('lab_rules' in test_response.context)    
         self.assertTrue('lab_rules_source' in test_response.context)    
@@ -109,7 +107,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'twitter_timeline.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('timeline' in test_response.context)         
         
@@ -122,7 +119,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'calendar.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('google_calendar_id' in test_response.context)                    
                                 
@@ -136,7 +132,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'wikipedia_edits.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('pages' in test_response.context)                                 
                                 
@@ -149,7 +144,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_news.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('statuses' in test_response.context) 
         self.assertTrue('links' in test_response.context)           
@@ -164,7 +158,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'contact.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         
     def test_location_page(self):
@@ -176,6 +169,5 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'location.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'twitter_anywhere_script.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('lablocation_list' in test_response.context)                                          
