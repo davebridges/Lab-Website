@@ -126,7 +126,7 @@ class AuthorDetailsModelTests(TestCase):
         test_authordetail = AuthorDetails(author=Person.objects.get(pk=1), 
             order = 1)
         test_authordetail.save() 
-        self.assertEqual(test_authordetail.__unicode__(), 'Dave Bridges')
+        self.assertEqual(test_authordetail.__unicode__(), '1 - [] -  Dave Bridges')
         
 class PublicationResourceTests(TestCase):  
     '''This class tests varios aspects of the :class:`~papers.api.PublicationResource` API model.'''
