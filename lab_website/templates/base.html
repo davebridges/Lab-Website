@@ -20,16 +20,19 @@
 </head>
 
 <body class="container" itemscope itemtype="http://schema.org/WebPage">
-<meta itemprop="about" itemscope itemtype="http://schema.org/Organization" itemid="{% url 'home' %}"/>
+<span itemprop="about" itemscope itemtype="http://schema.org/Organization">
+<meta itemprop ="url"  content="http://{{ request.get_host }}"/>
+<meta itemprop ="name" content="{{ lab_name  }}"/>
+</span>
 <header class="span-24">
 {% block navbar %}
 <nav class="span-24 container" id="navbar">
 <ul id="navbar-items">
-<li class="span-4 colborder first"><a itemscope itemtype="http://schema.org/AboutPage" href="{% url 'laboratory-personnel' %} ">People</a></li>
-<li class="span-4 colborder"><a itemscope itemtype="http://schema.org/AboutPage" href="{% url 'project-list' %}">Projects</a></li>
-<li class="span-4 colborder"><a itemscope itemtype="http://schema.org/CollectionPage" href="{% url 'laboratory-papers' %}">Papers</a></li>
-<li class="span-4 colborder"><a itemscope itemtype="http://schema.org/AboutPage" href="{% url 'location' %}">Location</a></li>
-<li class="span-4 last"><a itemscope itemtype="http://schema.org/ContactPage" href="{% url 'contact-info' %}">Contact</a></li>
+<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-4 colborder first"><a itemprop="url" href="{% url 'laboratory-personnel' %} "><span itemprop="name">People</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-4 colborder"><a itemprop="url" href="{% url 'project-list' %}"><span itemprop="name">Projects</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/CollectionPage" class="span-4 colborder"><a itemprop="url" href="{% url 'laboratory-papers' %}"><span itemprop="name">Papers</a></span></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-4 colborder"><a itemprop="url" href="{% url 'location' %}"><span itemprop="name">Location</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/ContactPage" class="span-4 last"><a itemprop="url" href="{% url 'contact-info' %}"><span itemprop="name">Contact</span></a></li>
 </ul>
 </nav>
 <hr/>
