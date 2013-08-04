@@ -188,8 +188,10 @@ class JobPosting(models.Model):
     #job details
     hiringOrganization = models.ForeignKey('Organization', blank=True, null=True)
     education = models.TextField(help_text="Minimum educational requirements", blank=True, null=True)
-    qualifications = models.TextField(blank=True, null=True)
-    responsibilities = models.TextField(blank=True, null=True)
+    qualifications = models.TextField(blank=True, null=True, help_text="What are the other non-educational qualifications for this position")
+    responsibilities = models.TextField(blank=True, null=True, help_text="The responsibilities of this job")
+    skills = models.TextField(blank=True, null=True, help_text="Required skills")    
+
     active = models.BooleanField(help_text="Is this posting currently active")
 
     created = models.DateField(auto_now_add=True)
