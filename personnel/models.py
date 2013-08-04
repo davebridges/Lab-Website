@@ -181,8 +181,15 @@ class JobPosting(models.Model):
     It includes the description, an active checkbox and a link to where to apply.
     '''
 
+    title = models.CharField(max_length=30, help_text="The official position title")
     description = models.TextField(help_text="Describe the available position")
     link = models.URLField(help_text="Link to application")
+
+    #job details
+    hiringOrganization = models.ForeignKey('Organization', blank=True, null=True)
+    education = models.TextField(help_text="Minimum educational requirements", blank=True, null=True)
+    qualifications = models.TextField(blank=True, null=True)
+    responsibilities = models.TextField(blank=True, null=True)
     active = models.BooleanField(help_text="Is this posting currently active")
 
     created = models.DateField(auto_now_add=True)
@@ -190,4 +197,4 @@ class JobPosting(models.Model):
 
     def __unicode__(self):
         '''The unicode representation is the created field.'''
-        return u'%s Job Posting' %self.created
+        return u'%s Job Posting (%s)' %(self.title, self.created)
