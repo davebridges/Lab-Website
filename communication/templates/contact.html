@@ -9,7 +9,9 @@
 {% endblock %}
 
 {% block content %}
-<article class="container append-2 prepend-2 span-20">
+<article class="container append-2 prepend-2 span-20" itemscope itemtype="http://schema.org/Organization">
+<meta itemprop="name" content="{{ lab_name}} Contact Information"/>
+<meta itemprop="url" content="http://bridgeslab.uthsc.edu" />
 
 <section class="container span-10 first">
 
@@ -17,12 +19,12 @@
 <h2>Mailing Address</h2>
 {% for labaddress in labaddress_list %}
 {% if labaddress.type == 'Primary' %}
-<p>
-{{ labaddress.address.line_1 }}</br>
+<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" >
+<span itemprop="streetAddress" {{ labaddress.address.line_1 }}</br>
 {{ labaddress.address.line_2 }}</br>
 {{ labaddress.address.line_3 }}</br>
-{{ labaddress.address.line_4 }}</br>
-{{ labaddress.address.city }}, {{ labaddress.address.state }}, {{ labaddress.address.country}}, {{ labaddress.address.code }}</p>
+{{ labaddress.address.line_4 }}</br></span>
+<span itemprop="addressLocality" >{{ labaddress.address.city }}</span>, <span itemprop="addressRegion">{{ labaddress.address.state }}</span>, <span itemprop="addressCountry" itemscope itemtype="http://schema.org/Country"><meta itemprop="sameAs" content="http://en.wikipedia.org/wiki/United_States"/>{{ labaddress.address.country}}</span>, <span itemprop="postalCode">{{ labaddress.address.code }}</span>
 </p>
 {% endif %}
 {% endfor %}
