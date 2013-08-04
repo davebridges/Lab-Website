@@ -5,7 +5,9 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
-from personnel.models import Person, JobPosting
+import datetime
+
+from personnel.models import Person, JobPosting, Organization
 from lab_website.tests import BasicTests
 
 MODELS = [Person, JobPosting]
@@ -68,4 +70,39 @@ class PersonnelViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'personnel_detail.html')
         self.assertEqual(test_response.context['person'].pk, 1)
         self.assertEqual(test_response.context['person'].first_name, 'John')        
-        self.assertEqual(test_response.context['person'].last_name, 'Doe')          
+        self.assertEqual(test_response.context['person'].last_name, 'Doe')
+
+          
+class PersonnelModelTests(BasicTests):
+    """Tests the model attributes of ::class:`JobPosting` objects contained in the ::mod:`personnel` app."""
+   
+    fixtures = ['test_organization',]
+
+    def test_create_jobposting_minimal(self):
+        '''This is a test for creating a new ::class:`JobPosting` object, with only the minimum fields being entered'''
+        test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
+                              description = 'Some description',
+                              link = 'http:/jobs.com/awesomejob')
+        test_jobposting.save()
+        self.assertEqual(test_jobposting.pk, 1)    
+
+    def test_create_jobposting_all(self):
+        '''This is a test for creating a new ::class:`JobPosting` object, with only the minimum fields being entered'''
+        test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
+                              description = 'Some description',
+                              link = 'http:/jobs.com/awesomejob',
+                              hiringOrganization = Organization.objects.get(pk=1),
+                              education = "An educational requirement",
+                              qualifications = "Some qualifications",
+                              responsibilities = "Some responsibilities",
+                              active = True)
+        test_jobposting.save()
+        self.assertEqual(test_jobposting.pk, 1)
+
+    def test_jobposting_unicode(self):
+        '''This test creates a new :class:`~personnel.models.JobPosting` object, then tests for the unicode representation of it.'''
+        test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
+                              description = 'Some description',
+                              link = 'http:/jobs.com/awesomejob')
+        test_jobposting.save()
+        self.assertEqual(test_jobposting.__unicode__(), 'Postdoctoral Researcher Job Posting (%s)' %(datetime.date.today()) )
