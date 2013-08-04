@@ -84,6 +84,6 @@ urlpatterns = patterns('',
     (r'^api/',include(v1_api.urls)),   
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
     (r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
-    (r'^$', IndexView.as_view())
+    url(r'^$', IndexView.as_view(), name="home")
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
