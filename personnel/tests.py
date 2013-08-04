@@ -5,36 +5,16 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
-from django.test import TestCase
-from django.test.client import Client
-from django.contrib.auth.models import User
+from personnel.models import Person, JobPosting
+from lab_website.tests import BasicTests
 
-from personnel.models import Person
+MODELS = [Person, JobPosting]
 
-MODELS = [Person]
-
-class PersonnelModelTests(TestCase):
+class PersonnelModelTests(BasicTests):
     """Tests the model attributes of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""
     
     fixtures = ['test_personnel']
-
-    def setUp(self):
-        '''Instantiate the test client.  Creates a test user.'''
-        self.client = Client()
-        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
-        self.test_user.is_superuser = True
-        self.test_user.is_active = True
-        self.test_user.save()
-        self.assertEqual(self.test_user.is_superuser, True)
-        login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
     
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-                
     def test_full_name(self):
         '''This is a test for the rendering of the full name from a ::class:`Person` object.'''
         fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
@@ -58,28 +38,11 @@ class PersonnelModelTests(TestCase):
         #test that the slugfiy function works correctly
         self.assertEquals(test_labmember.name_slug, u'joe-blow')
 
-class PersonnelViewTests(TestCase):
+class PersonnelViewTests(BasicTests):
     """Tests the views of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""
     
     fixtures = ['test_personnel']
 
-    def setUp(self):
-        '''Instantiate the test client.  Creates a test user.'''
-        self.client = Client()
-        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
-        self.test_user.is_superuser = True
-        self.test_user.is_active = True
-        self.test_user.save()
-        self.assertEqual(self.test_user.is_superuser, True)
-        login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
-    
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-                
     def test_laboratory_personnel(self):
         '''This function tests the laboratory-personnel view.''' 
         
