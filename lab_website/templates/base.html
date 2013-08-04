@@ -19,7 +19,8 @@
 {% block title %}<title>Generic Page Title</title>{% endblock %}
 </head>
 
-<body class="container">
+<body class="container" itemscope itemtype="http://schema.org/WebPage">
+<meta itemprop="about" itemscope itemtype="http://schema.org/Organization" itemid="{% home %}"/>
 <header class="span-24">
 {% block navbar %}
 <nav class="span-24 container" id="navbar">
