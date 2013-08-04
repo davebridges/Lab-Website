@@ -24,11 +24,11 @@
 {% block navbar %}
 <nav class="span-24 container" id="navbar">
 <ul id="navbar-items">
-<li class="span-4 colborder first"><a href="{% url 'laboratory-personnel' %} ">People</a></li>
-<li class="span-4 colborder"><a href="{% url 'project-list' %}">Projects</a></li>
-<li class="span-4 colborder"><a href="{% url 'laboratory-papers' %}">Papers</a></li>
-<li class="span-4 colborder"><a href="{% url 'location' %}">Location</a></li>
-<li class="span-4 last"><a href="{% url 'contact-info' %}">Contact</a></li>
+<li class="span-4 colborder first"><a itemscope itemtype="http://schema.org/AboutPage" href="{% url 'laboratory-personnel' %} ">People</a></li>
+<li class="span-4 colborder"><a itemscope itemtype="http://schema.org/AboutPage" href="{% url 'project-list' %}">Projects</a></li>
+<li class="span-4 colborder"><a itemscope itemtype="http://schema.org/CollectionPage" href="{% url 'laboratory-papers' %}">Papers</a></li>
+<li class="span-4 colborder"><a itemscope itemtype="http://schema.org/AboutPage" href="{% url 'location' %}">Location</a></li>
+<li class="span-4 last"><a itemscope itemtype="http://schema.org/ContactPage" href="{% url 'contact-info' %}">Contact</a></li>
 </ul>
 </nav>
 <hr/>
