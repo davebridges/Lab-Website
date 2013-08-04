@@ -24,7 +24,11 @@
 {{ labaddress.address.line_2 }}</br>
 {{ labaddress.address.line_3 }}</br>
 {{ labaddress.address.line_4 }}</br></span>
+<<<<<<< HEAD
 <span itemprop="addressLocality" >{{ labaddress.address.city }}</span>, <span itemprop="addressRegion">{{ labaddress.address.state }}</span>, <span itemprop="addressCountry" itemscope itemtype="http://schema.org/Country"><meta itemprop="sameAs" content="http://en.wikipedia.org/wiki/United_States"/><span itemprop="name">{{ labaddress.address.country}}</span></span>, <span itemprop="postalCode">{{ labaddress.address.code }}</span>
+=======
+<span itemprop="addressLocality" >{{ labaddress.address.city }}</span>, <span itemprop="addressRegion">{{ labaddress.address.state }}</span>, <span itemprop="addressCountry" itemscope itemtype="http://schema.org/Country"><meta itemprop="sameAs" content="http://en.wikipedia.org/wiki/United_States"/>{{ labaddress.address.country}}</span>, <span itemprop="postalCode">{{ labaddress.address.code }}</span>
+>>>>>>> 946c747dc4c5aae7ab54e8d378b685e19f0308d9
 </p>
 {% endif %}
 {% endfor %}
