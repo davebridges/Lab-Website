@@ -1,6 +1,14 @@
 {% if postings %}
 <h2>Positions Available</h2>
 {% for posting in postings %}
-<p class="info" itemscope itemtype="http://schema.org/JobPosting"><span itemprop="description">{{ posting.description }}</span>  To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.</p>
+<p class="info" itemscope itemtype="http://schema.org/JobPosting"><strong itemprop="title">{{ posting.title }}</strong>.
+<span itemprop="description">{{ posting.description }}</span><br>
+{% if posting.hiringOrganization %}<span itemprop="hiringOrganization">{{ posting.hiringOrganization }}</span><br>{% endif %}
+{% if posting.education %}Required Education: <span itemprop="educationRequirements">{{ posting.education }}</span>{% endif %}
+{% if posting.qualifications %}Qualifications: <span itemprop="qualifications">{{ posting.qualifications }}</span>{% endif %}
+{% if posting.skills %}Required Skills: <span itemprop="skills">{{ posting.skills }}</span>{% endif %}
+{% if posting.responsibilities %}Responsibilities: <span itemprop="responsibilities">{{ posting.responsibilities }}</span>{% endif %}
+To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.<br>
+Date Posted: <span itemprop="datePosted">{{ posting.created }}</span></p>
 {% endfor %}
 {% endif %}
