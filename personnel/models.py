@@ -55,6 +55,10 @@ class Person(models.Model):
     home_address = models.ForeignKey('Address', blank=True, null=True, related_name='home-address')
     work_address = models.ForeignKey('Address', blank=True, null=True, related_name='work-address')
     #these fields describe social networking usernames or id numbers
+    orcid_id = models.CharField(max_length=15, 
+        blank=True, null=True, 
+        verbose_name="ORCID ID",
+        help_text="See http://orcid.org/")
     google_plus_user_id = models.CharField(max_length=25, blank=True, null=True, verbose_name="Google Plus Id")
     twitter_username = models.CharField(max_length=15, blank=True, null=True)
     facebook_user_id = models.CharField(max_length=15, blank=True, null=True)
