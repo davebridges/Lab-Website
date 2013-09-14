@@ -73,7 +73,7 @@ class CommentaryFeed(Feed):
 
     def item_description(self,item):
         '''The content of the feed is the actual comments.'''
-        return item.comments
+        return item.comments + item.citation
 
     def item_author_name(self, item):
         '''The author of the item.'''
