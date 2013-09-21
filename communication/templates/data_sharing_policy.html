@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>Data and Resource Sharing Policy</title>{% endblock %}
+
+{% block content %}
+{% load markup_filters %}
+<article class="container append-2 prepend-2 span-20">
+{% if data_sharing_policy_source %}
+{{ data_sharing_policy|markdown_rst|safe }}
+<p>This file was downloaded from <a href="{{ data_sharing_policy_source }}">here</a> and was automatically formatted.</p>
+{% else %}
+<p>The laboratory rules source file was not available.  Please check your settings file.</p>
+{% endif %}
+
+<section id="comments">
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
+</section>
+</article>
+{% endblock %}

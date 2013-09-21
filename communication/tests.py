@@ -97,6 +97,21 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('lab_rules' in test_response.context)    
         self.assertTrue('lab_rules_source' in test_response.context)    
+
+    def test_lab_rules_view(self):
+        '''This tests the data-resource-sharing view.
+        
+        The tests ensure that the correct template is used.
+        It also tests whether the correct context is passed (if included).
+        his view uses a user with superuser permissions so does not test the permission levels for this view.'''
+        
+        test_response = self.client.get('/data-resource-sharing')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'data_sharing_policy.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTrue('data_sharing_policy' in test_response.context)    
+        self.assertTrue('data_sharing_policy_source' in test_response.context)
         
     def test_twitter_view(self):
         '''This tests the twitter view.

@@ -31,7 +31,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
 
     def items(self):
         return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','project-list',
-                 'twitter','google-calendar','wikipedia','lab-rules','publication-policy','lab-news','contact-info']
+                 'twitter','google-calendar','wikipedia','lab-rules','publication-policy','data-resource-policy','lab-news','contact-info']
 
     def location(self, item):
         return reverse(item)
@@ -78,6 +78,7 @@ urlpatterns = patterns('',
     url(r'^wikipedia/?$', communication.views.WikipedaEditsView.as_view(), name="wikipedia"),
     url(r'^lab-rules/?$', communication.views.LabRulesView.as_view(), name="lab-rules"),
     url(r'^publication-policy/?$', communication.views.PublicationPolicyView.as_view(), name="publication-policy"),
+    url(r'^data-resource-sharing/?$', communication.views.DataResourceSharingPolicyView.as_view(), name="data-resource-policy"),
     url(r'^news/?$', communication.views.NewsView.as_view(), name='lab-news'),
 
  
