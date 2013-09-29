@@ -7,6 +7,7 @@ from papers import views
 urlpatterns = patterns('',
     url(r'^interesting/?$', views.InterestingPaperList.as_view(), name="interesting-papers"), 
     url(r'^new/?$', views.PaperCreate.as_view(), name="paper-new"),
+    url(r'^commentaries/?$', views.CommentaryList.as_view(), name='commentary-list'), 
     url(r'^commentary/?$', views.CommentaryList.as_view(), name='commentary-list'),     
     url(r'^commentary/new/?$', views.CommentaryCreate.as_view(), name='commentary-new'),
     url(r'^commentary/(?P<pk>[-\d]+)/edit/?$', views.CommentaryUpdate.as_view(), name='commentary-edit'),
