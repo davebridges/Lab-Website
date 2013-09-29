@@ -20,9 +20,9 @@ from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
 
-from papers.models import Publication, AuthorDetails, Person
+from papers.models import Publication, AuthorDetails, Person, Commentary
 
-MODELS = [Publication, AuthorDetails]
+MODELS = [Publication, AuthorDetails, Commentary]
 
 class PublicationModelTests(TestCase):
     '''This class tests various aspects of the :class:`~papers.models.Publication` model.'''
@@ -127,6 +127,51 @@ class AuthorDetailsModelTests(TestCase):
             order = 1)
         test_authordetail.save() 
         self.assertEqual(test_authordetail.__unicode__(), '1 - [] -  Dave Bridges')
+        
+class CommentaryModelTests(TestCase):
+    '''This class tests various aspects of the :class:`~papers.models.Commentary` model.'''
+    
+    fixtures = ['test_publication', 'test_personnel']
+
+    def setUp(self):
+        '''Instantiate the test client.  Creates a test user.'''
+        self.client = Client()
+        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
+        self.test_user.is_superuser = True
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.assertEqual(self.test_user.is_superuser, True)
+        login = self.client.login(username='testuser', password='testpassword')
+        self.failUnless(login, 'Could not log in')
+    
+    def tearDown(self):
+        '''Depopulate created model instances from test database.'''
+        for model in MODELS:
+            for obj in model.objects.all():
+                obj.delete()
+                
+    def test_create_new_commentary_minimum(self):
+        '''This test creates a :class:`~papers.models.Commentary` with the required information only.'''
+        test_commentary = Commentary(paper=Publication.objects.get(pk=1),
+            comments = "Some comments")
+        test_commentary.save()
+        self.assertEqual(test_commentary.pk, 1) 
+        
+    def test_create_new_commentary_all(self):
+        '''This test creates a :class:`~papers.models.Commentary` with all fields entered.'''
+        test_commentary = Commentary(paper=Publication.objects.get(pk=1),
+            comments = "Some comments",
+            author = Person.objects.get(pk=1),
+            citation = "some citation")
+        test_commentary.save()
+        self.assertEqual(test_commentary.pk, 1) 
+        
+    def test_commentary_unicode(self):
+        '''This test creates a :class:`~papers.models.Commentary` and then verifies the unicode representation is correct.'''
+        test_commentary = Commentary(paper=Publication.objects.get(pk=1),
+            comments = "Some comments")
+        test_commentary.save()
+        self.assertEqual(test_commentary.__unicode__(), "Commentary on 14-3-3 proteins: a number of functions for a numbered protein.")                        
         
 class PublicationResourceTests(TestCase):  
     '''This class tests varios aspects of the :class:`~papers.api.PublicationResource` API model.'''
@@ -275,5 +320,6 @@ class PublicationViewTests(TestCase):
 
         #verifies that a non-existent object returns a 404 error.
         null_response = self.client.get('/papers/not-a-real-paper/delete/')
-        self.assertEqual(null_response.status_code, 404)           
+        self.assertEqual(null_response.status_code, 404)  
+                 
                   
