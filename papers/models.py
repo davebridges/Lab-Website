@@ -118,10 +118,12 @@ class AuthorDetails(models.Model):
 class Commentary(models.Model):
     '''This is a commentary by someone in our group on a paper we have discussed.
 
-    The requires fields are the :class:`~papers.models.Paper`, the author (:class:`~personnel.models.Person`).
-    There are autopopulated fields for creation and updates
+    The requires fields are the :class:`~papers.models.Paper`, and the comments. The author (:class:`~personnel.models.Person`) and the citation are optional.
+    There are autopopulated fields for creation and updates.
     '''
-    author = models.ForeignKey('personnel.Person')
+    author = models.ForeignKey('personnel.Person', 
+        blank=True, null=True,
+        help_text="Who was the primary author of this commentary?")
     paper = models.ForeignKey('Publication')
     comments = models.TextField(help_text="Comments on this paper")
     citation = models.TextField(blank=True, null=True,
