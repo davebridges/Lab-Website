@@ -321,5 +321,106 @@ class PublicationViewTests(TestCase):
         #verifies that a non-existent object returns a 404 error.
         null_response = self.client.get('/papers/not-a-real-paper/delete/')
         self.assertEqual(null_response.status_code, 404)  
+        
+class CommentaryViewTests(TestCase):
+    '''This class tests the views for :class:`~papers.models.Commentary` objects.'''
+
+    fixtures = ['test_publication', 'test_personnel', 'test_commentary']
+
+    def setUp(self):
+        """Instantiate the test client.  Creates a test user."""
+        self.client = Client()
+        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
+        self.test_user.is_superuser = True
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.assertEqual(self.test_user.is_superuser, True)
+        login = self.client.login(username='testuser', password='testpassword')
+        self.failUnless(login, 'Could not log in')
+
+    def tearDown(self):
+        """Depopulate created model instances from test database."""
+        for model in MODELS:
+            for obj in model.objects.all():
+                obj.delete()
+
+    def test_commentary_view(self):
+        """This tests the commentary-detail view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        print Commentary.objects.get(pk=1)
+        test_response = self.client.get('/papers/commentary/1')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('commentary' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'commentary-detail.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')                        
+        self.assertEqual(test_response.context['commentary'].pk, 1)
+        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture")
+        
+        #verifies that a non-existent object returns a 404 error.
+        null_response = self.client.get('/papers/commentary/9999')
+        self.assertEqual(null_response.status_code, 404) 
                  
-                  
+    def test_commentary_view_create(self):
+        """This tests the commentary-new view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/commentary/new')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'commentary-form.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')                             
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')
+        
+    def test_commentary_view_edit(self):
+        """This tests the commentary-edit view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/commentary/1/edit')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('commentary' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'commentary-form.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')                             
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')
+        self.assertEqual(test_response.context['commentary'].pk, 1)
+        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture") 
+        
+        #verifies that a non-existent object returns a 404 error.
+        null_response = self.client.get('/papers/commentary/9999/edit')
+        self.assertEqual(null_response.status_code, 404) 
+        
+    def test_commentary_view_delete(self):
+        """This tests the commentary-delete view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/commentary/1/delete')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('object' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'confirm_delete.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')   
+        
+    def test_commentary_view_list(self):
+        """This tests the commentary-list view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/commentaries')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('commentary_list' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'commentary-list.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')                                   
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
+        self.assertEqual(test_response.context['commentary_list'][0].pk, 1)
+        self.assertEqual(test_response.context['commentary_list'][0].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary_list'][0].comments, "some comments for this fixture")                    
