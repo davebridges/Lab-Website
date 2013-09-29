@@ -6,7 +6,7 @@
 {% block title %}<title>{{ commentary }}</title>{% endblock %}
 
 {% block header %}
-<h1>Commentary</h1>
+<h1>{{ commentary }}</h1>
 {% endblock %}
 
 
@@ -16,9 +16,12 @@
 {% block content %}
 <article class="container append-2 prepend-2 span-20">
 <h2><a href="{{ commentary.paper.get_absolute_url }}" class="plain-link">{{ commentary.paper }}</a></h2>
+{% if commentary.author %}
 <h3>Written By <a href="{{ commentary.author.get_absolute_url }}" class="plain-link">{{ commentary.author }}</a></h3>
-<section>
+{% endif %}
+<section id="comments">
 <p>{{ commentary.comments|safe }}</p>
+<p>Written on {{ commentary.created }}, last modified on {{ commentary.modified }}.</p>
 </section>
 
 {% if commentary.citation %}
