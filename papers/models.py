@@ -68,7 +68,16 @@ class Publication(models.Model):
         
     def full_pmcid(self):
         '''Converts the integer to a full PMCID'''
-        return 'PMC%s' % self.pmcid    
+        return 'PMC%s' % self.pmcid 
+        
+    def link(self):
+        '''This generates the internal link to the paper.  The priority is the DOI, followed by the PMID, followed by our internal page.'''
+        if self.doi:
+            return doi_link
+        elif self.pmid:
+            return 'http://pubmed.org/%s' % self.pmid
+        else:
+            return self.get_absolute_url()       
     
     def __unicode__(self):
         '''The unicode representation for a :class:`~papers.models.Publication` is its title'''
