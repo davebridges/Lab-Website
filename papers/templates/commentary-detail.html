@@ -14,14 +14,14 @@
 {% endblock %}
 
 {% block content %}
-<article class="container append-2 prepend-2 span-20">
-<h2><a href="{{ commentary.paper.get_absolute_url }}" class="plain-link">{{ commentary.paper }}</a></h2>
+<article class="container append-2 prepend-2 span-20" itemscope itemtype="http://schema.org/Review">
+<h2><a itemprop="about" itemscope itemtype="http://schema.org/ScholarlyArticle" href="{{ commentary.paper.link }}" class="plain-link"><span itemprop="name">{{ commentary.paper }}</span><meta itemprop="url" content="{{ commentary.paper.link }}"></a></h2>
 {% if commentary.author %}
-<h3>Written By <a href="{{ commentary.author.get_absolute_url }}" class="plain-link">{{ commentary.author }}</a></h3>
+<h3 id="author" itemprop="author creator editor accountablePerson" itemscope itemtype="http://schema.org/Person">Written By <a itemprop="url" href="{{ commentary.author.get_absolute_url }}" class="plain-link"><span itemprop="name">{{ commentary.author }}</span></a></h3>
 {% endif %}
 <section id="comments">
-<p>{{ commentary.comments|safe }}</p>
-<p>Written on {{ commentary.created }}, last modified on {{ commentary.modified }}.</p>
+<p itemprop="reviewBody text">{{ commentary.comments|safe }}</p>
+<p>Written on <time itemprop="dateCreated datePublished" datetime="{{ commentary.created|date:"c" }}">{{ commentary.created }}</time>, last modified on <time itemprop="dateModified" datetime="{{ commentary.modified|date:"c"}}">{{ commentary.modified }}</time>.</p>
 </section>
 
 {% if commentary.citation %}
