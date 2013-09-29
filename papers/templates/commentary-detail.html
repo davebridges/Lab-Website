@@ -2,7 +2,7 @@
 {% block scripts %}
 <link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
 {% if commentary.author.google_plus_user_id %}
-<link rel="author" href="{{ commentary.author.}}">
+<link href="https://plus.google.com/{{ commentary.author.}}" rel="author" >
 {% endif %}
 {% endblock %}
 
