@@ -73,7 +73,7 @@ class Publication(models.Model):
     def link(self):
         '''This generates the internal link to the paper.  The priority is the DOI, followed by the PMID, followed by our internal page.'''
         if self.doi:
-            return doi_link
+            return self.doi_link()
         elif self.pmid:
             return 'http://pubmed.org/%s' % self.pmid
         else:
