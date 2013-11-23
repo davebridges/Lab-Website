@@ -143,7 +143,7 @@ class Commentary(models.Model):
 
     def __unicode__(self):
         '''The unicode representation is "Commentary on XXX" where XXX is the paper title'''
-        return "Commentary on %s" %self.paper
+        return "Journal club summary on %s" %self.paper
 
     @models.permalink
     def get_absolute_url(self):
