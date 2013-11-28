@@ -141,8 +141,16 @@ class Degree(models.Model):
     '''This model describes degrees, undergraduate and graduate.
     
     These describe degrees in general.  For details on a specific degree see the associated ::class:`Role`.'''
-    degree = models.CharField(max_length=100)
-    abbreviation = models.CharField(max_length=10)
+    degree = models.CharField(max_length=100, help_text="Long form name of the degree")
+    field_of_study = models.CharField(max_length=100, help_text="What general field was this?")
+    abbreviation = models.CharField(max_length=10, help_text="Abbreviation for degree name, ie Ph.D.")
+    organization = models.ForeignKey('Organization', help_text="Where was this degree obtained from?")
+    date_awarded = models.DateField(blank=True, null=True, help_text="When was the degree awarded?")
+    notes = models.TextField(blank=True, null=True, help_text="Some notes on what you did during this degree")
+
+    def __unicode__(self):
+        '''The unicode representation for a Degree is the abbreviation and the organization'''
+        return u"%s (%s)" %(self.abbreviation, self.organization)
 
 class Award(models.Model):
     '''This model describes awards that lab personnel has won.'''
