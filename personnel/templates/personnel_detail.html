@@ -28,7 +28,21 @@
     {% for role in person.lab_roles.all %}
     {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
     {% endfor %}
+    </dd>
     {% endif %}
+    
+    {% if person.degrees.all %}
+    <dt>Degrees</dt>
+    <dd>
+    {% for degree in person.degrees.all %}
+    {{ degree }}.  {% if degree.date_awarded %}Awarded in {{degree.date_awarded|date:"Y" }}.{% endif %}<br/>
+    <span itemprop='alumniOf' itemscope itemtype='http://schema.org/EducationalOrganization'>
+    <meta itemprop='name' content='{{ degree.organization.name }}'/>
+    </span>
+    {% endfor %}
+    </dd>
+    {% endif %}
+
         {% if person.email %}
 	<dt>Email</dt>
 	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
