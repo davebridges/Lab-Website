@@ -161,7 +161,6 @@ class Award(models.Model):
 class Organization(models.Model):
     '''This class describes an business, institution or other organization.'''   
     name = models.CharField(max_length=100, 
-        unique=True, 
         help_text="Name of the University or Institute")
     department = models.CharField(max_length=100,
         help_text="Name of the Department or Group")
