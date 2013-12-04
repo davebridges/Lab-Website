@@ -97,7 +97,7 @@ class Person(models.Model):
 
     class Meta:
         '''The meta options for Personnel models.'''
-        ordering = ["created"]
+        ordering = ["last_name"]
         verbose_name_plural = "Personnel"
         
 def create_user_profile(sender, instance, created, **kwargs):
