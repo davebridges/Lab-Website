@@ -13,7 +13,7 @@ class LaboratoryPersonnelList(ListView):
     
     This is filtered based on whether the ::class:`Personnel` object is marked as current_lab_member = True.
     '''
-    queryset = Person.objects.filter(current_lab_member=True)
+    queryset = Person.objects.filter(current_lab_member=True).order_by('created')
     template_name = "personnel_list.html"
     context_object_name = 'personnel'     
     
