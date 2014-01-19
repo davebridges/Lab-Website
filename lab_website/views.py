@@ -11,6 +11,7 @@ from django.conf import settings
 from django.views.generic.base import View, TemplateView
 
 from personnel.models import JobPosting
+from papers.models import Publication, Commentary
 
 class IndexView(TemplateView):
     '''This view redirects to the home page.'''
@@ -46,7 +47,9 @@ class IndexView(TemplateView):
                      data = json.loads(json_data)
                      return data
          
-        general_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID              
+        general_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID 
+        context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:4]   
+        context['recent_comments'] =  Commentary.objects.all()[0:4]                 
         context['general_data'] = facebook_request(general_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
         return context                            
