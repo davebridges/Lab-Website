@@ -33,7 +33,7 @@
 
 <section class="span-24 container" id="recent-activity">
 <section id='recent-papers' class='span-10 first prepend-2 container'>
-<h2>Recent Publications</h2>
+<h2><a href='{% url 'laboratory-papers' %}' class='plain-link'>Recent Publications</a></h2>
 
 {% for paper in recent_papers %}
 <section>
@@ -43,7 +43,7 @@
 
 </section>
 <section id='recent-comments'class='span-10 last append-2'>
-<h2>Recent Journal Clubs</h2>
+<h2><a href='{% url 'commentary-list' %}' class='plain-link'>Recent Journal Clubs</a></h2>
 
 {% for commentary in recent_comments %}
 <section>
