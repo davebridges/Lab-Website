@@ -16,7 +16,7 @@
 {% with commentary.paper as paper %}
 {% include "paper-detail-snippet.html" %}
 {% endwith %}
-<p>{{ commentary.comments }}</p>
+<p>{{ commentary.comments | safe }}</p>
 For more details click <a href ='{{ commentary.get_absolute_url}}'>here</a>.
 </li>
 {% endfor %}
