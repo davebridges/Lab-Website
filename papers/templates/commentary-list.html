@@ -10,10 +10,16 @@
 
 {% block content %}
 <article  class="container append-2 prepend-2 span-20">
-<ul>
+<ol>
 {% for commentary in commentary_list %}
-<li><a href="{{ commentary.get_absolute_url }}">{{ commentary }}</a></li>
+<li>
+{% with commentary.paper as paper %}
+{% include "paper-detail-snippet.html" %}
+{% endwith %}
+<p>{{ commentary.comments }}</p>
+For more details click <a href ='{{ commentary.get_absolute_url}}'>here</a>.
+</li>
 {% endfor %}
-</ul>
+</ol>
 </article>
 {% endblock %}
