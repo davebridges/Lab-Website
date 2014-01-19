@@ -45,9 +45,11 @@
 <section id='recent-comments'class='span-10 last append-2'>
 <h2>Recent Journal Clubs</h2>
 
-{% for commentary.paper in recent_comments %}
+{% for commentary in recent_comments %}
 <section>
+{% with commentary.paper as paper %}
 {% include "paper-detail-snippet.html" %}
+{% endwith %}
 </section>
 {% endfor %}
 

@@ -48,8 +48,8 @@ class IndexView(TemplateView):
                      return data
          
         general_request_url = 'https://graph.facebook.com/' + settings.FACEBOOK_ID 
-        context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:4]   
-        context['recent_comments'] =  Commentary.objects.all()[0:4]                 
+        context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:5]   
+        context['recent_comments'] =  Commentary.objects.all()[0:5]                 
         context['general_data'] = facebook_request(general_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
         return context                            
