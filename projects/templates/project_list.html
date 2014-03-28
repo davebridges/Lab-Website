@@ -19,7 +19,7 @@
 <h2>
 <a class="large plain-link" href="{{ project.get_absolute_url }}">{{ project }}</a>
 </h2>
-<p>{{ project.summary }}</p>
+<p>{{ project.summary |safe}}</p>
 </section>
 {% endfor %}
 </article>

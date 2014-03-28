@@ -12,7 +12,7 @@
 <article class="container append-2 prepend-2 span-20">
 <section id="summary" class="span-20">
 <h2>Project Summary</h2>
-<p>{{ project.summary }}</p>
+<p>{{ project.summary | safe}}</p>
 </section>
 
 {% if project.current_personnel.all.count > 0 %}
