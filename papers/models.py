@@ -59,6 +59,7 @@ class Publication(models.Model):
     laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
     interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
     publication_date = models.DateField(help_text="The official publicaiton date of the paper", blank=True, null=True)
+    preprint = models.BooleanField(help_text="Is this a preprint")
     date_last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)    
     
