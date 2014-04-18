@@ -3,21 +3,33 @@
 
 {% endblock %}
 
-{% block title %}<title>Members of the {{ lab_name }}</title>{% endblock %}
+{% block title %}<title>{% if personnel_type == 'alumni' %}Former {% endif %}Members of the {{ lab_name }}</title>{% endblock %}
 
 {% block header %}
-<h1>Members of the {{ lab_name }}</h1>
+<h1>{% if personnel_type == 'alumni' %}Former {% endif %}Members of the {{ lab_name }}</h1>
 {% endblock %}
 
 {% block content %}
 <article class="container append-2 prepend-2 span-20">
 
+{% if personnel_type == 'current' %}
 {% include "job_posting_snippet.html" %}
+{% endif %}
 
 {% for person in personnel %}
 <section>
 {% include 'personnel_snippet.html' %}
 </section>
 {% endfor %}
+
+{% if personnel_type == 'current' %}
+<p>To see previous lab members see <a href="{% url 'laboratory-alumni' %}">lab alumni list</a>.</p>
+{% endif %}
+
+{% if personnel_type == 'alumni' %}
+<p>To see current lab members see <a href="{% url 'laboratory-personnel' %}">lab members list</a>.</p>
+{% endif %}
+
 {% endblock %}
+
 </article>

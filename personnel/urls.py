@@ -10,5 +10,6 @@ from personnel import views
 
 urlpatterns = patterns('',
     url(r'^$', views.LaboratoryPersonnelList.as_view(), name="laboratory-personnel"),
+    url(r'^alumni/?$', views.LaboratoryAlumniList.as_view(), name="laboratory-alumni"),
     url(r'^(?P<name_slug>[\w\d-]+)/$', views.LaboratoryPersonnelDetail.as_view(), name="personnel-details")
 )
