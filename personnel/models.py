@@ -63,7 +63,8 @@ class Person(models.Model):
     twitter_username = models.CharField(max_length=15, blank=True, null=True)
     facebook_user_id = models.CharField(max_length=15, blank=True, null=True)
     #these fields describe the role while in the laboratory or either before/after their time there.
-    current_lab_member = models.BooleanField()
+    alumni = models.BooleanField(help_text="Is this person a key alumni from the lab")
+    current_lab_member = models.BooleanField(help_text="Is this person currently in the lab")
     lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab-role')
     current_roles = models.ManyToManyField('Role', help_text="Current Position(s)", blank=True, null=True, related_name='current-role')
     past_roles = models.ManyToManyField('Role', help_text="Previous Position(s)", blank=True, null=True, related_name='past-role')
