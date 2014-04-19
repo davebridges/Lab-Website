@@ -20,6 +20,7 @@ from personnel.api import PersonnelResource
 
 from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed
 from projects.feeds import ProjectsFeed
+from communication.feeds import PostsFeed
 
 from views import IndexView
 
@@ -73,6 +74,7 @@ urlpatterns = patterns('',
     url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
     url(r'^feeds/commentaries/?$', CommentaryFeed(), name="commentary-feed"),
     url(r'^feeds/projects/?', ProjectsFeed(), name="projects-feed"),
+    url(r'^feeds/posts/?', PostsFeed(), name="posts-feed"),    
       
     url(r'^twitter/?$', communication.views.TwitterView.as_view(), name="twitter"),
     url(r'^calendar/?$', communication.views.GoogleCalendarView.as_view(), name="google-calendar"),
