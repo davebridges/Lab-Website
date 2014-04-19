@@ -53,7 +53,7 @@ class PersonnelViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('personnel' in test_response.context)
         self.assertTemplateUsed(test_response, 'personnel_list.html')
-        self.assertEqual(test_response.context['personnel-type'], 'current')
+        self.assertEqual(test_response.context['personnel_type'], 'current')
         self.assertEqual(test_response.context['personnel'][0].pk, 1)
         self.assertEqual(test_response.context['personnel'][0].first_name, 'John')        
         self.assertEqual(test_response.context['personnel'][0].last_name, 'Doe')  

@@ -171,7 +171,7 @@ class CommentaryModelTests(TestCase):
         test_commentary = Commentary(paper=Publication.objects.get(pk=1),
             comments = "Some comments")
         test_commentary.save()
-        self.assertEqual(test_commentary.__unicode__(), "Commentary on 14-3-3 proteins: a number of functions for a numbered protein.")                        
+        self.assertEqual(test_commentary.__unicode__(), "Journal club summary on 14-3-3 proteins: a number of functions for a numbered protein.")                        
         
 class PublicationResourceTests(TestCase):  
     '''This class tests varios aspects of the :class:`~papers.api.PublicationResource` API model.'''
@@ -348,7 +348,6 @@ class CommentaryViewTests(TestCase):
         """This tests the commentary-detail view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
-        print Commentary.objects.get(pk=1)
         test_response = self.client.get('/papers/commentary/1')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary' in test_response.context)        
