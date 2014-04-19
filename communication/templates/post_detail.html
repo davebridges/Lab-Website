@@ -22,6 +22,10 @@
 <p>The source file was not available.</p>
 {% endif %}
 
+<section id="license">
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">{{ post.post_title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="{{ post.get_absolute_url }}" property="cc:attributionName" rel="cc:attributionURL">{{ post.author }}</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="SOURCE URL" rel="dct:source">{{ post.markdown_url }}</a>.
+</section>
+
 <section id="comments">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
