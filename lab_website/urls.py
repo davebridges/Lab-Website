@@ -61,6 +61,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
     url(r'^contact/', include('communication.urls')), 
+    url(r'^posts/', include('communication.urls_posts')),
     url(r'^papers/', include('papers.urls')),
     url(r'^people/', include('personnel.urls')),
     url(r'^projects/', include('projects.urls')),

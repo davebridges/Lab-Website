@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>{{ post.post_title }}</title>{% endblock %}
+
+{% block content %}
+{% load markup_filters %}
+<article class="container append-2 prepend-2 span-20">
+{% if post %}
+{{ post_data | markdown_md | safe }}
+<p>This post was initially created on {{ post.created }} by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>{% if post.modified %}. It was last modified on {{ post.modified }}{% endif%}. It was downloaded from <a href="{{ post.markdown_url }}">here</a> and was automatically formatted.</p>
+{% else %}
+<p>The source file was not available.</p>
+{% endif %}
+
+<section id="comments">
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
+</section>
+</article>
+{% endblock %}

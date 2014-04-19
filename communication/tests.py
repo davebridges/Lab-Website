@@ -10,9 +10,11 @@ Since this app has no models there is model and view tests:
 
 from lab_website.tests import BasicTests
 
-from communication.models import LabAddress,LabLocation
+from communication.models import LabAddress,LabLocation,Post
 
-from personnel.models import Address
+from personnel.models import Address, Person
+from papers.models import Publication
+from projects.models import Project
 
 class CommunicationModelTests(BasicTests):
     '''This class tests the views associated with models in the :mod:`communication` app.'''
@@ -125,6 +127,7 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('timeline' in test_response.context)         
         
+        
     def test_calendar_view(self):
         '''This tests the google-calendar view.
         
@@ -185,4 +188,80 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'location.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTrue('lablocation_list' in test_response.context)                                          
+        self.assertTrue('lablocation_list' in test_response.context)  
+        
+class PostModelTests(BasicTests):
+    '''This class tests various aspects of the :class:`~papers.models.Post` model.'''
+    
+    fixtures = ['test_publication','test_project', 'test_personnel']   
+                
+    def test_create_new_post_minimum(self):
+        '''This test creates a :class:`~papers.models.Post` with the required information only.'''
+        
+        test_post = Post(post_title="Test Post",
+        author = Person.objects.get(pk=1),
+        markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md')
+        test_post.save()
+        self.assertEqual(test_post.pk, 1) 
+        
+    def test_create_new_post_all(self):
+        '''This test creates a :class:`~papers.models.Post` with all fields entered.'''
+        
+        test_post = Post(post_title="Test Post",
+            author = Person.objects.get(pk=1),
+            markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md',
+            paper = Publication.objects.get(pk=1),
+            project = Project.objects.get(pk=1))
+        test_post.save()
+        self.assertEqual(test_post.pk, 1) 
+        
+    def test_post_unicode(self):
+        '''This test creates a :class:`~papers.models.Post` and then verifies the unicode representation is correct.'''
+        
+        test_post = Post(post_title="Test Post",
+            author = Person.objects.get(pk=1),
+            markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md')
+        test_post.save()
+        self.assertEqual(test_post.__unicode__(), "Test Post")  
+        
+    def test_post_slugify(self):
+        '''This test creates a :class:`~papers.models.Post` and then verifies the unicode representation is correct.'''
+        
+        test_post = Post(post_title="Test Post",
+            author = Person.objects.get(pk=1),
+            markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md')
+        test_post.save()   
+        self.assertEqual(test_post.post_slug, "test-post")   
+      
+class PostViewTests(BasicTests):
+    '''These test the views associated with post objects.'''
+    
+    fixtures = ['test_post',]
+    
+    def test_post_details_view(self):
+        """This tests the post-details view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/posts/fixture-post')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'post_detail.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'disqus_snippet.html')
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')
+        self.assertTrue('post' in test_response.context)  
+        
+    def test_post_list(self):
+        """This tests the post-list view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/posts/')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'post_list.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')
+        self.assertTrue('post_list' in test_response.context)         
+                                                              

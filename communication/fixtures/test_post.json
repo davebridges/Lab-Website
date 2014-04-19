@@ -1,0 +1,16 @@
+[
+{
+    "pk": 1, 
+    "model": "communication.post", 
+    "fields": {
+        "author": 1, 
+        "post_title": "Fixture Post", 
+        "modified": null, 
+        "created": "2014-04-19", 
+        "project": null, 
+        "paper": null, 
+        "post_slug": "fixture-post", 
+        "markdown_url": "https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md"
+    }
+}
+]

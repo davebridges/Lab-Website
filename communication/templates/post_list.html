@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block scripts %}
+<link rel="alternate" type="application/rss+xml" title="Posts" href="url 'post-feed'">
+{% endblock %}
+{% block title %}<title>Posts</title>{% endblock %}
+
+{% block header %}
+<h1>Posts</h1>
+{% endblock %}
+
+{% block content %}
+<article  class="container append-2 prepend-2 span-20">
+<ol>
+{% for post in post_list %}
+<li><a href="{{ post.get_absolute_url }}">{{ post.post_title }}</a></li>
+{% endfor %}
+</ol>
+</article>
+{% endblock %}

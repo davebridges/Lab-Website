@@ -9,8 +9,10 @@ from django.test.client import Client
 from django.contrib.auth.models import User
 
 from papers.models import Publication
+from personnel.models import Person
+from projects.models import Project
 
-MODELS = [Publication,]
+MODELS = [Publication, Person, Project]
 
 class BasicTests(TestCase):
     '''This class covers the setup and tear down for all unit tests'''

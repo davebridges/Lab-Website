@@ -11,11 +11,16 @@ import dateutil
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.views.generic.base import View, TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.template import RequestContext
 from django.contrib import messages
+from django.core.urlresolvers import reverse_lazy
 
-from communication.models import LabAddress, LabLocation
+from braces.views import PermissionRequiredMixin
+
+from communication.models import LabAddress, LabLocation, Post
 
 def generate_twitter_timeline(count):
     '''This function generates a timeline from a twitter username.
@@ -288,4 +293,73 @@ class LabLocationView(ListView):
     '''
     
     template_name = "location.html"
-    model = LabLocation                                            
+    model = LabLocation  
+    
+class PostList(ListView):
+    '''This class generates the view for commentaries located at **/papers/Post**.
+    '''
+    model = Post
+    template_name = "post_list.html"
+
+class PostDetail(DetailView):
+    '''This class generates the view for post-detail located at **/papers/post/<slug>**.
+    '''
+    model = Post
+    slug_field = "post_slug"
+    slug_url_kwarg = "post_slug"      
+    template_name = "post_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data(**kwargs)
+        request_url = str(context['post'].markdown_url)
+        print(request_url)
+        
+        request = urllib2.Request(request_url)
+        try:
+            response = urllib2.urlopen(request)
+        except urllib2.URLError, e:
+            if e.code == 404:
+                post_data = "Post is not Available."
+            else:
+                #this is for a non-404 URLError.
+                post_data = "Post is not Available."
+        except ValueError:
+            post_data = "Post is not Available."        
+        else:
+             #successful connection
+             post_data = response.read()         
+        context['post_data'] = post_data
+        return context
+                
+class PostCreate(PermissionRequiredMixin, CreateView):
+    '''This view is for creating a new :class:`~commentary.models.Post`.
+    
+    It requires the permissions to create a new paper and is found at the url **/papers/post/new**.'''
+    
+    permission_required = 'communication.create_post'
+    model = Post
+    template_name = "post_form.html"
+
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    '''This view is for updating a :class:`~commentary.models.Post`.
+    
+    It requires the permissions to update a post and is found at the url **/paper/post/<pk>/edit**.'''
+    
+    permission_required = 'communication.update_post'
+    slug_field = "post_slug"
+    slug_url_kwarg = "post_slug"    
+    model = Post
+    template_name = 'post_form.html' 
+    
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    '''This view is for deleting a :class:`~commentary.models.Post`.
+    
+    It requires the permissions to delete a paper and is found at the url **/paper/post/<pk>/delete**.'''
+    
+    permission_required = 'communication.delete_post'
+    slug_field = "post_slug"
+    slug_url_kwarg = "post_slug"      
+    model = Post
+    template_name = 'confirm_delete.html'
+    template_object_name = 'object'
+    success_url = reverse_lazy('post-list')                                               
