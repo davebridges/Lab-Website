@@ -263,5 +263,18 @@ class PostViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
-        self.assertTrue('post_list' in test_response.context)         
+        self.assertTrue('post_list' in test_response.context)
+        
+    def test_post_new(self):
+        """This tests the post-new view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/posts/new')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'post_form.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')     
+                                                                               
                                                               

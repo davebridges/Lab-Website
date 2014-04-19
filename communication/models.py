@@ -102,7 +102,7 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         '''The permalink of a post page is **post/<post_slug>**'''
-        return('post-detail', [str(self.post_slug)])
+        return('post-details', [str(self.post_slug)])
 
     class Meta:
         '''The meta options for this defines the ordering by the created field.'''

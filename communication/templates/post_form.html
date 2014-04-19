@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+<title>{% if post %}Update {{ post }} {% else %}New Post{% endif %}</title>
+{% endblock %}
+{% block content %}
+<h1>{% if project %}Update {{ post }} {% else %}New Post{% endif %}</h1>
+<form method="POST" action="{% if post %}{% url 'post-edit' project.post_slug %} {% else %} {% url 'post-new' %}{% endif %}">{% csrf_token %}
+<table>{{ form }}</table>
+<input type="submit" value="Submit" />
+</form>
+{% endblock %}
