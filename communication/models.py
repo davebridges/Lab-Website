@@ -4,6 +4,7 @@ Currently there is just one model, for laboratory addresses.
 '''
 
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from personnel.models import Address
 
@@ -69,3 +70,47 @@ class LabLocation(models.Model):
        '''These objects are ordered by their priority.'''
        
        ordering = ['priority',]
+       
+class Post(models.Model):
+    '''This is a post by someone in our group on some topic.
+
+    The required fields are the title, the author (:class:`~personnel.models.Person`) and the url where the raw markdown can be found.
+    There are also required fields for creation and updates.
+    The optional fields are a linked paper, and linked project.
+    '''
+    
+    post_title = models.CharField(max_length=100, help_text="What is the title of this post?")
+    post_slug = models.SlugField(blank=True, null=True, 
+        max_length=100, editable=False, unique=True)
+    author = models.ForeignKey('personnel.Person', 
+        help_text="Who was the primary author of this post?")
+    markdown_url = models.URLField(help_text="Where is the raw markdown file to be parsed?")
+    
+    paper = models.ForeignKey('papers.Publication', blank=True, null=True,
+        help_text="Does this post refer to one of our papers?")
+    project = models.ForeignKey('projects.Project', blank=True, null=True,
+        help_text="Does this post refer to one of our projects?")
+
+
+    created = models.DateField(auto_now_add=True)
+    modified = models.DateField(blank=True, null=True)
+
+    def __unicode__(self):
+        '''The unicode representation is the post_title'''
+        return "%s" %self.post_title
+
+    @models.permalink
+    def get_absolute_url(self):
+        '''The permalink of a post page is **post/<post_slug>**'''
+        return('post-detail', [str(self.post_slug)])
+
+    class Meta:
+        '''The meta options for this defines the ordering by the created field.'''
+        ordering = ['-created',]   
+        
+    def save(self, *args, **kwargs):
+        '''The post_title is slugified upon saving into post_slug.'''
+        if not self.id:
+            self.post_slug = slugify(self.post_title)
+        super(Post, self).save(*args, **kwargs)         
+       
