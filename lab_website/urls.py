@@ -13,6 +13,7 @@ from communication.views import FeedDetailView, LabLocationView
 from personnel.sitemap import LabPersonnelSitemap
 from papers.sitemap import LabPublicationsSitemap, CommentarySitemap
 from projects.sitemap import ProjectsSitemap
+from communication.sitemap import PostsSitemap
 
 from papers.api import PublicationResource
 from projects.api import ProjectResource
@@ -20,6 +21,7 @@ from personnel.api import PersonnelResource
 
 from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed
 from projects.feeds import ProjectsFeed
+from communication.feeds import PostsFeed
 
 from views import IndexView
 
@@ -30,7 +32,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
     changefreq = 'weekly'
 
     def items(self):
-        return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','laboratory-alumni','project-list',
+        return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','laboratory-alumni','project-list', 'posts-list'
                  'twitter','google-calendar','wikipedia','lab-rules','publication-policy','data-resource-policy','lab-news','contact-info']
 
     def location(self, item):
@@ -46,6 +48,7 @@ sitemaps = {
     'personnel': LabPersonnelSitemap,
     'papers': LabPublicationsSitemap,
     'commentary': CommentarySitemap,
+    'posts': PostsSitemap,
     'projects': ProjectsSitemap,
     'static': StaticViewSitemap
     }
@@ -73,6 +76,7 @@ urlpatterns = patterns('',
     url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
     url(r'^feeds/commentaries/?$', CommentaryFeed(), name="commentary-feed"),
     url(r'^feeds/projects/?', ProjectsFeed(), name="projects-feed"),
+    url(r'^feeds/posts/?', PostsFeed(), name="posts-feed"),    
       
     url(r'^twitter/?$', communication.views.TwitterView.as_view(), name="twitter"),
     url(r'^calendar/?$', communication.views.GoogleCalendarView.as_view(), name="google-calendar"),
