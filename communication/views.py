@@ -296,13 +296,13 @@ class LabLocationView(ListView):
     model = LabLocation  
     
 class PostList(ListView):
-    '''This class generates the view for commentaries located at **/papers/Post**.
+    '''This class generates the view for commentaries located at **/post**.
     '''
     model = Post
     template_name = "post_list.html"
 
 class PostDetail(DetailView):
-    '''This class generates the view for post-detail located at **/papers/post/<slug>**.
+    '''This class generates the view for post-detail located at **/post/<slug>**.
     '''
     model = Post
     slug_field = "post_slug"
@@ -312,7 +312,6 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
         request_url = str(context['post'].markdown_url)
-        print(request_url)
         
         request = urllib2.Request(request_url)
         try:
@@ -334,7 +333,7 @@ class PostDetail(DetailView):
 class PostCreate(PermissionRequiredMixin, CreateView):
     '''This view is for creating a new :class:`~commentary.models.Post`.
     
-    It requires the permissions to create a new paper and is found at the url **/papers/post/new**.'''
+    It requires the permissions to create a new paper and is found at the url **/post/new**.'''
     
     permission_required = 'communication.create_post'
     model = Post
@@ -343,7 +342,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
 class PostUpdate(PermissionRequiredMixin, UpdateView):
     '''This view is for updating a :class:`~commentary.models.Post`.
     
-    It requires the permissions to update a post and is found at the url **/paper/post/<pk>/edit**.'''
+    It requires the permissions to update a post and is found at the url **/post/<slug>/edit**.'''
     
     permission_required = 'communication.update_post'
     slug_field = "post_slug"
@@ -354,7 +353,7 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
 class PostDelete(PermissionRequiredMixin, DeleteView):
     '''This view is for deleting a :class:`~commentary.models.Post`.
     
-    It requires the permissions to delete a paper and is found at the url **/paper/post/<pk>/delete**.'''
+    It requires the permissions to delete a paper and is found at the url **/post/<slug>/delete**.'''
     
     permission_required = 'communication.delete_post'
     slug_field = "post_slug"

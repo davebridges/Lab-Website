@@ -252,6 +252,9 @@ class PostViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertTrue('post' in test_response.context)  
         
+        test_response = self.client.get('/posts/not-a-fixture-post') 
+        self.assertEqual(test_response.status_code, 404)          
+        
     def test_post_list(self):
         """This tests the post-list view, ensuring that templates are loaded correctly.  
 
@@ -275,6 +278,34 @@ class PostViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'post_form.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTemplateUsed(test_response, 'analytics_tracking.html')     
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html') 
+        
+    def test_post_edit(self):
+        """This tests the post-edit view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/posts/fixture-post/edit')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'post_form.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
+        
+        test_response = self.client.get('/posts/not-a-fixture-post/edit') 
+        self.assertEqual(test_response.status_code, 404)                      
                                                                                
-                                                              
+    def test_post_delete(self):
+        """This tests the post-edit view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/posts/fixture-post/delete')
+        self.assertEqual(test_response.status_code, 200)       
+        self.assertTemplateUsed(test_response, 'confirm_delete.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')                                                              
+
+        test_response = self.client.get('/posts/not-a-fixture-post/delete') 
+        self.assertEqual(test_response.status_code, 404)  
