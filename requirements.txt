@@ -7,3 +7,4 @@ lxml
 httplib2
 tweepy
 defusedxml
+markdown
