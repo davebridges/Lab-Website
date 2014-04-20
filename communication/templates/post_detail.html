@@ -22,16 +22,32 @@
 <p>The source file was not available.</p>
 {% endif %}
 
-<section id="license">
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">{{ post.post_title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="{{ post.get_absolute_url }}" property="cc:attributionName" rel="cc:attributionURL">{{ post.author }}</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="SOURCE URL" rel="dct:source">{{ post.markdown_url }}</a>.
-</section>
+<div id="footer" class="container span-20">
 
-<section id="twitter">
+<section id="twitter" class="span-4">
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="bridges_lab" data-size="large">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
 </section>
 
-<section id="comments">
+
+<section id="license" class="span-15">
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">{{ post.post_title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="{{ post.get_absolute_url }}" property="cc:attributionName" rel="cc:attributionURL">{{ post.author }}</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="SOURCE URL" rel="dct:source">{{ post.markdown_url }}</a>.
+</section>
+</div>
+
+
+<section id="comments" class="span-20">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
