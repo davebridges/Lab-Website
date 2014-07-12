@@ -78,7 +78,7 @@ class FundingList(ListView):
     It includes all funding.
     '''
     
-    model = Funding
+    queryset = Funding.objects.filter(active=True)
     template_name = "funding_list.html"               
 
 class FundingDetailView(DetailView):

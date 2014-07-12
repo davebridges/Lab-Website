@@ -108,6 +108,7 @@ class Funding(models.Model):
         help_text="Which publications are associated with this award?",
         blank=True,
         null=True)
+    active = models.BooleanField(help_text="Is this funding active?")
         
     #these fields are automatically generated.    
     date_last_modified = models.DateField(auto_now=True)

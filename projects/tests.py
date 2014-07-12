@@ -258,3 +258,99 @@ class FundingModelTests(TestCase):
         test_funding = Funding(title='Test Funding')
         test_funding.save()
         self.assertEqual(test_funding.get_absolute_url(), "/funding/test-funding") 
+        
+class FundingViewTests(TestCase):
+    '''This class tests the views for :class:`~project.models.Funding` objects.'''
+
+    fixtures = ['test_funding',]
+
+    def setUp(self):
+        """Instantiate the test client.  Creates a test user."""
+        self.client = Client()
+        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
+        self.test_user.is_superuser = True
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.assertEqual(self.test_user.is_superuser, True)
+        login = self.client.login(username='testuser', password='testpassword')
+        self.failUnless(login, 'Could not log in')
+
+    def tearDown(self):
+        """Depopulate created model instances from test database."""
+        for model in MODELS:
+            for obj in model.objects.all():
+                obj.delete()
+
+    def test_funding_view(self):
+        """This tests the funding-details view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/funding/fixture-funding')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('funding' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'funding_detail.html')
+        self.assertTemplateUsed(test_response, 'base.html') 
+        self.assertTemplateUsed(test_response, 'jquery_script.html') 
+        self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
+        self.assertEqual(test_response.context['funding'].pk, 1)
+        self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
+        
+    def test_funding_list(self):
+        """This tests the funding-list view ensuring that templates are loaded correctly.
+        
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/funding/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('funding_list' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'funding_list.html')
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')  
+        self.assertEqual(test_response.context['funding_list'][0].pk, 1)
+        self.assertEqual(test_response.context['funding_list'][0].title, u'Fixture Funding')  
+        
+    def test_funding_view_create(self):
+        """This tests the funding-new view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/funding/new/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'funding_form.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')           
+
+    def test_publication_view_edit(self):
+        """This tests the funding-edit view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/funding/fixture-funding/edit/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('funding' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'funding_form.html')
+        self.assertTemplateUsed(test_response, 'jquery_script.html')        
+        self.assertEqual(test_response.context['funding'].pk, 1)
+        self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
+
+        #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
+        null_response = self.client.get('/funding/not-a-real-funding/edit/')
+        self.assertEqual(null_response.status_code, 404)   
+
+    def test_funding_view_delete(self):
+        """This tests the funding-delete view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/funding/fixture-funding/delete/')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('funding' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'confirm_delete.html')
+        self.assertEqual(test_response.context['funding'].pk, 1)
+        self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
+
+        #verifies that a non-existent object returns a 404 error.
+        null_response = self.client.get('/funding/not-a-real-funding/delete/')
+        self.assertEqual(null_response.status_code, 404)                   

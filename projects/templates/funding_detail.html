@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ funding }}</title>
+{% endblock %}
+
+{% block header %}
+<h1>{{ funding }}</h1>
+{% endblock %}
+
+{% block content %}
+<article class="container append-2 prepend-2 span-20">
+
+<section id="summary" class="span-20">
+<h2>Funding Summary</h2>
+<p>{{ funding.summary | safe}}</p>
+</section>
+
+
+<section id="publications" class="span-20">
+<h2>Publications</h2>
+{% if funding.publications.all.count > 0 %}
+<section class="span-20 border first">
+<h3>Which publications were supported by this award?</h3>
+{% for paper in funding.publications.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
+</section>
+{% endif %}
+
+<section id="comments class="span-20">
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
+</section>
+</article>
+{% endblock content %}

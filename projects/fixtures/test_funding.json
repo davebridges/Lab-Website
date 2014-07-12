@@ -12,7 +12,8 @@
           "publications": [], 
           "date_added": "2014-07-11", 
           "start_date": null, 
-          "date_last_modified": "2014-07-11"
+          "date_last_modified": "2014-07-11",
+          "active": "True"
      }
 }
 ]
