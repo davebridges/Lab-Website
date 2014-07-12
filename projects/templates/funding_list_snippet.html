@@ -1,0 +1,26 @@
+
+
+<section id="{{ funding.title_slug }}" class="append-2 prepend-2 span-20 box">
+<section id="{{ funding.title_slug}}-details" class="span-14">
+<h3><a class="plain-link span-12" href="{{ funding.get_absolute_url }}">{{ funding }}</a></h3>
+<dl class="span-12">
+   {% if funding.start_date %}
+    <dt>Start Date<dt>
+        <dd>{{ funding.start_date }}</dd>
+   {% endif %}
+
+   {% if funding.end_date %}
+    <dt>End Date<dt>
+        <dd>{{ funding.end_date }}</dd>
+   {% endif %}
+
+   {% if funding.amount %}
+    <dt>Amount<dt>
+        <dd>${{ funding.amount }}</dd>
+   {% endif %}
+
+</dl>
+</section>
+<section id="logo" class="span-4">
+<a href="{{ funding.funding_agency.website }}"><img class="span-6" src="{{ funding.funding_agency.logo.url }}" /></a>
+</section>

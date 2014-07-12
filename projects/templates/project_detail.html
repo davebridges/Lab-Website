@@ -24,10 +24,19 @@
 </section>
 {% endif %}
 
+{% if project.funding_set.all.count > 0 %}
+<section class="span-20">
+<h3>What sources of funding support this project?</h3>
+{% for funding in project.funding_set.all %}
+{% include "funding_list_snippet.html" %}
+{% endfor %}
+</section>
+{% endif %}
+
 <section id="publications" class="span-20 container">
 <h2>Publications</h2>
 {% if project.publications.all.count > 0 %}
-<section class="span-9 border first">
+<section class="span-10 border first">
 <h3>What have we published on this topic?</h3>
 {% for paper in project.publications.all %}
 {% include "paper-detail-snippet.html" %}
@@ -36,20 +45,10 @@
 {% endif %}
 
 {% if project.other_publications.all.count > 0 %}
-<section class="span-9 last">
+<section class="span-10 last">
 <h3>What are some key papers on this topic?</h3>
 {% for paper in project.other_publications.all %}
 {% include "paper-detail-snippet.html" %}
-{% endfor %}
-</section>
-{% endif %}
-</section>
-
-{% if project.funding_set.all.count > 0 %}
-<section class="span-9 last">
-<h3>What sources of funding supported this project?</h3>
-{% for funding in project.funding_set.all %}
-<h4><a href="{{ funding.get_absolute_url }}">{{ funding }}</a></h4>
 {% endfor %}
 </section>
 {% endif %}

@@ -11,15 +11,42 @@
 {% block content %}
 <article class="container append-2 prepend-2 span-20">
 
-<section id="summary" class="span-20">
-<h2>Funding Summary</h2>
+<section id="summary" class="span-20 container">
+
+<div class="span-8" id="logo">
+<a href="{{ funding.funding_agency.website }}">
+<img src="{{ funding.funding_agency.logo.url }}"/>
+</a>
+</div>
+
+<div class="span-10" id="details">
+
+<h2>Details</h2>
+
+   {% if funding.start_date %}
+    <dt>Start Date<dt>
+        <dd>{{ funding.start_date }}</dd>
+   {% endif %}
+
+   {% if funding.end_date %}
+    <dt>End Date<dt>
+        <dd>{{ funding.end_date }}</dd>
+   {% endif %}
+
+   {% if funding.amount %}
+    <dt>Amount<dt>
+        <dd>${{ funding.amount }}</dd>
+   {% endif %}
+
 <p>{{ funding.summary | safe}}</p>
+
+
+</div>
 </section>
 
-
+{% if funding.publications.all.count > 0 %}
 <section id="publications" class="span-20">
 <h2>Publications</h2>
-{% if funding.publications.all.count > 0 %}
 <section class="span-20 border first">
 <h3>Which publications were supported by this award?</h3>
 {% for paper in funding.publications.all %}
