@@ -1,0 +1,18 @@
+[
+{
+     "pk": 1, 
+     "model": "projects.funding", 
+     "fields": {
+          "title_slug": "fixture-funding", 
+          "end_date": null, 
+          "title": "Fixture Funding", 
+          "funding_agency": null, 
+          "summary": null, 
+          "amount": null, 
+          "publications": [], 
+          "date_added": "2014-07-11", 
+          "start_date": null, 
+          "date_last_modified": "2014-07-11"
+     }
+}
+]

@@ -68,6 +68,7 @@ urlpatterns = patterns('',
     url(r'^papers/', include('papers.urls')),
     url(r'^people/', include('personnel.urls')),
     url(r'^projects/', include('projects.urls')),
+    url(r'^funding/', include('projects.funding_urls')),    
     
     url(r'location/?$', LabLocationView.as_view(), name="location"),
     

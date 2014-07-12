@@ -19,9 +19,9 @@ from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
 
-from projects.models import Project
+from projects.models import Project, Funding, FundingAgency
 
-MODELS = [Project, ]
+MODELS = [Project, Funding]
 
 class ProjectModelTests(TestCase):
     '''This class tests various aspects of the :class:`~papers.models.Publication` model.'''
@@ -72,9 +72,7 @@ class ProjectModelTests(TestCase):
         test_project = Project(title='Test Project')
         test_project.save()
         self.assertEqual(test_project.get_absolute_url(), "/projects/test-project") 
-                          
-                
-        
+                                  
 class ProjectResourceTests(TestCase):  
     '''This class tests varios aspects of the :class:`~projects.api.ProjectResource` API model.'''
 
@@ -204,3 +202,59 @@ class ProjectViewTests(TestCase):
         #verifies that a non-existent object returns a 404 error.
         null_response = self.client.get('/projects/not-a-real-paper/delete/')
         self.assertEqual(null_response.status_code, 404)           
+
+class FundingModelTests(TestCase):
+    '''This class tests various aspects of the :class:`~projects.models.Funding` model.'''
+    
+    fixtures = ['test_funding', 'test_funding_agency']
+
+    def setUp(self):
+        '''Instantiate the test client.  Creates a test user.'''
+        self.client = Client()
+        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
+        self.test_user.is_superuser = True
+        self.test_user.is_active = True
+        self.test_user.save()
+        self.assertEqual(self.test_user.is_superuser, True)
+        login = self.client.login(username='testuser', password='testpassword')
+        self.failUnless(login, 'Could not log in')
+    
+    def tearDown(self):
+        '''Depopulate created model instances from test database.'''
+        for model in MODELS:
+            for obj in model.objects.all():
+                obj.delete()
+                
+    def test_create_new_funding_minimum(self):
+        '''This test creates a :class:`~projects.models.Funding` with the required information only.'''
+        test_funding = Funding(title='Test Funding.')
+        test_funding.save()
+        self.assertEqual(test_funding.pk, 2)
+        
+    def test_create_new_funding_agency(self):
+        '''This test creates a :class:`~projects.models.FundingAgency` with the required information only.'''
+        test_funding_agency = FundingAgency(name='Test Agency')
+        test_funding_agency.save()
+        self.assertEqual(test_funding_agency.pk, 2)    
+        
+    def test_create_new_funding_all(self):
+        '''This test creates a `:class:~projects.models.Funding` with the required information only.'''
+        test_funding = Funding(title='Test Funding') #add more fields
+        test_funding.save()        
+        
+    def test_funding_unicode(self):
+        '''This tests the unicode representation of a :class:`~projects.models.Funding`.'''
+        test_funding = Funding.objects.get(title_slug='fixture-funding')
+        self.assertEqual(test_funding.__unicode__(), "Fixture Funding")
+        
+    def test_funding_title_slug(self):
+        '''This tests the title_slug field of a :class:`~projects.models.Funding`.'''
+        test_funding = Funding(title='Test Funding.')
+        test_funding.save()
+        self.assertEqual(test_funding.title_slug, "test-funding")  
+        
+    def test_funding_absolute_url(self):
+        '''This tests the title_slug field of a :class:`~projects.models.Funding`.'''
+        test_funding = Funding(title='Test Funding')
+        test_funding.save()
+        self.assertEqual(test_funding.get_absolute_url(), "/funding/test-funding") 
