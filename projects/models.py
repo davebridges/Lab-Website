@@ -108,6 +108,10 @@ class Funding(models.Model):
         help_text="Which publications are associated with this award?",
         blank=True,
         null=True)
+    projects = models.ManyToManyField(Project,
+        help_text="Which projects are associated with this award?",
+        blank=True,
+        null=True)   
     active = models.BooleanField(help_text="Is this funding active?")
         
     #these fields are automatically generated.    

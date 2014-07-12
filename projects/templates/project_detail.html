@@ -45,6 +45,16 @@
 {% endif %}
 </section>
 
+{% if project.funding_set.all.count > 0 %}
+<section class="span-9 last">
+<h3>What sources of funding supported this project?</h3>
+{% for funding in project.funding_set.all %}
+<h4><a href="{{ funding.get_absolute_url }}">{{ funding }}</a></h4>
+{% endfor %}
+</section>
+{% endif %}
+</section>
+
 <section id="comments class="span-20">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
