@@ -12,7 +12,7 @@ from communication.views import FeedDetailView, LabLocationView
 
 from personnel.sitemap import LabPersonnelSitemap
 from papers.sitemap import LabPublicationsSitemap, CommentarySitemap
-from projects.sitemap import ProjectsSitemap
+from projects.sitemap import ProjectsSitemap, FundingSitemap
 from communication.sitemap import PostsSitemap
 
 from papers.api import PublicationResource
@@ -32,8 +32,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
     changefreq = 'weekly'
 
     def items(self):
-        return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','laboratory-alumni','project-list', 'post-list',
-                 'twitter','google-calendar','wikipedia','lab-rules','publication-policy','data-resource-policy','lab-news','contact-info']
+        return ['location','feed-details','laboratory-papers','interesting-papers','commentary-list','laboratory-personnel','laboratory-alumni','project-list', 'post-list', 'twitter','google-calendar','wikipedia','lab-rules','publication-policy','data-resource-policy','lab-news','contact-info','funding-list']
 
     def location(self, item):
         return reverse(item)
@@ -50,6 +49,7 @@ sitemaps = {
     'commentary': CommentarySitemap,
     'posts': PostsSitemap,
     'projects': ProjectsSitemap,
+    'funding': FundingSitemap,
     'static': StaticViewSitemap
     }
 
