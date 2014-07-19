@@ -104,6 +104,9 @@ class Funding(models.Model):
     summary = models.TextField(help_text="The abstract of the award",
         blank=True,
         null=True)
+    full_text = models.TextField(help_text="HTML Formatted full text",
+        blank=True,
+        null=True)
     publications = models.ManyToManyField(Publication,
         help_text="Which publications are associated with this award?",
         blank=True,

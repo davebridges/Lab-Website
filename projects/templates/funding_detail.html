@@ -40,10 +40,14 @@
 
 <p>{{ funding.summary | safe}}</p>
 
-
 </div>
 </section>
 
+{% if funding.full_text %}
+<section id="full_text">
+{{ funding.full_text | safe }}
+</section>
+{% endif %}
 {% if funding.publications.all.count > 0 %}
 <section id="publications" class="span-20">
 <h2>Publications</h2>
