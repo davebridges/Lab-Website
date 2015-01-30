@@ -13,7 +13,6 @@
 <h1>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
 <section id='general-info' class='span-10 first prepend-2 container'>
 <img class='span-10' src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image">
-<p class='span-20' style='font-size:large;' itemprop="description">{{ general_data.description }}</p> 
 </section>
 
 <section class='span-10 last append-2'>
@@ -26,6 +25,8 @@
 <li><a class="large" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
 </ul>
 </section>
+
+<p class='prepend-2 span-20' style='font-size:large;' itemprop="description">{{ general_data.description }}</p>
 
 <aside class="span-24">
 {% include "job_posting_snippet.html" %}
