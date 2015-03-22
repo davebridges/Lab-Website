@@ -2,7 +2,7 @@
 {% block scripts %}
 <script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
 </script>
-<script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
+<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
 {% endblock %}
 
 {% block title %}<title>{{ person }}</title>{% endblock %}
@@ -92,7 +92,7 @@
 <section id='papers'>
 <h2>Publications</h2>
 {% for detail in person.authordetails_set.all %}
-{% for paper in detail.publication_set.all %}
+{% for paper in detail.publication_set.all|dictsort:"year"  %}
 <div class="span-14 border first">
 {% include "paper-detail-snippet.html" %}
 </div>
