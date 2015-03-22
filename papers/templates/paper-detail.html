@@ -67,7 +67,9 @@
 {% endif %}
 
 {% if publication.doi %}
+{% with publication as paper %}
 {% include 'altmetric_snippet.html' %}
+{% endwith %}
 {% endif %}
 
 </section>
