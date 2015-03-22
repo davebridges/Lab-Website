@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block scripts %}
 <script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
-<script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
 <link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}"> 
 <link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}"> 
 {% endblock %}
@@ -21,7 +20,7 @@
 {% include "paper-detail-snippet.html" %}
 </div>
 <div class="span-4 last">
-{% include "impact_story_snippet_small.html" %}
+{% include "altmetric_paper_snippet.html" %}
 </div>
 </section>
 {% endfor %}
