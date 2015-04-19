@@ -10,16 +10,17 @@
 
 {% block content %}
 <article  class="container append-2 prepend-2 span-20">
-<ol>
+
 {% for commentary in commentary_list %}
-<li>
 {% with commentary.paper as paper %}
+<section>
+<div class="span-14 border first">
 {% include "paper-detail-snippet.html" %}
+</div>
+<div class="span-4 last">
+{% include "altmetric_paper_snippet.html" %}
+</div>
 {% endwith %}
-<p>{{ commentary.comments | safe }}</p>
-For more details click <a href ='{{ commentary.get_absolute_url}}'>here</a>.
-</li>
 {% endfor %}
-</ol>
 </article>
 {% endblock %}
