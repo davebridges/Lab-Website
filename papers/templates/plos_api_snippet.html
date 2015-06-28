@@ -1,15 +1,15 @@
 <div class="box span-4">
 <script type='text/javascript'>
-var plos_twitter = "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=twitter&api_key={{ plos_api_key }}&callback=?"
-var plos_counter = "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=counter&api_key={{ plos_api_key }}&callback=?"
-var plos_pmc = "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=pmc&api_key={{ plos_api_key }}&callback=?"
-var plos_mendeley= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=mendeley&api_key={{ plos_api_key }}&callback=?"
-var plos_citeulike= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=citeulike&api_key={{ plos_api_key }}&callback=?"
-var plos_facebook= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=facebook&api_key={{ plos_api_key }}&callback=?"
-var plos_crossref= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=crossref&api_key={{ plos_api_key }}&callback=?"
-var plos_pubmed= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=pubmed&api_key={{ plos_api_key }}&callback=?"
-var plos_scopus= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=scopus&api_key={{ plos_api_key }}&callback=?"
-var plos_researchblogging= "http://alm.plos.org/articles/info:doi%2F10.1371%2Fjournal.pone.0042451.json?source=researchblogging&api_key={{ plos_api_key }}s&callback=?"
+var plos_twitter = "http://alm.plos.org/works/doi:{{ publication.doi }}?source=twitter&api_key={{ plos_api_key }}&callback=?"
+var plos_counter = "http://alm.plos.org/works/doi:{{ publication.doi }}?source=counter&api_key={{ plos_api_key }}&callback=?"
+var plos_pmc = "http://alm.plos.org/works/doi:{{ publication.doi }}?source=pmc&api_key={{ plos_api_key }}&callback=?"
+var plos_mendeley= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=mendeley&api_key={{ plos_api_key }}&callback=?"
+var plos_citeulike= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=citeulike&api_key={{ plos_api_key }}&callback=?"
+var plos_facebook= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=facebook&api_key={{ plos_api_key }}&callback=?"
+var plos_crossref= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=crossref&api_key={{ plos_api_key }}&callback=?"
+var plos_pubmed= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=pubmed&api_key={{ plos_api_key }}&callback=?"
+var plos_scopus= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=scopus&api_key={{ plos_api_key }}&callback=?"
+var plos_researchblogging= "http://alm.plos.org/works/doi:{{ publication.doi }}?source=researchblogging&api_key={{ plos_api_key }}s&callback=?"
 
 $.getJSON(plos_counter, function(data) {
 	$('#plos-readers').append("<li><strong>PLOS:</strong> "+ data.article.events_count);

@@ -73,9 +73,6 @@
 <section id="metrics" class='span-12 container'>
 <h2>Metrics</h2>
 
-{% if "PLOS" in publication.journal %}
-{% include 'plos_api_snippet.html' %}
-{% endif %}
 
 {% if publication.doi %}
 {% with publication as paper %}
