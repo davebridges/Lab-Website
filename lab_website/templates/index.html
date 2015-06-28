@@ -44,6 +44,13 @@
 
 </section>
 <section id='recent-comments'class='span-10 last append-2'>
+<h2><a href='{% url 'post-list' %}' class='plain-link'>Recent Posts</a></h2>
+<ul>
+{% for post in recent_posts %}
+<li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
+{% endfor %}
+</ul>
+
 <h2><a href='{% url 'commentary-list' %}' class='plain-link'>Recent Journal Clubs</a></h2>
 
 {% for commentary in recent_comments %}

@@ -12,6 +12,7 @@ from django.views.generic.base import View, TemplateView
 
 from personnel.models import JobPosting
 from papers.models import Publication, Commentary
+from communication.models import Post
 
 class IndexView(TemplateView):
     '''This view redirects to the home page.'''
@@ -48,7 +49,8 @@ class IndexView(TemplateView):
                      return data
          
         general_request_url = 'https://graph.facebook.com/v2.3/' + settings.FACEBOOK_ID + '?access_token=' + settings.FACEBOOK_ACCESS_TOKEN
-        context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:5]   
+        context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:10]  
+        context['recent_posts'] =  Post.objects.all()[0:5]  
         context['recent_comments'] =  Commentary.objects.all()[0:5]                 
         context['general_data'] = facebook_request(general_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
