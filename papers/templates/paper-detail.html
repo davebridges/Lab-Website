@@ -49,6 +49,17 @@
 </section>
 {% endif %}
 
+{% if publication.post_set.all.exists  %}
+<section id="commentary" class="span-20">
+<h2>Posts about this paper</h2>
+<ul>
+{% for post in publication.post_set.all %}
+<li><a href="{{ post.get_absolute_url }}">{{ post.post_title }}</a></li>
+</ul>
+{% endfor %}
+</section>
+{% endif %}
+
 <section id="comments" class="span-20">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
