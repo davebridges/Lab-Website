@@ -21,6 +21,7 @@ from django.core.urlresolvers import reverse_lazy
 from braces.views import PermissionRequiredMixin
 
 from communication.models import LabAddress, LabLocation, Post
+from papers.models import Commentary
 
 def generate_twitter_timeline(count):
     '''This function generates a timeline from a twitter username.
@@ -297,10 +298,17 @@ class LabLocationView(ListView):
     model = LabLocation  
     
 class PostList(ListView):
-    '''This class generates the view for commentaries located at **/post**.
+    '''This class generates the view for posts and commentaries located at **/post**.
     '''
     model = Post
     template_name = "post_list.html"
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PostList, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the commentaries
+        context['commentaries'] = Commentary.objects.all()
+        return context
 
 class PostDetail(DetailView):
     '''This class generates the view for post-detail located at **/post/<slug>**.
