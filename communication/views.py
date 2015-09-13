@@ -52,7 +52,7 @@ def facebook_status_request(type, max):
     '''
     values = {'access_token':settings.FACEBOOK_ACCESS_TOKEN}
     params = urllib.urlencode(values)
-    request_url = 'https://graph.facebook.com/'+ settings.FACEBOOK_ID  + '/' + type + '?' + params    
+    request_url = 'https://graph.facebook.com/v2.3/'+ '447068338637332'  + '/' + '?fields=' + type + '&' + params + '&limit=' + str(max)  
     request = urllib2.Request(request_url)
     
     try:
@@ -272,12 +272,13 @@ class NewsView(TemplateView):
         '''This function adds milestones and posts to the context.'''
                                               
         context = super(NewsView, self).get_context_data(**kwargs)
-        context['statuses'] = facebook_status_request('statuses', 100)
-        context['links'] = facebook_status_request('links', 10)
-        milestones = facebook_status_request('milestones', 10)
-        for milestone in milestones['data']:
-            milestone['start_time_cleaned'] = dateutil.parser.parse(milestone['start_time'])
-        context['milestones'] = milestones
+        context['posts'] = facebook_status_request('posts', 100)
+        context['links'] = facebook_status_request('links', 5)
+        context['photos'] = facebook_status_request('photos', 100)
+#         milestones = facebook_status_request('milestones', 10)
+#         for milestone in milestones['data']:
+#             milestone['start_time_cleaned'] = dateutil.parser.parse(milestone['start_time'])
+#         context['milestones'] = milestones
         return context 
         
 class ContactView(ListView):
