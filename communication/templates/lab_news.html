@@ -13,6 +13,10 @@
 
 <section id='news' class="container">
 
+<h2>Lab Photos</h2>
+{% for photo in photos.data %}
+<a href="{{ photo.link}}"><img src='{{ photo.picture }}'/></a>
+{% endfor %}
 <h2>Lab News and Interesting Links</h2>
 
 {% for post in posts.posts.data %}
