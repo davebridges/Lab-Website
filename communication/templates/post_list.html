@@ -5,14 +5,14 @@
 {% block title %}<title>Posts</title>{% endblock %}
 
 {% block header %}
-<h1>Posts</h1>
+<h1>Blog Posts</h1>
 {% endblock %}
 
 {% block content %}
 <article  class="container append-2 prepend-2 span-20 large">
 <ol>
 {% for post in post_list %}
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/BlogPosting" ><a href="{{ post.get_absolute_url }}" itemprop="url">{{ post.post_title }}</a> by  <a href="{{ post.author.get_absolute_url }}">{{post.author}}</a> on {{ post.created }}</li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/BlogPosting" ><a href="{{ post.get_absolute_url }}" itemprop="url">{{ post.post_title }}</a> by  <a href="{{ post.author.get_absolute_url }} itemprop="author">{{post.author}}</a> on <time itemprop="dateCreated"  datetime="{{ post.created | date:'c'}}">{{ post.created }}</time>.</li>
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bridgeslab.uthsc.edu{{ post.get_absolute_url }}" data-via="bridges_lab" data-size="large">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
