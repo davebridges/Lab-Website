@@ -31,12 +31,14 @@
 {% block navbar %}
 <nav class="span-24 container" id="navbar">
 <ul id="navbar-items">
-<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-3 colborder first"><a itemprop="url" href="{% url 'home' %} "><span itemprop="name">Home</span></a></li>
-<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-3 colborder first"><a itemprop="url" href="{% url 'laboratory-personnel' %} "><span itemprop="name">People</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-3 colborder"><a itemprop="url" href="{% url 'project-list' %}"><span itemprop="name">Projects</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/CollectionPage" class="span-3 colborder"><a itemprop="url" href="{% url 'laboratory-papers' %}"><span itemprop="name">Papers</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-3 colborder"><a itemprop="url" href="{% url 'location' %}"><span itemprop="name">Location</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/ContactPage" class="span-3 last"><a itemprop="url" href="{% url 'contact-info' %}"><span itemprop="name">Contact</span></a></li>
+<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder first"><a itemprop="url" href="{% url 'home' %} "><span itemprop="name">Home</span></a></li>
+<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder first"><a itemprop="url" href="{% url 'laboratory-personnel' %} "><span itemprop="name">People</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder"><a itemprop="url" href="{% url 'project-list' %}"><span itemprop="name">Projects</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/CollectionPage" class="span-2 colborder"><a itemprop="url" href="{% url 'laboratory-papers' %}"><span itemprop="name">Papers</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder"><a itemprop="url" href="{% url 'location' %}"><span itemprop="name">Location</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/ContactPage" class="span-2 colborder"><a itemprop="url" href="{% url 'contact-info' %}"><span itemprop="name">Contact</span></a></li>
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/Blog" class="span-2 colborder"><a itemprop="url" href="{% url 'post-list' %}"><span itemprop="name">Posts</span></a></li>
+<li class="span-2 last"><a itemprop="url" href="{% url 'lab-news' %}"><span itemprop="name">News</span></a></li>
 </ul>
 </nav>
 <hr/>
