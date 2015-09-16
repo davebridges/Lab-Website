@@ -91,6 +91,6 @@ class CommentaryFeed(Feed):
         '''The date when this commentary was updated.'''
         return datetime.combine(item.modified, time())
 
-    def item_copyright(self, item):
-        '''The copyright is always CC-BY for commentaries.'''
-        return "%s by %s is licensed under a Creative Commons Attribution 3.0 Unported License.  Based on the work %s at %s." %(item, item.author, item.paper, item.paper.doi_link)
+#    def item_copyright(self, item):
+#        '''The copyright is always CC-BY for commentaries.'''
+#        return "%s by %s is licensed under a Creative Commons Attribution 3.0 Unported License.  Based on the work %s at %s." %(item, item.author, item.paper, item.paper.doi_link)
