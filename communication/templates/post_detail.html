@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 {% block scripts %}
+<!--   This markup is required for facebook instant articles.  For more information see https://developers.facebook.com/docs/instant-articles/guides/articlecreate -->
+  <meta charset="utf-8">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}{{ post.get_absolute_url }}">
+  <meta property="op:markup_version" content="v1.0">
 {% endblock %}
 
 {% block title %}<title>{{ post.post_title }}</title>{% endblock %}
 
 {% block content %}
 {% load markup_filters %}
-<article class="container append-2 prepend-2 span-20">
+<article class="container append-2 prepend-2 span-20" itemscope itemtype="http://schema.org/BlogPosting">
+<meta itemprop="name" content="{{ post.post_title }}"/>
+<section id="post" itemprop="articleBody">
 {% if post %}
 {{ post_data | markdown_md | safe }}
-<p id="details">This post was initially created on {{ post.created }} by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a>{% if post.modified %}. It was last modified on {{ post.modified }}{% endif%}. It was downloaded from <a href="{{ post.markdown_url }}">here</a> and was automatically formatted.</p>
+</section>
+<p id="details">This post was initially created on <time class="op-published" datetime="{{ post.created | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.created | date:"c"}}" >{{ post.created }}</time> by <a href="{{ post.author.get_absolute_url }}" itemprop="author creator editor">{{ post.author }}</a>{% if post.modified %}. It was last modified on <time class="op-modified" datetime="{{ post.modified | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.modified | date:"c"}}">{{ post.modified }}</time>{% endif%}. It was downloaded from <a href="{{ post.markdown_url }}">here</a> and was automatically formatted.</p>
 
-{% if post.project %}<p id="project">This post is about the project <a href="{{ post.project.get_absolute_url }}">{{ post.project }}</a>.</p>{% endif %}
+{% if post.project %}<p id="project">This post is about the project <a href="{{ post.project.get_absolute_url }} itemprop="about">{{ post.project }}</a>.</p>{% endif %}
 
 {% if post.paper %}
 {% with post.paper as paper %}
@@ -22,7 +29,7 @@
 <p>The source file was not available.</p>
 {% endif %}
 
-<div id="footer" class="container span-20">
+<footer class="container span-20">
 
 <section id="twitter" class="span-4">
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="bridges_lab" data-size="large">Tweet</a>
@@ -44,7 +51,7 @@
 <section id="license" class="span-15">
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">{{ post.post_title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="{{ post.get_absolute_url }}" property="cc:attributionName" rel="cc:attributionURL">{{ post.author }}</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="SOURCE URL" rel="dct:source">{{ post.markdown_url }}</a>.
 </section>
-</div>
+</footer>
 
 
 <section id="comments" class="span-20">
