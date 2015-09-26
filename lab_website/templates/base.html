@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-us" prefix="op: http://media.facebook.com/op#">
 <head>
 <meta charset="utf-8" />
 
@@ -23,9 +23,9 @@
 
 <body class="container" itemscope itemtype="http://schema.org/WebPage">
 {% include "facebook_api_sdk_script.html" %}
-<span itemprop="about" itemscope itemtype="http://schema.org/Organization">
-<meta itemprop ="url"  content="http://{{ request.get_host }}"/>
-<meta itemprop ="name" content="{{ lab_name  }}"/>
+<span itemprop = "about" itemscope itemtype="http://schema.org/Organization">
+<meta itemprop = "url"  content="http://{{ request.get_host }}"/>
+<meta itemprop = "name" content="{{ lab_name  }}"/>
 </span>
 <header class="span-24">
 {% block navbar %}

@@ -11,14 +11,17 @@
 {% block content %}
 {% load markup_filters %}
 <article class="container append-2 prepend-2 span-20" itemscope itemtype="http://schema.org/BlogPosting">
-<meta itemprop="name" content="{{ post.post_title }}"/>
+<meta itemprop="name" property="og:title" content="{{ post.post_title }}"/>
+<meta property="og:description" content="">
 <section id="post" itemprop="articleBody">
 {% if post %}
 {{ post_data | markdown_md | safe }}
 </section>
-<p id="details">This post was initially created on <time class="op-published" datetime="{{ post.created | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.created | date:"c"}}" >{{ post.created }}</time> by <a href="{{ post.author.get_absolute_url }}" itemprop="author creator editor">{{ post.author }}</a>{% if post.modified %}. It was last modified on <time class="op-modified" datetime="{{ post.modified | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.modified | date:"c"}}">{{ post.modified }}</time>{% endif%}. It was downloaded from <a href="{{ post.markdown_url }}">here</a> and was automatically formatted.</p>
+<header id="header">This post was initially created on <time class="op-published" datetime="{{ post.created | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.created | date:"c"}}" >{{ post.created }}</time> by <a href="{{ post.author.get_absolute_url }}" itemprop="author creator editor">{{ post.author }}</a>{% if post.modified %}. It was last modified on <time class="op-modified" datetime="{{ post.modified | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.modified | date:"c"}}">{{ post.modified }}</time>{% endif%}. It was downloaded from <a href="{{ post.markdown_url }}">here</a> and was automatically formatted.</header>
 
-{% if post.project %}<p id="project">This post is about the project <a href="{{ post.project.get_absolute_url }} itemprop="about">{{ post.project }}</a>.</p>{% endif %}
+{% if post.project %}
+<p id="project">This post is about the project <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.</p>
+{% endif %}
 
 {% if post.paper %}
 {% with post.paper as paper %}
