@@ -111,7 +111,11 @@ class AuthorDetails(models.Model):
     order = models.IntegerField(help_text='The order in which the author appears (do not duplicate numbers)')
     corresponding_author = models.BooleanField()
     equal_contributors = models.BooleanField(help_text='Check both equally contributing authors')
-        
+    contribution = models.ManyToManyField('AuthorContributions',
+        help_text="Author contribution",
+        blank=True,
+        null=True)
+                
     def __unicode__(self):
         '''The unicode representation is the author name.'''
         return '%i - %s -  %s' %(self.order, self.publication_set.all(), self.author)
@@ -154,3 +158,26 @@ class Commentary(models.Model):
     class Meta:
         '''The meta options for this defines the ordering by the created field.'''
         ordering = ['-created',]
+
+class AuthorContributions(models.Model):
+    '''This is an ontology that describes the actual contribution of an author.
+    
+    This is an empty dataset but will be populated by the CRediT ontology types and images (see http://dictionary.casrai.org/Contributor_Roles/ for the ontology)
+    Badge images need to be added manually'''
+    
+    contribution = models.CharField(help_text='Short name of the contirbution',blank=True, null=True, max_length=100)
+    url = models.URLField(help_text='URL for the ontology', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='contributor-badges', 
+        help_text="Badge for this contribution",
+        blank=True,
+        null=True)
+    image_url = models.URLField(help_text="URL for the badge", blank=True, null=True)
+    description = models.TextField(
+        help_text="Details on what exactly is meant by this contribution",
+        blank=True,
+        null=True)
+        
+    def __unicode__(self):
+        '''The unicode representation is the contribution'''
+        return self.contribution

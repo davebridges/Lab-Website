@@ -39,6 +39,28 @@
 {% endif %}
 </section>
 
+
+{% for author_details in publication.authors.all %}
+{% if forloop.first %}
+{% if author_details.contribution.all.exists %}
+<h2>Author Contributions</h2>
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% for author_details in publication.authors.all %}
+{% if author_details.contribution.all.exists %}
+<div class="container span-20">
+<div class="span-4"><h3>{{ author_details.author }}</h3>
+</div>
+{% for contribution in author_details.contribution.all %}
+<img class="span-1" src='{{ contribution.image_url }}' alt="{{ contribution }}" title="{{ contribution }}"/>
+{% endfor %}
+</div>
+{% endif %}
+{% endfor %}
+
+
 {% if publication.commentary_set.all.exists  %}
 <section id="commentary" class="span-20">
 <h2>Our Thoughts on This Paper</h2>
