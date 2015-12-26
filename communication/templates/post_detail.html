@@ -2,8 +2,9 @@
 {% block scripts %}
 <!--   This markup is required for facebook instant articles.  For more information see https://developers.facebook.com/docs/instant-articles/guides/articlecreate -->
   <meta charset="utf-8">
-  <link rel="canonical" href="{{ request.build_absolute_uri }}{{ post.get_absolute_url }}">
+  <link rel="canonical" href="{{ post.get_absolute_url }}">
   <meta property="op:markup_version" content="v1.0">
+  <script type="text/javascript" src="{{STATIC_URL}}javascript/twitter.js"></script>
 {% endblock %}
 
 {% block title %}<title>{{ post.post_title }}</title>{% endblock %}
@@ -36,7 +37,8 @@
 
 <section id="twitter" class="span-4">
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="bridges_lab" data-size="large">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- javascript for twitter is loaded above in the scripts section -->
 <!-- Place this tag where you want the +1 button to render. -->
 <div class="g-plusone"></div>
 
