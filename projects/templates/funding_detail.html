@@ -13,15 +13,13 @@
 
 <section id="summary" class="span-20 container">
 
-<div class="span-8" id="logo">
+<div id="logo">
 <a href="{{ funding.funding_agency.website }}">
-<img src="{{ funding.funding_agency.logo.url }}"/>
+<img src="{{ funding.funding_agency.logo.url }}" class="span-4"/>
 </a>
 </div>
 
 <div class="span-10" id="details">
-
-<h2>Details</h2>
 
    {% if funding.start_date %}
     <dt>Start Date<dt>
@@ -38,9 +36,13 @@
         <dd>${{ funding.amount }}</dd>
    {% endif %}
 
-<p>{{ funding.summary | safe}}</p>
-
 </div>
+</section>
+
+<section id='summary'>
+<h2>Summary</h2>
+<p>{{ funding.summary | safe}}</p>
+</section>
 </section>
 
 {% if funding.full_text %}
