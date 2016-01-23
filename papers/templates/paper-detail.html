@@ -17,9 +17,16 @@
 <meta itemprop="name" content="{{ publication.title }}" />
 
 <section id="authors">
-<p>{% for author in publication.authors.all %}
+<p>
+{% if publication.authors.count == 1%}
+{% for author in publication.authors.all %}
+{% if author.author.current_lab_member %}<a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author.name }}</a>{% else %}{{ author.name }}{% endif %}
+{% endfor %}
+{% else %}
+{% for author in publication.authors.all %}
 {% if forloop.revcounter = 1 %} and {% endif %} {% if author.author.current_lab_member %}<a itemprop = "author" itemscope itemtype ="http://schema.org/Person" href='{{ author.author.get_absolute_url }}' class='plain-link'><span itemprop="name">{{ author.name}}</span></a>{% else %}{{ author.name }}{% endif %}{% if forloop.revcounter > 2 %}, {% endif %} 
 {% endfor %}
+{% endif %}
 </p>
 </section>
 
