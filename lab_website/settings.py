@@ -77,13 +77,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.sitemaps',
-    'django.contrib.markup',      
     'lab_website',
     'personnel',
     'communication',
     'papers',
     'projects',
-    'south',
     'debug_toolbar',
     'tastypie'
 )
