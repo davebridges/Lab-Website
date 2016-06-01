@@ -21,7 +21,8 @@
             "lab_roles": [], 
             "awards": [], 
             "degrees": [], 
-            "email": ""
+            "email": "",
+            "alumni": true 
         }
     }
 ]

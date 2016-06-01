@@ -1,10 +1,10 @@
 '''This package has the url encodings for the :mod:`papers` app.'''
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from communication import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^new/?$', views.PostCreate.as_view(), name="post-new"),
     url(r'^(?P<post_slug>[-\w\d]+)/edit/?$', 
         views.PostUpdate.as_view(), 
@@ -16,4 +16,4 @@ urlpatterns = patterns('',
         views.PostDetail.as_view(), 
         name="post-details"),                    
     url(r'^$', views.PostList.as_view(), name="post-list"), 
-)
+]

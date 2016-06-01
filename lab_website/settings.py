@@ -82,7 +82,7 @@ INSTALLED_APPS = (
     'communication',
     'papers',
     'projects',
-    'debug_toolbar',
+    #'debug_toolbar',
     'tastypie'
 )
 

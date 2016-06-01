@@ -27,7 +27,7 @@ MODELS = [Publication, AuthorDetails, Commentary]
 class PublicationModelTests(TestCase):
     '''This class tests various aspects of the :class:`~papers.models.Publication` model.'''
     
-    fixtures = ['test_publication', 'test_publication_personnel']
+    fixtures = ['test_publication.json', 'test_publication_personnel.json']
 
     def setUp(self):
         '''Instantiate the test client.  Creates a test user.'''

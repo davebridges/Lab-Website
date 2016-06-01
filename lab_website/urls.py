@@ -1,5 +1,5 @@
 '''This package has the url encodings for the main app.'''
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.core.urlresolvers import reverse
 from django.contrib import admin, sitemaps
 from django.conf.urls.static import static
@@ -59,7 +59,7 @@ sitemaps = {
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     
@@ -88,9 +88,9 @@ urlpatterns = patterns('',
     url(r'^news/?$', communication.views.NewsView.as_view(), name='lab-news'),
 
  
-    (r'^api/',include(v1_api.urls)),   
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': sitemaps}),
-    (r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+    url(r'^api/',include(v1_api.urls)),   
+    #url(r'^sitemap\.xml$', sitemaps.views.index, {'sitemaps': sitemaps}),
+    #url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps.views.sitemap, {'sitemaps': sitemaps}),
     url(r'^$', IndexView.as_view(), name="home")
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 

@@ -16,3 +16,4 @@ class PublicationForm(forms.ModelForm):
 
     class Meta:
         model = Publication
+        fields = '__all__'
