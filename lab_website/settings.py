@@ -1,15 +1,3 @@
-# Django settings for lab_website project.
-TEMPLATE_CONTEXT_PROCESSORS = (
-"communication.context_processors.social_media_accounts",
-"django.contrib.auth.context_processors.auth",
-"django.core.context_processors.debug",
-"django.core.context_processors.i18n",
-"django.core.context_processors.media",
-"django.core.context_processors.static",
-"django.core.context_processors.tz",
-"django.core.context_processors.request",
-"django.contrib.messages.context_processors.messages",
-"papers.context_processors.api_keys")
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -54,16 +42,24 @@ ROOT_URLCONF = 'lab_website.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'lab_website.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    'communication/templates',
-    'papers/templates',
-    'personnel/templates',
-    'projects/templates',
-    'templates'
-)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        #'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+            "communication.context_processors.social_media_accounts",
+            "papers.context_processors.api_keys",
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 INTERNAL_IPS = ('127.0.0.1',)
 
