@@ -21,3 +21,5 @@ localsettings.py
 #images embedded in photos folder
 photos/
 media/
+
+test_database2

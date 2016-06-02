@@ -46,6 +46,7 @@ class ProjectCreate(PermissionRequiredMixin, CreateView):
     
     permission_required = 'projects.create_project'
     model = Project
+    fields = "__all__"
     template_name = 'project_form.html'
     
 class ProjectUpdate(PermissionRequiredMixin, UpdateView):
@@ -55,6 +56,7 @@ class ProjectUpdate(PermissionRequiredMixin, UpdateView):
     
     permission_required = 'projects.update_project'
     model = Project
+    fields = "__all__"
     slug_field = "title_slug"
     slug_url_kwarg = "title_slug"
     template_name = 'project_form.html' 
@@ -98,6 +100,7 @@ class FundingCreate(PermissionRequiredMixin, CreateView):
     
     permission_required = 'projects.create_funding'
     model = Funding
+    fields = "__all__"
     template_name = 'funding_form.html'
     
 class FundingUpdate(PermissionRequiredMixin, UpdateView):
@@ -107,6 +110,7 @@ class FundingUpdate(PermissionRequiredMixin, UpdateView):
     
     permission_required = 'projects.update_funding'
     model = Funding
+    fields = "__all__"
     slug_field = "title_slug"
     slug_url_kwarg = "title_slug"
     template_name = 'funding_form.html' 
