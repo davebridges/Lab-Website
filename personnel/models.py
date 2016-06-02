@@ -52,8 +52,8 @@ class Person(models.Model):
     degrees = models.ManyToManyField('Degree', help_text="Graduate and Undergraduate Degrees", blank=True, null=True)
     awards = models.ManyToManyField('Award', blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
-    home_address = models.ForeignKey('Address', blank=True, null=True, related_name='home-address')
-    work_address = models.ForeignKey('Address', blank=True, null=True, related_name='work-address')
+    home_address = models.ForeignKey('Address', blank=True, null=True, related_name='home_address')
+    work_address = models.ForeignKey('Address', blank=True, null=True, related_name='work_address')
     #these fields describe social networking usernames or id numbers
     orcid_id = models.CharField(max_length=19, 
         blank=True, null=True, 
@@ -65,9 +65,9 @@ class Person(models.Model):
     #these fields describe the role while in the laboratory or either before/after their time there.
     alumni = models.BooleanField(help_text="Is this person a key alumni from the lab")
     current_lab_member = models.BooleanField(help_text="Is this person currently in the lab")
-    lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab-role')
-    current_roles = models.ManyToManyField('Role', help_text="Current Position(s)", blank=True, null=True, related_name='current-role')
-    past_roles = models.ManyToManyField('Role', help_text="Previous Position(s)", blank=True, null=True, related_name='past-role')
+    lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab_role')
+    current_roles = models.ManyToManyField('Role', help_text="Current Position(s)", blank=True, null=True, related_name='current_role')
+    past_roles = models.ManyToManyField('Role', help_text="Previous Position(s)", blank=True, null=True, related_name='past_role')
     #these fields describe updating information and are automatically filled
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -104,7 +104,7 @@ class Person(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     '''This function creates a Person object for each user.'''
     if created:
-        Person.objects.create(user=instance)
+        Person.objects.create(user=instance, alumni=False, current_lab_member=False)
 post_save.connect(create_user_profile, sender=User)        
          
 class Role(models.Model):
