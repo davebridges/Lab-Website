@@ -163,18 +163,18 @@ class ProjectViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/projects/new/')
+        test_response = self.client.get('/projects/new')
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'project_form.html')
         self.assertTemplateUsed(test_response, 'jquery_script.html')           
 
-    def test_publication_view_edit(self):
+    def test_project_view_edit(self):
         """This tests the project-edit view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/projects/fixture-project/edit/')
+        test_response = self.client.get('/projects/fixture-project/edit')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -184,7 +184,7 @@ class ProjectViewTests(TestCase):
         self.assertEqual(test_response.context['project'].title, u'Fixture Project')
 
         #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
-        null_response = self.client.get('/projects/not-a-real-paper/edit/')
+        null_response = self.client.get('/projects/not-a-real-paper/edit')
         self.assertEqual(null_response.status_code, 404)   
 
     def test_project_view_delete(self):
@@ -192,7 +192,7 @@ class ProjectViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/projects/fixture-project/delete/')
+        test_response = self.client.get('/projects/fixture-project/delete')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
@@ -200,7 +200,7 @@ class ProjectViewTests(TestCase):
         self.assertEqual(test_response.context['project'].title, u'Fixture Project')
 
         #verifies that a non-existent object returns a 404 error.
-        null_response = self.client.get('/projects/not-a-real-paper/delete/')
+        null_response = self.client.get('/projects/not-a-real-paper/delete')
         self.assertEqual(null_response.status_code, 404)           
 
 class FundingModelTests(TestCase):
@@ -227,7 +227,7 @@ class FundingModelTests(TestCase):
                 
     def test_create_new_funding_minimum(self):
         '''This test creates a :class:`~projects.models.Funding` with the required information only.'''
-        test_funding = Funding(title='Test Funding.')
+        test_funding = Funding(title='Test Funding.', active=True)
         test_funding.save()
         self.assertEqual(test_funding.pk, 2)
         
@@ -239,7 +239,7 @@ class FundingModelTests(TestCase):
         
     def test_create_new_funding_all(self):
         '''This test creates a `:class:~projects.models.Funding` with the required information only.'''
-        test_funding = Funding(title='Test Funding') #add more fields
+        test_funding = Funding(title='Test Funding', active=True) #add more fields
         test_funding.save()        
         
     def test_funding_unicode(self):
@@ -249,13 +249,13 @@ class FundingModelTests(TestCase):
         
     def test_funding_title_slug(self):
         '''This tests the title_slug field of a :class:`~projects.models.Funding`.'''
-        test_funding = Funding(title='Test Funding.')
+        test_funding = Funding(title='Test Funding.', active=True)
         test_funding.save()
         self.assertEqual(test_funding.title_slug, "test-funding")  
         
     def test_funding_absolute_url(self):
         '''This tests the title_slug field of a :class:`~projects.models.Funding`.'''
-        test_funding = Funding(title='Test Funding')
+        test_funding = Funding(title='Test Funding', active=True)
         test_funding.save()
         self.assertEqual(test_funding.get_absolute_url(), "/funding/test-funding") 
         
@@ -315,7 +315,7 @@ class FundingViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/funding/new/')
+        test_response = self.client.get('/funding/new')
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'funding_form.html')
@@ -326,7 +326,7 @@ class FundingViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/funding/fixture-funding/edit/')
+        test_response = self.client.get('/funding/fixture-funding/edit')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('funding' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -344,7 +344,7 @@ class FundingViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/funding/fixture-funding/delete/')
+        test_response = self.client.get('/funding/fixture-funding/delete')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('funding' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
