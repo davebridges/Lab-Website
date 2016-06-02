@@ -9,7 +9,7 @@ import tweepy
 import dateutil
 
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -138,16 +138,12 @@ class WikipedaEditsView(View):
         '''This sets the GET function for WikipediaEditsView.'''
         try: 
             pages = get_wikipedia_edits(settings.WIKIPEDIA_USERNAME,50)
-            return render_to_response('wikipedia_edits.html',
-            {'pages':pages,'username':settings.WIKIPEDIA_USERNAME},
-             mimetype='text/html',
-             context_instance=RequestContext(request))
+            return render('wikipedia_edits.html',
+            {'pages':pages,'username':settings.WIKIPEDIA_USERNAME})
         except urllib2.HTTPError:
             messages.error(request, 'No Response from Wikipedia.  Are you sure that %s is a valid username?' % settings.WIKIPEDIA_USERNAME)	    
-            return render_to_response('wikipedia_edits.html',
-            {'username':settings.WIKIPEDIA_USERNAME},
-             mimetype='text/html',
-             context_instance=RequestContext(request))
+            return render('wikipedia_edits.html',
+            {'username':settings.WIKIPEDIA_USERNAME})
              
 class LabRulesView(TemplateView):
     '''This view gets the lab rules markdown and displays this file.
@@ -346,6 +342,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     
     permission_required = 'communication.create_post'
     model = Post
+    fields = '__all__'
     template_name = "post_form.html"
 
 class PostUpdate(PermissionRequiredMixin, UpdateView):
@@ -357,6 +354,7 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
     slug_field = "post_slug"
     slug_url_kwarg = "post_slug"    
     model = Post
+    fields = '__all__'
     template_name = 'post_form.html' 
     
 class PostDelete(PermissionRequiredMixin, DeleteView):

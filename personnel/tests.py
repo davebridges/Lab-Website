@@ -35,7 +35,7 @@ class PersonnelModelTests(BasicTests):
     def test_create_labmember_minimal(self):
         '''This is a test for creating a new ::class:`Person` object, with only the minimum fields being entered'''
         test_labmember = Person(first_name = 'Joe',
-        	last_name = 'Blow')
+        	last_name = 'Blow', alumni=False, current_lab_member=True)
         test_labmember.save()
         #test that the slugfiy function works correctly
         self.assertEquals(test_labmember.name_slug, u'joe-blow')
@@ -73,7 +73,7 @@ class PersonnelViewTests(BasicTests):
         self.assertEqual(test_response.context['person'].last_name, 'Doe')
 
           
-class PersonnelModelTests(BasicTests):
+class JobPostingModelTests(BasicTests):
     """Tests the model attributes of ::class:`JobPosting` objects contained in the ::mod:`personnel` app."""
    
     fixtures = ['test_organization',]
@@ -82,7 +82,8 @@ class PersonnelModelTests(BasicTests):
         '''This is a test for creating a new ::class:`JobPosting` object, with only the minimum fields being entered'''
         test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
                               description = 'Some description',
-                              link = 'http:/jobs.com/awesomejob')
+                              link = 'http:/jobs.com/awesomejob',
+                              active=True)
         test_jobposting.save()
         self.assertEqual(test_jobposting.pk, 1)    
 
@@ -103,6 +104,7 @@ class PersonnelModelTests(BasicTests):
         '''This test creates a new :class:`~personnel.models.JobPosting` object, then tests for the unicode representation of it.'''
         test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
                               description = 'Some description',
-                              link = 'http:/jobs.com/awesomejob')
+                              link = 'http:/jobs.com/awesomejob',
+                              active=True)
         test_jobposting.save()
         self.assertEqual(test_jobposting.__unicode__(), 'Postdoctoral Researcher Job Posting (%s)' %(datetime.date.today()) )

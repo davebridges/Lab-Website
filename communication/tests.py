@@ -140,18 +140,18 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('google_calendar_id' in test_response.context)                    
                                 
-        
-    def test_wikipedia_view(self):
-        '''This tests the google-calendar view.
-        
-        Currently it just ensures that the template is loading correctly.
-        '''
-        test_response = self.client.get('/wikipedia')
-        self.assertEqual(test_response.status_code, 200)       
-        self.assertTemplateUsed(test_response, 'wikipedia_edits.html')
-        self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTrue('pages' in test_response.context)                                 
+#         
+#     def test_wikipedia_view(self):
+#         '''This tests the google-calendar view.
+#         
+#         Currently it just ensures that the template is loading correctly.
+#         '''
+#         test_response = self.client.get('/wikipedia')
+#         self.assertEqual(test_response.status_code, 200)       
+#         self.assertTemplateUsed(test_response, 'wikipedia_edits.html')
+#         self.assertTemplateUsed(test_response, 'base.html') 
+#         self.assertTemplateUsed(test_response, 'jquery_script.html') 
+#         self.assertTrue('pages' in test_response.context)                                 
                                 
     def test_news_view(self):
         '''This tests the lab-news view.
@@ -163,9 +163,9 @@ class CommunicationViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'lab_news.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'jquery_script.html') 
-        self.assertTrue('statuses' in test_response.context) 
+        #self.assertTrue('statuses' in test_response.context) 
         self.assertTrue('links' in test_response.context)           
-        self.assertTrue('milestones' in test_response.context) 
+        #self.assertTrue('milestones' in test_response.context) 
         
     def test_contact_page(self):
         '''This tests the contact-page view.
@@ -193,7 +193,7 @@ class CommunicationViewTests(BasicTests):
 class PostModelTests(BasicTests):
     '''This class tests various aspects of the :class:`~papers.models.Post` model.'''
     
-    fixtures = ['test_publication','test_project', 'test_personnel']   
+    fixtures = ['test_publication','test_publication_personnel', 'test_project', 'test_personnel']   
                 
     def test_create_new_post_minimum(self):
         '''This test creates a :class:`~papers.models.Post` with the required information only.'''
@@ -236,7 +236,7 @@ class PostModelTests(BasicTests):
 class PostViewTests(BasicTests):
     '''These test the views associated with post objects.'''
     
-    fixtures = ['test_post',]
+    fixtures = ['test_post','test_publication','test_publication_personnel', 'test_project', 'test_personnel']   
     
     def test_post_details_view(self):
         """This tests the post-details view, ensuring that templates are loaded correctly.  
