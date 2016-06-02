@@ -118,7 +118,7 @@ class AuthorDetails(models.Model):
                 
     def __unicode__(self):
         '''The unicode representation is the author name.'''
-        return '%i - %s -  %s' %(self.order, self.publication_set.all(), self.author)
+        return '%i - %s -  %s' %(self.order, self.publication_set.last(), self.author)
     
     def name(self):
         '''The name representation shows the author name only.'''
