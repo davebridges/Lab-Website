@@ -107,6 +107,7 @@ class CommentaryCreate(PermissionRequiredMixin, CreateView):
     
     permission_required = 'papers.create_commentary'
     model = Commentary
+    fields = "__all__"
     template_name = "commentary-form.html"
 
 class CommentaryUpdate(PermissionRequiredMixin, UpdateView):
@@ -116,6 +117,7 @@ class CommentaryUpdate(PermissionRequiredMixin, UpdateView):
     
     permission_required = 'papers.update_commentary'
     model = Commentary
+    fields = "__all__"
     template_name = 'commentary-form.html' 
     
 class CommentaryDelete(PermissionRequiredMixin, DeleteView):
