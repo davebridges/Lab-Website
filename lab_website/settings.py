@@ -1,4 +1,3 @@
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Additional locations of static files
@@ -112,9 +111,5 @@ LOGGING = {
 }
 
 #try to import localsettings.py first
-try:
-    from localsettings import *
-except:
-    pass
-
+from localsettings import *
 
