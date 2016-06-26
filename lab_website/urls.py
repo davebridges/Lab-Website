@@ -5,7 +5,7 @@ from django.contrib import admin, sitemaps
 from django.conf.urls.static import static
 from django.conf import settings
 
-from tastypie.api import Api
+#from tastypie.api import Api
 
 import communication
 from communication.views import FeedDetailView, LabLocationView
@@ -15,9 +15,9 @@ from papers.sitemap import LabPublicationsSitemap, CommentarySitemap
 from projects.sitemap import ProjectsSitemap, FundingSitemap
 from communication.sitemap import PostsSitemap
 
-from papers.api import PublicationResource
-from projects.api import ProjectResource
-from personnel.api import PersonnelResource
+#from papers.api import PublicationResource
+#from projects.api import ProjectResource
+#from personnel.api import PersonnelResource
 
 from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed
 from projects.feeds import ProjectsFeed
@@ -37,10 +37,10 @@ class StaticViewSitemap(sitemaps.Sitemap):
     def location(self, item):
         return reverse(item)
 
-v1_api = Api(api_name='v1')
-v1_api.register(PublicationResource())
-v1_api.register(ProjectResource())
-v1_api.register(PersonnelResource())
+#v1_api = Api(api_name='v1')
+#v1_api.register(PublicationResource())
+#v1_api.register(ProjectResource())
+#v1_api.register(PersonnelResource())
 
 #this dictionary lists sitemap files which will be generated.
 sitemaps = {
@@ -88,7 +88,7 @@ urlpatterns = [
     url(r'^news/?$', communication.views.NewsView.as_view(), name='lab-news'),
 
  
-    url(r'^api/',include(v1_api.urls)),   
+    #url(r'^api/',include(v1_api.urls)),   
     #url(r'^sitemap\.xml$', sitemaps.views.index, {'sitemaps': sitemaps}),
     #url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps.views.sitemap, {'sitemaps': sitemaps}),
     url(r'^$', IndexView.as_view(), name="home")
