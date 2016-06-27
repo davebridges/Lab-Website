@@ -22,10 +22,10 @@
 {% endif %}
 <div class='span-15' id='details'>
 <dl>
-    {% if person.lab_roles.all %}
+    {% if person.current_roles.all %}
     <dt>Position</dt>
     <dd>
-    {% for role in person.lab_roles.all %}
+    {% for role in person.current_roles.all %}
     {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
     {% endfor %}
     </dd>

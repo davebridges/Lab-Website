@@ -8,7 +8,7 @@
 <div class="span-14 last">
 <h3>{{ person }}</h3>
 <hr/>
-{% for role in person.lab_roles.all %}
+{% for role in person.current_roles.all %}
 {{ role|safe }}<br/>
 {% endfor %}
 </section>
