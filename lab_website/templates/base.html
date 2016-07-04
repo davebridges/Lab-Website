@@ -83,7 +83,7 @@
 {% endblock %}
 
 {% if messages %}
-<div class="messages class-md-12">
+<div class="messages col-md-12">
     {% for message in messages %}
     <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}

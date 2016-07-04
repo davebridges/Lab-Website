@@ -1,15 +1,21 @@
-<a href="{{ person.get_absolute_url }}" class="plain-link">
-<section class="container span-20 append-bottom">
-<div class="span-3">
+
+<section id="{{ person }}" class="row">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><a href="{{ person.get_absolute_url }}">{{ person }}</a></h3>
+  </div>
+
 {% if person.image %}
-<img src="{{ person.image.url }}" alt="{{ person }}" class="span-3" />
+  <div class="col-md-3">
+    <img src="{{ person.image.url }}" alt="{{ person }}" size="250px"/>
+  </div>
 {% endif %}
-</div>
-<div class="span-14 last">
-<h3>{{ person }}</h3>
-<hr/>
+
+<div id="{{person}} details" class="col-md-10">
 {% for role in person.current_roles.all %}
 {{ role|safe }}<br/>
 {% endfor %}
+</div>
+</div>
 </section>
-</a>
+
