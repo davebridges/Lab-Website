@@ -8,20 +8,17 @@
 {% block title %}<title>{{ person }}</title>{% endblock %}
 
 {% block header %}
-<h1>{{ person }}</h1>
+<h1 class="text-center">{{ person }}</h1>
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype='http://schema.org/Person' class="prepend-2 span-20 append-2 container">
+<article itemscope itemtype='http://schema.org/Person' class="row">
 <meta itemprop='familyName' content='{{ person.last_name }}' />
 <meta itemprop='givenName' content='{{ person.first_name }}' />
 <meta itemprop='name' content='{{ person }}' />
-<section id='bio' class='container'>
-{% if person.image %}
-<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='span-5'/>
-{% endif %}
-<div class='span-15' id='details'>
-<dl>
+<section id='bio' class='row'>
+<div class='col-md-7' id='details'>
+<dl class="dl-horizontal">
     {% if person.current_roles.all %}
     <dt>Position</dt>
     <dd>
@@ -85,7 +82,10 @@
 	</dd>
 	{% endif %}
 </dl>
+{% if person.image %}
 </div>
+<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='col-md-3 img-responsive'/>
+{% endif %}
 </section>
 
 {% if person.authordetails_set.all.exists %}
