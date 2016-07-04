@@ -9,7 +9,7 @@ import tweepy
 import dateutil
 
 from django.conf import settings
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -283,7 +283,21 @@ class ContactView(ListView):
     
     template_name = "contact.html"
     model = LabAddress  
-    
+   
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ContactView, self).get_context_data(**kwargs)
+        context['twitter'] = settings.TWITTER_NAME
+    	context['google_plus'] = settings.GOOGLE_PLUS_ID
+    	context['facebook'] = settings.FACEBOOK_NAME
+    	context['lab_name'] = settings.LAB_NAME
+    	context['disqus_forum'] = settings.DISQUS_SHORTNAME
+    	context['fb_app_id'] = settings.FACEBOOK_APP_ID
+    	context['fb_admins'] = settings.FACEBOOK_ID
+    	context['analytics_tracking'] = settings.ANALYTICS_TRACKING
+    	context['analytics_root'] = settings.ANALYTICS_ROOT
+	return context 
+
 class LabLocationView(ListView):
     '''This view provides location information.
     
