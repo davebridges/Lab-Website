@@ -7,19 +7,23 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     
     <!-- Bootstrap -->
-    <link href="bootstrapcss/bootstrap.min.css" rel="stylesheet">
-
+    <link href="{{ STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ STATIC_URL}}bootstrap/js/bootstrap.js"></script>    
 <meta property="fb:app_id" content="{{ fb_app_id }}" />
 <meta property="fb:admins" content="{{ fb_admins }}" />
 <link rel="publisher" href="https://plus.google.com/{{ google_plus }}">
-{% include "jquery_script.html" %}
+
 {% block scripts %}
 {% endblock %}
 
@@ -33,18 +37,42 @@
 <meta itemprop = "name" content="{{ lab_name  }}"/>
 </span>
 <header class="span-24">
+
 {% block navbar %}
-<nav class="span-24 container" id="navbar">
-<ul id="navbar-items">
-<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder first"><a itemprop="url" href="{% url 'home' %} "><span itemprop="name">Home</span></a></li>
-<li  itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder first"><a itemprop="url" href="{% url 'laboratory-personnel' %} "><span itemprop="name">People</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder"><a itemprop="url" href="{% url 'project-list' %}"><span itemprop="name">Projects</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/CollectionPage" class="span-2 colborder"><a itemprop="url" href="{% url 'laboratory-papers' %}"><span itemprop="name">Papers</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/AboutPage" class="span-2 colborder"><a itemprop="url" href="{% url 'location' %}"><span itemprop="name">Location</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/ContactPage" class="span-2 colborder"><a itemprop="url" href="{% url 'contact-info' %}"><span itemprop="name">Contact</span></a></li>
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/Blog" class="span-2 colborder"><a itemprop="url" href="{% url 'post-list' %}"><span itemprop="name">Posts</span></a></li>
-<li class="span-2 last"><a itemprop="url" href="{% url 'lab-news' %}"><span itemprop="name">News</span></a></li>
-</ul>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'home' %}">Bridges Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'laboratory-personnel' %}">Our Team</a></li>
+        <li><a href="{% url 'project-list' %}">Projects</a></li>
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Research <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'laboratory-papers' %}">Papers</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'funding-list' %}">Funding</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'post-list' %}">Posts</a></li>
+            <li><a href="{% url 'commentary-list'%}">Journal Club</a></li>
+            </li>
+          <li><a href="{% url 'contact-info' %}">Contact Us</a></li>
+          </ul>
+          </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 <hr/>
 {% block sidebar-insertion %}
