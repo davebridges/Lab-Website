@@ -11,20 +11,28 @@
 {% block content %}
 <article itemscope itemtype="http://schema.org/Organization">
 <h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
-<section id='general-info' class='col-md-4'>
-<img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" width=250px>
+
+
+<section id='general-info' class='col-md-12'>
+<div class="row">
+  <div class="panel panel-default col-md-8">
+    <div class="panel-heading">
+    <h3 class="panel-title">Find Out More About Us:</h3>
+    </div>
+      <div class="panel-body">
+      <ul id="home-links">
+        <li><a class="text-center" href="{% url 'laboratory-personnel' %}" itemprop="members"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
+        <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
+        <li><a class="text-center" href="{% url 'laboratory-papers' %}"><img src="{{ STATIC_URL }}img/icons/file.png" alt="Papers"> Papers we have published.</a></li>
+        <li><a class="text-center" href="{% url 'location' %}"><img src="{{ STATIC_URL }}img/icons/world.png" alt="Location"> Where we are located.</a></li>
+        <li><a class="text-center" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
+       </ul>
+     </div>
+  </div>
+<img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="col-md-4">
+  </div>
 </section>
 
-<section class='col-md-8'>
-<h2>Find Out More About Us:</h2>
-<ul id="home-links" style="list-style-type:none;">
-<li><a class="large" href="{% url 'laboratory-personnel' %}" itemprop="members"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
-<li><a class="large" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
-<li><a class="large" href="{% url 'laboratory-papers' %}"><img src="{{ STATIC_URL }}img/icons/file.png" alt="Papers"> Papers we have published.</a></li>
-<li><a class="large" href="{% url 'location' %}"><img src="{{ STATIC_URL }}img/icons/world.png" alt="Location"> Where we are located.</a></li>
-<li><a class="large" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
-</ul>
-</section>
 
 <p class='col-md-12' itemprop="description">{{ general_data.description }}</p>
 
@@ -34,33 +42,37 @@
 
 <section class='col-md-12' id="recent-activity">
 
-<section id='recent-papers'>
-<h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class='plain-link col-md-12'>Recent Publications</a></h2>
+<section id='recent-papers' class='col-md-12 row panel panel-default'>
+<h2 class='text-center panel-title'><a href="{% url 'laboratory-papers' %}" class='plain-link'>Recent Publications</a></h2>
 
 {% for paper in recent_papers %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
 
-<div class='row'>
-<section id='recent-comments' class='col-md-6'>
-<h2 class='text-center'><a href="{% url 'post-list' %}">Recent Posts</a></h2>
+<section id='recent-comments' class='col-md-5 row panel panel-default'>
+<h2 class='text-center panel-title'><a href="{% url 'post-list' %}">Recent Posts</a></h2>
+<div class='panel-body'>
 <ul>
 {% for post in recent_posts %}
 <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
 {% endfor %}
 </ul>
+</div>
 </section>
 
-<section id='recent-journal-clubs' class='col-md-6'>
-<h2 class='text-center'><a href="{% url 'commentary-list' %}">Recent Journal Clubs</a></h2>
+<section id='recent-journal-clubs' class='col-md-2'>
+</section>
 
+<section id='recent-journal-clubs' class='col-md-5 row panel panel-default'>
+<h2 class='text-center panel-title'><a href="{% url 'commentary-list' %}">Recent Journal Clubs</a></h2>
+<div class='panel-body'>
 {% for commentary in recent_comments %}
 {% with commentary.paper as paper %}
 {% include "paper-detail-snippet.html" %}
 {% endwith %}
 {% endfor %}
-
+</div>
 </section>
 </div>
 </section>
