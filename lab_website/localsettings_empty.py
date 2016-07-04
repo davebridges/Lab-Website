@@ -2,7 +2,6 @@
 #fill in these fields and save as localsettings.py in this directory
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

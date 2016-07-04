@@ -33,29 +33,6 @@ ROOT_URLCONF = 'lab_website.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'lab_website.wsgi.application'
-
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-            	"communication.context_processors.social_media_accounts",
-				"papers.context_processors.api_keys",
-				"django.contrib.auth.context_processors.auth",
-				"django.template.context_processors.debug",
-				"django.template.context_processors.i18n",
-				"django.template.context_processors.media",
-				"django.template.context_processors.static",
-				"django.template.context_processors.tz",
-				"django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-
 INTERNAL_IPS = ('127.0.0.1',)
 
 INSTALLED_APPS = (
@@ -76,6 +53,24 @@ INSTALLED_APPS = (
     #'debug_toolbar',
     'tastypie'
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        #'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+ 		           	"communication.context_processors.social_media_accounts",
+				"papers.context_processors.api_keys",
+				"django.contrib.auth.context_processors.auth",
+				"django.template.context_processors.debug",
+				"django.template.context_processors.i18n",
+				"django.template.context_processors.media",
+				"django.template.context_processors.static",
+				"django.template.context_processors.tz",
+        },
+    },
+]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
