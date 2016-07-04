@@ -1,5 +1,8 @@
 {% if postings %}
-<h2>Positions Available</h2>
+<div class="panel-heading">
+<h2 class="panel-title">Positions Available</h2>
+</div>
+<div class="panel-body">
 {% for posting in postings %}
 <p class="info" itemscope itemtype="http://schema.org/JobPosting"><strong itemprop="title">{{ posting.title }}</strong>.
 <span itemprop="description">{{ posting.description }}</span><br>
@@ -11,4 +14,5 @@
 To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.<br>
 Date Posted: <span itemprop="datePosted">{{ posting.created }}</span></p>
 {% endfor %}
+</div>
 {% endif %}
