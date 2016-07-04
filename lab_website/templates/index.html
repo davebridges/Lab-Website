@@ -9,13 +9,13 @@
 {% endblock title %}
 
 {% block content %}
-<article class="span-24 container" itemscope itemtype="http://schema.org/Organization">
-<h1>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
-<section id='general-info' class='span-10 first prepend-2 container'>
-<img class='span-10' src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image">
+<article itemscope itemtype="http://schema.org/Organization">
+<h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
+<section id='general-info' class='col-md-4'>
+<img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" width=250px>
 </section>
 
-<section class='span-10 last append-2'>
+<section class='col-md-8'>
 <h2>Find Out More About Us:</h2>
 <ul id="home-links" style="list-style-type:none;">
 <li><a class="large" href="{% url 'laboratory-personnel' %}" itemprop="members"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
@@ -26,43 +26,48 @@
 </ul>
 </section>
 
-<p class='prepend-2 span-20' style='font-size:large;' itemprop="description">{{ general_data.description }}</p>
+<p class='col-md-12' itemprop="description">{{ general_data.description }}</p>
 
-<aside class="span-24">
+<aside class="col-md-12">
 {% include "job_posting_snippet.html" %}
 </aside>
 
-<section class="span-24 container" id="recent-activity">
-<section id='recent-papers' class='span-10 first prepend-2 container'>
-<h2><a href='{% url 'laboratory-papers' %}' class='plain-link'>Recent Publications</a></h2>
+<section class='col-md-12' id="recent-activity">
+
+<section id='recent-papers'>
+<h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class='plain-link col-md-12'>Recent Publications</a></h2>
 
 {% for paper in recent_papers %}
-<section>
 {% include "paper-detail-snippet.html" %}
-</section>
 {% endfor %}
-
 </section>
-<section id='recent-comments'class='span-10 last append-2'>
-<h2><a href='{% url 'post-list' %}' class='plain-link'>Recent Posts</a></h2>
+
+<div class='row'>
+<section id='recent-comments' class='col-md-6'>
+<h2 class='text-center'><a href="{% url 'post-list' %}">Recent Posts</a></h2>
 <ul>
 {% for post in recent_posts %}
 <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
 {% endfor %}
 </ul>
+</section>
 
-<h2><a href='{% url 'commentary-list' %}' class='plain-link'>Recent Journal Clubs</a></h2>
+<section id='recent-journal-clubs' class='col-md-6'>
+<h2 class='text-center'><a href="{% url 'commentary-list' %}">Recent Journal Clubs</a></h2>
 
 {% for commentary in recent_comments %}
-<section>
 {% with commentary.paper as paper %}
 {% include "paper-detail-snippet.html" %}
 {% endwith %}
-</section>
 {% endfor %}
 
 </section>
+</div>
 </section>
+</section>
+
+
+
 
 {% endblock content %}
 

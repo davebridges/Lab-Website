@@ -36,7 +36,7 @@
 <meta itemprop = "url"  content="http://{{ request.get_host }}"/>
 <meta itemprop = "name" content="{{ lab_name  }}"/>
 </span>
-<header class="span-24">
+<header>
 
 {% block navbar %}
 
@@ -83,7 +83,7 @@
 {% endblock %}
 
 {% if messages %}
-<div class="messages">
+<div class="messages class-md-12">
     {% for message in messages %}
     <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
@@ -95,7 +95,7 @@
 {% endblock %}
 
 
-<div id="content" class="span-14">
+<div id="content">
 {% block content %}
 {% endblock %}
 </div>
