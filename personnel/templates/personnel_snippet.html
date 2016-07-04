@@ -1,20 +1,24 @@
 
-<section id="{{ person }}" class="row">
+<section id="{{ person }}">
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"><a href="{{ person.get_absolute_url }}">{{ person }}</a></h3>
   </div>
 
+<div class="row">
+<div class="panel-body">
 {% if person.image %}
-  <div class="col-md-3">
-    <img src="{{ person.image.url }}" alt="{{ person }}" size="250px"/>
+  <div class="col-md-2">
+    <img src="{{ person.image.url }}" alt="{{ person }}" width="100px"/>
   </div>
 {% endif %}
 
-<div id="{{person}} details" class="col-md-10">
+<div id="{{person}} details" class="col-md-7">
 {% for role in person.current_roles.all %}
 {{ role|safe }}<br/>
 {% endfor %}
+</div>
+</div>
 </div>
 </div>
 </section>

@@ -1,4 +1,6 @@
 {% if postings %}
+<div class="col-md-12">
+<aside class="panel panel-success">
 <div class="panel-heading">
 <h2 class="panel-title">Positions Available</h2>
 </div>
@@ -14,5 +16,7 @@
 To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.<br>
 Date Posted: <span itemprop="datePosted">{{ posting.created }}</span></p>
 {% endfor %}
+</div>
+</aside>
 </div>
 {% endif %}
