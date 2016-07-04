@@ -18,7 +18,6 @@ class IndexView(TemplateView):
     '''This view redirects to the home page.'''
     
     template_name = "index.html"   
-    
     def get_context_data(self, **kwargs):
         '''This function provides the context which is passed to this view.
         
@@ -54,4 +53,14 @@ class IndexView(TemplateView):
         context['recent_comments'] =  Commentary.objects.all()[0:5]                 
         context['general_data'] = facebook_request(general_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
+	context['twitter'] = settings.TWITTER_NAME
+    	context['google_plus'] = settings.GOOGLE_PLUS_ID
+    	context['facebook'] = settings.FACEBOOK_NAME
+    	context['lab_name'] = settings.LAB_NAME
+    	context['disqus_forum'] = settings.DISQUS_SHORTNAME
+    	context['fb_app_id'] = settings.FACEBOOK_APP_ID
+    	context['fb_admins'] = settings.FACEBOOK_ID
+    	context['analytics_tracking'] = settings.ANALYTICS_TRACKING
+    	context['analytics_root'] = settings.ANALYTICS_ROOT
+
         return context                            
