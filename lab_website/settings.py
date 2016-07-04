@@ -57,10 +57,10 @@ INSTALLED_APPS = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': [os.path.join(SETTINGS_PATH, 'templates')],
         'APP_DIRS': True,
-        'OPTIONS': {
- 		           	"communication.context_processors.social_media_accounts",
+        'OPTIONS':{
+            'context_processors': [
+                "communication.context_processors.social_media_accounts",
 				"papers.context_processors.api_keys",
 				"django.contrib.auth.context_processors.auth",
 				"django.template.context_processors.debug",
@@ -68,7 +68,8 @@ TEMPLATES = [
 				"django.template.context_processors.media",
 				"django.template.context_processors.static",
 				"django.template.context_processors.tz",
-        },
+                ],
+            },
     },
 ]
 
@@ -94,6 +95,6 @@ LOGGING = {
     },
 }
 
-#try to import localsettings.py first
+
 from localsettings import *
 
