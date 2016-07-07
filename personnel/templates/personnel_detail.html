@@ -89,18 +89,26 @@
 </section>
 
 {% if person.authordetails_set.all.exists %}
-<section id='papers'>
-<h2>Publications</h2>
+<section id='papers' class='col-md-12'>
+<div class='panel panel-default'>
+<div class='panel-heading'>
+<h2 class='panel-title'>Publications</h2>
+</div>
+<div class='panel-body'>
 {% for detail in person.authordetails_set.all %}
 {% for paper in detail.publication_set.all|dictsort:"year"  %}
-<div class="span-14 border first">
+
+<div class="row">
+<div class="col-md-8">
 {% include "paper-detail-snippet.html" %}
 </div>
-<div class="span-4 last">
+<div class="col-md-3">
 {% include "altmetric_paper_snippet.html" %}
+</div>
 </div>
 {% endfor %}
 {% endfor %}
+</div>
 {% endif %}
 {% endblock %}
 </section>
