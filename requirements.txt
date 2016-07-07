@@ -8,3 +8,4 @@ httplib2
 tweepy
 defusedxml
 markdown
+django-ajax-selects
