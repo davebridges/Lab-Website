@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 {% block scripts %}
 <script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<script type='text/javascript'>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock %}
 
 {% block title %}<title>{{ publication }}</title>{% endblock %}
 
 {% block header %}
-<h1>{{ publication }}</h1>
+<h1 class="text-center">{{ publication }}</h1>
 {% endblock %}
 
 {% block sidebar-insertion %}
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype="http://schema.org/ScholarlyArticle" id='paper' class="container append-2 prepend-2 span-20">
+<article itemscope itemtype="http://schema.org/ScholarlyArticle" id='paper' class="container col-md-12">
 <meta itemprop="name" content="{{ publication.title }}" />
 
 <section id="authors">
-<p>
+<p class="lead text-center">
 {% if publication.authors.count == 1%}
 {% for author in publication.authors.all %}
 {% if author.author.current_lab_member %}<a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author.name }}</a>{% else %}{{ author.name }}{% endif %}
@@ -30,46 +35,54 @@
 </p>
 </section>
 
-<section id='publication' class='large'>
+<section id='publication' class='lead text-center'>
 <strong itemprop='publisher'>{{ publication.journal }}</strong> {% if publication.year %}<span itemprop='copyrightYear datePublished' >{{ publication.year }}</span>. {% endif %}{% if publication.volume %} {{ publication.volume}}{% if paper.issue %}({{ paper.issue }}){% endif %}: {{ publication.pages }}.{% endif %}
 {% if publication.preprint %}
 <h3 class="highlight">This work is a preprint and is currently under review.</h3>
 {% endif %}
 </section>
 
-<h2>Abstract</h2>
-<section id='abstract' class="span-20">
+<section class="panel panel-default">
+<div class="panel-heading">
+<h2 class="panel-title">Abstract</h2>
+</div>
+
+<div class="panel-body">
 <p itemprop='description'>{{ publication.abstract }}</p>
 {% if publication.doi %}
 <p><a itemprop='url' href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
 <meta itemprop='discussionUrl' content='{{ request.build_absolute_uri }}'/>
 {% endif %}
+</div>
 </section>
 
 
 {% for author_details in publication.authors.all %}
 {% if forloop.first %}
 {% if author_details.contribution.all.exists %}
-<h2>Author Contributions</h2>
+<section class="panel panel-info">
+  <div class="panel-heading">
+   <h2 class="panel-title">Author Contributions</h2>
+  </div>
 {% endif %}
 {% endif %}
 {% endfor %}
-
-{% for author_details in publication.authors.all %}
-{% if author_details.contribution.all.exists %}
-<div class="container span-20">
-<div class="span-4"><h3>{{ author_details.author }}</h3>
+<div class="panel-body">
+  {% for author_details in publication.authors.all %}
+  {% if author_details.contribution.all.exists %}
+  <div class="row">
+    <p class="col-md-2">{{ author_details.author }}</p>
+  {% for contribution in author_details.contribution.all %}
+      <img class="col-xs-1 col-md-1" src='{{ contribution.image_url }}' alt="{{ contribution }}" title="{{ contribution }}" data-toggle="tooltip"/>
+  {% endfor %}
+  </div>
+{% endif %}
+{% endfor %}
 </div>
-{% for contribution in author_details.contribution.all %}
-<img class="span-1" src='{{ contribution.image_url }}' alt="{{ contribution }}" title="{{ contribution }}"/>
-{% endfor %}
-</div>
-{% endif %}
-{% endfor %}
-
+</section>
 
 {% if publication.commentary_set.all.exists  %}
-<section id="commentary" class="span-20">
+<section id="commentary" class="col-md-12">
 <h2>Our Thoughts on This Paper</h2>
 <p>{% for commentary in publication.commentary_set.all %}
 <p>{{ commentary.comments|safe }}</p>
@@ -79,7 +92,7 @@
 {% endif %}
 
 {% if publication.post_set.all.exists  %}
-<section id="commentary" class="span-20">
+<section id="commentary" class="col-md-12">
 <h2>Posts about this paper</h2>
 <ul>
 {% for post in publication.post_set.all %}
@@ -89,17 +102,17 @@
 </section>
 {% endif %}
 
-<section id="comments" class="span-20">
+<section id="comments" class="col-md-12">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
 
-<section id ='sharing' class='span-6'>
+<section id ='sharing' class='col-md-6'>
 <h2>Share This Paper</h2>
 {% include 'paper_sharing_widgets.html' %}
 </section>
 
-<section id="metrics" class='span-12 container'>
+<section id="metrics" class='col-md-6'>
 <h2>Metrics</h2>
 
 
