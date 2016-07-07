@@ -9,17 +9,21 @@
 {% endblock %}
 
 {% block header %}
-<h1>Current Projects in the Lab</h1>
+<h1 class="text-center">Current Projects in the Lab</h1>
 {% endblock %}
 
 {% block content %}
-<article id="projects" class="container append-2 prepend-2 span-20">
+<article id="projects" class="col-md-12">
 {% for project in project_list %}
-<section id="{{ project.title_slug }}" class="append-2 prepend-2 span-16">
-<h2>
-<a class="large plain-link" href="{{ project.get_absolute_url }}">{{ project }}</a>
+<section id="{{ project.title_slug }}" class="panel panel-default">
+<div class="panel-heading">
+<h2 class="panel-title" >
+<a href="{{ project.get_absolute_url }}">{{ project }}</a>
 </h2>
+</div>
+<div class="panel-body">
 <p>{{ project.summary |safe}}</p>
+</div>
 </section>
 {% endfor %}
 </article>
