@@ -8,19 +8,19 @@
 {% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}{{ lab_name }} Papers</title>{% endblock %}
 
 {% block header %}
+<div class='text-center'>
 <h1>{% if paper_list_type == "laboratory" %}{{ lab_name }} Papers <a href="{% url 'lab-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
 {% if paper_list_type == "interesting" %}Interesting Papers <a href="{% url 'interesting-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h1>
 {% endblock %}
+</div>
 
 {% block content %}
-<article  class="container append-2 prepend-2 span-20">
+<article>
 {% for paper in publication_list %}
-<section>
-<div class="span-14 border first">
+<section class="col-md-12">
+<div class="col-md-12">
 {% include "paper-detail-snippet.html" %}
 </div>
-<div class="span-4 last">
-{% include "altmetric_paper_snippet.html" %}
 </div>
 </section>
 {% endfor %}

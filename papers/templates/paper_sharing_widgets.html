@@ -1,11 +1,11 @@
-<div class="container" id="paper-share-widgets">
-	<div class='altmetric-embed span-3' data-doi="{{ paper.doi }}"></div>
-	<div class='span-3 append-bottom'><a href="https://twitter.com/share" class="twitter-share-button span-3" data-lang="en" data-url="{{ publication.doi_link }}" count-url="{{ publication.doi_link }}" data-via="{{ twitter }}" data-text="{{ paper.title }}">Tweet</a>
+<div id="paper-share-widgets">
+	<div class='altmetric-embed col-md-3' data-doi="{{ paper.doi }}"></div>
+	<div class='col-md-3 append-bottom'><a href="https://twitter.com/share" class="twitter-share-button span-3" data-lang="en" data-url="{{ publication.doi_link }}" count-url="{{ publication.doi_link }}" data-via="{{ twitter }}" data-text="{{ paper.title }}">Tweet</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		</div>
 	</div>
-	<div class="fb-like span-3 append-bottom" data-href="{{ publication.doi_link }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
-	<div class="g-plusone span-3" data-size="medium" data-annotation="inline" data-href="{{ publication.doi_link }}"></div>
+	<div class="fb-like col-md-3 append-bottom" data-href="{{ publication.doi_link }}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+	<div class="g-plusone col-md-3" data-size="medium" data-annotation="inline" data-href="{{ publication.doi_link }}"></div>
 
 
 	
