@@ -1,7 +1,9 @@
 '''This package has the url encodings for the main app.'''
 from django.conf.urls import include, url
 from django.core.urlresolvers import reverse
-from django.contrib import admin, sitemaps
+from django.contrib import admin
+from django.contrib.sitemaps import views as sitemap_views
+from django.contrib.sitemaps import Sitemap
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,7 +27,7 @@ from communication.feeds import PostsFeed
 
 from views import IndexView
 
-class StaticViewSitemap(sitemaps.Sitemap):
+class StaticViewSitemap(Sitemap):
     '''This sitemap is for all static pages, including list views home and feeds.'''   
  
     priority = 0.4
@@ -89,8 +91,8 @@ urlpatterns = [
 
  
     #url(r'^api/',include(v1_api.urls)),   
-    #url(r'^sitemap\.xml$', sitemaps.views.index, {'sitemaps': sitemaps}),
-    #url(r'^sitemap-(?P<section>.+)\.xml$', sitemaps.views.sitemap, {'sitemaps': sitemaps}),
+    url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}),
     url(r'^$', IndexView.as_view(), name="home")
 ]
 
