@@ -1,8 +1,7 @@
 {% if postings %}
-<div class="col-md-12">
 <aside class="panel panel-success">
 <div class="panel-heading">
-<h2 class="panel-title">Positions Available</h2>
+<h2 class="panel-title text-center">Positions Available</h2>
 </div>
 <div class="panel-body">
 {% for posting in postings %}
@@ -18,5 +17,4 @@ Date Posted: <span itemprop="datePosted">{{ posting.created }}</span></p>
 {% endfor %}
 </div>
 </aside>
-</div>
 {% endif %}

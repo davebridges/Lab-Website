@@ -12,14 +12,23 @@
 <article itemscope itemtype="http://schema.org/Organization">
 <h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
 
-<p class='col-md-12 well' itemprop="description">{{ general_data.description }}</p>
-<section id='general-info' class='col-md-12'>
+<section class='container' id='general-info'>
+<div class="well well-lg">
 <div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-    <h3 class="panel-title">Find Out More About Us:</h3>
+    <div class='col-md-8' itemprop="description">
+    <div class="media">
+      <div class="media-left media-middle">
+         <!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="media-object" style="max-height:100px"/>
+        --!> 
+        <div class="media-body">
+            <p class="lead">{{ general_data.description }}</p>
+         </div>
+      </div>
     </div>
-      <div class="panel-body">
+    </div>
+
+   <div class='col-md-4'>
+      <p class="lead">Find Out More About Us:</p>
       <ul id="home-links">
         <li><a class="text-center" href="{% url 'laboratory-personnel' %}" itemprop="members"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
         <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
@@ -27,11 +36,10 @@
         <li><a class="text-center" href="{% url 'location' %}"><img src="{{ STATIC_URL }}img/icons/world.png" alt="Location"> Where we are located.</a></li>
         <li><a class="text-center" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
        </ul>
-     </div>
-  </div>
-<!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" size="200px" class="col-md-3"/> -->
-  </div>
-</section>
+    </div>
+</div>
+</div>
+<section>
 
 {% include "job_posting_snippet.html" %}
 
