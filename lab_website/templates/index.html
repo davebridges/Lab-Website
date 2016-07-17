@@ -10,16 +10,18 @@
 
 {% block content %}
 <article itemscope itemtype="http://schema.org/Organization">
-<h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1> 
+
+<h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1>
 
 <section class='container' id='general-info'>
+<div class="col-md-12">
 <div class="well well-lg">
 <div class="row">
     <div class='col-md-8' itemprop="description">
     <div class="media">
       <div class="media-left media-middle">
          <!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="media-object" style="max-height:100px"/>
-        --!> 
+        --> 
         <div class="media-body">
             <p class="lead">{{ general_data.description }}</p>
          </div>
@@ -39,7 +41,8 @@
     </div>
 </div>
 </div>
-<section>
+</div>
+</section>
 
 {% include "job_posting_snippet.html" %}
 
@@ -82,7 +85,7 @@
 {% for commentary in recent_comments %}
 <li><a href="{{ commentary.get_absolute_url }}">{{ commentary.paper.title }}</a></li>
 {% endfor %}
-</ul
+</ul>
 </div>
 </section>
 </div>
