@@ -5,22 +5,20 @@
 {% endblock %}
 
 {% block header %}
-<h1>{{ funding }}</h1>
+<h1 class="text-center">{{ funding }}</h1>
 {% endblock %}
 
 {% block content %}
-<article class="container append-2 prepend-2 span-20">
-
-<section id="summary" class="span-20 container">
-
-<div id="logo">
+<article>
+<section id="summary" class="col-md-12">
+<div id="logo" class="col-md-4">
 <a href="{{ funding.funding_agency.website }}">
-<img src="{{ funding.funding_agency.logo.url }}" class="span-4"/>
+<img src="{{ funding.funding_agency.logo.url }}" width="200" alt="logo" />
 </a>
 </div>
 
-<div class="span-10" id="details">
-
+<div class="col-md-8" id="details">
+<dl>
    {% if funding.start_date %}
     <dt>Start Date<dt>
         <dd>{{ funding.start_date }}</dd>
@@ -35,15 +33,21 @@
     <dt>Amount<dt>
         <dd>${{ funding.amount }}</dd>
    {% endif %}
-
+</dl>
 </div>
 </section>
 
-<section id='summary'>
-<h2>Summary</h2>
+<div class="col-md-12">
+<section id="abstract" class="panel panel-info">
+<div class="panel-heading">
+<h2 class="panel-title">Summary</h2>
+</div>
+<div class="panel-body">
 <p>{{ funding.summary | safe}}</p>
+</div>
 </section>
-</section>
+</div>
+
 
 {% if funding.full_text %}
 <section id="full_text">
@@ -51,17 +55,15 @@
 </section>
 {% endif %}
 {% if funding.publications.all.count > 0 %}
-<section id="publications" class="span-20">
-<h2>Publications</h2>
-<section class="span-20 border first">
-<h3>Which publications were supported by this award?</h3>
+<section id="publications" class="col-md-12">
+<h2>Which publications were supported by this award?</h2>
 {% for paper in funding.publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
 {% endif %}
 
-<section id="comments class="span-20">
+<section id="comments" class="col-md-12">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
