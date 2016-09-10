@@ -13,7 +13,7 @@
   </div>
 {% endif %}
 
-<div id="{{person}} details" class="col-md-7">
+<div id="{{person}} details" class="col-md-10">
 {% with person.lab_roles.all|first as first_object %}
     {{ first_object|safe }}
 {% endwith %}
