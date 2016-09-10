@@ -47,7 +47,6 @@ class HomeViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'index.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'facebook_api_sdk_script.html') 
         self.assertTemplateUsed(test_response, 'job_posting_snippet.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html') 

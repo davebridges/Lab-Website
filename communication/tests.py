@@ -82,7 +82,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'feed_details.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('google_calendar_id' in test_response.context)          
         
     def test_lab_rules_view(self):
@@ -96,7 +95,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_rules.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('lab_rules' in test_response.context)    
         self.assertTrue('lab_rules_source' in test_response.context)    
 
@@ -111,7 +109,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'data_sharing_policy.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('data_sharing_policy' in test_response.context)    
         self.assertTrue('data_sharing_policy_source' in test_response.context)
         
@@ -124,7 +121,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'twitter_timeline.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('timeline' in test_response.context)         
         
         
@@ -137,7 +133,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'calendar.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('google_calendar_id' in test_response.context)                    
                                 
 #         
@@ -162,7 +157,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_news.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         #self.assertTrue('statuses' in test_response.context) 
         self.assertTrue('links' in test_response.context)           
         #self.assertTrue('milestones' in test_response.context) 
@@ -176,7 +170,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'contact.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         
     def test_location_page(self):
         '''This tests the location view.
@@ -187,7 +180,6 @@ class CommunicationViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'location.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTrue('lablocation_list' in test_response.context)  
         
 class PostModelTests(BasicTests):
@@ -247,7 +239,6 @@ class PostViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html')
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertTrue('post' in test_response.context)  
@@ -264,7 +255,6 @@ class PostViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_list.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertTrue('post_list' in test_response.context)
         
@@ -277,7 +267,6 @@ class PostViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_form.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html') 
         
     def test_post_edit(self):
@@ -289,7 +278,6 @@ class PostViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_form.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         
         test_response = self.client.get('/posts/not-a-fixture-post/edit') 
@@ -304,7 +292,6 @@ class PostViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')                                                              
 
         test_response = self.client.get('/posts/not-a-fixture-post/delete') 

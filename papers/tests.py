@@ -240,7 +240,6 @@ class PublicationViewTests(TestCase):
         self.assertTrue('publication' in test_response.context)        
         self.assertTemplateUsed(test_response, 'paper-detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
         self.assertTemplateUsed(test_response, 'paper_sharing_widgets.html')
         self.assertTemplateUsed(test_response, 'altmetric_snippet.html')                        
@@ -257,9 +256,7 @@ class PublicationViewTests(TestCase):
         self.assertTrue('publication_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'paper-list.html')
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'facebook_api_sdk_script.html') 
-        self.assertTemplateUsed(test_response, 'altmetric_paper_snippet.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')   
         self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')
         self.assertEqual(test_response.context['publication_list'][0].pk, 1)
@@ -275,7 +272,6 @@ class PublicationViewTests(TestCase):
         self.assertTrue('publication_list' in test_response.context)       
         self.assertTemplateUsed(test_response, 'paper-list.html')
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')                                
         self.assertEqual(test_response.context['publication_list'][0].pk, 2)
         self.assertEqual(test_response.context['publication_list'][0].title, u"THE RELATION OF ADENOSINE-3', 5'-PHOSPHATE AND PHOSPHORYLASE TO THE ACTIONS OF CATECHOLAMINES AND OTHER HORMONES.")           
@@ -288,8 +284,7 @@ class PublicationViewTests(TestCase):
         test_response = self.client.get('/papers/new/')
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'publication_form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')           
+        self.assertTemplateUsed(test_response, 'publication_form.html')         
 
     def test_publication_view_edit(self):
         """This tests the paper-edit view, ensuring that templates are loaded correctly.  
@@ -300,8 +295,7 @@ class PublicationViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'publication_form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')        
+        self.assertTemplateUsed(test_response, 'publication_form.html')       
         self.assertEqual(test_response.context['publication'].pk, 1)
         self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
 
@@ -356,7 +350,6 @@ class CommentaryViewTests(TestCase):
         self.assertTrue('commentary' in test_response.context)        
         self.assertTemplateUsed(test_response, 'commentary-detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')                        
         self.assertEqual(test_response.context['commentary'].pk, 1)
@@ -375,8 +368,7 @@ class CommentaryViewTests(TestCase):
         test_response = self.client.get('/papers/commentary/new')
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'commentary-form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')                             
+        self.assertTemplateUsed(test_response, 'commentary-form.html')                             
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         
     def test_commentary_view_edit(self):
@@ -388,8 +380,7 @@ class CommentaryViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'commentary-form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')                             
+        self.assertTemplateUsed(test_response, 'commentary-form.html')                            
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertEqual(test_response.context['commentary'].pk, 1)
         self.assertEqual(test_response.context['commentary'].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
@@ -408,8 +399,7 @@ class CommentaryViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('object' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'confirm_delete.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')   
+        self.assertTemplateUsed(test_response, 'confirm_delete.html')  
         
     def test_commentary_view_list(self):
         """This tests the commentary-list view, ensuring that templates are loaded correctly.  
@@ -420,8 +410,7 @@ class CommentaryViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'commentary-list.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')                                   
+        self.assertTemplateUsed(test_response, 'commentary-list.html')                                  
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         self.assertEqual(test_response.context['commentary_list'][0].pk, 1)
         self.assertEqual(test_response.context['commentary_list'][0].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  

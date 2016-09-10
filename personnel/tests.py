@@ -66,7 +66,6 @@ class PersonnelViewTests(BasicTests):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('person' in test_response.context)
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')
         self.assertTemplateUsed(test_response, 'personnel_detail.html')
         self.assertEqual(test_response.context['person'].pk, 1)
         self.assertEqual(test_response.context['person'].first_name, 'John')        

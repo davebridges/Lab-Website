@@ -139,7 +139,6 @@ class ProjectViewTests(TestCase):
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'project_detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
         self.assertEqual(test_response.context['project'].pk, 1)
         self.assertEqual(test_response.context['project'].title, u'Fixture Project')
@@ -153,8 +152,7 @@ class ProjectViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'project_list.html')
-        self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')   
+        self.assertTemplateUsed(test_response, 'base.html') 
         self.assertEqual(test_response.context['project_list'][0].pk, 1)
         self.assertEqual(test_response.context['project_list'][0].title, u'Fixture Project')  
         
@@ -166,8 +164,7 @@ class ProjectViewTests(TestCase):
         test_response = self.client.get('/projects/new')
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'project_form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')           
+        self.assertTemplateUsed(test_response, 'project_form.html')          
 
     def test_project_view_edit(self):
         """This tests the project-edit view, ensuring that templates are loaded correctly.  
@@ -178,8 +175,7 @@ class ProjectViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'project_form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')        
+        self.assertTemplateUsed(test_response, 'project_form.html')       
         self.assertEqual(test_response.context['project'].pk, 1)
         self.assertEqual(test_response.context['project'].title, u'Fixture Project')
 
@@ -291,7 +287,6 @@ class FundingViewTests(TestCase):
         self.assertTrue('funding' in test_response.context)        
         self.assertTemplateUsed(test_response, 'funding_detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'jquery_script.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
         self.assertEqual(test_response.context['funding'].pk, 1)
         self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
@@ -305,8 +300,7 @@ class FundingViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('funding_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'funding_list.html')
-        self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')  
+        self.assertTemplateUsed(test_response, 'base.html') 
         self.assertEqual(test_response.context['funding_list'][0].pk, 1)
         self.assertEqual(test_response.context['funding_list'][0].title, u'Fixture Funding')  
         
@@ -318,8 +312,7 @@ class FundingViewTests(TestCase):
         test_response = self.client.get('/funding/new')
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'funding_form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')           
+        self.assertTemplateUsed(test_response, 'funding_form.html')          
 
     def test_publication_view_edit(self):
         """This tests the funding-edit view, ensuring that templates are loaded correctly.  
@@ -330,8 +323,7 @@ class FundingViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('funding' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'funding_form.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')        
+        self.assertTemplateUsed(test_response, 'funding_form.html')       
         self.assertEqual(test_response.context['funding'].pk, 1)
         self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
 
