@@ -131,6 +131,10 @@ class Role(models.Model):
             return u"<strong>%s</strong>, %s from %s to %s" %(self.job_type, self.organization, self.start_date, self.end_date) 
         else:
             return u"<strong>%s</strong>, %s" %(self.job_type, self.organization)
+            
+    class Meta:
+        '''The meta options for Role models.'''
+        ordering = ["-start_date"]            
     
 class JobType(models.Model):
     '''This model describes specific jobs.
