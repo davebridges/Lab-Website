@@ -19,10 +19,10 @@
 <section id='bio' class='row'>
 <div class='col-md-7' id='details'>
 <dl class="dl-horizontal">
-    {% if person.current_roles.all %}
+    {% if person.lab_roles.all %}
     <dt>Position</dt>
     <dd>
-    {% for role in person.current_roles.all %}
+    {% for role in person.lab_roles.all %}
     {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
     {% endfor %}
     </dd>

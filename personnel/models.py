@@ -66,8 +66,6 @@ class Person(models.Model):
     alumni = models.BooleanField(help_text="Is this person a key alumni from the lab")
     current_lab_member = models.BooleanField(help_text="Is this person currently in the lab")
     lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab_role')
-    current_roles = models.ManyToManyField('Role', help_text="Current Position(s)", blank=True, null=True, related_name='current_role')
-    past_roles = models.ManyToManyField('Role', help_text="Previous Position(s)", blank=True, null=True, related_name='past_role')
     #these fields describe updating information and are automatically filled
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -122,7 +120,17 @@ class Role(models.Model):
     
     def __unicode__(self):
         '''The unicode representation for a Role object is the jobtype'''
-        return u"<strong>%s</strong>, %s" %(self.job_type, self.organization)
+        if (self.start_date != None and
+            self.end_date == None):
+            return u"<strong>%s</strong>, %s since %s" %(self.job_type, self.organization, self.start_date) 
+        elif (self.start_date == None and
+            self.end_date != None):
+            return u"<strong>%s</strong>, %s until %s" %(self.job_type, self.organization, self.end_date) 
+        elif (self.start_date != None and
+            self.end_date != None):
+            return u"<strong>%s</strong>, %s from %s to %s" %(self.job_type, self.organization, self.start_date, self.end_date) 
+        else:
+            return u"<strong>%s</strong>, %s" %(self.job_type, self.organization)
     
 class JobType(models.Model):
     '''This model describes specific jobs.
