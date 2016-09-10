@@ -14,9 +14,9 @@
 {% endif %}
 
 <div id="{{person}} details" class="col-md-7">
-{% for role in person.current_roles.all %}
-{{ role|safe }}<br/>
-{% endfor %}
+{% with person.lab_roles.all|first as first_object %}
+    {{ first_object|safe }}
+{% endwith %}
 </div>
 </div>
 </div>
