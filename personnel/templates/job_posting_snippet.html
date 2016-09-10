@@ -6,12 +6,12 @@
 <div class="panel-body">
 {% for posting in postings %}
 <p class="info" itemscope itemtype="http://schema.org/JobPosting"><strong itemprop="title">{{ posting.title }}</strong>.
-<span itemprop="description">{{ posting.description }}</span><br>
-{% if posting.hiringOrganization %}<meta itemprop="hiringOrganization" content="{{ posting.hiringOrganization }}"/>{% endif %}
-{% if posting.education %}Required Education: <span itemprop="educationRequirements">{{ posting.education }}</span>{% endif %}
-{% if posting.qualifications %}Qualifications: <span itemprop="qualifications">{{ posting.qualifications }}</span>{% endif %}
-{% if posting.skills %}Required Skills: <span itemprop="skills">{{ posting.skills }}</span>{% endif %}
-{% if posting.responsibilities %}Responsibilities: <span itemprop="responsibilities">{{ posting.responsibilities }}</span>{% endif %}
+<span itemprop="description">{{ posting.description|safe }}</span><br>
+{% if posting.hiringOrganization %}<meta itemprop="hiringOrganization" content="{{ posting.hiringOrganization }}"/><br>{% endif %}
+{% if posting.education %}<strong>Education:</strong><br> <span itemprop="educationRequirements">{{ posting.education|safe }}</span><br>{% endif %}
+{% if posting.qualifications %}<strong>Qualifications:</strong><br> <span itemprop="qualifications"></strong><br>{{ posting.qualifications|safe }}</span><br>{% endif %}
+{% if posting.skills %}<strong>Required Skills:</strong><br> <span itemprop="skills">{{ posting.skills }}</span><br>{% endif %}
+{% if posting.responsibilities %}<strong>Responsibilities:</strong><br> <span itemprop="responsibilities">{{ posting.responsibilities|safe }}</span>{% endif %}
 To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.<br>
 Date Posted: <span itemprop="datePosted">{{ posting.created }}</span></p>
 {% endfor %}
