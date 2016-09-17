@@ -3,25 +3,33 @@
 <script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
 <link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
 {% endblock %}
-{% block title %}<title>Comments on Papers</title>{% endblock %}
+{% block title %}<title>Journal Club Papers</title>{% endblock %}
 
 {% block header %}
-<h1>Comments on Papers</h1>
+<h1>{{lab_name }} Journal Club</h1>
 {% endblock %}
 
 {% block content %}
-<article  class="container append-2 prepend-2 span-20">
+<article>
+<section id="mendeley">
+<h2>Papers Discussed in Journal Club</h2>
+<iframe src="//www.mendeley.com/groups/3674321/bridges-lab-journal-club-papers/widget/25/10/" frameborder="0" allowTransparency="true" style="width:1200px;height:550px;float:left;"></iframe>
+
+<p style="width:1200px"><a href="http://www.mendeley.com/groups/3674321/bridges-lab-journal-club-papers/" title="Bridges Lab Journal Club Papers on Mendeley">Bridges Lab Journal Club Papers</a> is a group in <a href="https://www.mendeley.com/groups/biological-sciences/" title="Biological Sciences on Mendeley">Biological Sciences</a>, <a href="https://www.mendeley.com/groups/medicine/" title="Medicine on Mendeley">Medicine</a> on <a href="https://www.mendeley.com/" title="Mendeley">Mendeley</a>.</p>
+</section>
+
+<section id="comments" class="col-md-12">
+<h2>Comments on Papers</h2>
 
 {% for commentary in commentary_list %}
 {% with commentary.paper as paper %}
 <section>
-<div class="span-14 border first">
+<div>
 {% include "paper-detail-snippet.html" %}
 </div>
-<div class="span-4 last">
-{% include "altmetric_paper_snippet.html" %}
-</div>
+
 {% endwith %}
 {% endfor %}
+</section>
 </article>
 {% endblock %}

@@ -97,8 +97,8 @@ $(function () {
 <ul>
 {% for post in publication.post_set.all %}
 <li><a href="{{ post.get_absolute_url }}">{{ post.post_title }}</a></li>
-</ul>
 {% endfor %}
+</ul>
 </section>
 {% endif %}
 
