@@ -2,15 +2,15 @@
 {% block title %}<title>{{ lab_name }} Location</title>{% endblock %}
 
 {% block content %}
-<article class="container append-2 prepend-2 span-20">
+<article class="container">
 <div id="map-canvas"></div>
 {% for location in lablocation_list %}
-<section class="container">
+<section class="container col-md-8">
 <h2>{{ location }}</h2>
-<p class="span-20">
+<p>
 {% if location.image %}
-<img src="{{ location.image.url }}" alt="{{ location }}" class="span-6"/>
-{% endif %}{{ location.description }}
+<a href="{{ location.url }}"><img src="{{ location.image.url }}" alt="{{ location }}" class="col-md-3"/></a>
+{% endif %}{{ location.description|safe }}
 {% if location.url %}For more information on {{ location }} click <a href="{{ location.url }}">here</a>.{% endif %}
 </p>
 </section>
