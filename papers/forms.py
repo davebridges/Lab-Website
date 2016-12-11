@@ -17,3 +17,13 @@ class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
         fields = '__all__'
+
+class PublicationEditForm(forms.ModelForm):
+    '''This subclass of the publication form is the same as the PublicationForm except that there are no author editing capabilities.
+
+    This is done so that it is easier to update dates, volumes and DOI's after publication without having to change the authors.
+    '''
+
+    class Meta:
+        model = Publication
+        exclude = ('authors',)

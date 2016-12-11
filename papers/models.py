@@ -42,7 +42,7 @@ class Publication(models.Model):
     For the author, there is a ManyToMany link to a group of authors with the order and other details, see :class:`~papers.models.AuthorDetails`.
     '''
     mendeley_url = models.URLField(blank=True, null=True)
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=250)
     authors = models.ManyToManyField('AuthorDetails', blank=True, null=True)
     title_slug = models.SlugField(blank=True, null=True, max_length=150, editable=False, unique=True)
     mendeley_id = models.IntegerField(blank=True, null=True)

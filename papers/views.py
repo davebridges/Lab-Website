@@ -13,7 +13,7 @@ from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from papers.models import Publication, Commentary
 from papers.context_processors import api_keys
-from papers.forms import PublicationForm
+from papers.forms import PublicationForm, PublicationEditForm
 
 class LaboratoryPaperList(ListView):
     '''This class generates the view for laboratory-papers located at **/papers**.
@@ -69,7 +69,7 @@ class PaperUpdate(PermissionRequiredMixin, UpdateView):
     
     permission_required = 'papers.update_publication'
     model = Publication
-    form_class = PublicationForm
+    form_class = PublicationEditForm
     slug_field = "title_slug"
     slug_url_kwarg = "title_slug"
     template_name = 'publication_form.html' 
