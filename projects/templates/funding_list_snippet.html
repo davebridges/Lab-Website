@@ -6,11 +6,16 @@
 <h3 class="panel-title"><a href="{{ funding.get_absolute_url }}">{{ funding }}</a></h3>
 </div>
 <div class="panel-body">
-<div id="logo" class="col-md-4">
-<a href="{{ funding.funding_agency.website }}"><img width=200px src="{{ funding.funding_agency.logo.url }}" /></a>
-</div>
+<div id="logo" class="col-md-2">
+{% if funding.funding_agency.logo %}
+<a href="{{ funding.funding_agency.website }}"><img class="img-responsive" src="{{ funding.funding_agency.logo.url }}" /></a>
+{% endif %}
+<dl>
+   {% if funding.grant_id %}
+   <dt>Grant ID</dt>
+      <dd>{{ funding.grant_id }}</dd> 
+   {% endif %}
 
-<dl class="col-md-6">
    {% if funding.start_date %}
     <dt>Start Date<dt>
         <dd>{{ funding.start_date }}</dd>
@@ -28,4 +33,8 @@
 
 </dl>
 </div>
+<div class="summary col-md-10" id="{{funding}}-summary">
+<p>{{funding.summary|safe}}</p>
+</div>
+
 </section>

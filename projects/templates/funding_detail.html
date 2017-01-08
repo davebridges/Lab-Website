@@ -10,15 +10,28 @@
 
 {% block content %}
 <article>
+{% if funding.funding_agency.logo %}
 <section id="summary" class="col-md-12">
 <div id="logo" class="col-md-4">
 <a href="{{ funding.funding_agency.website }}">
-<img src="{{ funding.funding_agency.logo.url }}" width="200" alt="logo" />
+<img src="{{ funding.funding_agency.logo.url }}" class="img-responsive"  alt="logo" />
 </a>
 </div>
+{% endif %}
 
 <div class="col-md-8" id="details">
-<dl>
+<dl class="col-md-4">
+   {% if funding.grant_id %}
+    <dt>Grant ID<dt>
+        <dd>{{ funding.grant_id }}</dd>
+   {% endif %}
+
+   {% if funding.amount %}
+    <dt>Amount<dt>
+        <dd>${{ funding.amount }}</dd>
+   {% endif %}
+</dl>
+<dl class="col-md-4">
    {% if funding.start_date %}
     <dt>Start Date<dt>
         <dd>{{ funding.start_date }}</dd>
@@ -27,11 +40,6 @@
    {% if funding.end_date %}
     <dt>End Date<dt>
         <dd>{{ funding.end_date }}</dd>
-   {% endif %}
-
-   {% if funding.amount %}
-    <dt>Amount<dt>
-        <dd>${{ funding.amount }}</dd>
    {% endif %}
 </dl>
 </div>
