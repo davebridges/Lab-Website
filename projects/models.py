@@ -88,6 +88,10 @@ class Funding(models.Model):
         null=True,
         editable=False, 
         max_length=150)
+    grant_id = models.CharField(help_text="The identification number for the grant",
+        max_length=50,
+        blank=True,
+        null=True)
     amount = models.IntegerField(help_text="The total value of the award",
         blank=True,
         null=True)
