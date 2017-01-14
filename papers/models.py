@@ -127,7 +127,7 @@ class AuthorDetails(models.Model):
     class Meta:
         '''The meta options set this field to be ordered based on order and sets the verbose name.'''
         verbose_name_plural = "author details"
-        ordering = ['order', ]
+        ordering = ['-publication__publication_date', ]
 
 class Commentary(models.Model):
     '''This is a commentary by someone in our group on a paper we have discussed.
