@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
 {% block title %}
 <title>{{ funding }}</title>
 {% endblock %}
@@ -28,7 +29,7 @@
 
    {% if funding.amount %}
     <dt>Amount<dt>
-        <dd>${{ funding.amount }}</dd>
+        <dd>${{ funding.amount | intcomma }}</dd>
    {% endif %}
 </dl>
 <dl class="col-md-4">

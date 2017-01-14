@@ -1,4 +1,4 @@
-
+{% load humanize %}
 
 <section id="{{ funding.title_slug }}" class="panel panel-info">
 
@@ -28,7 +28,7 @@
 
    {% if funding.amount %}
     <dt>Amount<dt>
-        <dd>${{ funding.amount }}</dd>
+        <dd>${{ funding.amount | intcomma }}</dd>
    {% endif %}
 
 </dl>
