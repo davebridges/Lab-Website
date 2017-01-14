@@ -99,10 +99,10 @@
 {% for paper in detail.publication_set.all|dictsort:"year"  %}
 
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-11">
 {% include "paper-detail-snippet.html" %}
 </div>
-<div class="col-md-3">
+<div class="col-md-1">
 {% include "altmetric_paper_snippet.html" %}
 </div>
 </div>
