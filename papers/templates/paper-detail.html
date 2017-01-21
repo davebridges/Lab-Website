@@ -48,7 +48,7 @@ $(function () {
 </div>
 
 <div class="panel-body">
-<p itemprop='description'>{{ publication.abstract }}</p>
+<p itemprop='description'>{{ publication.abstract | safe }}</p>
 {% if publication.doi %}
 <p><a itemprop='url' href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
 <meta itemprop='discussionUrl' content='{{ request.build_absolute_uri }}'/>
