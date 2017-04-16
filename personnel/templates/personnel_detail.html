@@ -3,6 +3,14 @@
 <script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
 </script>
 <script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#show-text").click(function(){
+        $(".previous-positions").show(speed="slow");
+        $("#show-text").hide(speed="fast");
+    });
+});
+</script>
 {% endblock %}
 
 {% block title %}<title>{{ person }}</title>{% endblock %}
@@ -24,15 +32,17 @@
     {% for role in person.lab_roles.all %}
       {% if not role.end_date %}
       <dd>
-      {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
+      {{ role|safe }}.  ({{ role.start_date|timesince }}).  <em id="show-text">Show previous positions.</em><br/>
       </dd>
       {% endif %}
 
       {% if role.end_date %}
+      <div class="previous-positions" style="display: none;">
       <dt>Previous Position</dt>
       <dd>
       {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
       </dd>
+      </div>
       {% endif %}
     {% endfor %}
     {% endif %}
