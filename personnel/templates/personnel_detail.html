@@ -21,11 +21,20 @@
 <dl class="dl-horizontal">
     {% if person.lab_roles.all %}
     <dt>Position</dt>
-    <dd>
     {% for role in person.lab_roles.all %}
-    {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
+      {% if not role.end_date %}
+      <dd>
+      {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
+      </dd>
+      {% endif %}
+
+      {% if role.end_date %}
+      <dt>Previous Position</dt>
+      <dd>
+      {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
+      </dd>
+      {% endif %}
     {% endfor %}
-    </dd>
     {% endif %}
     
     {% if person.degrees.all %}
