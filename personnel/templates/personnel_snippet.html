@@ -1,5 +1,5 @@
 
-<section id="{{ person }}">
+<section id="{{ person|slugify|lower }}">
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"><a href="{{ person.get_absolute_url }}">{{ person }}</a></h3>
