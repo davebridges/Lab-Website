@@ -17,11 +17,9 @@
 {% endif %}
 
 {% for person in personnel %}
-<div property="member" typeof="OrganizationRole">
-<section div property="member" typeof="http://schema.org/Person" class="col-md-12">
+<section property="members" typeof="http://schema.org/Person" class="col-md-12" id="{{ person|slugify|lower }}">
 {% include 'personnel_snippet.html' %}
 </section>
-</div>
 {% endfor %}
 
 {% if personnel_type == 'current' %}
@@ -32,6 +30,6 @@
 <p>To see current lab members see <a href="{% url 'laboratory-personnel' %}">lab members list</a>.</p>
 {% endif %}
 
+</article>
 {% endblock %}
 
-</article>
