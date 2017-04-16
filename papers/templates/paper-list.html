@@ -5,7 +5,7 @@
 <link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}"> 
 {% endblock %}
 
-{% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}{{ lab_name }} Papers</title>{% endblock %}
+{% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %} Papers</title>{% endblock %}
 
 {% block header %}
 <div class='text-center'>
