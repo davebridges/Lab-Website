@@ -47,13 +47,13 @@ class IndexView(TemplateView):
                      data = json.loads(json_data)
                      return data
          
-        general_request_url = 'https://graph.facebook.com/v2.3/' + settings.FACEBOOK_ID + '?access_token=' + settings.FACEBOOK_ACCESS_TOKEN
+        general_request_url = 'https://graph.facebook.com/v2.3/' + settings.FACEBOOK_ID + '?access_token=' + settings.FACEBOOK_ACCESS_TOKEN + '&fields=description,about'
         context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:10]  
         context['recent_posts'] =  Post.objects.all()[0:5]  
         context['recent_comments'] =  Commentary.objects.all()[0:5]                 
         context['general_data'] = facebook_request(general_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
-	context['twitter'] = settings.TWITTER_NAME
+        context['twitter'] = settings.TWITTER_NAME
     	context['google_plus'] = settings.GOOGLE_PLUS_ID
     	context['facebook'] = settings.FACEBOOK_NAME
     	context['lab_name'] = settings.LAB_NAME
