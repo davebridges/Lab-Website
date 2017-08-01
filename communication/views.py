@@ -138,7 +138,7 @@ class WikipedaEditsView(View):
         '''This sets the GET function for WikipediaEditsView.'''
         try: 
             pages = get_wikipedia_edits(settings.WIKIPEDIA_USERNAME,50)
-            return render('wikipedia_edits.html',
+            return render(request, 'wikipedia_edits.html',
             {'pages':pages,'username':settings.WIKIPEDIA_USERNAME})
         except urllib2.HTTPError:
             messages.error(request, 'No Response from Wikipedia.  Are you sure that %s is a valid username?' % settings.WIKIPEDIA_USERNAME)	    
