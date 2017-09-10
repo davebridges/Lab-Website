@@ -38,7 +38,7 @@ $(function () {
 <section id='publication' class='lead text-center'>
 <strong itemprop='publisher'>{{ publication.journal }}</strong> {% if publication.year %}<span itemprop='copyrightYear datePublished' >{{ publication.year }}</span>. {% endif %}{% if publication.volume %} {{ publication.volume}}{% if paper.issue %}({{ paper.issue }}){% endif %}: {{ publication.pages }}.{% endif %}
 {% if publication.preprint %}
-<h3 class="highlight">This work is a preprint and is currently under review.</h3>
+<mark>This work is a preprint and is currently under review.</mark>
 {% endif %}
 </section>
 
