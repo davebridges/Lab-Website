@@ -10,6 +10,9 @@ $(document).ready(function(){
         $("#show-text").hide(speed="fast");
     });
 });
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 </script>
 {% endblock %}
 
@@ -103,7 +106,9 @@ $(document).ready(function(){
 </dl>
 {% if person.image %}
 </div>
+<a href="{{image.source}}" data-featherlight="image">
 <img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='col-md-3 img-responsive'/>
+</a>
 {% endif %}
 </section>
 
