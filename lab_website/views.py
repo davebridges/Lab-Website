@@ -47,7 +47,7 @@ class IndexView(TemplateView):
                      data = json.loads(json_data)
                      return data
          
-        general_request_url = 'https://graph.facebook.com/v2.11/' + settings.FACEBOOK_ID + '?access_token=' + settings.FACEBOOK_ACCESS_TOKEN + '&fields=description,about,cover'
+        general_request_url = 'https://graph.facebook.com/v2.11/' + settings.FACEBOOK_ID + '?access_token=' + settings.FACEBOOK_ACCESS_TOKEN + '&fields=description,about,cover,photos{webp_images}'
         context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:10]  
         context['recent_posts'] =  Post.objects.all()[0:5]  
         context['recent_comments'] =  Commentary.objects.all()[0:5]                 
