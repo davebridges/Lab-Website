@@ -106,7 +106,7 @@ $(document).ready(function(){
 </dl>
 {% if person.image %}
 </div>
-<a href="{{image.source}}" data-featherlight="image">
+<a href="{{ person.image.url }}" data-featherlight="image">
 <img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='col-md-3 img-responsive'/>
 </a>
 {% endif %}
