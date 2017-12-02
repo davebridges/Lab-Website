@@ -2,6 +2,9 @@
 
 {% block scripts %}
 <meta name="description" content="{{ general_data.about }}">
+<script src="//code.jquery.com/jquery-latest.js"></script>
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 {% endblock scripts %}
 
 {% block title %}
@@ -27,7 +30,7 @@
                 {% if forloop.first %}
                 {% for image in photo.webp_images %}
                   {% if forloop.first %}
-                  <img src="{{image.source}}"  alt="Lab Photo" class="img-fluid col-md-8"/>
+                  <a href="{{image.source}}" data-featherlight="image"><img src="{{image.source}}"  alt="Lab Photo" class="img-fluid col-md-8"/></a>
                   {% endif %}
                 {% endfor %}
                 {% endif %}
