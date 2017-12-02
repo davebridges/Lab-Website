@@ -11,6 +11,8 @@
 {% block content %}
 <article itemscope itemtype="http://schema.org/Organization">
 
+
+
 <h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1>
 
 <section class='container' id='general-info'>
@@ -23,6 +25,7 @@
          <!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="media-object" style="max-height:100px"/>
         --> 
         <div class="media-body">
+              <img src="{{general_data.cover.source}}" alt="Lab Photo" class="img-fluid col-md-8"/>
             <p class="lead">{{ general_data.description }}</p>
          </div>
       </div>
