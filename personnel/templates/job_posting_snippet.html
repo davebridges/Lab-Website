@@ -3,12 +3,14 @@
 <div class="panel-heading">
 <h2 class="panel-title text-center">Positions Available</h2>
 </div>
-<div class="panel-body">
+<div class="panel-body" itemscope itemtype="http://schema.org/JobPosting">
 {% for posting in postings %}
-<h3 class="info" itemscope itemtype="http://schema.org/JobPosting" itemprop="title">{{ posting.title }}</h3>
+<h3 class="info" itemprop="title">{{ posting.title }}</h3>
 <dl>
 <p itemprop="description">{{ posting.description|safe }}</p>
-{% if posting.hiringOrganization %}<meta itemprop="hiringOrganization" content="{{ posting.hiringOrganization }}"/>{% endif %}
+{% if posting.hiringOrganization %}
+  <meta itemprop="hiringOrganization" content="{{ lab_name  }}, {{ posting.hiringOrganization }}"/>
+{% endif %}
 {% if posting.education %}
   <dt>Education</dt>
   <dd itemprop="educationRequirements">{{ posting.education|safe }}</dd>
