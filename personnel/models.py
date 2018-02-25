@@ -31,11 +31,11 @@ ORGANIZATION_TYPE_CHOICES = (
 ) 
 
 SALARY_TERM_CHOICES = (
-    ('h','hour'),
-    ('d','day'),
-    ('w', 'week'),
-    ('m', 'month'),
-    ('a','year')
+    ('hour','hour'),
+    ('day','day'),
+    ('week', 'week'),
+    ('month', 'month'),
+    ('year','year')
 )
 
 EMPLOYMENT_TYPE_CHOICES = (
@@ -237,7 +237,7 @@ class JobPosting(models.Model):
     responsibilities = models.TextField(blank=True, null=True, help_text="The responsibilities of this job")
     skills = models.TextField(blank=True, null=True, help_text="Required skills")
     base_salary = models.IntegerField(blank=True, null=True, help_text="In terms of base_salary_term")    
-    base_salary_term = models.CharField(max_length=1, choices=SALARY_TERM_CHOICES, blank=True, null=True, help_text="How often is salary paid")
+    base_salary_term = models.CharField(max_length=10, choices=SALARY_TERM_CHOICES, blank=True, null=True, help_text="How often is salary paid")
     employment_type = models.CharField(max_length=10, choices=EMPLOYMENT_TYPE_CHOICES, blank=True, null=True, help_text="What kind of employment is this?")
     duration = models.IntegerField(blank=True, null=True, help_text="How long in days until this job posting expires")
 
@@ -256,3 +256,10 @@ class JobPosting(models.Model):
             return self.created + datetime.timedelta(30) 
         else:
             return self.created + datetime.timedelta(self.duration)
+            
+    def base_salary_term_upper(self):
+        '''sets salary term to all caps for google search'''
+        if self.base_salary_term is None:
+            return None
+        else:
+            return self.base_salary_term.upper()
