@@ -28,6 +28,25 @@ ORGANIZATION_TYPE_CHOICES = (
 	('Other', 'Other')
 ) 
 
+SALARY_TERM_CHOICES = (
+    ('h','hour'),
+    ('d','day'),
+    ('w', 'week'),
+    ('m', 'month'),
+    ('a','year')
+)
+
+EMPLOYMENT_TYPE_CHOICES = (
+    ("FT", "FULL_TIME"),
+    ("PT", "PART_TIME"),
+    ("CONT", "CONTRACTOR"),
+    ("TEMP", "TEMPORARY"),
+    ("INT", "INTERN"),
+    ("VOL", "VOLUNTEER"),
+    ("PD", "PER_DIEM"),
+    ("OTHER", "OTHER")
+)
+    
 class Person(models.Model):
     '''This class describes laboratory members.
     
@@ -214,7 +233,10 @@ class JobPosting(models.Model):
     education = models.TextField(help_text="Minimum educational requirements", blank=True, null=True)
     qualifications = models.TextField(blank=True, null=True, help_text="What are the other non-educational qualifications for this position")
     responsibilities = models.TextField(blank=True, null=True, help_text="The responsibilities of this job")
-    skills = models.TextField(blank=True, null=True, help_text="Required skills")    
+    skills = models.TextField(blank=True, null=True, help_text="Required skills")
+    base_salary = models.IntegerField(blank=True, null=True, help_text="In terms of base_salary_term")    
+    base_salary_term = models.CharField(max_length=1, choices=SALARY_TERM_CHOICES, blank=True, null=True, help_text="How often is salary paid")
+    employment_type = models.CharField(max_length=5, choices=EMPLOYMENT_TYPE_CHOICES, blank=True, null=True, help_text="What kind of employment is this?")
 
     active = models.BooleanField(help_text="Is this posting currently active")
 
