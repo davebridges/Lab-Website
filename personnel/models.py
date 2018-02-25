@@ -11,6 +11,8 @@ Currently the models in this are:
 * :class:`~personnel.models.Address`
 '''
 
+import datetime
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -28,6 +30,25 @@ ORGANIZATION_TYPE_CHOICES = (
 	('Other', 'Other')
 ) 
 
+SALARY_TERM_CHOICES = (
+    ('hour','hour'),
+    ('day','day'),
+    ('week', 'week'),
+    ('month', 'month'),
+    ('year','year')
+)
+
+EMPLOYMENT_TYPE_CHOICES = (
+    ("FULL_TIME", "FULL_TIME"),
+    ("PART_TIME", "PART_TIME"),
+    ("CONTRACTOR", "CONTRACTOR"),
+    ("TEMP", "TEMPORARY"),
+    ("TEMPORARY", "INTERN"),
+    ("VOLUNTEER", "VOLUNTEER"),
+    ("PER_DIEM", "PER_DIEM"),
+    ("OTHER", "OTHER")
+)
+    
 class Person(models.Model):
     '''This class describes laboratory members.
     
@@ -214,9 +235,13 @@ class JobPosting(models.Model):
     education = models.TextField(help_text="Minimum educational requirements", blank=True, null=True)
     qualifications = models.TextField(blank=True, null=True, help_text="What are the other non-educational qualifications for this position")
     responsibilities = models.TextField(blank=True, null=True, help_text="The responsibilities of this job")
-    skills = models.TextField(blank=True, null=True, help_text="Required skills")    
+    skills = models.TextField(blank=True, null=True, help_text="Required skills")
+    base_salary = models.IntegerField(blank=True, null=True, help_text="In terms of base_salary_term")    
+    base_salary_term = models.CharField(max_length=10, choices=SALARY_TERM_CHOICES, blank=True, null=True, help_text="How often is salary paid")
+    employment_type = models.CharField(max_length=10, choices=EMPLOYMENT_TYPE_CHOICES, blank=True, null=True, help_text="What kind of employment is this?")
+    duration = models.IntegerField(blank=True, null=True, help_text="How long in days until this job posting expires")
 
-    active = models.BooleanField(help_text="Is this posting currently active")
+    active = models.BooleanField(help_text="Is this posting currently active, default is 30 days.")
 
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
@@ -224,3 +249,17 @@ class JobPosting(models.Model):
     def __unicode__(self):
         '''The unicode representation is the created field.'''
         return u'%s Job Posting (%s)' %(self.title, self.created)
+        
+    def expiry(self):
+        '''The calculated expiry date, default is 30 days'''
+        if self.duration is None:
+            return self.created + datetime.timedelta(30) 
+        else:
+            return self.created + datetime.timedelta(self.duration)
+            
+    def base_salary_term_upper(self):
+        '''sets salary term to all caps for google search'''
+        if self.base_salary_term is None:
+            return None
+        else:
+            return self.base_salary_term.upper()

@@ -6,6 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 from personnel.models import Person, JobPosting
+from communication.models import LabAddress
 
     
 class LaboratoryPersonnelList(ListView):
@@ -22,6 +23,7 @@ class LaboratoryPersonnelList(ListView):
         context = super(LaboratoryPersonnelList, self).get_context_data(**kwargs)
         context['personnel_type'] = "current"
         context['postings'] = JobPosting.objects.filter(active=True)
+        context['address'] = LabAddress.objects.filter(type="Primary")[0]
         return context  
 
 class LaboratoryAlumniList(LaboratoryPersonnelList):
