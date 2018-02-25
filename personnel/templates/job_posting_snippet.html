@@ -29,6 +29,10 @@
 {% endif %}
 <p>To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.</p>
 <p>Date Posted: <span itemprop="datePosted">{{ posting.created }}</p>
+<meta itemprop="validThrough" content="{{ posting.expiry|date:"c" }}" />
+{% if posting.employment_type %}
+<meta itemprop="employmentType" content="{{ posting.employment_type }}" />
+{% endif %}
 </dl>
 {% endfor %}
  <span itemprop="jobLocation" itemscope itemtype="http://schema.org/Place"> 
