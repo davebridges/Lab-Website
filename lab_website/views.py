@@ -12,7 +12,7 @@ from django.views.generic.base import View, TemplateView
 
 from personnel.models import JobPosting
 from papers.models import Publication, Commentary
-from communication.models import Post
+from communication.models import Post, LabAddress
 
 class IndexView(TemplateView):
     '''This view redirects to the home page.'''
@@ -62,5 +62,6 @@ class IndexView(TemplateView):
     	context['fb_admins'] = settings.FACEBOOK_ID
     	context['analytics_tracking'] = settings.ANALYTICS_TRACKING
     	context['analytics_root'] = settings.ANALYTICS_ROOT
+    	context['address'] = LabAddress.objects.filter(type="Primary")[0]
 
         return context                            

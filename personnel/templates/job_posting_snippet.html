@@ -9,7 +9,7 @@
 <dl>
 <p itemprop="description">{{ posting.description|safe }}</p>
 {% if posting.hiringOrganization %}
-  <meta itemprop="hiringOrganization" content="{{ lab_name  }}, {{ posting.hiringOrganization }}"/>
+  <meta itemprop="hiringOrganization" content="{{ lab_name  }}, {{ posting.hiringOrganization }}" sameAs="http://bridgeslab.sph.umich.edu"/>
 {% endif %}
 {% if posting.education %}
   <dt>Education</dt>
@@ -31,6 +31,16 @@
 <p>Date Posted: <span itemprop="datePosted">{{ posting.created }}</p>
 </dl>
 {% endfor %}
+ <span itemprop="jobLocation" itemscope itemtype="http://schema.org/Place"> 
+    <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <meta itemprop="streetAddress" content="{{ address.address.line_1}} {{ address.address.line_2}} {{ address.address.line_3}} {{ address.address.line_4}}" />
+      <meta itemprop="addressLocality" content="{{ address.address.city }}" />
+      <meta itemprop="addressRegion" content="{{ address.address.state }}" />
+      <meta itemprop="addressCountry" content="{{ address.address.country }}" />
+      <meta itemprop="postalCode" content="{{ address.address.code }}" />
+    </span>
+ </span>
+
 </div>
 </aside>
 {% endif %}
