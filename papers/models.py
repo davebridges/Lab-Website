@@ -169,7 +169,7 @@ class JournalClubArticle(models.Model):
     
     presentation_date = models.DateField(blank=True, null=True)
     doi = models.CharField(blank=True, null=True, max_length=50, help_text="Digital Object Identifier", verbose_name="DOI")
-    commentary = models.ForeignKey(Commentary, blank=True, null=True, help_text="Did we write comments on this paper?")
+    commentary = models.ForeignKey('Commentary', blank=True, null=True, help_text="Did we write comments on this paper?")
 
     def doi_link(self):
         '''This turns the DOI into a link.'''
