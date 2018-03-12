@@ -11,14 +11,18 @@
 
 {% block content %}
 <article>
-<section id="mendeley">
+<section id="journal-club" class="col-md-6">
 <h2>Papers Discussed in Journal Club</h2>
-<iframe src="//www.mendeley.com/groups/3674321/bridges-lab-journal-club-papers/widget/25/10/" frameborder="0" allowTransparency="true" style="width:1200px;height:550px;float:left;"></iframe>
+These are the papers that we discussed most recently in Journal club.  Click here for the complete list.
+<ul>
+{% for article in journal_article_list %}	
+<li>{{ article.citation }} <a href="{{ article.doi_link }}">{{ article.doi }}</a></li>
+{% endfor %}
+</ul>	
 
-<p style="width:1200px"><a href="http://www.mendeley.com/groups/3674321/bridges-lab-journal-club-papers/" title="Bridges Lab Journal Club Papers on Mendeley">Bridges Lab Journal Club Papers</a> is a group in <a href="https://www.mendeley.com/groups/biological-sciences/" title="Biological Sciences on Mendeley">Biological Sciences</a>, <a href="https://www.mendeley.com/groups/medicine/" title="Medicine on Mendeley">Medicine</a> on <a href="https://www.mendeley.com/" title="Mendeley">Mendeley</a>.</p>
 </section>
 
-<section id="comments" class="col-md-12">
+<section id="comments" class="col-md-6">
 <h2>Comments on Papers</h2>
 
 {% for commentary in commentary_list %}

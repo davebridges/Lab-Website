@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
-from papers.models import Publication, Commentary
+from papers.models import Publication, Commentary, JournalClubArticle
 from papers.context_processors import api_keys
 from papers.forms import PublicationForm, PublicationEditForm
 
@@ -93,6 +93,11 @@ class CommentaryList(ListView):
     '''
     model = Commentary
     template_name = "commentary-list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CommentaryList, self).get_context_data(**kwargs)
+        context['journal_article_list'] = JournalClubArticle.objects.all()[:10]
+        return context
 
 class CommentaryDetail(DetailView):
     '''This class generates the view for commentary-detail located at **/papers/commentary/<pk>**.
