@@ -11,7 +11,7 @@
 
 {% block content %}
 <article>
-<div class='col-md-6'>	
+<div class='col-md-12'>	
 <section id="journal-club" class="panel panel-default">
 <div class='panel-heading'>
 <h2 class='text-center panel-title'>Papers Discussed in Journal Club</h2>
@@ -19,19 +19,17 @@
 <div class='panel-body'>
 These are the papers that we discussed most recently in Journal club.  Click here for the complete list.
 <ul>
-{% for article in journal_article_list %}	
-<li>{{ article.citation }} <a href="{{ article.doi_link }}">{{ article.doi }}</a></li>
-{% endfor %}
+{% include "journal-club-paper-snippet.html" %}
 </ul>	
 </div>
 </section>
 </div>
 
-<div class='col-md-6'>	
+<div class='col-md-12'>	
 <section id="comments" class="panel panel-default">
 <div class='panel-heading'>
 <h2 class='text-center panel-title'>Comments on Papers</h2>
-
+</div>
 {% for commentary in commentary_list %}
 {% with commentary.paper as paper %}
 <section>
