@@ -1,0 +1,3 @@
+{% for article in journal_article_list %}
+<li>{{ article.citation }} <a href="{{ article.doi_link }}">{{ article.doi }}</a></li>
+{% endfor %}
