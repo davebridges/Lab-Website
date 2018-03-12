@@ -159,6 +159,30 @@ class Commentary(models.Model):
         '''The meta options for this defines the ordering by the created field.'''
         ordering = ['-created',]
 
+class JournalClubArticle(models.Model):
+    '''This is a brief list of articles discussed in journal club.
+
+    The only required field is the citation.
+    Optional fields include date, DOI and commentary'''
+
+    citation = models.TextField(help_text="Formatted citation, based on Scientific Reports")
+    
+    presentation_date = models.DateField(blank=True, null=True)
+    doi = models.CharField(blank=True, null=True, max_length=50, help_text="Digital Object Identifier", verbose_name="DOI")
+    commentary = models.ForeignKey(Commentary, blank=True, null=True, help_text="Did we write comments on this paper?")
+
+    def doi_link(self):
+        '''This turns the DOI into a link.'''
+        return 'http://dx.doi.org/%s' % self.doi
+
+    class Meta:
+        '''The meta options for this defines the ordering by the created field.'''
+        ordering = ['-presentation_date',]  
+        
+    def __unicode__(self):
+        '''The unicode representation is "Commentary on XXX" where XXX is the paper title'''
+        return "Journal club article: %s" %self.citation     
+
 class AuthorContributions(models.Model):
     '''This is an ontology that describes the actual contribution of an author.
     
