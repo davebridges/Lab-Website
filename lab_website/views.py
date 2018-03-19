@@ -11,7 +11,7 @@ from django.conf import settings
 from django.views.generic.base import View, TemplateView
 
 from personnel.models import JobPosting
-from papers.models import Publication, Commentary
+from papers.models import Publication, Commentary, JournalClubArticle
 from communication.models import Post, LabAddress
 
 class IndexView(TemplateView):
@@ -50,7 +50,8 @@ class IndexView(TemplateView):
         general_request_url = 'https://graph.facebook.com/v2.11/' + settings.FACEBOOK_ID + '?access_token=' + settings.FACEBOOK_ACCESS_TOKEN + '&fields=description,about,cover,photos{webp_images}'
         context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:10]  
         context['recent_posts'] =  Post.objects.all()[0:5]  
-        context['recent_comments'] =  Commentary.objects.all()[0:5]                 
+        context['recent_comments'] =  Commentary.objects.all()[0:5] 
+        context['journal_article_list'] = JournalClubArticle.objects.all()[0:5]                
         context['general_data'] = facebook_request(general_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
         context['twitter'] = settings.TWITTER_NAME

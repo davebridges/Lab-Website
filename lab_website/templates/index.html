@@ -71,11 +71,22 @@
 </div>
 </section>
 
+<section id='recent-journal-club' class='panel panel-default'>
+
+<div class="panel-heading">
+<h2 class='text-center panel-title'><a href="{% url 'commentary-list' %}">Journal Club Papers</a></h2>
+</div>
+
+<div class="panel-body">
+{% include "journal-club-paper-snippet.html" %}
+</div>
+</section>
+
 <div class="row col-md-12">
 <div class="col-md-6">
 <section id='recent-comments' class='panel panel-default'>
     <div class="panel-heading">
-<h2 class='text-center panel-title'><a href="{% url 'post-list' %}">Recent Posts</a></h2>
+<h2 class='text-center panel-title'><a href="{% url 'post-list' %}">Blog Posts</a></h2>
 </div>
 <div class='panel-body'>
 <ul>
@@ -88,9 +99,9 @@
 </div>
 
 <div class="col-md-6">
-<section id='recent-journal-clubs' class='panel panel-default'>
+<section id='comments' class='panel panel-default'>
     <div class="panel-heading">
-<h2 class='text-center panel-title'><a href="{% url 'commentary-list' %}">Recent Journal Clubs</a></h2>
+<h2 class='text-center panel-title'><a href="{% url 'commentary-list' %}">Comments on Papers</a></h2>
 </div>
 <div class='panel-body'>
 <ul>
