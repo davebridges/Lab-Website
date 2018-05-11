@@ -7,6 +7,7 @@ from papers import views
 urlpatterns = [
     url(r'^interesting/?$', views.InterestingPaperList.as_view(), name="interesting-papers"), 
     url(r'^new/?$', views.PaperCreate.as_view(), name="paper-new"),
+    url(r'^journal-club/?$', views.JournalClubList.as_view(), name="jc-list"),
     url(r'^commentaries/?$', views.CommentaryList.as_view(), name='commentary-list'), 
     url(r'^commentary/?$', views.CommentaryList.as_view(), name='commentary-list'),     
     url(r'^commentary/new/?$', views.CommentaryCreate.as_view(), name='commentary-new'),

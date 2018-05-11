@@ -414,4 +414,16 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         self.assertEqual(test_response.context['commentary_list'][0].pk, 1)
         self.assertEqual(test_response.context['commentary_list'][0].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
-        self.assertEqual(test_response.context['commentary_list'][0].comments, "some comments for this fixture")                    
+        self.assertEqual(test_response.context['commentary_list'][0].comments, "some comments for this fixture") 
+
+    def test_jc_view_list(self):
+        """This tests the jc-list view, ensuring that templates are loaded correctly.  
+
+        This view uses a user with superuser permissions so does not test the permission levels for this view."""
+        
+        test_response = self.client.get('/papers/journal-club')
+        self.assertEqual(test_response.status_code, 200)
+        self.assertTrue('journal_club_list' in test_response.context)        
+        self.assertTemplateUsed(test_response, 'base.html')
+        self.assertTemplateUsed(test_response, 'jc-list.html')                                  
+        self.assertTemplateUsed(test_response, 'analytics_tracking.html')                             

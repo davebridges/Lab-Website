@@ -98,6 +98,13 @@ class CommentaryList(ListView):
         context = super(CommentaryList, self).get_context_data(**kwargs)
         context['journal_article_list'] = JournalClubArticle.objects.all()[:10]
         return context
+        
+class JournalClubList(ListView):
+    '''This class generates the view for journal club articles located at **/papers/journal-club**.
+    '''
+    model = JournalClubArticle
+    template_name = "jc-list.html"   
+    context_object_name = 'journal_club_list'  
 
 class CommentaryDetail(DetailView):
     '''This class generates the view for commentary-detail located at **/papers/commentary/<pk>**.
