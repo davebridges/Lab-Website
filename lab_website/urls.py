@@ -73,7 +73,7 @@ urlpatterns = [
     url(r'^projects/', include('projects.urls')),
     url(r'^funding/', include('projects.funding_urls')),    
     
-    url(r'location/?$', LabLocationView.as_view(), name="location"),
+    url(r'^location/?$', LabLocationView.as_view(), name="location"),
     
     url(r'^feeds/?$', FeedDetailView.as_view(), name="feed-details"),
     url(r'^feeds/lab-papers/?$', LabPapersFeed(), name="lab-papers-feed"),
@@ -93,7 +93,8 @@ urlpatterns = [
  
     #url(r'^api/',include(v1_api.urls)),   
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
     url(r'^$', IndexView.as_view(), name="home")
 ]
 
