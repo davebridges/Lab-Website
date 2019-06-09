@@ -421,7 +421,7 @@ class CommentaryViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/journal-club')
+        test_response = self.client.get('/journal-club')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('journal_club_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')

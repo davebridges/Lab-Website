@@ -11,6 +11,7 @@ from django.conf import settings
 
 import communication
 from communication.views import FeedDetailView, LabLocationView
+from papers.views import JournalClubList
 
 from personnel.sitemap import LabPersonnelSitemap
 from papers.sitemap import LabPublicationsSitemap, CommentarySitemap
@@ -88,7 +89,7 @@ urlpatterns = [
     url(r'^publication-policy/?$', communication.views.PublicationPolicyView.as_view(), name="publication-policy"),
     url(r'^data-resource-sharing/?$', communication.views.DataResourceSharingPolicyView.as_view(), name="data-resource-policy"),
     url(r'^news/?$', communication.views.NewsView.as_view(), name='lab-news'),
-
+    url(r'^journal-club/?$', JournalClubList.as_view(), name='jc-list'),
  
     #url(r'^api/',include(v1_api.urls)),   
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
