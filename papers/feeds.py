@@ -68,8 +68,8 @@ class JournalClubArticleFeed(Feed):
         return JournalClubArticle.objects.all()
 
     def item_title(self, item):
-        '''The title of each item will be "journal club on XXX" or the unicode representation''' 
-        return item.__unicode__()
+        '''The title of each item will be the citation''' 
+        return item.citation
 
     def item_description(self,item):
         '''The content of the feed is the actual citation.'''
