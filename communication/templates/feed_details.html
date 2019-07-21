@@ -4,6 +4,7 @@
 <link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}">
 <link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}">
 <link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Journal Club Articles" href="{% url 'jc-feed' %}">
 {% endblock scripts %}
 
 {% block title %}<title>News Feeds</title>{% endblock %}
@@ -25,6 +26,7 @@
 <li><a href="{% url 'posts-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Blog posts.</a></li>
 <li><a href="{% url 'interesting-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we are interested in.</a></li>
 <li><a href="{% url 'commentary-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we have commented on.</a></li>
+<li><a href="{% url 'jc-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we have discussed in journal club.</a></li>
 </ul>
 
 <h2>Social Media</h2>

@@ -175,6 +175,10 @@ class JournalClubArticle(models.Model):
         '''This turns the DOI into a link.'''
         return 'http://dx.doi.org/%s' % self.doi
 
+    def get_absolute_url(self):
+        '''This turns the DOI into a link.'''
+        return '//dx.doi.org/%s' % self.doi
+
     class Meta:
         '''The meta options for this defines the ordering by the created field.'''
         ordering = ['-presentation_date',]  

@@ -2,6 +2,7 @@
 {% block scripts %}
 <link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}"> 
 <link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}"> 
+<link rel="alternate" type="application/rss+xml" title="Journal Club Articles" href="{% url 'jc-feed' %}">
 {% endblock %}
 
 {% block title %}<title>Journal Club Articles</title>{% endblock %}

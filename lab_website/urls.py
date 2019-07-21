@@ -22,7 +22,7 @@ from communication.sitemap import PostsSitemap
 #from projects.api import ProjectResource
 #from personnel.api import PersonnelResource
 
-from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed
+from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed, JournalClubArticleFeed
 from projects.feeds import ProjectsFeed
 from communication.feeds import PostsFeed
 
@@ -80,7 +80,8 @@ urlpatterns = [
     url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
     url(r'^feeds/commentaries/?$', CommentaryFeed(), name="commentary-feed"),
     url(r'^feeds/projects/?', ProjectsFeed(), name="projects-feed"),
-    url(r'^feeds/posts/?', PostsFeed(), name="posts-feed"),    
+    url(r'^feeds/posts/?', PostsFeed(), name="posts-feed"), 
+    url(r'^feeds/journal-club/?', JournalClubArticleFeed(), name="jc-feed"),    
       
     url(r'^twitter/?$', communication.views.TwitterView.as_view(), name="twitter"),
     url(r'^calendar/?$', communication.views.GoogleCalendarView.as_view(), name="google-calendar"),

@@ -21,7 +21,7 @@ from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from papers.models import Publication, Commentary
+from papers.models import Publication, Commentary, JournalClubArticle
 
 class PapersFeed(Feed):
     '''This is the main class for all feeds related to :class:`~papers.models.Publication`.'''
@@ -55,6 +55,25 @@ class InterestingPapersFeed(PapersFeed):
     def items(self):
         '''The items returned by this feed are papers set as interesting.'''
         return Publication.objects.filter(interesting_paper=True)
+
+class JournalClubArticleFeed(Feed):
+    '''This class defines the feed for commentaries.'''
+
+    title = "Journal club articles by the %s" % settings.LAB_NAME
+    link = "/feeds/journal-club"
+    description = "Papers discussed by our lab journal club."
+
+    def items(self):
+        '''The items returned by this feed are all Commentary objects.'''
+        return JournalClubArticle.objects.all()
+
+    def item_title(self, item):
+        '''The title of each item will be "journal club on XXX" or the unicode representation''' 
+        return item.__unicode__()
+
+    def item_description(self,item):
+        '''The content of the feed is the actual citation.'''
+        return item.citation
 
 class CommentaryFeed(Feed):
     '''This class defines the feed for commentaries.'''
@@ -90,7 +109,3 @@ class CommentaryFeed(Feed):
     def item_updateddate(self, item):
         '''The date when this commentary was updated.'''
         return datetime.combine(item.modified, time())
-
-#    def item_copyright(self, item):
-#        '''The copyright is always CC-BY for commentaries.'''
-#        return "%s by %s is licensed under a Creative Commons Attribution 3.0 Unported License.  Based on the work %s at %s." %(item, item.author, item.paper, item.paper.doi_link)
