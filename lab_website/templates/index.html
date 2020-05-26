@@ -26,17 +26,17 @@
          <!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="media-object" style="max-height:100px"/>
         --> 
         <div class="media-body">
+          {% if general_data.photos.data|length > 10 %}
               {% for photo in general_data.photos.data %}
                 {% if forloop.first %}
                 {% for image in photo.webp_images %}
                   {% if forloop.first %}
-                    {% if image.source != None %}
                     <a href="{{image.source}}" data-featherlight="image"><img src="{{image.source}}"  alt="Lab Photo" class="img-fluid col-md-8"/></a>
-                    {% endif %}
                   {% endif %}
                 {% endfor %}
                 {% endif %}
                 {% endfor %}
+           {% endif %}     
             <p class="lead">{{ general_data.description }}</p>
          </div>
       </div>
