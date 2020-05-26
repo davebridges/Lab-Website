@@ -26,10 +26,11 @@
          <!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="media-object" style="max-height:100px"/>
         --> 
         <div class="media-body">
-          {% if general_data.photos.data|length > 10 %}
-              {% for photo in general_data.photos.data %}
+          {% load shuffle %}
+          {% if general_data.photos.data|length > 0 %}
+              {% for photos in general_data.photos.data|shuffle %}
                 {% if forloop.first %}
-                {% for image in photo.webp_images %}
+                {% for image in photos.webp_images %}
                   {% if forloop.first %}
                     <a href="{{image.source}}" data-featherlight="image"><img src="{{image.source}}"  alt="Lab Photo" class="img-fluid col-md-8"/></a>
                   {% endif %}
