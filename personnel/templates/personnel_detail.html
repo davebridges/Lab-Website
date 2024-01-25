@@ -119,19 +119,20 @@ $(document).ready(function(){
 <h2 class='panel-title'>Publications</h2>
 </div>
 <div class='panel-body'>
+<ol>
 {% for detail in person.authordetails_set.all %}
 {% for paper in detail.publication_set.all|dictsort:"year"  %}
 
 <div class="row">
-<div class="col-md-11">
+<div class="col-md-12">
+<li>
 {% include "paper-detail-snippet.html" %}
-</div>
-<div class="col-md-1">
-{% include "altmetric_paper_snippet.html" %}
+</li>
 </div>
 </div>
 {% endfor %}
 {% endfor %}
+</ol>
 </div>
 {% endif %}
 {% endblock %}

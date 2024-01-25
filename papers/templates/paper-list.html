@@ -16,12 +16,14 @@
 
 {% block content %}
 <article>
+<ol>
 {% for paper in publication_list %}
 <section class="col-md-12">
-
+<li>
 {% include "paper-detail-snippet.html" %}
-
+</li>
 </section>
 {% endfor %}
+</ol>
 </article>
 {% endblock %}
