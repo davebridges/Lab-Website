@@ -27,40 +27,23 @@
 
 {% block navbar %}
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="{% url 'home' %}">Bridges Lab</a>
-    </div>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-4">Simple header</span>
+      </a>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="{% url 'laboratory-personnel' %}">Our Team</a></li>
-        <li><a href="{% url 'project-list' %}">Projects</a></li>
-      <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Research <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'laboratory-papers' %}">Papers</a></li>
-            <li><a href="/protocols">Protocols</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'funding-list' %}">Funding</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'post-list' %}">Posts</a></li>
-            <li><a href="{% url 'commentary-list'%}">Journal Club</a></li>
-          <li><a href="{% url 'contact-info' %}">Contact Us</a></li>
-          </ul>
-          </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="{% url 'laboratory-personnel' %}">Our Team</a></li>
+        <li class="nav-item"><a href="{% url 'project-list' %}">Projects</a><</li>
+        <li class="nav-item"><a href="{% url 'funding-list' %}">Funding</a></li>
+        <li class="nav-item"><a href="/protocols">Protocols</a></li>
+        <li class="nav-item"><a href="{% url 'post-list' %}">Posts</a></li></li>
+        <li class="nav-item"><a href="{% url 'contact-info' %}">Contact</a></li>
+      </ul>
+    </header>
+
 <hr/>
 {% block sidebar-insertion %}
 {% endblock %}
