@@ -1,14 +1,8 @@
 {% extends 'base.html' %}
 
-{% block scripts %}
-<meta name="description" content="{{ general_data.about }}">
-<script src="//code.jquery.com/jquery-latest.js"></script>
-<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-<link href="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.css" type="text/css" rel="stylesheet" />
-{% endblock scripts %}
-
 {% block title %}
 <title>Bridges Lab Homepage</title>
+<meta name="description" content="{{ general_data.about }}">
 {% endblock title %}
 
 {% block content %}
@@ -17,35 +11,16 @@
 <h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1>
 
 <section class='container' id='general-info'>
-<div class="col-md-12">
-<div class="well well-lg">
-<div class="row">
-    <div class='col-md-8' itemprop="description">
-    <div class="media">
-      <div class="media-left media-middle">
-         <!-- <img src='{{ general_data.cover.source }}' alt='Lab Photo' itemprop="image" class="media-object" style="max-height:100px"/>
-        --> 
-        <div class="media-body">
-          {% load shuffle %}
-              {% if general_data.photos.data|length > 0 %}
-                {% for photos in general_data.photos.data|shuffle %}
-                  {% if forloop.first %}
-                    {% for image in photos.webp_images %}
-                      {% if forloop.first %}
-                      <a href="{{image.source}}" data-featherlight="image"><img src="{{image.source}}"  alt="Lab Photo" class="img-fluid col-md-8"/></a>
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %} 
-            <p class="lead">{{ general_data.description }}</p>
-         </div>
-      </div>
-    </div>
+   <div class='row'>
+    <div class='col-sm'>
+      Col 1 test
     </div>
 
-   <div class='col-md-4'>
-      <p class="lead">Find Out More About Us:</p>
+    <div class='col-sm'>
+      Col 2 test
+    </div>
+    <div class="col-sm">
+      <p>Find Out More About Us:</p>
       <ul id="home-links">
         <li><a class="text-center" href="{% url 'laboratory-personnel' %}"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
         <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
@@ -54,9 +29,6 @@
         <li><a class="text-center" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
        </ul>
     </div>
-</div>
-</div>
-</div>
 </section>
 
 {% include "job_posting_snippet.html" %}
