@@ -1,5 +1,5 @@
 <div class ="col-md-10">
-{% if paper.authors.count == 1%}
+<li>{% if paper.authors.count == 1%}
 {% for author in paper.authors.all %}
 {% if author.author.current_lab_member or author.author.alumni %}<a href='{{ author.author.get_absolute_url }}' class="plain-link">{{ author.name }}</a>{% else %}{{ author.name }}{% endif %}
 {% endfor %}
@@ -13,3 +13,4 @@
 <div class="col-md-2">
 {% include "altmetric_paper_snippet.html"%}
 </div>
+</li>

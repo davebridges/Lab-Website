@@ -33,25 +33,28 @@
 </section>
 {% endif %}
 
-<section id="publications" class="span-20 container">
+<section id="publications">
 <h2>Publications</h2>
 {% if project.publications.all.count > 0 %}
-<section class="span-10 border first">
+<section class="span-20">
 <h3>What have we published on this topic?</h3>
+<ol>
 {% for paper in project.publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
+</ol>
 </section>
 {% endif %}
-
+<!--
 {% if project.other_publications.all.count > 0 %}
-<section class="span-10 last">
-<h3>What are some key papers on this topic?</h3>
+<section class="span-20">
+<h3>What are some other key papers on this topic?</h3>
 {% for paper in project.other_publications.all %}
 {% include "paper-detail-snippet.html" %}
 {% endfor %}
 </section>
 {% endif %}
+-->
 </section>
 
 <section id="comments class="span-20">
