@@ -1,23 +1,10 @@
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><a href="{{ person.get_absolute_url }}">{{ person }}</a></h3>
-  </div>
-
-<div class="row">
-<div class="panel-body">
+<h3 class="card-title"><a href="{{ person.get_absolute_url }}">{{ person }}</a></h3>
 {% if person.image %}
-  <div class="col-md-2">
     <img src="{{ person.image.url }}" alt="{{ person }}" width="100px"/>
-  </div>
 {% endif %}
 
-<div id="{{person|slugify|lower}}-details" class="col-md-10">
+<div id="{{person|slugify|lower}}-details" class="card-text">
 {% with person.lab_roles.all|first as first_object %}
     {{ first_object|safe }}
 {% endwith %}
 </div>
-</div>
-</div>
-</div>
-
