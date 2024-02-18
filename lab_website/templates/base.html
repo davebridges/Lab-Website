@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% if messages %}
-<div class="messages col-md-12">
+<div class="container-fluid">
     {% for message in messages %}
     <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
@@ -82,7 +82,7 @@
 {% endblock %}
 
 
-<div id="content">
+<div id="content" class="container-fluid">
 {% block content %}
 {% endblock %}
 </div>
