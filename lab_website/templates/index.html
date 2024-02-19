@@ -12,9 +12,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col"><img src="{{ general_data.picture.data.url }}" class="img-thumbnail" alt="{{ lab_name }} Photo"></div>
-    <div class="col"><p>{{ general_data.description }}</p></div>
-    <div class="col">      <p>Find Out More About Us:</p>
+    <div class="col-sm-3"><img src="{{ general_data.picture.data.url }}" class="img-fluid" alt="{{ lab_name }} Photo"></div>
+    <div class="col-sm-6"><p>{{ general_data.description }}</p></div>
+    <div class="col-sm-3">      <p>Find Out More About Us:</p>
       <ul id="home-links">
         <li><a class="text-center" href="{% url 'laboratory-personnel' %}"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
         <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
@@ -31,7 +31,7 @@
 <div class="container">
 <div class="row">
 <div class="col">
-<h2 class='text-center'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
+<h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
 <div>
 {% for paper in recent_papers %}
 {% include "paper-detail-snippet.html" %}
@@ -41,7 +41,7 @@
 
 
 <div class="col">
-<h2 class='text-center'><a href="{% url 'commentary-list' %}">Journal Club Discussions</a></h2>
+<h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
 <div>
 {% include "journal-club-paper-snippet.html" %}
 </div>
@@ -54,7 +54,7 @@
 <div class="col">
 <section id='recent-comments'>
     <div class="panel-heading">
-<h2 class='text-center'><a href="{% url 'post-list' %}">Blog Posts</a></h2>
+<h2 class='text-center'><a href="{% url 'post-list' %}" class="text-decoration-none text-dark">Blog Posts</a></h2>
 </div>
 <div>
 <ul>
@@ -69,7 +69,7 @@
 <div class="col">
 <section id='comments'>
 <div>
-<h2 class='text-center'><a href="{% url 'commentary-list' %}">Comments on Papers</a></h2>
+<h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Comments on Papers</a></h2>
 </div>
 <div>
 <ul>
