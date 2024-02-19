@@ -1,6 +1,6 @@
 <h3 class="card-title"><a href="{{ person.get_absolute_url }}">{{ person }}</a></h3>
 {% if person.image %}
-    <img src="{{ person.image.url }}" alt="{{ person }}" width="100px"/>
+    <img src="{{ person.image.url }}" alt="{{ person }}" width="200px"/>
 {% endif %}
 
 <div id="{{person|slugify|lower}}-details" class="card-text">
