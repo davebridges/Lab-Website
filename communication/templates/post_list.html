@@ -11,17 +11,17 @@
 {% block content %}
 
 <h2>Blog Posts</h2>
-<article id='blog' class="container append-2 prepend-2 span-20 large">
+<article id='blog' class="container-fluid">
 <ol>
 {% for post in post_list %}
-<li itemprop="relatedLink" itemscope itemtype="http://schema.org/BlogPosting" ><a href="{{ post.get_absolute_url }}" itemprop="url">{{ post.post_title }}</a> by  <a href="{{ post.author.get_absolute_url }}" itemprop="author">{{post.author}}</a> on <time itemprop="dateCreated"  datetime="{{ post.created | date:'c'}}">{{ post.created }}</time>.
+<li itemprop="relatedLink" itemscope itemtype="http://schema.org/BlogPosting" ><a href="{{ post.get_absolute_url }}" itemprop="url">{{ post.post_title }}</a> by  <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark" itemprop="author">{{post.author}}</a> on <time itemprop="dateCreated"  datetime="{{ post.created | date:'c'}}">{{ post.created }}</time>.
 </li>
 {% endfor %}
 </ol>
 </article>
 
 <h2>Journal Club Summaries</h2>
-<article id='blog' class="container append-2 prepend-2 span-20 large">
+<article id='blog' class="container-fluid">
 {% for commentary in commentaries %}
 <section>
 {% with commentary.paper as paper %}
