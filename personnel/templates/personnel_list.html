@@ -17,11 +17,9 @@
 {% endif %}
 <div class="row">
 {% for person in personnel %}
- 	<div class="col-sm-6" property="members" typeof="http://schema.org/Person" id="{{ person|slugify|lower }}">
-    	<div class="card">
-    		<div class="card-body">
+ 	<div class="col-sm-4" property="members" typeof="http://schema.org/Person" id="{{ person|slugify|lower }}">
+    	<div class="card text-center">
 {% include 'personnel_snippet.html' %}
-			</div>
 		</div>
 	</div>
 {% endfor %}
