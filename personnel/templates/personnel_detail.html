@@ -1,20 +1,4 @@
 {% extends "base.html" %}
-{% block scripts %}
-<script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
-</script>
-<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $("#show-text").click(function(){
-        $(".previous-positions").show(speed="slow");
-        $("#show-text").hide(speed="fast");
-    });
-});
-<script src="//code.jquery.com/jquery-latest.js"></script>
-<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-<link href="//cdn.rawgit.com/noelboss/featherlight/1.7.10/release/featherlight.min.css" type="text/css" rel="stylesheet" />
-</script>
-{% endblock %}
 
 {% block title %}<title>{{ person }}</title>{% endblock %}
 
@@ -23,27 +7,26 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype='http://schema.org/Person' class="row">
+<article itemscope itemtype='http://schema.org/Person' class="container">
 <meta itemprop='familyName' content='{{ person.last_name }}' />
 <meta itemprop='givenName' content='{{ person.first_name }}' />
 <meta itemprop='name' content='{{ person }}' />
 <section id='bio' class='row'>
-<div class='col-md-7' id='details'>
-<dl class="dl-horizontal">
+<div class='col-7' id='details'>
+<dl>
     {% if person.lab_roles.all %}
     <dt>Position</dt>
     {% for role in person.lab_roles.all %}
       {% if not role.end_date %}
       <dd>
-      {{ role|safe }}.  ({{ role.start_date|timesince }}).  <em id="show-text">Show previous positions.</em><br/>
+      {{ role|safe }}.  ({{ role.start_date|timesince }}).
       </dd>
       {% endif %}
 
       {% if role.end_date %}
-      <div class="previous-positions" style="display: none;">
-      <dt>Previous Position</dt>
+      <div class="previous-positions">
       <dd>
-      {{ role|safe }}.  ({{ role.start_date|timesince }})<br/>
+      {{ role|safe }}.  ({{ role.start_date }} to {{role.end_date}})<br/>
       </dd>
       </div>
       {% endif %}
@@ -88,27 +71,16 @@ $(document).ready(function(){
 	<a href="https://twitter.com/{{ person.twitter_username }}" class="twitter-follow-button" data-show-count="true" data-lang="en" data-size="large">Follow @{{ person.twitter_username }}</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-{% if person.google_plus_user_id %}    
-    <!-- Place this tag where you want the badge to render. -->
-<div class="g-plus" data-width="300" data-height="69" data-href="//plus.google.com/{{ person.google_plus_user_id}}" data-rel="author"></div>
-
-<!-- Place this tag after the last badge tag. -->
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
 {% endif %}    
 	</dd>
-	{% endif %}
 </dl>
 {% if person.image %}
 </div>
+<div class="col-5">
 <a href="{{ person.image.url }}" data-featherlight="image">
-<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='col-md-3 img-responsive'/>
+<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='img-thumbnail'/>
 </a>
+</div>
 {% endif %}
 </section>
 
