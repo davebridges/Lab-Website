@@ -16,11 +16,11 @@
 {% block content %}
   <article id="projects" class="container row">
       {% for project in project_list %}
-      <section id="{{ project.title_slug }}" class="col-6">
+      <section id="{{ project.title_slug }}" class="col-md-6 col-xs-12">
         <h2>
           <a href="{{ project.get_absolute_url }}" class='text-decoration-none text-dark'>{{ project }}</a>
         </h2>
-       <p>{{ project.summary |safe}}</p>
+       <p>{{ project.summary_intro | first |safe}}</p>
       </section>
        {% endfor %}
   </article>
