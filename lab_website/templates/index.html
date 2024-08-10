@@ -42,8 +42,9 @@
 </div>
 </section>
 
-<div class="container-md"></div>
-<section id='posts'>
+<div class="container-md">
+<div class="row">
+<section id='posts' class="col">
   <div class="card">
     <div class="card-header">
       <h2 class='text-center'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
@@ -58,7 +59,7 @@
 </div>
 </section>
 
-<section id='comments'>
+<section id='comments' class="col">
   <div class="card">
     <div class="card-header">
       <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Comments on Papers</a></h2>
@@ -72,6 +73,7 @@
   </div>
   </div>
   </section>
+</div>
 </div>
 
 
