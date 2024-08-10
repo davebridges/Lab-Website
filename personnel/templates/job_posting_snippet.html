@@ -1,13 +1,15 @@
 {% if postings %}
-<aside class="panel panel-success">
-<div class="panel-heading">
-<h2 class="panel-title text-center">Positions Available</h2>
-</div>
-<div class="panel-body" itemscope itemtype="http://schema.org/JobPosting">
+<div class="container-xl rounded-3">
+    <h3 class="text-center">Positions Available</h3>
+  </div>
 {% for posting in postings %}
-<h3 class="info" itemprop="title">{{ posting.title }}</h3>
+<div class="card text-white rounded" iitemscope itemtype="http://schema.org/JobPosting">
+  <div class="card-header bg-info">
+    <h4 class="card-title" itemprop="title">{{ posting.title }}</h4>
+  </div>
+<div class="card-body bg-info-subtle text-black">
 <dl>
-<p itemprop="description">{{ posting.description|safe }}</p>
+<p class="card-text" itemprop="description">{{ posting.description|safe }}</p>
 {% if posting.hiringOrganization %}
   <meta itemprop="hiringOrganization" content="{{ lab_name  }}, {{ posting.hiringOrganization }}" sameAs="http://bridgeslab.sph.umich.edu"/>
 {% endif %}
@@ -27,8 +29,8 @@
   <dt>Responsibilities</dt> 
   <dd itemprop="responsibilities">{{ posting.responsibilities|safe }}</dd>
 {% endif %}
-<p>To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.</p>
-<p>Date Posted: <span itemprop="datePosted">{{ posting.created }}</p>
+<p class="card-text">To apply please go to <a href="{{ posting.link }}" itemprop="url">{{ posting.link }}</a>.</p>
+<p class="card-text">Date Posted: <span itemprop="datePosted">{{ posting.created }}</p>
 <meta itemprop="validThrough" content="{{ posting.expiry|date:"c" }}" />
 {% if posting.employment_type %}
 <meta itemprop="employmentType" content="{{ posting.employment_type }}" />
@@ -53,6 +55,7 @@
  </span>
 
 </div>
+</div>
 {% endfor %}
-</aside>
+</div>
 {% endif %}
