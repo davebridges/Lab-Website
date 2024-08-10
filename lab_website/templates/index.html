@@ -31,7 +31,7 @@
 <section id='recent-papers' class='container-xl'>
   <div class="card">
   <div class="card-header">
-    <h2 class='text-center text-decoration-none text-dark'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
+    <h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
   </div>
 <div class="card-body">
   {% for paper in recent_papers %}
@@ -76,16 +76,19 @@
 </div>
 </div>
 
+<section id="journal-club">
 <div class="container-xl">
 <div class="card">
 <div class="card-header">
-  <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
+  <h2 class='text-center'><a href="{% url 'jc-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
 </div>
 <div class="card-body">
 {% include "journal-club-paper-snippet.html" %}
+<p class="card-text mt-4">Click <a href="{% url 'jc-list %}">here</a> for a full list of journal club articles.</p>
 </div>
 </div>
 </div>
+</section>
 
 </article>
 {% endblock content %}
