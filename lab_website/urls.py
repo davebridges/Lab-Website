@@ -27,6 +27,7 @@ from projects.feeds import ProjectsFeed
 from communication.feeds import PostsFeed
 
 from views import IndexView
+from django.views.generic import TemplateView
 
 class StaticViewSitemap(Sitemap):
     '''This sitemap is for all static pages, including list views home and feeds.'''   
@@ -96,6 +97,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
     url(r'^$', IndexView.as_view(), name="home")
 ]
 
