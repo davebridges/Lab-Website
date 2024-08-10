@@ -18,12 +18,15 @@
 {% if post %}
 {{ post_data | markdown_md | safe }}
 </section>
-<aside id="header" class="col-md-12">This post was initially created on <time class="op-published" datetime="{{ post.created | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.created | date:"c"}}" >{{ post.created }}</time> by <a href="{{ post.author.get_absolute_url }}" itemprop="author creator editor">{{ post.author }}</a>{% if post.modified %}. It was last modified on <time class="op-modified" datetime="{{ post.modified | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.modified | date:"c"}}">{{ post.modified }}</time>{% endif%}. It was downloaded from <a href="{{ post.markdown_url }}">here</a> and was automatically formatted.</aside>
+<div class="container">
+<div class="row"
+<aside id="header" class="col"><p>This post was initially created on <time class="op-published" datetime="{{ post.created | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.created | date:"c"}}" >{{ post.created }}</time> by <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark" itemprop="author creator editor">{{ post.author }}</a>{% if post.modified %}. It was last modified on <time class="op-modified" datetime="{{ post.modified | date:"c"}}" itemprop="dateCreated datePublished" content="{{ post.modified | date:"c"}}">{{ post.modified }}</time>{% endif%}.</p>
 
 {% if post.project %}
-<p id="project">This post is about the project <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.</p>
+<p id="project" class="col">This post is about the project <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.</p>
 {% endif %}
 
+<div class="col">
 {% if post.paper %}
 {% with post.paper as paper %}
 {% include 'paper-detail-snippet.html' %}
@@ -32,34 +35,27 @@
 {% else %}
 <p>The source file was not available.</p>
 {% endif %}
+</div>
+</aside>
+</div>
+</div>
 
 <footer class="container">
+<div class="row">
 
-<section id="twitter" class="col-md-4">
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="bridges_lab" data-size="large">Tweet</a>
-
-<!-- javascript for twitter is loaded above in the scripts section -->
-<!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone"></div>
-
-<!-- Place this tag after the last +1 button tag. -->
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/platform.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-</section>
-
-
-<section id="license" class="col-md-8">
+<section id="license" class="col">
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">{{ post.post_title }}</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="{{ post.get_absolute_url }}" property="cc:attributionName" rel="cc:attributionURL">{{ post.author }}</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="{{ post.get_absolute_url }}" rel="dct:source">{{ post.get_absolute_url }}</a>.
 </section>
+
+<section id="twitter" class="col">
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="bridges_lab" data-size="large">Post to X</a>
+</section>
+
+</div>
 </footer>
 
 
-<section id="comments" class="col-md-12">
+<section id="comments" class="container">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>

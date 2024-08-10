@@ -1,14 +1,14 @@
 {% load humanize %}
 
-<section id="{{ funding.title_slug }}" class="panel panel-info">
+<section id="{{ funding.title_slug }}">
 
-<div id="{{ funding.title_slug}}-details" class="panel-heading">
-<h3 class="panel-title"><a href="{{ funding.get_absolute_url }}">{{ funding }}</a></h3>
+<div id="{{ funding.title_slug}}-details" class="card-header">
+<h3 class="card-title"><a href="{{ funding.get_absolute_url }}" class="text-decoration-none text-dark">{{ funding }}</a></h3>
 </div>
-<div class="panel-body">
-<div id="logo" class="col-md-2">
+<div class="card-body">
+<div id="logo" class="col">
 {% if funding.funding_agency.logo %}
-<a href="{{ funding.funding_agency.website }}"><img class="img-responsive" src="{{ funding.funding_agency.logo.url }}" /></a>
+<a href="{{ funding.funding_agency.website }}"><img class="card-img-top" src="{{ funding.funding_agency.logo.url }}" /></a>
 {% endif %}
 <dl>
    {% if funding.grant_id %}
@@ -33,7 +33,7 @@
 
 </dl>
 </div>
-<div class="summary col-md-10" id="{{funding}}-summary">
+<div class="card-text" id="{{funding}}-summary">
 <p>{{funding.summary|safe}}</p>
 </div>
 

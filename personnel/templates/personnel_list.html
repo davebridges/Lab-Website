@@ -15,12 +15,15 @@
 {% if personnel_type == 'current' %}
 {% include "job_posting_snippet.html" %}
 {% endif %}
-
+<div class="row">
 {% for person in personnel %}
-<section property="members" typeof="http://schema.org/Person" class="col-md-12" id="{{ person|slugify|lower }}">
+ 	<div class="col-sm-4" property="members" typeof="http://schema.org/Person" id="{{ person|slugify|lower }}">
+    	<div class="card text-center">
 {% include 'personnel_snippet.html' %}
-</section>
+		</div>
+	</div>
 {% endfor %}
+</div>
 
 {% if personnel_type == 'current' %}
 <p>To see previous lab members see <a href="{% url 'laboratory-alumni' %}">lab alumni list</a>.</p>
