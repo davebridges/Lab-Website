@@ -76,12 +76,13 @@
 </div>
 </div>
 
-
-<div class="col-md">
-<h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
-<div>
-{% include "journal-club-paper-snippet.html" %}
+<div class="container-xl">
+<div class="card">
+<div class="card-header">
+  <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
 </div>
+<div class="card-body">
+{% include "journal-club-paper-snippet.html" %}
 </div>
 </div>
 </div>
