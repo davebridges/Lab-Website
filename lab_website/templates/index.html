@@ -31,7 +31,7 @@
 <section id='recent-papers' class='container-xl'>
   <div class="card">
   <div class="card-header">
-    <h2 class='text-center card-title text-decoration-none text-white'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
+    <h2 class='text-center card-title text-decoration-none text-dark'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
   </div>
 <div class="card-body">
   {% for paper in recent_papers %}
@@ -39,6 +39,21 @@
   {% endfor %}
 <p class="card-text mt-4">Click <a href="{% url 'laboratory-papers' %}">here</a> for a full list of papers.</p>
 </div>
+</div>
+</section>
+
+<section id='posts' class="container-xl">
+  <div class="card">
+    <div class="card-header">
+      <h2 class='text-center'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
+    </div>
+  <div class=""card-body>
+    <ul>
+    {% for post in recent_posts %}
+    <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
 </div>
 </section>
 
@@ -50,23 +65,6 @@
 </div>
 </div>
 </div>
-</div>
-
-<div class="container">
-<div class="row">
-<div class="col">
-<section id='recent-comments'>
-    <div class="panel-heading">
-<h2 class='text-center'><a href="{% url 'post-list' %}" class="text-decoration-none text-dark">Blog Posts</a></h2>
-</div>
-<div>
-<ul>
-{% for post in recent_posts %}
-<li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
-{% endfor %}
-</ul>
-</div>
-</section>
 </div>
 
 <div class="col">
@@ -82,8 +80,5 @@
 </ul>
 </div>
 </section>
-</div>
-</div>
-</div>
 </article>
 {% endblock content %}
