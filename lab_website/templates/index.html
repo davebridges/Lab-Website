@@ -42,7 +42,8 @@
 </div>
 </section>
 
-<section id='posts' class="container-xl">
+<div class="container-md"></div>
+<section id='posts'>
   <div class="card">
     <div class="card-header">
       <h2 class='text-center'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
@@ -57,6 +58,22 @@
 </div>
 </section>
 
+<section id='comments'>
+  <div class="card">
+    <div class="card-header">
+      <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Comments on Papers</a></h2>
+     </div>
+  <div class="card-body">
+     <ul>
+     {% for commentary in recent_comments %}
+     <li><a href="{{ commentary.get_absolute_url }}">{{ commentary.paper.title }}</a></li>
+     {% endfor %}
+     </ul>
+  </div>
+  </div>
+  </section>
+</div>
+
 
 <div class="col-md">
 <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
@@ -67,18 +84,5 @@
 </div>
 </div>
 
-<div class="col">
-<section id='comments'>
-<div>
-<h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Comments on Papers</a></h2>
-</div>
-<div>
-<ul>
-{% for commentary in recent_comments %}
-<li><a href="{{ commentary.get_absolute_url }}">{{ commentary.paper.title }}</a></li>
-{% endfor %}
-</ul>
-</div>
-</section>
 </article>
 {% endblock content %}
