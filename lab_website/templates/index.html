@@ -28,7 +28,7 @@
 
 {% include "job_posting_snippet.html" %}
 
-<<<<<<< HEAD
+
 <section id='recent-papers' class='card container-fluid'>
   <div class="card-header">
     <h2 class='text-center card-title'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
@@ -37,21 +37,11 @@
   {% for paper in recent_papers %}
   {% include "paper-detail-snippet.html" %}
   {% endfor %}
-=======
-<div class="container">
-<div class="row">
-<div class="col">
-<h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
-<div>
-{% for paper in recent_papers %}
-{% include "paper-detail-snippet.html" %}
-{% endfor %}
->>>>>>> master
 </div>
-</div>
+</section>
 
 
-<div class="col">
+<div class="col-md">
 <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
 <div>
 {% include "journal-club-paper-snippet.html" %}
