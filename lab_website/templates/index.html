@@ -62,16 +62,14 @@
 
 {% include "job_posting_snippet.html" %}
 
-<section id='recent-papers' class='panel panel-default'>
-
-<div class="panel-heading">
-<h2 class='text-center panel-title'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
-</div>
-
-<div class="panel-body">
-{% for paper in recent_papers %}
-{% include "paper-detail-snippet.html" %}
-{% endfor %}
+<section id='recent-papers' class='card container-fluid'>
+  <div class="card-header">
+    <h2 class='text-center card-title'><a href="{% url 'laboratory-papers' %}">Recent Publications</a></h2>
+  </div>
+<div class="card-body">
+  {% for paper in recent_papers %}
+  {% include "paper-detail-snippet.html" %}
+  {% endfor %}
 </div>
 </section>
 
