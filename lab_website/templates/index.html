@@ -91,12 +91,4 @@
 </section>
 
 </article>
-
-<div id="photos">
-{% for photoset in general_data.photos.data %}
-{% for photo in photoset.webp_images %}
-{{ photo.source }}
-{% endfor %}
-{% endfor %}
-</div>
 {% endblock content %}
