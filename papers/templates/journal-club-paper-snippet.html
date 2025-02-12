@@ -1,4 +1,4 @@
-{% regroup journal_article_list by presentation_date|date:"F Y" as journal_article_list_year %}
+{% regroup journal_article_list by presentation_date|date:"Y" as journal_article_list_year %}
 {% for article in journal_article_list_year %}
 <section id='{{ article.grouper }}'>
 <h4>{{ article.grouper }} Journal Club Articles</h4>
