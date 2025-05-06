@@ -59,20 +59,7 @@
 </div>
 </section>
 
-<section id='comments' class="col">
-  <div class="card">
-    <div class="card-header">
-      <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Comments on Papers</a></h2>
-     </div>
-  <div class="card-body">
-     <ul>
-     {% for commentary in recent_comments %}
-     <li><a href="{{ commentary.get_absolute_url }}">{{ commentary.paper.title }}</a></li>
-     {% endfor %}
-     </ul>
-  </div>
-  </div>
-  </section>
+
 </div>
 </div>
 
@@ -91,19 +78,4 @@
 </section>
 
 </article>
-
-
-<div id="photos" class="container-xl">
-<h2 class="text-center">Lab Photos </h2>
-<div class="row">
-{% for post in photo_data.data %}
-{% if post.full_picture %}
-<div class="card col-sm-12 col-lg-3">
-  <img src="{{ post.full_picture }}" class='card-image' alt="{{ post.message }}">
-  <p>{{post.message}}</p>
-</div>
-{% endif %}
-{% endfor %}
-</div>
-</div>
 {% endblock content %}
