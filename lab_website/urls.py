@@ -26,7 +26,7 @@ from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed, J
 from projects.feeds import ProjectsFeed
 from communication.feeds import PostsFeed
 
-from views import IndexView
+from views import IndexView, PhotoView
 from django.views.generic import TemplateView
 
 class StaticViewSitemap(Sitemap):
@@ -72,7 +72,8 @@ urlpatterns = [
     url(r'^papers/', include('papers.urls')),
     url(r'^people/', include('personnel.urls')),
     url(r'^projects/', include('projects.urls')),
-    url(r'^funding/', include('projects.funding_urls')),    
+    url(r'^funding/', include('projects.funding_urls')),
+    url(r'^lab-photos/?$', PhotoView.as_view(), name="lab-photos"),    
     
     url(r'^location/?$', LabLocationView.as_view(), name="location"),
     

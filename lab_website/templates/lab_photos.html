@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Bridges Lab Photos</title>
+<meta name="description" content="{{ general_data.about }}">
+{% endblock title %}
+
+{% block content %}
+
+<section id="photos" class="container-xl">
+<h2 class="text-center">Lab Photos </h2>
+<div class="row">
+{% for post in photo_data.data %}
+{% if post.full_picture %}
+<div class="card col-sm-12 col-lg-3">
+  <img src="{{ post.full_picture }}" class='card-image' alt="{{ post.message }}">
+  <p>{{post.message}}</p>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+</section>
+{% endblock content %}

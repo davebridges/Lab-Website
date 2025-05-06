@@ -68,3 +68,43 @@ class IndexView(TemplateView):
     	context['address'] = LabAddress.objects.filter(type="Primary")[0]
 
         return context                            
+
+class PhotoView(TemplateView):
+      '''This view shows images pulled from the facebook API, moved off the main page'''      
+
+    template_name = "lab_photos.html"   
+
+    def get_context_data(self, **kwargs):
+        '''This function provides the context which is passed to this view.
+        
+        This will query facebook's pages API for photos.'''
+        
+        context = super(PhotoView, self).get_context_data(**kwargs)
+        
+        def facebook_request(request_url):
+            '''This function takes a request url and token and returns deserialized data.'''
+            request = urllib2.Request(request_url)
+            try:
+                    response = urllib2.urlopen(request)
+            except urllib2.URLError, e:
+                    if e.code == 404:
+                        data = "Facebook API is not Available."
+                    else:
+                        #this is for a non-404 URLError.
+                        data = "Facebook API is not Available."
+            except ValueError:
+                    lab_rules = "Facebook API is not Available."        
+            else:
+                     #successful connection
+                     json_data = response.read()
+                     data = json.loads(json_data)
+                     return data
+         
+        general_request_url = 'https://graph.facebook.com/v13.0/' + settings.FACEBOOK_ID + '?fields=id,description,about,name,photos{webp_images},picture.height(961)&access_token='+ settings.FACEBOOK_ACCESS_TOKEN
+        photo_request_url = 'https://graph.facebook.com/v20.0/' + settings.FACEBOOK_ID + '/posts?fields=id,status_type,message,full_picture&access_token='+ settings.FACEBOOK_ACCESS_TOKEN
+
+        context['general_data'] = facebook_request(general_request_url)
+        context['photo_data'] = facebook_request(photo_request_url)
+        context['lab_name'] = settings.LAB_NAME
+        
+        return context
