@@ -9,15 +9,19 @@ The available feeds are as follows:
 +--------------------+---------------------------+---------------------------------------------+
 | Interesting papers | /feeds/interesting-papers | :class:`~papers.feeds.InterestingPapersFeed | 
 +--------------------+---------------------------+---------------------------------------------+
+| Commentaries       | /feeds/commentaries       | :class:`~papers.feeds.CommentaryFeed        | 
++--------------------+---------------------------+---------------------------------------------+
 
 A main page describing all feeds is available at **/feeds**.
 '''
+
+from datetime import datetime, time
 
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from papers.models import Publication
+from papers.models import Publication, Commentary, JournalClubArticle
 
 class PapersFeed(Feed):
     '''This is the main class for all feeds related to :class:`~papers.models.Publication`.'''
@@ -51,3 +55,57 @@ class InterestingPapersFeed(PapersFeed):
     def items(self):
         '''The items returned by this feed are papers set as interesting.'''
         return Publication.objects.filter(interesting_paper=True)
+
+class JournalClubArticleFeed(Feed):
+    '''This class defines the feed for commentaries.'''
+
+    title = "Journal club articles by the %s" % settings.LAB_NAME
+    link = "/feeds/journal-club"
+    description = "Papers discussed by our lab journal club."
+
+    def items(self):
+        '''The items returned by this feed are all Commentary objects.'''
+        return JournalClubArticle.objects.all()
+
+    def item_title(self, item):
+        '''The title of each item will be the citation''' 
+        return item.citation
+
+    def item_description(self,item):
+        '''The content of the feed is the actual citation.'''
+        return item.citation
+
+class CommentaryFeed(Feed):
+    '''This class defines the feed for commentaries.'''
+
+    title = "Commentaries by the %s" % settings.LAB_NAME
+    link = "/feeds/commentaries"
+    description = "Comments, written by members of the %s on papers.  These are typically the results of our internal journal club discussions."
+
+    def items(self):
+        '''The items returned by this feed are all Commentary objects.'''
+        return Commentary.objects.all()
+
+    def item_title(self, item):
+        '''The title of each item will be "Commentary on XXX" or the unicode representation''' 
+        return item.__unicode__()
+
+    def item_description(self,item):
+        '''The content of the feed is the actual comments.'''
+        return item.comments + item.citation
+
+    def item_author_name(self, item):
+        '''The author of the item.'''
+        return item.author
+
+    def item_author_link(self, item):
+        '''The link to the author's page.'''
+        return item.author.get_absolute_url()
+
+    def item_pubdate(self, item):
+        '''The date of publication of this commentary, not the modification date.'''
+        return datetime.combine(item.created, time())
+
+    def item_updateddate(self, item):
+        '''The date when this commentary was updated.'''
+        return datetime.combine(item.modified, time())

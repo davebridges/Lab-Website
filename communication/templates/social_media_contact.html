@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block scripts %}
+<!-- This script is for rendering the follow on Google Plus Button -->
+<script type="text/javascript">
+	window.___gcfg = {lang: 'en'};
+	(function() 
+	{var po = document.createElement("script");
+	po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+	var s = document.getElementsByTagName("script")[0];
+	s.parentNode.insertBefore(po, s);
+	})();
+</script>
+{% endblock %}
+
+{% block title %}<title>Social Media Information for the {{ username }}</title>{% endblock %}
+
+{% block header %}
+<h1>Social Media Information for the {{ username }}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div id="follow-buttons">
+<h2>Follow Us:</h2>
+<div class="fb-like-box" data-href="http://www.facebook.com/{{facebook}}" data-width="300" data-show-faces="true" data-stream="false" data-header="false" data-border-color="gainsboro"></div>
+<div class="g-plus" data-href="https://plus.google.com/{{google_plus}}?rel=author" data-width="300" data-height="69"></div>
+<div class="twitter">
+<a href="https://twitter.com/{{twitter}}" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @{{twitter}}</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+</div>
+
+{% endblock %}

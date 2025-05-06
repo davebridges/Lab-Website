@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>{{ lab_name}} News</title>{% endblock %}
+
+{% block header %}
+<h1>{{ lab_name}} Updates</h1>
+{% endblock %}
+
+{% block content %}
+<article class="container append-2 prepend-2 span-20">
+
+<section id='news' class="container">
+
+<h2>Lab Photos</h2>
+{% for photo in photos.data %}
+<a href="{{ photo.link}}"><img src='{{ photo.picture }}'/></a>
+{% endfor %}
+<h2>Lab News and Interesting Links</h2>
+
+{% for post in posts.posts.data %}
+{% if post.picture %}
+<a href="http://www.facebook.com/{{ post.id }}" class="plain-link">
+<div id="{{ post.id }}" class='span-20 container'>
+<img src="{{ post.picture }}" class='span-3'/>
+<div class="box span-10">
+<p>{{ post.message }}</p>
+<p>{{ post.description }}</p>
+<p>{{ post.story }}</p>
+</div>
+</a>
+<div class="span-5">
+<div class="fb-like" data-href="{{ post.link }}" data-send="false" data-layout="box_count" data-width="450" data-show-faces="true" data-font="lucida grande"></div>
+<g:plusone size="tall" href="{{ post.link }}"></g:plusone>
+</div>
+{% else %}
+<a href="http://www.facebook.com/{{ post.id }}" class="plain-link">
+<div id="{{ post.id }}" class='span-20 container'>
+<div class="box span-13">
+<p>{{ post.message }}</p>
+<p>{{ post.description }}</p>
+<p>{{ post.story }}</p>
+</div>
+</a>
+<div class="span-5">
+<div class="fb-like" data-href="{{ post.link }}" data-send="false" data-layout="box_count" data-width="450" data-show-faces="true" data-font="lucida grande"></div>
+<g:plusone size="tall" href="{{ post.link }}"></g:plusone>
+</div>
+{% endif %}
+{% endfor %}
+</section>
+
+<!-- 
+<section id='milestones' class="container span-20">
+<h2>Milestones</h2>
+{% for post in milestones.data %}
+{% if post.title %}
+<a href="http://www.facebook.com/{{ post.id }}" class="plain-link">
+<div id="{{ post.id }}" class='span-20 container'>
+<img src="{{ post.picture }}" class='span-3'/>
+<div class="box span-20">
+<h3>{{ post.title }}</h3>
+<p>{{ post.description }} ~~ {{ post.start_time_cleaned }}</p>
+</div>
+</a>
+{% endif %}
+{% endfor %}
+</section>
+ -->
+
+
+
+<!-- 
+<section id='links' class="container">
+<h2>Shared Links</h2>
+{% for post in links.data %}
+{% if post.picture %}
+<a href="http://www.facebook.com/{{ post.id }}" class="plain-link">
+<div id="{{ post.id }}" class='span-20 container'>
+<img src="{{ post.picture }}" class='span-3'/>
+{% endif %}
+<div class="box span-10">
+<p>{{ post.message }}</p>
+<p>{{ post.description }}</p>
+</div>
+</a>
+<div class="span-5">
+<div class="fb-like" data-href="{{ post.link }}" data-send="false" data-layout="box_count" data-width="450" data-show-faces="true" data-font="lucida grande"></div>
+<g:plusone size="tall" href="{{ post.link }}"></g:plusone>
+</div>
+{% endfor %}
+</section>
+ -->
+
+
+</article>
+
+{% endblock %}

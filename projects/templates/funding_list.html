@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block title %}
+<title>Current Funding in the Lab</title>
+{% endblock %}
+
+{% block header %}
+<h1>Current Funding in the Lab</h1>
+{% endblock %}
+
+{% block content %}
+<article id="funding" class="container col-md-12">
+{% for funding in funding_list %}
+{% include "funding_list_snippet.html" %}
+{% endfor %}
+</section>
+</article>
+{% endblock content %}

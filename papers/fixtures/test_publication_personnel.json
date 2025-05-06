@@ -8,11 +8,10 @@
             "last_name": "Bridges", 
             "home_address": null, 
             "work_address": null, 
-            "created": "2012-07-17", 
-            "current_roles": [], 
+            "created": "2012-07-17",
+            "lab_roles": [],  
             "gender": null, 
             "current_lab_member": true, 
-            "past_roles": [], 
             "updated": "2012-07-17", 
             "birthdate": null, 
             "phone": "", 
@@ -21,7 +20,8 @@
             "lab_roles": [], 
             "awards": [], 
             "degrees": [], 
-            "email": ""
+            "email": "",
+            "alumni": true
         }
     }, 
     {
@@ -34,10 +34,9 @@
             "home_address": null, 
             "work_address": null, 
             "created": "2012-07-17", 
-            "current_roles": [], 
+            "lab_roles": [], 
             "gender": null, 
-            "current_lab_member": false, 
-            "past_roles": [], 
+            "current_lab_member": false,  
             "updated": "2012-07-17", 
             "birthdate": null, 
             "phone": "", 
@@ -46,7 +45,8 @@
             "lab_roles": [], 
             "awards": [], 
             "degrees": [], 
-            "email": ""
+            "email": "",
+            "alumni": true
         }
     }
 ]

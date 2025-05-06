@@ -5,36 +5,18 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
-from django.test import TestCase
-from django.test.client import Client
-from django.contrib.auth.models import User
+import datetime
 
-from personnel.models import Person
+from personnel.models import Person, JobPosting, Organization
+from lab_website.tests import BasicTests
 
-MODELS = [Person]
+MODELS = [Person, JobPosting]
 
-class PersonnelModelTests(TestCase):
+class PersonnelModelTests(BasicTests):
     """Tests the model attributes of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""
     
     fixtures = ['test_personnel']
-
-    def setUp(self):
-        '''Instantiate the test client.  Creates a test user.'''
-        self.client = Client()
-        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
-        self.test_user.is_superuser = True
-        self.test_user.is_active = True
-        self.test_user.save()
-        self.assertEqual(self.test_user.is_superuser, True)
-        login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
     
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-                
     def test_full_name(self):
         '''This is a test for the rendering of the full name from a ::class:`Person` object.'''
         fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
@@ -53,33 +35,16 @@ class PersonnelModelTests(TestCase):
     def test_create_labmember_minimal(self):
         '''This is a test for creating a new ::class:`Person` object, with only the minimum fields being entered'''
         test_labmember = Person(first_name = 'Joe',
-        	last_name = 'Blow')
+        	last_name = 'Blow', alumni=False, current_lab_member=True)
         test_labmember.save()
         #test that the slugfiy function works correctly
         self.assertEquals(test_labmember.name_slug, u'joe-blow')
 
-class PersonnelViewTests(TestCase):
+class PersonnelViewTests(BasicTests):
     """Tests the views of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""
     
     fixtures = ['test_personnel']
 
-    def setUp(self):
-        '''Instantiate the test client.  Creates a test user.'''
-        self.client = Client()
-        self.test_user = User.objects.create_user('testuser', 'blah@blah.com', 'testpassword')
-        self.test_user.is_superuser = True
-        self.test_user.is_active = True
-        self.test_user.save()
-        self.assertEqual(self.test_user.is_superuser, True)
-        login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
-    
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-                
     def test_laboratory_personnel(self):
         '''This function tests the laboratory-personnel view.''' 
         
@@ -88,7 +53,7 @@ class PersonnelViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('personnel' in test_response.context)
         self.assertTemplateUsed(test_response, 'personnel_list.html')
-        self.assertEqual(test_response.context['personnel-type'], 'current')
+        self.assertEqual(test_response.context['personnel_type'], 'current')
         self.assertEqual(test_response.context['personnel'][0].pk, 1)
         self.assertEqual(test_response.context['personnel'][0].first_name, 'John')        
         self.assertEqual(test_response.context['personnel'][0].last_name, 'Doe')  
@@ -101,8 +66,44 @@ class PersonnelViewTests(TestCase):
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('person' in test_response.context)
         self.assertTemplateUsed(test_response, 'base.html')
-        self.assertTemplateUsed(test_response, 'jquery_script.html')
         self.assertTemplateUsed(test_response, 'personnel_detail.html')
         self.assertEqual(test_response.context['person'].pk, 1)
         self.assertEqual(test_response.context['person'].first_name, 'John')        
-        self.assertEqual(test_response.context['person'].last_name, 'Doe')          
+        self.assertEqual(test_response.context['person'].last_name, 'Doe')
+
+          
+class JobPostingModelTests(BasicTests):
+    """Tests the model attributes of ::class:`JobPosting` objects contained in the ::mod:`personnel` app."""
+   
+    fixtures = ['test_organization',]
+
+    def test_create_jobposting_minimal(self):
+        '''This is a test for creating a new ::class:`JobPosting` object, with only the minimum fields being entered'''
+        test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
+                              description = 'Some description',
+                              link = 'http:/jobs.com/awesomejob',
+                              active=True)
+        test_jobposting.save()
+        self.assertEqual(test_jobposting.pk, 1)    
+
+    def test_create_jobposting_all(self):
+        '''This is a test for creating a new ::class:`JobPosting` object, with only the minimum fields being entered'''
+        test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
+                              description = 'Some description',
+                              link = 'http:/jobs.com/awesomejob',
+                              hiringOrganization = Organization.objects.get(pk=1),
+                              education = "An educational requirement",
+                              qualifications = "Some qualifications",
+                              responsibilities = "Some responsibilities",
+                              active = True)
+        test_jobposting.save()
+        self.assertEqual(test_jobposting.pk, 1)
+
+    def test_jobposting_unicode(self):
+        '''This test creates a new :class:`~personnel.models.JobPosting` object, then tests for the unicode representation of it.'''
+        test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
+                              description = 'Some description',
+                              link = 'http:/jobs.com/awesomejob',
+                              active=True)
+        test_jobposting.save()
+        self.assertEqual(test_jobposting.__unicode__(), 'Postdoctoral Researcher Job Posting (%s)' %(datetime.date.today()) )

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block scripts %}
+<link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}"> 
+<link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}"> 
+<link rel="alternate" type="application/rss+xml" title="Journal Club Articles" href="{% url 'jc-feed' %}">
+{% endblock %}
+
+{% block title %}<title>Journal Club Articles</title>{% endblock %}
+
+{% block header %}
+<div class='text-center'>
+<h1>{{ lab_name }} Journal Club Articles<h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<article>
+<section class="col-md-12">
+{% with journal_club_list as journal_article_list %}
+{% include "journal-club-paper-snippet.html" %}
+{% endwith %}
+</section>
+</article>
+{% endblock %}

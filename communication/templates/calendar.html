@@ -2,20 +2,14 @@
 {% block scripts %}
 {% endblock %}
 
-{% block title %}<title>Calendar</title>{% endblock %}
+{% block title %}<title>{{ lab_name }} Calendar</title>{% endblock %}
 
 {% block header %}
-<h1>Calendar</h1>
+<h1>{{ lab_name }} Calendar</h1>
 {% endblock %}
 
 {% block content %}
-<div id="calendar">
-<table>
-{% for event in calendar.feed.entry %}
-<tr>
-<td>{{ event }}</td>
-</tr>
-{% endfor %}
-</table>
+<div id="calendar" class="container append-2 prepend-2 span-20">
+<iframe src="https://www.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src={{ google_calendar_id|urlencode}}&amp;color=%232952A3&amp;src=p%23weather%40group.v.calendar.google.com&amp;color=%23B1365F&amp;ctz=America%2FChicago" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>
 </div>
 {% endblock %}

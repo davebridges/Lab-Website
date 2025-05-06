@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ project }}</title>
+{% endblock %}
+
+{% block header %}
+<h1 class="text-center">{{ project }}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+<section id="summary">
+<h2>Project Summary</h2>
+<p>{{ project.summary | safe}}</p>
+</section>
+
+
+{% if project.current_personnel.all.count > 0 %}
+<div class="container">
+<section id="personnel" class="row">
+<h2>Who is Working on This?</h2>
+{% for person in project.current_personnel.all %}
+<div class="card col-4">
+{% include 'personnel_snippet.html' %}
+</div>
+{% endfor %}
+</section>
+</div>
+{% endif %}
+
+{% if project.funding_set.all.count > 0 %}
+<section class="row container">
+<h3>What sources of funding support this project?</h3>
+{% for funding in project.funding_set.all %}
+<div class="card col-6">
+{% include "funding_list_snippet.html" %}
+</div>
+{% endfor %}
+</section>
+{% endif %}
+
+<section id="publications">
+<h2>Publications</h2>
+{% if project.publications.all.count > 0 %}
+<section class="span-20">
+<h3>What have we published on this topic?</h3>
+<ol>
+{% for paper in project.publications.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
+</ol>
+</section>
+{% endif %}
+<!--
+{% if project.other_publications.all.count > 0 %}
+<section class="span-20">
+<h3>What are some other key papers on this topic?</h3>
+{% for paper in project.other_publications.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
+</section>
+{% endif %}
+-->
+</section>
+
+<section id="comments class="span-20">
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
+</section>
+</article>
+{% endblock content %}

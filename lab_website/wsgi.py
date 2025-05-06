@@ -17,6 +17,16 @@ import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lab_website.settings")
 
+import sys
+import site
+
+# Add the site-packages of the chosen virtualenv to work with
+site.addsitedir('/usr/lib64/python2.7/site-packages')
+
+# Add the app's directory to the PYTHONPATH
+sys.path.append('/var/www/html/BridgesLab-Website')
+sys.path.append('/var/www/html/BridgesLab-Website/lab_website')
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
@@ -26,3 +36,6 @@ application = get_wsgi_application()
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+import sys
+sys.path.append('/var/www/html/BridgesLab-Website')

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block scripts %}
+{% endblock %}
+
+{% block title %}<title>{{ lab_name}} Contact Information</title>{% endblock %}
+
+{% block header %}
+<h1>{{ lab_name}} Contact Information</h1>
+{% endblock %}
+
+{% block content %}
+
+<section id="address" class="container span-10 first">
+
+<h2>Mailing Address</h2>
+{% for labaddress in labaddress_list %}
+{% if labaddress.type == 'Primary' %}
+<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" >
+<span itemprop="streetAddress">{{ labaddress.address.line_1 }}<br>
+{{ labaddress.address.line_2 }}<br>
+{{ labaddress.address.line_3 }}<br>
+{{ labaddress.address.line_4 }}<br></span>
+<span itemprop="addressLocality" >{{ labaddress.address.city }}</span>, <span itemprop="addressRegion">{{ labaddress.address.state }}</span>, <span itemprop="addressCountry" itemscope itemtype="http://schema.org/Country"><meta itemprop="sameAs" content="http://en.wikipedia.org/wiki/United_States"/><span itemprop="name">{{ labaddress.address.country}}</span></span>, <span itemprop="postalCode">{{ labaddress.address.code }}</span>
+</p>
+{% endif %}
+{% endfor %}
+
+<h2>Email/Phone</h2>
+<p>To contact individual members of the lab, go to the <a href="{% url 'laboratory-personnel' %}">Lab Members Pages</a>.</p>
+
+</section>
+
+<section class="container span-10 last">
+<h2>Social Media Information</h2>
+
+<div class="twitter append-bottom">
+<a href="https://twitter.com/{{twitter}}" class="twitter-follow-button" data-show-count="true" data-size="large" data-width="300px">Follow @{{twitter}}</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId={{ fb_app_id }}";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-like-box append-bottom" data-href="http://www.facebook.com/{{facebook}}" data-width="300" data-show-faces="true" data-stream="false" show-border="false" data-header="true"></div>
+
+<div class="g-plus append-bottom" data-href="https://plus.google.com/{{google_plus}}?rel=author" data-width="300" ></div>
+
+<!-- Place this tag after the last widget tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+</section>
+</article>
+
+{% endblock %}

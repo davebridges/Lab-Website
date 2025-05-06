@@ -1,7 +1,11 @@
-Django==1.4.1
+Django==1.5
 South
 PIL
 django-tastypie
 Sphinx
 lxml
 httplib2
+tweepy
+defusedxml
+markdown
+django-ajax-selects

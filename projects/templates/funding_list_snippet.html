@@ -1,0 +1,40 @@
+{% load humanize %}
+
+<section id="{{ funding.title_slug }}">
+
+<div id="{{ funding.title_slug}}-details" class="card-header">
+<h3 class="card-title"><a href="{{ funding.get_absolute_url }}" class="text-decoration-none text-dark">{{ funding }}</a></h3>
+</div>
+<div class="card-body">
+<div id="logo" class="col">
+{% if funding.funding_agency.logo %}
+<a href="{{ funding.funding_agency.website }}"><img class="card-img-top" src="{{ funding.funding_agency.logo.url }}" /></a>
+{% endif %}
+<dl>
+   {% if funding.grant_id %}
+   <dt>Grant ID</dt>
+      <dd>{{ funding.grant_id }}</dd> 
+   {% endif %}
+
+   {% if funding.start_date %}
+    <dt>Start Date<dt>
+        <dd>{{ funding.start_date }}</dd>
+   {% endif %}
+
+   {% if funding.end_date %}
+    <dt>End Date<dt>
+        <dd>{{ funding.end_date }}</dd>
+   {% endif %}
+
+   {% if funding.amount %}
+    <dt>Amount<dt>
+        <dd>${{ funding.amount | intcomma }}</dd>
+   {% endif %}
+
+</dl>
+</div>
+<div class="card-text" id="{{funding}}-summary">
+<p>{{funding.summary|safe}}</p>
+</div>
+
+</section>

@@ -1,0 +1,14 @@
+[
+{
+    "pk": 1, 
+    "model": "papers.commentary", 
+    "fields": {
+        "author": null, 
+        "created": "2013-09-29", 
+        "citation": null, 
+        "modified": "2013-09-29", 
+        "comments": "some comments for this fixture", 
+        "paper": 1
+    }
+}
+]

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block scripts %}
+<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
+{% endblock %}
+{% block title %}<title>Journal Club Papers</title>{% endblock %}
+
+{% block header %}
+<h1 class='text-center'>{{lab_name }} Journal Club</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+<div class='col-md-12'>	
+<section id="journal-club" class="panel panel-default">
+<div class='panel-heading'>
+<h2 class='text-center panel-title'>Papers Discussed in Journal Club</h2>
+</div>
+<div class='panel-body'>
+These are the papers that we discussed most recently in Journal club.  Click <a href="{% url 'jc-list' %}">here</a> for the complete list.
+<ul>
+{% include "journal-club-paper-snippet.html" %}
+</ul>	
+</div>
+</section>
+</div>
+
+<div class='col-md-12'>	
+<section id="comments" class="panel panel-default">
+<div class='panel-heading'>
+<h2 class='text-center panel-title'>Comments on Papers</h2>
+</div>
+{% for commentary in commentary_list %}
+{% with commentary.paper as paper %}
+<section>
+<div class='panel-body'>
+{% include "paper-detail-snippet.html" %}
+</div>
+
+{% endwith %}
+{% endfor %}
+</div>
+</section>
+</div>
+</article>
+{% endblock %}

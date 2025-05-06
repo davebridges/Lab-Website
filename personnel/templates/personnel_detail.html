@@ -1,50 +1,110 @@
 {% extends "base.html" %}
-{% block scripts %}
-<script type ='text/javascript' src='{{ STATIC_URL}}javascript/md5.js'></script>
-<script type='text/javascript'>
-// get the email
-$(document).ready(function () {
-var email = '{{ person.email }}';
-var hash = CryptoJS.MD5(email);
-var link = 'http://www.gravatar.com/avatar/' + hash + '?s=150&d=mm';
-// set the size as whatever you like (1-2048)
-$('#image').attr('src', link);
-});
-</script>
-<script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
-{% endblock %}
 
 {% block title %}<title>{{ person }}</title>{% endblock %}
 
 {% block header %}
-<h1>{{ person }}</h1>
+<h1 class="text-center">{{ person }}</h1>
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype='http://schema.org/Person'>
+<article itemscope itemtype='http://schema.org/Person' class="container">
 <meta itemprop='familyName' content='{{ person.last_name }}' />
 <meta itemprop='givenName' content='{{ person.first_name }}' />
 <meta itemprop='name' content='{{ person }}' />
-<section id='bio' class='container'>
-{% if person.email %}
-<img id='image' alt='{{ person }} Image' src='{{ STATIC_URL }}img/ajax-loader.gif'/>
-{% endif %}
-<div class='span-6' id='details'>
-<h2>Details</h2>
+<section id='bio' class='row'>
+<div class='col-7' id='details'>
 <dl>
+    {% if person.lab_roles.all %}
+    <dt>Position</dt>
+    {% for role in person.lab_roles.all %}
+      {% if not role.end_date %}
+      <dd>
+      {{ role|safe }}.  ({{ role.start_date|timesince }}).
+      </dd>
+      {% endif %}
+
+      {% if role.end_date %}
+      <div class="previous-positions">
+      <dd>
+      {{ role|safe }}.  ({{ role.start_date }} to {{role.end_date}})<br/>
+      </dd>
+      </div>
+      {% endif %}
+    {% endfor %}
+    {% endif %}
+    
+    {% if person.degrees.all %}
+    <dt>Degrees</dt>
+    <dd>
+    {% for degree in person.degrees.all %}
+    {{ degree }}.  {% if degree.date_awarded %}Awarded in {{degree.date_awarded|date:"Y" }}.{% endif %}<br/>
+    <span itemprop='alumniOf' itemscope itemtype='http://schema.org/EducationalOrganization'>
+    <meta itemprop='name' content='{{ degree.organization.name }}'/>
+    </span>
+    {% endfor %}
+    </dd>
+    {% endif %}
+
+        {% if person.email %}
 	<dt>Email</dt>
 	<dd><a itemprop='email' href='mailto:{{ person.email }}'>{{ person.email }}</a></dd>
+	{% endif %}
+
+        {% if person.phone %}
+	<dt>Phone</dt>
+	<dd><span itemprop='telephone'>{{ person.phone }}</span></dd>
+	{% endif %}
+
+        {% if person.orcid_id %}
+        <dt>ORCID Identification Number</dt>
+        <dd><a itemprop='sameAs' href='http://orcid.org/{{ person.orcid_id }}'>{{ person.orcid_id }}</a></dd>         
+        {% endif %}
+
+        {% if person.biography %}
+        <dt>Bio</dt>
+        <dd>{{ person.biography }}</dd>
+        {% endif %}  
+
+	{% if person.twitter_username %}
+	<dt>Social Media</dt>
+	<dd>
+	<a href="https://twitter.com/{{ person.twitter_username }}" class="twitter-follow-button" data-show-count="true" data-lang="en" data-size="large">Follow @{{ person.twitter_username }}</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+{% endif %}    
+	</dd>
 </dl>
+{% if person.image %}
 </div>
+<div class="col-5">
+<a href="{{ person.image.url }}" data-featherlight="image">
+<img id='image' src='{{ person.image.url }}' alt='Photo of {{ person }}' class='img-thumbnail'/>
+</a>
+</div>
+{% endif %}
 </section>
 
-<section id='papers'>
-<h2>Publications</h2>
+{% if person.authordetails_set.all.exists %}
+<section id='papers' class='col-md-12'>
+<div class='panel panel-default'>
+<div class='panel-heading'>
+<h2 class='panel-title'>Publications</h2>
+</div>
+<div class='panel-body'>
+<ol>
 {% for detail in person.authordetails_set.all %}
-{% for paper in detail.publication_set.all %}
+{% for paper in detail.publication_set.all|dictsort:"year"  %}
+
+<div class="row">
+<div class="col-md-12">
 {% include "paper-detail-snippet.html" %}
+</div>
+</div>
 {% endfor %}
 {% endfor %}
+</ol>
+</div>
+{% endif %}
 {% endblock %}
 </section>
 </article>

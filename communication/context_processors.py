@@ -15,4 +15,8 @@ def social_media_accounts(request):
     dict['facebook'] = settings.FACEBOOK_NAME
     dict['lab_name'] = settings.LAB_NAME
     dict['disqus_forum'] = settings.DISQUS_SHORTNAME
+    dict['fb_app_id'] = settings.FACEBOOK_APP_ID
+    dict['fb_admins'] = settings.FACEBOOK_ID
+    dict['analytics_tracking'] = settings.ANALYTICS_TRACKING
+    dict['analytics_root'] = settings.ANALYTICS_ROOT
     return dict

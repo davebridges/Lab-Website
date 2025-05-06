@@ -6,17 +6,22 @@ a.plain-link {
 	text-decoration:none;
 	color: black;
 }	
-
-ul#navbar {
+ul#navbar-items {
 	list-style-type:none;
 	margin:0;
 	padding:0;
 	color:red;
 }
-ul#navbar li a{
+ul#navbar-items li a{
 	font-size: large;
    text-decoration: none;
 	}
+
+ul#home-links li a{
+    font-size:large;
+    text-decoration: none;
+    list-style-type: none;
+}
 	
 div.facebook-post
 {

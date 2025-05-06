@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Bridges Lab Homepage</title>
+<meta name="description" content="{{ general_data.about }}">
+{% endblock title %}
+
+{% block content %}
+<article itemscope itemtype="http://schema.org/Organization">
+
+<h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3"><img src="{{ general_data.picture.data.url }}" class="img-fluid" alt="{{ lab_name }} Photo"></div>
+    <div class="col-sm-6"><p>{{ general_data.description }}</p></div>
+    <div class="col-sm-3">      <p>Find Out More About Us:</p>
+      <ul id="home-links">
+        <li><a class="text-center" href="{% url 'laboratory-personnel' %}"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
+        <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
+        <li><a class="text-center" href="{% url 'laboratory-papers' %}"><img src="{{ STATIC_URL }}img/icons/file.png" alt="Papers"> Papers we have published.</a></li>
+        <li><a class="text-center" href="{% url 'location' %}"><img src="{{ STATIC_URL }}img/icons/world.png" alt="Location"> Where we are located.</a></li>
+        <li><a class="text-center" href="{% url 'contact-info' %}"><img src="{{ STATIC_URL }}img/icons/email.png" alt="Contact"> How to contact us.</a></li>
+       </ul>
+    </div>
+  </div>
+</div>
+
+{% include "job_posting_snippet.html" %}
+
+<section id='recent-papers' class='container-xl'>
+  <div class="card">
+  <div class="card-header">
+    <h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
+  </div>
+<div class="card-body">
+  {% for paper in recent_papers %}
+  {% include "paper-detail-snippet.html" %}
+  {% endfor %}
+<p class="card-text mt-4">Click <a href="{% url 'laboratory-papers' %}">here</a> for a full list of papers.</p>
+</div>
+</div>
+</section>
+
+<div class="container-md">
+<div class="row">
+<section id='posts' class="col">
+  <div class="card">
+    <div class="card-header">
+      <h2 class='text-center'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
+    </div>
+  <div class=""card-body>
+    <ul>
+    {% for post in recent_posts %}
+    <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+</section>
+
+<section id='comments' class="col">
+  <div class="card">
+    <div class="card-header">
+      <h2 class='text-center'><a href="{% url 'commentary-list' %}" class="text-decoration-none text-dark">Comments on Papers</a></h2>
+     </div>
+  <div class="card-body">
+     <ul>
+     {% for commentary in recent_comments %}
+     <li><a href="{{ commentary.get_absolute_url }}">{{ commentary.paper.title }}</a></li>
+     {% endfor %}
+     </ul>
+  </div>
+  </div>
+  </section>
+</div>
+</div>
+
+<section id="journal-club">
+<div class="container-xl">
+<div class="card">
+<div class="card-header">
+  <h2 class='text-center'><a href="{% url 'jc-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
+</div>
+<div class="card-body">
+{% include "journal-club-paper-snippet.html" %}
+<p class="card-text mt-4">Click <a href="{% url 'jc-list' %}">here</a> for a full list of journal club articles.</p>
+</div>
+</div>
+</div>
+</section>
+
+</article>
+
+
+<div id="photos" class="container-xl">
+<h2 class="text-center">Lab Photos </h2>
+<div class="row">
+{% for post in photo_data.data %}
+{% if post.full_picture %}
+<div class="card col-sm-12 col-lg-3">
+  <img src="{{ post.full_picture }}" class='card-image' alt="{{ post.message }}">
+  <p>{{post.message}}</p>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+</div>
+{% endblock content %}

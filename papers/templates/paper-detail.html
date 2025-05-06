@@ -1,47 +1,113 @@
 {% extends "base.html" %}
 {% block scripts %}
-<script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
+<script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
+<script type='text/javascript'>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 {% endblock %}
 
 {% block title %}<title>{{ publication }}</title>{% endblock %}
 
 {% block header %}
-<h1>{{ publication }}</h1>
+<h1 class="text-center">{{ publication }}</h1>
 {% endblock %}
 
 {% block sidebar-insertion %}
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype="http://schema.org/ScholarlyArticle" id='paper'>
+<article itemscope itemtype="http://schema.org/ScholarlyArticle" id='paper' class="container">
 <meta itemprop="name" content="{{ publication.title }}" />
 
-<section id="authors" class="large">
+<section id="authors">
+<p class="text-center lead">
+{% if publication.authors.count == 1%}
 {% for author in publication.authors.all %}
-{% if forloop.revcounter = 1 %} and {% endif %} <a itemprop = "author" itemscope itemtype ="http://schema.org/Person" href='{{ author.author.get_absolute_url }}' class='plain-link'><span itemprop="name">{{ author }}</span></a>{% if forloop.revcounter > 2 %}, {% endif %} 
+{% if author.author.current_lab_member %}<a href='{{ author.author.get_absolute_url }}' class="text-decoration-none text-dark">{{ author.name }}</a>{% else %}{{ author.name }}{% endif %}
 {% endfor %}
+{% else %}
+{% for author in publication.authors.all|dictsort:"order" %}
+{% if forloop.revcounter == 1 %} and {% endif %} {% if author.author.current_lab_member %}<a itemprop = "author" itemscope itemtype ="http://schema.org/Person" href='{{ author.author.get_absolute_url }}' class='text-decoration-none text-dark'><span itemprop="name">{{ author.name}}</span></a>{% else %}{{ author.name }}{% endif %}{% if forloop.revcounter > 2 %}, {% endif %} 
+{% endfor %}
+{% endif %}
+</p>
 </section>
 
-<section id='publication' class='large'>
-<strong itemprop='publisher'>{{ publication.journal }}</strong> <span itemprop='copyrightYear datePublished' >{{ publication.year }}</span>.  {{ publication.volume}}{% if paper.issue %}({{ paper.issue }}){% endif %}: {{ publication.pages }}.
-<div class="impactstory-embed" data-id="{{ publication.doi }}" data-id-type="doi"></div>
+<section id='publication' class='text-center'>
+<strong itemprop='publisher'>{{ publication.journal }}</strong> {% if publication.year %}<span itemprop='copyrightYear datePublished' >{{ publication.year }}</span>. {% endif %}{% if publication.volume %} {{ publication.volume}}{% if paper.issue %}({{ paper.issue }}){% endif %}: {{ publication.pages }}.{% endif %}
+{% if publication.preprint %}
+<mark>This work is a preprint and is currently under review.</mark>
+{% endif %}
 </section>
 
-<h2>Abstract</h2>
-<section id='abstract'>
-<p itemprop='description'>{{ publication.abstract }}</p>
+<section class="card">
+<div class="card-header">
+<h2 class="card-title">Abstract</h2>
+</div>
+
+<div class="card-body">
+<p itemprop='description'>{{ publication.abstract | safe }}</p>
 {% if publication.doi %}
 <p><a itemprop='url' href="{{ publication.doi_link }}">Link to Full Text of Paper</a></p>
 <meta itemprop='discussionUrl' content='{{ request.build_absolute_uri }}'/>
 {% endif %}
+</div>
 </section>
 
-<section id="comments class="span-12">
+
+{% for author_details in publication.authors.all|dictsort:"order" %}
+{% if forloop.first %}
+{% if author_details.contribution.all.exists %}
+<section class="card">
+<div class="card-header">
+   <h2 class="card-title">Author Contributions</h2>
+</div>
+{% endif %}
+{% endif %}
+{% endfor %}
+<div class="card-body"
+<div class="row">
+  {% for author_details in publication.authors.all|dictsort:"order" %}
+  {% if author_details.contribution.all.exists %}
+<div class="col"><h3>{{ author_details.author }}</h3>
+  {% for contribution in author_details.contribution.all %}
+    <img class="img-fluid custom-image" src='{{ contribution.image_url }}' alt="{{ contribution }}" title="{{ contribution }}" width="50"/>
+  {% endfor %}
+{% endif %}
+{% endfor %}
+</div>
+</div>
+</section>
+
+{% if publication.commentary_set.all.exists  %}
+<section id="commentary" class="container">
+<h2>Our Thoughts on This Paper</h2>
+<p>{% for commentary in publication.commentary_set.all %}
+<p>{{ commentary.comments|safe }}</p>
+<p>Written by <a href="{{ commentary.author.get_absolute_url }}">{{ commentary.author }}</a> on {{ commentary.created }}.</p>
+{% endfor %}
+</section>
+{% endif %}
+
+{% if publication.post_set.all.exists  %}
+<section id="commentary" class="container">
+<h2>Posts about this paper</h2>
+<ul>
+{% for post in publication.post_set.all %}
+<li><a href="{{ post.get_absolute_url }}">{{ post.post_title }}</a></li>
+{% endfor %}
+</ul>
+</section>
+{% endif %}
+
+<section id="comments" class="container">
 <h2>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
 
-<section id ='sharing' class='span-6'>
+<section id ='sharing' class='container'>
 <h2>Share This Paper</h2>
 {% include 'paper_sharing_widgets.html' %}
 </section>
@@ -49,13 +115,11 @@
 <section id="metrics" class='container'>
 <h2>Metrics</h2>
 
-{% if "PLOS" in publication.journal %}
-{% include 'plos_api_snippet.html' %}
-{% endif %}
 
 {% if publication.doi %}
+{% with publication as paper %}
 {% include 'altmetric_snippet.html' %}
-{% include 'impact_story_snippet.html' %}
+{% endwith %}
 {% endif %}
 
 </section>

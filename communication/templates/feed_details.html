@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block scripts %}
-{% endblock %}
+<link rel="alternate" type="application/rss+xml" title="Projects we are working on" href="{% url 'projects-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Commentaries" href="{% url 'commentary-feed' %}">
+<link rel="alternate" type="application/rss+xml" title="Journal Club Articles" href="{% url 'jc-feed' %}">
+{% endblock scripts %}
 
 {% block title %}<title>News Feeds</title>{% endblock %}
 
@@ -12,9 +17,34 @@
 {% endblock %}
 
 {% block content %}
-<h2>Publication Feeds</h2>
+<article class="container append-2 prepend-2 span-20">
+
+<section class="span-9 border">
+<h2>Publications</h2>
 <ul>
-<li><a href="{% url lab-papers-feed %}" class="plain-link"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers from our lab.</a></li>
-<li><a href="{% url interesting-papers-feed %}" class="plain-link"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we are interested in.</a></li>
+<li><a href="{% url 'lab-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers from our lab.</a></li>
+<li><a href="{% url 'posts-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Blog posts.</a></li>
+<li><a href="{% url 'interesting-papers-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we are interested in.</a></li>
+<li><a href="{% url 'commentary-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we have commented on.</a></li>
+<li><a href="{% url 'jc-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Papers we have discussed in journal club.</a></li>
 </ul>
+
+<h2>Social Media</h2>
+<ul>
+<li><a href="http://en.wikipedia.org/w/api.php?action=feedcontributions&user={{wikipedia_username}}" class="plain-link large"><img src="{{STATIC_URL}}img/feed-icon-14x14.png" alt="RSS Icon"> Wikipedia Contributions</li></a>
+</ul>
+</section>
+
+<section class="span-9">
+<h2>Projects</h2>
+<ul>
+<li><a href="{% url 'projects-feed' %}" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Projects we are working on.</a></li>
+</ul>
+
+<h2>Calendars</h2>
+<ul>
+<li><a href="https://www.google.com/calendar/ical/{{ google_calendar_id | urlencode }}/public/basic.ics" class="plain-link large"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"> Our calendar.</a></li>
+</ul>
+</section>
+</article>
 {% endblock %}

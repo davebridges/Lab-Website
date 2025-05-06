@@ -1,16 +1,3 @@
-# Django settings for lab_website project.
-TEMPLATE_CONTEXT_PROCESSORS = (
-"communication.context_processors.social_media_accounts",
-"django.contrib.auth.context_processors.auth",
-"django.core.context_processors.debug",
-"django.core.context_processors.i18n",
-"django.core.context_processors.media",
-"django.core.context_processors.static",
-"django.core.context_processors.tz",
-"django.core.context_processors.request",
-"django.contrib.messages.context_processors.messages",
-"papers.context_processors.api_keys")
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Additional locations of static files
@@ -31,20 +18,13 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'vif6db9fb9s8vb&amp;+j*h520)c+38ahyx5#8=)uo_c&amp;0jk#ei^wr'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    #'debug_toolbar.middleware.DebugToolbarMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -53,17 +33,6 @@ ROOT_URLCONF = 'lab_website.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'lab_website.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    'communication/templates',
-    'papers/templates',
-    'personnel/templates',
-    'templates'
-)
-
 INTERNAL_IPS = ('127.0.0.1',)
 
 INSTALLED_APPS = (
@@ -76,15 +45,34 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.sitemaps',
-    'django.contrib.markup',      
+    'django.contrib.humanize',
     'lab_website',
     'personnel',
     'communication',
     'papers',
-    'south',
-    'debug_toolbar',
+    'projects',
+    #'debug_toolbar',
     'tastypie'
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS':{
+            'context_processors': [
+                "communication.context_processors.social_media_accounts",
+				"papers.context_processors.api_keys",
+				"django.contrib.auth.context_processors.auth",
+				"django.template.context_processors.debug",
+				"django.template.context_processors.i18n",
+				"django.template.context_processors.media",
+				"django.template.context_processors.static",
+				"django.template.context_processors.tz",
+                ],
+            },
+    },
+]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -94,31 +82,20 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
         },
-    }
+    },
 }
 
-#try to import localsettings.py first
-try:
-    from localsettings import *
-except:
-    pass
 
+from localsettings import *
 

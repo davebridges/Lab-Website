@@ -9,11 +9,12 @@ Installation and Setup
 4. Save this file as **localsettings.py** in the same directory.
 4. Run the following command within the Lab Website directory to populate the database.  Enter the superuser information when prompted::
 
+    python manage.py syncdb
     python manage.py schemamigration communication --initial
     python manage.py schemamigration papers --initial
     python manage.py schemamigration personnel --initial
-    python manage.py migrate
-    python manage.py syncdb
+    python manage.py schemamigration projects --initial    
+    python manage.py migrate --fake
     
 Testing
 --------

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% block title %}
+<title>{{ funding }}</title>
+{% endblock %}
+
+{% block header %}
+<h1 class="text-center">{{ funding }}</h1>
+{% endblock %}
+
+{% block content %}
+<article>
+{% if funding.funding_agency.logo %}
+<section id="summary" class="col-md-12">
+<div id="logo" class="col-md-4">
+<a href="{{ funding.funding_agency.website }}">
+<img src="{{ funding.funding_agency.logo.url }}" class="img-responsive"  alt="logo" />
+</a>
+</div>
+{% endif %}
+
+<div class="col-md-8" id="details">
+<dl class="col-md-4">
+   {% if funding.grant_id %}
+    <dt>Grant ID<dt>
+        <dd>{{ funding.grant_id }}</dd>
+   {% endif %}
+
+   {% if funding.amount %}
+    <dt>Amount<dt>
+        <dd>${{ funding.amount | intcomma }}</dd>
+   {% endif %}
+</dl>
+<dl class="col-md-4">
+   {% if funding.start_date %}
+    <dt>Start Date<dt>
+        <dd>{{ funding.start_date }}</dd>
+   {% endif %}
+
+   {% if funding.end_date %}
+    <dt>End Date<dt>
+        <dd>{{ funding.end_date }}</dd>
+   {% endif %}
+</dl>
+</div>
+</section>
+
+<div class="col-md-12">
+<section id="abstract" class="panel panel-info">
+<div class="panel-heading">
+<h2 class="panel-title">Summary</h2>
+</div>
+<div class="panel-body">
+<p>{{ funding.summary | safe}}</p>
+</div>
+</section>
+</div>
+
+
+{% if funding.full_text %}
+<section id="full_text">
+{{ funding.full_text | safe }}
+</section>
+{% endif %}
+{% if funding.publications.all.count > 0 %}
+<section id="publications" class="col-md-12">
+<h2>Which publications were supported by this award?</h2>
+{% for paper in funding.publications.all %}
+{% include "paper-detail-snippet.html" %}
+{% endfor %}
+</section>
+{% endif %}
+
+<section id="comments" class="col-md-12">
+<h2>Comments</h2>
+{% include 'disqus_snippet.html' %}
+</section>
+</article>
+{% endblock content %}

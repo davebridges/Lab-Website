@@ -3,16 +3,36 @@
 
 {% endblock %}
 
-{% block title %}<title>Personnel</title>{% endblock %}
+{% block title %}<title>{% if personnel_type == 'alumni' %}Former {% endif %}Members of the Bridges Lab</title>{% endblock %}
 
 {% block header %}
-<h1>Personnel</h1>
+<h1 class="h1 text-center">{% if personnel_type == 'alumni' %}Former {% endif %}Members of the Bridges Lab</h1>
 {% endblock %}
 
 {% block content %}
-<ul>
+<article itemscope itemtype="http://schema.org/Organization">
+
+{% if personnel_type == 'current' %}
+{% include "job_posting_snippet.html" %}
+{% endif %}
+<div class="row">
 {% for person in personnel %}
-<li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+ 	<div class="col-sm-4" property="members" typeof="http://schema.org/Person" id="{{ person|slugify|lower }}">
+    	<div class="card text-center">
+{% include 'personnel_snippet.html' %}
+		</div>
+	</div>
 {% endfor %}
-</ul>
+</div>
+
+{% if personnel_type == 'current' %}
+<p>To see previous lab members see <a href="{% url 'laboratory-alumni' %}">lab alumni list</a>.</p>
+{% endif %}
+
+{% if personnel_type == 'alumni' %}
+<p>To see current lab members see <a href="{% url 'laboratory-personnel' %}">lab members list</a>.</p>
+{% endif %}
+
+</article>
 {% endblock %}
+

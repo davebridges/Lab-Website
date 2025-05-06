@@ -1,21 +1,27 @@
 {% extends "base.html" %}
 {% block scripts %}
 <script type='text/javascript' src='http://cdn.altmetric.com/embed.min.js'></script>
-<script type="text/javascript" src="http://impactstory.org/embed/v1/impactstory.js"></script>
-<link rel="alternate" type="application/rss+xml" title="Papers From the {{ lab_name }}" href="lab-papers-feed"> 
-<link rel="alternate" type="application/rss+xml" title="Papers of Interest" href="interesting-papers-feed"> 
+<link rel="alternate" type="application/rss+xml" title="Papers from the {{ lab_name }}" href="{% url 'lab-papers-feed' %}"> 
+<link rel="alternate" type="application/rss+xml" title="Papers of interest" href="{% url 'interesting-papers-feed' %}"> 
 {% endblock %}
 
-{% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}Papers</title>{% endblock %}
+{% block title %}<title>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %} Papers</title>{% endblock %}
 
 {% block header %}
-<h1>{% if paper_list_type == "interesting" %}Interesting {% endif %}{% if paper_list_type == "laboratory" %}{{ lab_name }} {% endif %}Papers </h1>
+<div class='text-center'>
+<h1>{% if paper_list_type == "laboratory" %}{{ lab_name }} Papers <a href="{% url 'lab-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
+{% if paper_list_type == "interesting" %}Interesting Papers <a href="{% url 'interesting-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h1>
 {% endblock %}
+</div>
 
 {% block content %}
-<h2>{{ publication_list.count }} papers {% if paper_list_type == "laboratory" %}<a href="{% url lab-papers-feed %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
-{% if paper_list_type == "interesting" %}<a href="{% url interesting-papers-feed %}><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h2>
+<article>
+<ol>
 {% for paper in publication_list %}
+<section class="container">
 {% include "paper-detail-snippet.html" %}
+</section>
 {% endfor %}
+</ol>
+</article>
 {% endblock %}

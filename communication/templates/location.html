@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}<title>{{ lab_name }} Location</title>{% endblock %}
+
+{% block content %}
+<article class="container row">
+{% for location in lablocation_list %}
+<section class="col">
+<div class="card">
+<div class="card-header">
+<h2 class="card-title">{{ location }}</h2>
+</div>
+<div class="card-body">
+<p class="card-text">
+{% if location.image %}
+<a href="{{ location.url }}"><img src="{{ location.image.url }}" alt="{{ location }}" class="card-img-top"/></a>
+{% endif %}{{ location.description|safe }}
+{% if location.url %}For more information on {{ location }} click <a href="{{ location.url }}">here</a>.{% endif %}
+</p>
+</div>
+</div>
+</section>
+
+{% endfor %}
+
+</article>
+{% endblock content %}

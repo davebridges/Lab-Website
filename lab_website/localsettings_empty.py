@@ -2,7 +2,6 @@
 #fill in these fields and save as localsettings.py in this directory
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -85,6 +84,9 @@ MENDELEY_LAB_PAPERS_GROUP = '' #the public Mendeley group id containing the lab'
 MENDELEY_CONSUMER_KEY = '' #the Mendeley consumer key
 PLOS_API_KEY = '' #the PLOS API key for PLOS altmetrics
 IMPACT_STORY_API_KEY = '' #the impact story API key
+NALYTICS_TRACKING = '' #the analytics tracking id from google analytics (should start with UA)
+ANALYTICS_ROOT = '' #the root of your analytics tracking url
 
 #other settings
+PUBLICATION_POLICY_FILE = '' #URL for optional lab publication policy in restructured text format
 LAB_RULES_FILE = '' #URL for an optional laboratory rules file in restructured text format.
