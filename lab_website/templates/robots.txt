@@ -1,0 +1,9 @@
+#To block Bytespider  from crawling:
+User-agent: Bytespider
+Disallow: /
+
+#To block Bytedance  from crawling:
+User-agent: Bytedance
+Disallow: /
+
+Sitemap: http://bridgeslab.sph.umich.edu/sitemap.xml
