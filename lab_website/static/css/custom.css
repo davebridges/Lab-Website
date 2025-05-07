@@ -50,4 +50,25 @@ border-color: #8b9dc3
 	background-color: #FFCB05 !important;
 	color: #00274C;
   }
-  
+ 
+.navbar-um {
+  background-color: #00274C; /* U-M Blue */
+}
+
+.navbar-um .navbar-brand,
+.navbar-um .nav-link,
+.navbar-um .navbar-text {
+  color: #FFCB05 !important; /* U-M Maize */
+}
+
+.navbar-um .nav-link:hover,
+.navbar-um .navbar-brand:hover {
+  color: #FFD700 !important; /* Brighter maize on hover (optional) */
+} 
+
+@media (min-width: 768px) {
+  .navbar-um .navbar-brand,
+  .navbar-um .nav-link {
+    font-size: 1.5rem;
+  }
+}

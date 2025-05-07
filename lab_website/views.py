@@ -50,7 +50,7 @@ class IndexView(TemplateView):
         general_request_url = 'https://graph.facebook.com/v13.0/' + settings.FACEBOOK_ID + '?fields=id,description,about,name,photos{webp_images},picture.height(961)&access_token='+ settings.FACEBOOK_ACCESS_TOKEN
         photo_request_url = 'https://graph.facebook.com/v20.0/' + settings.FACEBOOK_ID + '/posts?fields=id,status_type,message,full_picture&access_token='+ settings.FACEBOOK_ACCESS_TOKEN
         context['recent_papers'] =  Publication.objects.filter(laboratory_paper=True)[0:5]  
-        context['recent_posts'] =  Post.objects.all()[0:5]  
+        context['recent_posts'] =  Post.objects.all()[0:10]  
         context['recent_comments'] =  Commentary.objects.all()[0:5] 
         context['journal_article_list'] = JournalClubArticle.objects.all()[0:5]                
         context['general_data'] = facebook_request(general_request_url)

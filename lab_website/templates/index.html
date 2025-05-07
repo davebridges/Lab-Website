@@ -8,13 +8,13 @@
 {% block content %}
 <article itemscope itemtype="http://schema.org/Organization">
 
-<h1 class='text-center'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1>
+<h1 class='text-center display-4 text-um-blue'>Welcome to the <span itemprop="name">{{ lab_name }}</span></h1>
 
 <div class="container">
   <div class="row">
     <div class="col-sm-3"><img src="{{ general_data.picture.data.url }}" class="img-fluid" alt="{{ lab_name }} Photo"></div>
-    <div class="col-sm-6"><p>{{ general_data.description }}</p></div>
-    <div class="col-sm-3">      <p>Find Out More About Us:</p>
+    <div class="col-sm-6 lead"><p>{{ general_data.description }}</p></div>
+    <div class="col-sm-3">      <p class="bg-um-maize text-center fw-bold">Find Out More About Us:</p>
       <ul id="home-links">
         <li><a class="text-center" href="{% url 'laboratory-personnel' %}"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
         <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
@@ -30,14 +30,14 @@
 
 <section id='recent-papers' class='container-xl'>
   <div class="card">
-  <div class="card-header">
-    <h2 class='text-center'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
+  <div class="card-header bg-um-maize text-um-blue">
+    <h2 class='text-center display-6'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
   </div>
 <div class="card-body">
   {% for paper in recent_papers %}
   {% include "paper-detail-snippet.html" %}
   {% endfor %}
-<p class="card-text mt-4">Click <a href="{% url 'laboratory-papers' %}">here</a> for a full list of papers.</p>
+<p class="card-text mt-4 fw-bold">Click <a href="{% url 'laboratory-papers' %}">here</a> for a full list of papers.</p>
 </div>
 </div>
 </section>
@@ -46,11 +46,11 @@
 <div class="row">
 <section id='posts' class="col">
   <div class="card">
-    <div class="card-header">
-      <h2 class='text-center'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
+    <div class="card-header bg-um-maize text-um-blue">
+      <h2 class='text-center display-6'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
     </div>
-  <div class=""card-body>
-    <ul>
+  <div class="card-body text-center">
+    <ul class="list-unstyled">
     {% for post in recent_posts %}
     <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
     {% endfor %}
@@ -64,14 +64,14 @@
 </div>
 
 <section id="journal-club">
-<div class="container-xl">
+<div class="container-md">
 <div class="card">
-<div class="card-header">
-  <h2 class='text-center'><a href="{% url 'jc-list' %}" class="text-decoration-none text-dark">Journal Club Discussions</a></h2>
+<div class="card-header bg-um-maize text-um-blue">
+  <h2 class='text-center display-6'><a href="{% url 'jc-list' %}" class="text-decoration-none text-dark">{{lab_name}} Journal Club</a></h2>
 </div>
 <div class="card-body">
 {% include "journal-club-paper-snippet.html" %}
-<p class="card-text mt-4">Click <a href="{% url 'jc-list' %}">here</a> for a full list of journal club articles.</p>
+<p class="card-text mt-4 fw-bold">Click <a href="{% url 'jc-list' %}">here</a> for a full list of journal club articles.</p>
 </div>
 </div>
 </div>
