@@ -30,4 +30,24 @@ font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
 border-width:2px;	
 border-style:solid;
 border-color: #8b9dc3
-}	
+}
+
+/* University of Michigan Colors */
+.text-um-blue {
+	color: #00274C !important;
+  }
+  
+  .text-um-maize {
+	color: #FFCB05 !important;
+  }
+  
+  .bg-um-blue {
+	background-color: #00274C !important;
+	color: white;
+  }
+  
+  .bg-um-maize {
+	background-color: #FFCB05 !important;
+	color: #00274C;
+  }
+  
