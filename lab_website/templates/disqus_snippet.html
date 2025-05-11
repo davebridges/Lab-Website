@@ -2,10 +2,10 @@
 <script>
   var disqus_config = function () {
     // Canonical URL of the current post
-    this.page.url = "{{ post.get_absolute_url }}";
+    this.page.url = "{{ request.build_absolute_uri|escapejs }}";
 
     // Unique identifier for the post (can be slug, ID, or URL)
-    this.page.identifier = "{{ post.get_absolute_url}}";
+    this.page.identifier = "{{ request.build_absolute_uri|escapejs }}";
   };
 
   (function() {
