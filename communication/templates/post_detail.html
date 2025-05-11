@@ -22,7 +22,6 @@
   <div class="row">
     <!-- Main post content -->
     <section id="post" itemprop="articleBody" class="col-12 col-lg-9">
-      <h1 class='text-center display-4 text-um-blue'>{{ post.post_title }}</h1>
       {% if post %}
         {{ post_data | markdown_md | safe }}
       {% else %}
@@ -56,7 +55,7 @@
       </div>
 
       {% if post.project %}
-      <div id="project" class="mb-3 text-um-blue bg-um-maize">
+      <div id="project" class="mb-3 text-um-blue">
         <p>This post is about the project
           <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.
         </p>
