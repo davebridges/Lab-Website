@@ -1,8 +1,21 @@
+{% extends "base.html" %}
+{% block scripts %}
+<!--   This markup is required for facebook instant articles.  For more information see https://developers.facebook.com/docs/instant-articles/guides/articlecreate -->
+  <meta charset="utf-8">
+  <link rel="canonical" href="{{ post.get_absolute_url }}">
+  <meta property="op:markup_version" content="v1.0">
+  <script type="text/javascript" src="{{STATIC_URL}}javascript/twitter.js"></script>
+{% endblock %}
+
+{% block title %}<title>{{ post.post_title }}</title>{% endblock %}
+
+{% block content %}
 <article class="container" itemscope itemtype="http://schema.org/BlogPosting">
   <meta itemprop="name" property="og:title" content="{{ post.post_title }}"/>
   <meta property="og:description" content="">
-
-  <!-- Main content + aside layout -->
+  
+{% load markup_filters %}
+<!-- Main content + aside layout -->
   <div class="row">
     <!-- Main post content -->
     <section id="post" itemprop="articleBody" class="col-12 col-lg-9">
@@ -14,31 +27,50 @@
     </section>
 
     <!-- Sidebar (author/project info) -->
-    <aside id="header" class="col-12 col-lg-3">
-      <p>
-        This post was initially created on
-        <time class="op-published" datetime="{{ post.created|date:"c" }}" itemprop="dateCreated datePublished">{{ post.created }}</time>
-        by <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark" itemprop="author creator editor">{{ post.author }}</a>
-        {% if post.modified %}. It was last modified on
-        <time class="op-modified" datetime="{{ post.modified|date:"c" }}" itemprop="dateModified">{{ post.modified }}</time>{% endif %}.
-      </p>
+<aside id="header" class="col-12 col-lg-3">
+  <!-- Author and date info -->
+  <p>
+    This post was initially created on
+    <time class="op-published" datetime="{{ post.created|date:"c" }}" itemprop="dateCreated datePublished">{{ post.created }}</time>
+    by <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark" itemprop="author creator editor">{{ post.author }}</a>
+    {% if post.modified %}. It was last modified on
+    <time class="op-modified" datetime="{{ post.modified|date:"c" }}" itemprop="dateModified">{{ post.modified }}</time>{% endif %}.
+  </p>
 
-      {% if post.project %}
-      <p id="project">This post is about the project <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.</p>
-      {% endif %}
-
-      {% if post.paper %}
-        {% with post.paper as paper %}
-          {% include 'paper-detail-snippet.html' %}
-        {% endwith %}
-      {% endif %}
-    </aside>
+  <!-- Twitter share button -->
+  <div class="mb-3">
+    <a href="https://twitter.com/share"
+       class="twitter-share-button"
+       data-via="bridges_lab"
+       data-size="large">
+       Post to X
+    </a>
   </div>
 
+  <!-- Project info -->
+  {% if post.project %}
+  <div id="project" class="mb-3">
+    <p>This post is about the project <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.</p>
+  </div>
+  {% endif %}
+
+  <!-- Paper details -->
+  {% if post.paper %}
+    <div id="paper-info" class="mb-3">
+      {% with post.paper as paper %}
+        {% include 'paper-detail-snippet.html' %}
+      {% endwith %}
+    </div>
+  {% endif %}
+</aside>
+  
+
+</div>
+
   <!-- Footer section -->
-  <footer class="container mt-4">
+  <footer class="mt-4">
     <div class="row">
-      <section id="license" class="col-md-6">
+      <section id="license" class="col-md-12">
         <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
           <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" />
         </a><br />
@@ -60,3 +92,4 @@
     {% include 'disqus_snippet.html' %}
   </section>
 </article>
+{% endblock %}
