@@ -9,15 +9,15 @@
 {% endblock %}
 
 {% block header %}
-<h1 class="text-center">Current Projects in the Lab</h1>
+<h1 class="text-center text-um-blue display-4">Current Projects in the Lab</h1>
 {% endblock %}
 
 
 {% block content %}
   <article id="projects" class="container row">
       {% for project in project_list %}
-      <section id="{{ project.title_slug }}" class="col-md-6 col-xs-12">
-        <h2>
+      <section id="{{ project.title_slug }}" class="col-md-6 col-xs-12 text-um-blue">
+        <h2 class='text-center display-6 text-um-blue bg-um-maize'>
           <a href="{{ project.get_absolute_url }}" class='text-decoration-none text-dark'>{{ project }}</a>
         </h2>
        <p>{{ project.summary_intro | first |safe}}</p>

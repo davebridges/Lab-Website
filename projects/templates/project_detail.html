@@ -5,21 +5,21 @@
 {% endblock %}
 
 {% block header %}
-<h1 class="text-center">{{ project }}</h1>
+<h1 class='text-center display-4 text-um-blue'>{{ project }}</h1>
 {% endblock %}
 
 {% block content %}
 <article>
 <section id="summary">
-<h2>Project Summary</h2>
-<p>{{ project.summary | safe}}</p>
+<h2 class='text-um-blue'>Project Summary</h2>
+<div class="lead">{{ project.summary | safe}}</div>
 </section>
 
 
 {% if project.current_personnel.all.count > 0 %}
 <div class="container">
 <section id="personnel" class="row">
-<h2>Who is Working on This?</h2>
+<h2 class='text-center display-6 bg-um-maize text-um-blue'>Who is Working on This?</h2>
 {% for person in project.current_personnel.all %}
 <div class="card col-4">
 {% include 'personnel_snippet.html' %}
@@ -31,7 +31,7 @@
 
 {% if project.funding_set.all.count > 0 %}
 <section class="row container">
-<h3>What sources of funding support this project?</h3>
+<h3 class='text-center display-6 text-um-blue'>What sources of funding support this project?</h3>
 {% for funding in project.funding_set.all %}
 <div class="card col-6">
 {% include "funding_list_snippet.html" %}
@@ -41,10 +41,9 @@
 {% endif %}
 
 <section id="publications">
-<h2>Publications</h2>
 {% if project.publications.all.count > 0 %}
 <section class="span-20">
-<h3>What have we published on this topic?</h3>
+<h2 h2 class='text-center display-6 bg-um-maize text-um-blue'>What have we published on this topic?</h3>
 <ol>
 {% for paper in project.publications.all %}
 {% include "paper-detail-snippet.html" %}
@@ -65,7 +64,7 @@
 </section>
 
 <section id="comments class="span-20">
-<h2>Comments</h2>
+<h2 class='text-center display-6 bg-um-maize text-um-blue'>Comments</h2>
 {% include 'disqus_snippet.html' %}
 </section>
 </article>
