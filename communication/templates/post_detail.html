@@ -1,94 +1,95 @@
 {% extends "base.html" %}
+
 {% block scripts %}
-<!--   This markup is required for facebook instant articles.  For more information see https://developers.facebook.com/docs/instant-articles/guides/articlecreate -->
+  <!-- Required for Facebook Instant Articles -->
   <meta charset="utf-8">
   <link rel="canonical" href="{{ post.get_absolute_url }}">
   <meta property="op:markup_version" content="v1.0">
-  <script type="text/javascript" src="{{STATIC_URL}}javascript/twitter.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}javascript/twitter.js"></script>
 {% endblock %}
 
-{% block title %}<title>{{ post.post_title }}</title>{% endblock %}
+{% block title %}
+  <title>{{ post.post_title }}</title>
+{% endblock %}
 
 {% block content %}
+{% load markup_filters %}
 <article class="container" itemscope itemtype="http://schema.org/BlogPosting">
   <meta itemprop="name" property="og:title" content="{{ post.post_title }}"/>
   <meta property="og:description" content="">
-  
-{% load markup_filters %}
-<!-- Main content + aside layout -->
+
+  <!-- Layout: main content + sidebar -->
   <div class="row">
     <!-- Main post content -->
     <section id="post" itemprop="articleBody" class="col-12 col-lg-9">
       {% if post %}
-      {{ post_data | markdown_md | safe }}
+        {{ post_data | markdown_md | safe }}
       {% else %}
-      <p>The source file was not available.</p>
+        <p>The source file was not available.</p>
       {% endif %}
     </section>
 
-    <!-- Sidebar (author/project info) -->
-<aside id="header" class="col-12 col-lg-3">
-  <!-- Author and date info -->
-  <p>
-    This post was initially created on
-    <time class="op-published" datetime="{{ post.created|date:"c" }}" itemprop="dateCreated datePublished">{{ post.created }}</time>
-    by <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark" itemprop="author creator editor">{{ post.author }}</a>
-    {% if post.modified %}. It was last modified on
-    <time class="op-modified" datetime="{{ post.modified|date:"c" }}" itemprop="dateModified">{{ post.modified }}</time>{% endif %}.
-  </p>
+    <!-- Sidebar -->
+    <aside id="header" class="col-12 col-lg-3">
+      <p>
+        This post was initially created on
+        <time class="op-published" datetime="{{ post.created|date:"c" }}" itemprop="dateCreated datePublished">
+          {{ post.created }}
+        </time>
+        by <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark" itemprop="author creator editor">
+          {{ post.author }}
+        </a>
+        {% if post.modified %}. It was last modified on
+        <time class="op-modified" datetime="{{ post.modified|date:"c" }}" itemprop="dateModified">
+          {{ post.modified }}
+        </time>{% endif %}.
+      </p>
 
-  <!-- Twitter share button -->
-  <div class="mb-3">
-    <a href="https://twitter.com/share"
-       class="twitter-share-button"
-       data-via="bridges_lab"
-       data-size="large">
-       Post to X
-    </a>
+      <div class="mb-3">
+        <a href="https://twitter.com/share"
+           class="twitter-share-button"
+           data-via="bridges_lab"
+           data-size="large">
+           Post to X
+        </a>
+      </div>
+
+      {% if post.project %}
+      <div id="project" class="mb-3">
+        <p>This post is about the project
+          <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.
+        </p>
+      </div>
+      {% endif %}
+
+      {% if post.paper %}
+      <div id="paper-info" class="mb-3">
+        {% with post.paper as paper %}
+          {% include 'paper-detail-snippet.html' %}
+        {% endwith %}
+      </div>
+      {% endif %}
+    </aside>
   </div>
 
-  <!-- Project info -->
-  {% if post.project %}
-  <div id="project" class="mb-3">
-    <p>This post is about the project <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.</p>
-  </div>
-  {% endif %}
+  <!-- Footer -->
+  <footer class="row mt-4">
+    <section id="license" class="col-md-6">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" />
+      </a><br />
+      <span property="dct:title">{{ post.post_title }}</span> by 
+      <a href="{{ post.get_absolute_url }}" property="cc:attributionName">{{ post.author }}</a> is licensed under a 
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      <br />Based on a work at <a href="{{ post.get_absolute_url }}">{{ post.get_absolute_url }}</a>.
+    </section>
 
-  <!-- Paper details -->
-  {% if post.paper %}
-    <div id="paper-info" class="mb-3">
-      {% with post.paper as paper %}
-        {% include 'paper-detail-snippet.html' %}
-      {% endwith %}
-    </div>
-  {% endif %}
-</aside>
-  
-
-</div>
-
-  <!-- Footer section -->
-  <footer class="mt-4">
-    <div class="row">
-      <section id="license" class="col-md-12">
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-          <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" />
-        </a><br />
-        <span property="dct:title">{{ post.post_title }}</span> by 
-        <a href="{{ post.get_absolute_url }}" property="cc:attributionName">{{ post.author }}</a> is licensed under a 
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-        <br />Based on a work at <a href="{{ post.get_absolute_url }}">{{ post.get_absolute_url }}</a>.
-      </section>
-
-      <section id="twitter" class="col-md-6 text-md-end mt-3 mt-md-0">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="bridges_lab" data-size="large">Post to X</a>
-      </section>
-    </div>
+    <!-- This section is now removed from the footer and lives in the sidebar -->
   </footer>
 
-  <!-- Comments section -->
+  <!-- Comments -->
   <section id="comments" class="container mt-5">
-    <h2 class=""bg-um-blue text-um-maize">Comments</h2>
+    <h2>Comments</h2>
     {% include 'disqus_snippet.html' %}
   </section>
 </article>
