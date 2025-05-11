@@ -55,7 +55,7 @@
       </div>
 
       {% if post.project %}
-      <div id="project" class="mb-3">
+      <div id="project" class="mb-3 text-um-blue bg-um-maize">
         <p>This post is about the project
           <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.
         </p>
@@ -88,7 +88,7 @@
   </footer>
 
   <!-- Comments -->
-  <section id="comments" class="container mt-5">
+  <section id="comments" class="container mt-5 text-um-blue bg-um-maize">
     <h2>Comments</h2>
     {% include 'disqus_snippet.html' %}
   </section>
