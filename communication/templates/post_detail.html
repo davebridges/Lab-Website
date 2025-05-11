@@ -74,21 +74,20 @@
 
   <!-- Footer -->
   <footer class="row mt-4">
-    <section id="license" class="col-md-6">
+    <section id="license" class="col-md-16">
       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
         <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" />
       </a><br />
       <span property="dct:title">{{ post.post_title }}</span> by 
       <a href="{{ post.get_absolute_url }}" property="cc:attributionName">{{ post.author }}</a> is licensed under a 
       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-      <br />Based on a work at <a href="{{ post.get_absolute_url }}">{{ post.get_absolute_url }}</a>.
-    </section>
+      </section>
 
     <!-- This section is now removed from the footer and lives in the sidebar -->
   </footer>
 
   <!-- Comments -->
-  <section id="comments" class="container mt-5 text-um-blue bg-um-maize">
+  <section id="comments" class="container mt-5 text-um-blue">
     <h2>Comments</h2>
     {% include 'disqus_snippet.html' %}
   </section>
