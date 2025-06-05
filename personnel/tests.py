@@ -20,17 +20,17 @@ class PersonnelModelTests(BasicTests):
     def test_full_name(self):
         '''This is a test for the rendering of the full name from a ::class:`Person` object.'''
         fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
-        self.assertEquals(fixture_personnel.full_name(), 'John Doe')        
+        self.assertEqual(fixture_personnel.full_name(), 'John Doe')        
     
     def test_name_slug(self):
         '''This is a test for the rendering of the name_slug field from a ::class:`Person` object.'''
         fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
-        self.assertEquals(fixture_personnel.name_slug, 'john-doe')   
+        self.assertEqual(fixture_personnel.name_slug, 'john-doe')   
 
     def test_personnel_permalink(self):
         '''This is a test that the permalink for a ::class:`Person` object is correctly rendered as **/personnel/<name_slug>**'''
         fixture_personnel = Person.objects.get(first_name='John', last_name='Doe') 
-        self.assertEquals(fixture_personnel.get_absolute_url(), '/people/john-doe/')          
+        self.assertEqual(fixture_personnel.get_absolute_url(), '/people/john-doe/')          
     
     def test_create_labmember_minimal(self):
         '''This is a test for creating a new ::class:`Person` object, with only the minimum fields being entered'''
@@ -38,7 +38,7 @@ class PersonnelModelTests(BasicTests):
         	last_name = 'Blow', alumni=False, current_lab_member=True)
         test_labmember.save()
         #test that the slugfiy function works correctly
-        self.assertEquals(test_labmember.name_slug, u'joe-blow')
+        self.assertEqual(test_labmember.name_slug, 'joe-blow')
 
 class PersonnelViewTests(BasicTests):
     """Tests the views of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""

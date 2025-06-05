@@ -26,7 +26,7 @@ class BasicTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
 
     def tearDown(self):
         """Depopulate created model instances from test database."""

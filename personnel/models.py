@@ -143,15 +143,15 @@ class Role(models.Model):
         '''The unicode representation for a Role object is the jobtype'''
         if (self.start_date != None and
             self.end_date == None):
-            return u"<strong>%s</strong>, %s since %s" %(self.job_type, self.organization, self.start_date) 
+            return "<strong>%s</strong>, %s since %s" %(self.job_type, self.organization, self.start_date) 
         elif (self.start_date == None and
             self.end_date != None):
-            return u"<strong>%s</strong>, %s until %s" %(self.job_type, self.organization, self.end_date) 
+            return "<strong>%s</strong>, %s until %s" %(self.job_type, self.organization, self.end_date) 
         elif (self.start_date != None and
             self.end_date != None):
-            return u"<strong>%s</strong>, %s from %s to %s" %(self.job_type, self.organization, self.start_date, self.end_date) 
+            return "<strong>%s</strong>, %s from %s to %s" %(self.job_type, self.organization, self.start_date, self.end_date) 
         else:
-            return u"<strong>%s</strong>, %s" %(self.job_type, self.organization)
+            return "<strong>%s</strong>, %s" %(self.job_type, self.organization)
             
     class Meta:
         '''The meta options for Role models.'''
@@ -169,7 +169,7 @@ class JobType(models.Model):
     
     def __unicode__(self):
         '''The unicode representation for a JobType object is the title'''
-        return u'%s' %self.job_title
+        return '%s' %self.job_title
         
 class Degree(models.Model):
     '''This model describes degrees, undergraduate and graduate.
@@ -184,7 +184,7 @@ class Degree(models.Model):
 
     def __unicode__(self):
         '''The unicode representation for a Degree is the abbreviation and the organization'''
-        return u"%s (%s)" %(self.abbreviation, self.organization)
+        return "%s (%s)" %(self.abbreviation, self.organization)
 
 class Award(models.Model):
     '''This model describes awards that lab personnel has won.'''
@@ -202,7 +202,7 @@ class Organization(models.Model):
     
     def __unicode__(self):
         '''The unicode representation for an Organization object is the department and the institution separated by a linebreak'''
-        return u'%s, %s' %(self.department, self.name,)
+        return '%s, %s' %(self.department, self.name,)
     
 class Address(models.Model):
     '''This class describes an address.'''
@@ -217,7 +217,7 @@ class Address(models.Model):
     
     def __unicode__(self):
         '''The unicode representation of an Address is the address lines followed by linebreaks.'''
-        return u'%s\n%s\n%s\n%s\n%s, %s, %s, %s' %(self.line_1, self.line_2, self.line_3, self.line_4, self.city, self.state, self.country, self.code)
+        return '%s\n%s\n%s\n%s\n%s, %s, %s, %s' %(self.line_1, self.line_2, self.line_3, self.line_4, self.city, self.state, self.country, self.code)
 
 
 class JobPosting(models.Model):
@@ -248,7 +248,7 @@ class JobPosting(models.Model):
 
     def __unicode__(self):
         '''The unicode representation is the created field.'''
-        return u'%s Job Posting (%s)' %(self.title, self.created)
+        return '%s Job Posting (%s)' %(self.title, self.created)
         
     def expiry(self):
         '''The calculated expiry date, default is 30 days'''

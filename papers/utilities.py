@@ -1,5 +1,5 @@
 '''This package contains useful scripts for the papers app which arent views, tests or urls'''
-from mendeley_client import MendeleyClient
+from .mendeley_client import MendeleyClient
 
 from django.conf import settings
 
@@ -29,7 +29,7 @@ def write_mendeley_papers_to_database(documents):
     
     To call this you have to get a document list, for example from get_mendeley_authored_documents() 
     the output of that function is then passed to this function.'''
-    for key in documents.keys():
+    for key in list(documents.keys()):
         document_dict = {'mendeley_url' : documents[key]['mendeley_url'],    
         	'title' : documents[key]['title'], 
         	'journal' : documents[key]['published_in'], 

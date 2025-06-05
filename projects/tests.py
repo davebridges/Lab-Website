@@ -37,7 +37,7 @@ class ProjectModelTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -87,7 +87,7 @@ class ProjectResourceTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -121,7 +121,7 @@ class ProjectViewTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
 
     def tearDown(self):
         """Depopulate created model instances from test database."""
@@ -141,7 +141,7 @@ class ProjectViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
         self.assertEqual(test_response.context['project'].pk, 1)
-        self.assertEqual(test_response.context['project'].title, u'Fixture Project')
+        self.assertEqual(test_response.context['project'].title, 'Fixture Project')
         
     def test_project_list(self):
         """This tests the project-list view ensuring that templates are loaded correctly.
@@ -154,7 +154,7 @@ class ProjectViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'project_list.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertEqual(test_response.context['project_list'][0].pk, 1)
-        self.assertEqual(test_response.context['project_list'][0].title, u'Fixture Project')  
+        self.assertEqual(test_response.context['project_list'][0].title, 'Fixture Project')  
         
     def test_project_view_create(self):
         """This tests the project-new view, ensuring that templates are loaded correctly.  
@@ -177,7 +177,7 @@ class ProjectViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'project_form.html')       
         self.assertEqual(test_response.context['project'].pk, 1)
-        self.assertEqual(test_response.context['project'].title, u'Fixture Project')
+        self.assertEqual(test_response.context['project'].title, 'Fixture Project')
 
         #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
         null_response = self.client.get('/projects/not-a-real-paper/edit')
@@ -193,7 +193,7 @@ class ProjectViewTests(TestCase):
         self.assertTrue('project' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
         self.assertEqual(test_response.context['project'].pk, 1)
-        self.assertEqual(test_response.context['project'].title, u'Fixture Project')
+        self.assertEqual(test_response.context['project'].title, 'Fixture Project')
 
         #verifies that a non-existent object returns a 404 error.
         null_response = self.client.get('/projects/not-a-real-paper/delete')
@@ -213,7 +213,7 @@ class FundingModelTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -269,7 +269,7 @@ class FundingViewTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
 
     def tearDown(self):
         """Depopulate created model instances from test database."""
@@ -289,7 +289,7 @@ class FundingViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'disqus_snippet.html')                         
         self.assertEqual(test_response.context['funding'].pk, 1)
-        self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
+        self.assertEqual(test_response.context['funding'].title, 'Fixture Funding')
         
     def test_funding_list(self):
         """This tests the funding-list view ensuring that templates are loaded correctly.
@@ -302,7 +302,7 @@ class FundingViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'funding_list.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertEqual(test_response.context['funding_list'][0].pk, 1)
-        self.assertEqual(test_response.context['funding_list'][0].title, u'Fixture Funding')  
+        self.assertEqual(test_response.context['funding_list'][0].title, 'Fixture Funding')  
         
     def test_funding_view_create(self):
         """This tests the funding-new view, ensuring that templates are loaded correctly.  
@@ -325,7 +325,7 @@ class FundingViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'funding_form.html')       
         self.assertEqual(test_response.context['funding'].pk, 1)
-        self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
+        self.assertEqual(test_response.context['funding'].title, 'Fixture Funding')
 
         #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
         null_response = self.client.get('/funding/not-a-real-funding/edit/')
@@ -341,7 +341,7 @@ class FundingViewTests(TestCase):
         self.assertTrue('funding' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
         self.assertEqual(test_response.context['funding'].pk, 1)
-        self.assertEqual(test_response.context['funding'].title, u'Fixture Funding')
+        self.assertEqual(test_response.context['funding'].title, 'Fixture Funding')
 
         #verifies that a non-existent object returns a 404 error.
         null_response = self.client.get('/funding/not-a-real-funding/delete/')

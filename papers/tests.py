@@ -38,7 +38,7 @@ class PublicationModelTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -99,7 +99,7 @@ class AuthorDetailsModelTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -142,7 +142,7 @@ class CommentaryModelTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -187,7 +187,7 @@ class PublicationResourceTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
     
     def tearDown(self):
         '''Depopulate created model instances from test database.'''
@@ -206,7 +206,7 @@ class PublicationResourceTests(TestCase):
         response = self.client.get('/api/v1/publications/1/?format=json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json; charset=utf-8')  
-        print response    
+        print(response)    
        
 class PublicationViewTests(TestCase):
     '''This class tests the views for :class:`~papers.models.Publication` objects.'''
@@ -222,7 +222,7 @@ class PublicationViewTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
 
     def tearDown(self):
         """Depopulate created model instances from test database."""
@@ -244,7 +244,7 @@ class PublicationViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'paper_sharing_widgets.html')
         self.assertTemplateUsed(test_response, 'altmetric_snippet.html')                        
         self.assertEqual(test_response.context['publication'].pk, 1)
-        self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
+        self.assertEqual(test_response.context['publication'].title, '14-3-3 proteins: a number of functions for a numbered protein.')
         
     def test_lab_papers_list(self):
         """This tests the laboratory-papers view ensuring that templates are loaded correctly.
@@ -260,7 +260,7 @@ class PublicationViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')   
         self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')
         self.assertEqual(test_response.context['publication_list'][0].pk, 1)
-        self.assertEqual(test_response.context['publication_list'][0].title, u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['publication_list'][0].title, '14-3-3 proteins: a number of functions for a numbered protein.')  
         
     def test_interesting_papers_list(self):
         """This tests the interesting-papers view ensuring that templates are loaded correctly.
@@ -274,7 +274,7 @@ class PublicationViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'paper-detail-snippet.html')                                
         self.assertEqual(test_response.context['publication_list'][0].pk, 2)
-        self.assertEqual(test_response.context['publication_list'][0].title, u"THE RELATION OF ADENOSINE-3', 5'-PHOSPHATE AND PHOSPHORYLASE TO THE ACTIONS OF CATECHOLAMINES AND OTHER HORMONES.")           
+        self.assertEqual(test_response.context['publication_list'][0].title, "THE RELATION OF ADENOSINE-3', 5'-PHOSPHATE AND PHOSPHORYLASE TO THE ACTIONS OF CATECHOLAMINES AND OTHER HORMONES.")           
 
     def test_publication_view_create(self):
         """This tests the paper-new view, ensuring that templates are loaded correctly.  
@@ -297,7 +297,7 @@ class PublicationViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'publication_form.html')       
         self.assertEqual(test_response.context['publication'].pk, 1)
-        self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
+        self.assertEqual(test_response.context['publication'].title, '14-3-3 proteins: a number of functions for a numbered protein.')
 
         #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
         null_response = self.client.get('/papers/not-a-real-paper/edit/')
@@ -313,7 +313,7 @@ class PublicationViewTests(TestCase):
         self.assertTrue('publication' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
         self.assertEqual(test_response.context['publication'].pk, 1)
-        self.assertEqual(test_response.context['publication'].title, u'14-3-3 proteins: a number of functions for a numbered protein.')
+        self.assertEqual(test_response.context['publication'].title, '14-3-3 proteins: a number of functions for a numbered protein.')
 
         #verifies that a non-existent object returns a 404 error.
         null_response = self.client.get('/papers/not-a-real-paper/delete/')
@@ -333,7 +333,7 @@ class CommentaryViewTests(TestCase):
         self.test_user.save()
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
-        self.failUnless(login, 'Could not log in')
+        self.assertTrue(login, 'Could not log in')
 
     def tearDown(self):
         """Depopulate created model instances from test database."""
@@ -353,7 +353,7 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')                        
         self.assertEqual(test_response.context['commentary'].pk, 1)
-        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture")
         
         #verifies that a non-existent object returns a 404 error.
@@ -383,7 +383,7 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'commentary-form.html')                            
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertEqual(test_response.context['commentary'].pk, 1)
-        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture") 
         
         #verifies that a non-existent object returns a 404 error.
@@ -413,7 +413,7 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'commentary-list.html')                                  
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         self.assertEqual(test_response.context['commentary_list'][0].pk, 1)
-        self.assertEqual(test_response.context['commentary_list'][0].paper.__unicode__(), u'14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary_list'][0].paper.__unicode__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary_list'][0].comments, "some comments for this fixture") 
 
     def test_jc_view_list(self):

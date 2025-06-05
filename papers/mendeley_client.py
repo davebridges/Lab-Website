@@ -56,9 +56,9 @@ Example usage:
 """
 import oauth2 as oauth
 import pickle
-import httplib
+import http.client
 import json
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 class OAuthClient(object):
     """General purpose OAuth client"""
@@ -149,7 +149,7 @@ class OAuthClient(object):
         return conn.getresponse()
 
     def _get_conn(self):
-        return httplib.HTTPConnection("%s:%d" % (self.host, self.port))
+        return http.client.HTTPConnection("%s:%d" % (self.host, self.port))
 
 class MendeleyRemoteMethod(object):
     """Call a Mendeley OpenAPI method and parse and handle the response"""
@@ -161,19 +161,19 @@ class MendeleyRemoteMethod(object):
         url = self.details['url']
         # Get the required arguments 
         if self.details.get('required'):
-            required_args = dict(zip(self.details.get('required'), args))
+            required_args = dict(list(zip(self.details.get('required'), args)))
             if len(required_args) < len(self.details.get('required')):
                 raise ValueError('Missing required args')
 
-            for (key, value) in required_args.items():
-                required_args[key] = urllib.quote_plus(str(value))
+            for (key, value) in list(required_args.items()):
+                required_args[key] = urllib.parse.quote_plus(str(value))
 
             url = url % required_args
 
         # Optional arguments must be provided as keyword args
         optional_args = {}
         for optional in self.details.get('optional', []):
-            if kwargs.has_key(optional):
+            if optional in kwargs:
                 optional_args[optional] = kwargs[optional]
 
         # Do the callback - will return a HTTPResponse object
@@ -566,7 +566,7 @@ class MendeleyClient(object):
     def __init__(self, consumer_key, consumer_secret, options=None):
         self.mendeley = OAuthClient(consumer_key, consumer_secret, options)
         # Create methods for all of the API calls    
-        for method, details in self.methods.items():
+        for method, details in list(self.methods.items()):
             setattr(self, method, MendeleyRemoteMethod(details, self.api_request))
 
     def api_request(self, url, access_token_required=False, method='get', params=None):
@@ -576,7 +576,7 @@ class MendeleyClient(object):
         
         if method == 'get':
             if len(params) > 0:
-                url += "?%s" % urllib.urlencode(params)
+                url += "?%s" % urllib.parse.urlencode(params)
             response = self.mendeley.get(url, access_token)
         elif method == 'delete':
             response = self.mendeley.delete(url, access_token)
@@ -590,8 +590,8 @@ class MendeleyClient(object):
     def get_required_keys(self):
         self.request_token = self.mendeley.request_token()
         auth_url = self.mendeley.authorize(self.request_token)
-        print 'Go to the following url to auth the token:\n%s' % (auth_url,)
-        verifier = raw_input('Enter verification code: ')
+        print('Go to the following url to auth the token:\n%s' % (auth_url,))
+        verifier = input('Enter verification code: ')
         self.request_token.set_verifier(verifier)
         self.access_token = self.mendeley.access_token(self.request_token)
     
