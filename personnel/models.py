@@ -93,8 +93,8 @@ class Person(models.Model):
     name_slug = models.SlugField(editable=False)
     user = models.OneToOneField(User, blank=True, null=True, help_text="Username for this person")
     
-    def __unicode__(self):
-        '''The unicode representation for a Personnel object is its full name'''
+    def __str__(self):
+        '''The string representation for a Personnel object is its full name'''
         return self.full_name()
         
     @models.permalink
@@ -103,7 +103,7 @@ class Person(models.Model):
         return ('personnel-details', [str(self.name_slug)])   
     
     def full_name(self):
-        '''this function creates a full_name representation for both unicode and slug field displays.'''
+        '''this function creates a full_name representation for both string and slug field displays.'''
         if self.last_name is None:
             return "No Name Given"
         else:
@@ -139,8 +139,8 @@ class Role(models.Model):
     organization = models.ForeignKey('Organization')
     public = models.BooleanField(help_text='Should this role be displayed publicly?')
     
-    def __unicode__(self):
-        '''The unicode representation for a Role object is the jobtype'''
+    def __str__(self):
+        '''The string representation for a Role object is the jobtype'''
         if (self.start_date != None and
             self.end_date == None):
             return "<strong>%s</strong>, %s since %s" %(self.job_type, self.organization, self.start_date) 
@@ -167,8 +167,8 @@ class JobType(models.Model):
     student_status = models.BooleanField(help_text='Is this person a student?', verbose_name="Student?")    
     employee_status = models.BooleanField(help_text='Is this person an employee?', verbose_name="Employee?")
     
-    def __unicode__(self):
-        '''The unicode representation for a JobType object is the title'''
+    def ___str_(self):
+        '''The string representation for a JobType object is the title'''
         return '%s' %self.job_title
         
 class Degree(models.Model):
@@ -182,8 +182,8 @@ class Degree(models.Model):
     date_awarded = models.DateField(blank=True, null=True, help_text="When was the degree awarded?")
     notes = models.TextField(blank=True, null=True, help_text="Some notes on what you did during this degree")
 
-    def __unicode__(self):
-        '''The unicode representation for a Degree is the abbreviation and the organization'''
+    def __str__(self):
+        '''The string representation for a Degree is the abbreviation and the organization'''
         return "%s (%s)" %(self.abbreviation, self.organization)
 
 class Award(models.Model):
@@ -200,8 +200,8 @@ class Organization(models.Model):
         help_text="Name of the Department or Group")
     type = models.CharField(choices=ORGANIZATION_TYPE_CHOICES, max_length=100)
     
-    def __unicode__(self):
-        '''The unicode representation for an Organization object is the department and the institution separated by a linebreak'''
+    def __str__(self):
+        '''The string representation for an Organization object is the department and the institution separated by a linebreak'''
         return '%s, %s' %(self.department, self.name,)
     
 class Address(models.Model):
@@ -215,8 +215,8 @@ class Address(models.Model):
     country = models.CharField(max_length=100, help_text="Use standard country codes, see <a href="">here<a>.")
     code = models.CharField(max_length=15, blank=True, null=True, help_text="zip or postal code")
     
-    def __unicode__(self):
-        '''The unicode representation of an Address is the address lines followed by linebreaks.'''
+    def __str__(self):
+        '''The string representation of an Address is the address lines followed by linebreaks.'''
         return '%s\n%s\n%s\n%s\n%s, %s, %s, %s' %(self.line_1, self.line_2, self.line_3, self.line_4, self.city, self.state, self.country, self.code)
 
 
@@ -246,8 +246,8 @@ class JobPosting(models.Model):
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
 
-    def __unicode__(self):
-        '''The unicode representation is the created field.'''
+    def __str__(self):
+        '''The string representation is the created field.'''
         return '%s Job Posting (%s)' %(self.title, self.created)
         
     def expiry(self):
