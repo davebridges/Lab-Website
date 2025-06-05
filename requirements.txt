@@ -1,6 +1,5 @@
-Django==1.5
-South
-PIL
+Django==1.11.20
+Pillow
 django-tastypie
 Sphinx
 lxml
