@@ -23,8 +23,8 @@ class LabAddress(models.Model):
         choices = ADDRESS_TYPES)
     address = models.ForeignKey(Address, help_text = 'What is the address?"')
     
-    def __unicode__(self):
-        '''The unicode representation of an address is the root address.'''
+    def __str__(self):
+        '''The string representation of an address is the root address.'''
         return '%s' %self.address
         
 class LabLocation(models.Model):
@@ -62,8 +62,8 @@ class LabLocation(models.Model):
         blank=True, null=True)
     priority = models.IntegerField(help_text="What is the display priority for this location (1 is high, 5 is low)")
     
-    def __unicode__(self):
-        '''The unicode representation of an address is its name.'''
+    def __str__(self):
+        '''The string representation of an address is its name.'''
         return '%s' % self.name
         
     class Meta:
@@ -95,8 +95,8 @@ class Post(models.Model):
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(blank=True, null=True)
 
-    def __unicode__(self):
-        '''The unicode representation is the post_title'''
+    def __str__(self):
+        '''The string representation is the post_title'''
         return "%s" %self.post_title
 
     @models.permalink
