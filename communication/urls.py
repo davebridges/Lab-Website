@@ -10,5 +10,5 @@ from communication import views
 
 urlpatterns = [
     url(r'^twitter/?$', views.TwitterView.as_view(), name="twitter"),
-    url(r'/?$', views.ContactView.as_view(), name='contact-info'),
+    url(r'^$', views.ContactView.as_view(), name='contact-info'),
 ]

@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^(?P<title_slug>[-\w\d]+)/edit/?$', views.ProjectUpdate.as_view(), name="project-edit"),  
     url(r'^(?P<title_slug>[-\w\d]+)/delete/?$', views.ProjectDelete.as_view(), name="project-delete"),    
     url(r'^(?P<title_slug>[-\w\d]+)/?$', views.ProjectDetailView.as_view(), name="project-details"),                    
-    url(r'^/?$', views.ProjectList.as_view(), name="project-list"), 
+    url(r'^$', views.ProjectList.as_view(), name="project-list"), 
 ]
