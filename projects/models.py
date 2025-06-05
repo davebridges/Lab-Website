@@ -69,8 +69,11 @@ class Project(models.Model):
             self.title_slug = slugify(self.title)
         super(Project, self).save(*args, **kwargs)
     
+    @property
     def summary_intro(self):
-        return self.summary.split('\n')
+        if self.summary:
+            return self.summary.split('\n')
+        return []
     
     class Meta:
         '''The meta options for the :class:`projects.models.Project` model is ordering set by priority then secondarily by the date_last_modified.'''
