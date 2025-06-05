@@ -3,7 +3,9 @@
 So far this includes API calls for Twitter feeds and Google Calendar'''
 
 import json
-import urllib, urllib2
+import urllib.request
+import urllib.error
+import urllib.parse
 import datetime, time
 import tweepy
 import dateutil
@@ -39,7 +41,7 @@ def generate_twitter_timeline(count):
 
     api = tweepy.API(auth)
     values = {'count':count, 'include_rts':'true'}
-    params = urllib.urlencode(values)
+    params = urllib.parse.urlencode(values)
     timeline = api.user_timeline(count=count)
     #for tweet in timeline:
     #    str_time = time.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
@@ -52,13 +54,13 @@ def facebook_status_request(type, max):
     It requires a type (general, milestones or posts) and a maximum number of entries to return
     '''
     values = {'access_token':settings.FACEBOOK_ACCESS_TOKEN}
-    params = urllib.urlencode(values)
+    params = urllib.parse.urlencode(values)
     request_url = 'https://graph.facebook.com/v2.3/'+ '447068338637332' + type + '&' + params + '&limit=' + str(max)  
-    request = urllib2.Request(request_url)
+    request = urllib.request.Request(request_url)
     
     try:
-        response = urllib2.urlopen(request)
-    except urllib2.URLError, e:
+        response = urllib.request.urlopen(request)
+    except urllib.error.URLError as e:
         if e.code == 404:
             data = "Facebook API is not Available."
         else:
@@ -87,9 +89,9 @@ def get_wikipedia_edits(username, count):
     'ucnamespace':'0',
     'ucprop':'title|timestamp',
     'ucshow':'!minor'}
-    params = urllib.urlencode(values)
+    params = urllib.parse.urlencode(values)
     target_site = 'http://en.wikipedia.org/w/api.php?' + params
-    response = urllib2.urlopen(target_site)
+    response = urllib.request.urlopen(target_site)
     json_response = response.read() #this reads the HTTP response
     pages = json.loads(json_response) 
     for edit in pages['query']['usercontribs']:
@@ -140,7 +142,7 @@ class WikipedaEditsView(View):
             pages = get_wikipedia_edits(settings.WIKIPEDIA_USERNAME,50)
             return render(request, 'wikipedia_edits.html',
             {'pages':pages,'username':settings.WIKIPEDIA_USERNAME})
-        except urllib2.HTTPError:
+        except urllib.error.HTTPError:
             messages.error(request, 'No Response from Wikipedia.  Are you sure that %s is a valid username?' % settings.WIKIPEDIA_USERNAME)	    
             return render('wikipedia_edits.html',
             {'username':settings.WIKIPEDIA_USERNAME})
@@ -161,10 +163,10 @@ class LabRulesView(TemplateView):
         It will check if the markdown file is available, download it and pass  it to the template.
         If there is no markdown file, then it will generate a no file presented note.'''
         context = super(LabRulesView, self).get_context_data(**kwargs)
-        request = urllib2.Request(settings.LAB_RULES_FILE)
+        request = urllib.request.Request(settings.LAB_RULES_FILE)
         try:
-            response = urllib2.urlopen(request)
-        except urllib2.URLError, e:
+            response = urllib.request.urlopen(request)
+        except urllib.error.URLError as e:
             if e.code == 404:
                 lab_rules = "Lab Rules File is not Available."
             else:
@@ -195,10 +197,10 @@ class PublicationPolicyView(TemplateView):
         It will check if the markdown file is available, download it and pass  it to the template.
         If there is no markdown file, then it will generate a no file presented note.'''
         context = super(PublicationPolicyView, self).get_context_data(**kwargs)
-        request = urllib2.Request(settings.PUBLICATION_POLICY_FILE)
+        request = urllib.request.Request(settings.PUBLICATION_POLICY_FILE)
         try:
-            response = urllib2.urlopen(request)
-        except urllib2.URLError, e:
+            response = urllib.request.urlopen(request)
+        except urllib.error.URLError as e:
             if e.code == 404:
                 publication_policy = "Publication Policy File is not Available."
             else:
@@ -229,10 +231,10 @@ class DataResourceSharingPolicyView(TemplateView):
         It will check if the markdown file is available, download it and pass  it to the template.
         If there is no markdown file, then it will generate a no file presented note.'''
         context = super(DataResourceSharingPolicyView, self).get_context_data(**kwargs)
-        request = urllib2.Request(settings.DATA_SHARING_FILE)
+        request = urllib.request.Request(settings.DATA_SHARING_FILE)
         try:
-            response = urllib2.urlopen(request)
-        except urllib2.URLError, e:
+            response = urllib.request.urlopen(request)
+        except urllib.error.URLError as e:
             if e.code == 404:
                 data_sharing_policy = "Publication Policy File is not Available."
             else:
@@ -288,15 +290,15 @@ class ContactView(ListView):
         # Call the base implementation first to get a context
         context = super(ContactView, self).get_context_data(**kwargs)
         context['twitter'] = settings.TWITTER_NAME
-    	context['google_plus'] = settings.GOOGLE_PLUS_ID
-    	context['facebook'] = settings.FACEBOOK_NAME
-    	context['lab_name'] = settings.LAB_NAME
-    	context['disqus_forum'] = settings.DISQUS_SHORTNAME
-    	context['fb_app_id'] = settings.FACEBOOK_APP_ID
-    	context['fb_admins'] = settings.FACEBOOK_ID
-    	context['analytics_tracking'] = settings.ANALYTICS_TRACKING
-    	context['analytics_root'] = settings.ANALYTICS_ROOT
-	return context 
+        context['google_plus'] = settings.GOOGLE_PLUS_ID
+        context['facebook'] = settings.FACEBOOK_NAME
+        context['lab_name'] = settings.LAB_NAME
+        context['disqus_forum'] = settings.DISQUS_SHORTNAME
+        context['fb_app_id'] = settings.FACEBOOK_APP_ID
+        context['fb_admins'] = settings.FACEBOOK_ID
+        context['analytics_tracking'] = settings.ANALYTICS_TRACKING
+        context['analytics_root'] = settings.ANALYTICS_ROOT
+        return context 
 
 class LabLocationView(ListView):
     '''This view provides location information.
@@ -332,10 +334,10 @@ class PostDetail(DetailView):
         context = super(PostDetail, self).get_context_data(**kwargs)
         request_url = str(context['post'].markdown_url)
         
-        request = urllib2.Request(request_url)
+        request = urllib.request.Request(request_url)
         try:
-            response = urllib2.urlopen(request)
-        except urllib2.URLError, e:
+            response = urllib.request.urlopen(request)
+        except urllib.error.URLError as e:
             if e.code == 404:
                 post_data = "Post is not Available."
             else:
