@@ -98,5 +98,5 @@ LOGGING = {
 }
 
 
-from localsettings import *
+from .localsettings import *
 
