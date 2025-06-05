@@ -26,12 +26,10 @@ class Project(models.Model):
         
     current_personnel = models.ManyToManyField(Person, 
         blank=True, 
-        null=True, 
         help_text="Who is currently working on this project?",
         related_name = 'current_personnel')
     past_personnel = models.ManyToManyField(Person, 
         blank=True, 
-        null=True,
         help_text="Who previously worked on this project?",
         related_name = 'previous_personnel')   
              
@@ -45,12 +43,10 @@ class Project(models.Model):
     
     publications = models.ManyToManyField(Publication,
         blank=True,
-        null=True,
         help_text = "What papers have we written for this project?",
         related_name="publications")
     other_publications = models.ManyToManyField(Publication,
         blank=True,
-        null=True,
         help_text = "What key papers have others written about this project?",
         related_name ="other_publications") 
            
@@ -116,12 +112,10 @@ class Funding(models.Model):
         null=True)
     publications = models.ManyToManyField(Publication,
         help_text="Which publications are associated with this award?",
-        blank=True,
-        null=True)
+        blank=True)
     projects = models.ManyToManyField(Project,
         help_text="Which projects are associated with this award?",
-        blank=True,
-        null=True)   
+        blank=True)   
     active = models.BooleanField(help_text="Is this funding active?")
         
     #these fields are automatically generated.    

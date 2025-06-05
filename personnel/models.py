@@ -70,8 +70,8 @@ class Person(models.Model):
     image = models.ImageField(upload_to='photos/%Y/%m/%d', 
         blank=True, 
         null=True)
-    degrees = models.ManyToManyField('Degree', help_text="Graduate and Undergraduate Degrees", blank=True, null=True)
-    awards = models.ManyToManyField('Award', blank=True, null=True)
+    degrees = models.ManyToManyField('Degree', help_text="Graduate and Undergraduate Degrees", blank=True)
+    awards = models.ManyToManyField('Award', blank=True)
     birthdate = models.DateField(blank=True, null=True)
     home_address = models.ForeignKey('Address', blank=True, null=True, related_name='home_address')
     work_address = models.ForeignKey('Address', blank=True, null=True, related_name='work_address')
@@ -86,7 +86,7 @@ class Person(models.Model):
     #these fields describe the role while in the laboratory or either before/after their time there.
     alumni = models.BooleanField(help_text="Is this person a key alumni from the lab")
     current_lab_member = models.BooleanField(help_text="Is this person currently in the lab")
-    lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, null=True, related_name='lab_role')
+    lab_roles = models.ManyToManyField('Role', help_text="Position(s) in the laboratory", blank=True, related_name='lab_role')
     #these fields describe updating information and are automatically filled
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -135,7 +135,7 @@ class Role(models.Model):
     end_date = models.DateField(blank=True, null=True)
     graduation_status = models.NullBooleanField(help_text='It this was a student role, did this person graduate?')
     graduation_date = models.DateField(blank=True, null=True)
-    degree = models.ManyToManyField('Degree', blank=True, null=True)  
+    degree = models.ManyToManyField('Degree', blank=True)  
     organization = models.ForeignKey('Organization')
     public = models.BooleanField(help_text='Should this role be displayed publicly?')
     

@@ -43,7 +43,7 @@ class Publication(models.Model):
     '''
     mendeley_url = models.URLField(blank=True, null=True)
     title = models.CharField(max_length=250)
-    authors = models.ManyToManyField('AuthorDetails', blank=True, null=True)
+    authors = models.ManyToManyField('AuthorDetails', blank=True)
     title_slug = models.SlugField(blank=True, null=True, max_length=150, editable=False, unique=True)
     mendeley_id = models.IntegerField(blank=True, null=True)
     doi = models.CharField(blank=True, null=True, max_length=50, help_text="Digital Object Identifier", verbose_name="DOI")
@@ -113,8 +113,7 @@ class AuthorDetails(models.Model):
     equal_contributors = models.BooleanField(help_text='Check both equally contributing authors')
     contribution = models.ManyToManyField('AuthorContributions',
         help_text="Author contribution",
-        blank=True,
-        null=True)
+        blank=True)
                 
     def __unicode__(self):
         '''The unicode representation is the author name.'''
