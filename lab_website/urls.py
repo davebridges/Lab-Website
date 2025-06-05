@@ -26,7 +26,7 @@ from papers.feeds import LabPapersFeed, InterestingPapersFeed, CommentaryFeed, J
 from projects.feeds import ProjectsFeed
 from communication.feeds import PostsFeed
 
-from views import IndexView, PhotoView
+from .views import IndexView, PhotoView
 from django.views.generic import TemplateView
 
 class StaticViewSitemap(Sitemap):
