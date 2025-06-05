@@ -42,7 +42,8 @@ class HomeViewTests(BasicTests):
         """This tests the feed-details view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
-        
+        fixtures = ['test_labaddress']
+
         test_response = self.client.get('/')
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'index.html')

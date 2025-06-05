@@ -28,13 +28,13 @@ class CommunicationModelTests(BasicTests):
         test_address.save()
         self.assertEqual(test_address.pk, 1) #presumes no models loaded in fixture data     
         
-    def test_lab_address_unicode(self):
-        '''This tests the unicode representation of a :class:`~communication.models.LabAddress`.'''
+    def test_lab_address_string(self):
+        '''This tests the string representation of a :class:`~communication.models.LabAddress`.'''
  
         test_address = LabAddress(type='Primary', address=Address.objects.get(pk=1)) #repeat for all required fields
         test_address.save()
         self.assertEqual(test_address.pk, 1) #presumes no models loaded in fixture data  
-        self.assertEqual(test_address.__unicode__(), Address.objects.get(pk=1).__unicode__())
+        self.assertEqual(str(test_address), Address.objects.get(pk=1).__str__())
         
     def test_create_new_lab_location(self):
         '''This test creates a :class:`~communication.models.LabLocation` with the required information only.'''
@@ -59,7 +59,7 @@ class CommunicationModelTests(BasicTests):
         test_location.save()
         self.assertEqual(test_location.pk, 1) #presumes no models loaded in fixture data
         
-    def test_lab_location_unicode(self):
+    def test_lab_location_string(self):
         '''This test creates a :class:`~communication.models.LabLocation` with the required information only.'''
  
         test_location = LabLocation(name = 'Memphis', 
@@ -67,7 +67,7 @@ class CommunicationModelTests(BasicTests):
             priority=1) #repeat for all required fields
         test_location.save()
         self.assertEqual(test_location.pk, 1)
-        self.assertEqual(test_location.__unicode__(), 'Memphis') 
+        self.assertEqual(str(test_location), 'Memphis') 
 
 class CommunicationViewTests(BasicTests):
     '''This class tests the views associated with the :mod:`communication` app.'''
@@ -207,17 +207,17 @@ class PostModelTests(BasicTests):
         test_post.save()
         self.assertEqual(test_post.pk, 1) 
         
-    def test_post_unicode(self):
-        '''This test creates a :class:`~papers.models.Post` and then verifies the unicode representation is correct.'''
+    def test_post_string(self):
+        '''This test creates a :class:`~papers.models.Post` and then verifies the string representation is correct.'''
         
         test_post = Post(post_title="Test Post",
             author = Person.objects.get(pk=1),
             markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md')
         test_post.save()
-        self.assertEqual(test_post.__unicode__(), "Test Post")  
+        self.assertEqual(str(test_post), "Test Post")  
         
     def test_post_slugify(self):
-        '''This test creates a :class:`~papers.models.Post` and then verifies the unicode representation is correct.'''
+        '''This test creates a :class:`~papers.models.Post` and then verifies the slug representation is correct.'''
         
         test_post = Post(post_title="Test Post",
             author = Person.objects.get(pk=1),

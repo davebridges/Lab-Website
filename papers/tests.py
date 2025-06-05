@@ -53,14 +53,14 @@ class PublicationModelTests(TestCase):
         self.assertEqual(test_publication.pk, 3)
         
     #def test_create_new_paper_all(self):
-        #'''This test creates a `::class:Publication` with the required information only.'''
-        #test_publication = Publication(title='Test Publication') #add more fields
-        #test_publication.save()        
+    #    '''This test creates a `::class:Publication` with the required information only.'''
+    #    test_publication = Publication(title='Test Publication') #add more fields
+    #    test_publication.save()        
         
-    def test_paper_unicode(self):
-        '''This tests the unicode representation of a :class:`~papers.models.Publication`.'''
+    def test_paper_string(self):
+        '''This tests the string representation of a :class:`~papers.models.Publication`.'''
         test_publication = Publication.objects.get(title_slug='14-3-3-proteins-a-number-of-functions-for-a-numbered-protein', laboratory_paper=True, interesting_paper=False, preprint=False)
-        self.assertEqual(test_publication.__unicode__(), "14-3-3 proteins: a number of functions for a numbered protein.")
+        self.assertEqual(str(test_publication), "14-3-3 proteins: a number of functions for a numbered protein.")
         
     def test_paper_title_slug(self):
         '''This tests the title_slug field of a :class:`~papers.models.Publication`.'''
@@ -121,12 +121,12 @@ class AuthorDetailsModelTests(TestCase):
             equal_contributors = True)
         test_authordetail.save()             
             
-    def test_authordetail_unicode(self):
-        '''This tests that the unicode representaton of an :class:`~papers.models.AuthorDetails` object is correct.'''
+    def test_authordetail_string(self):
+        '''This tests that the string representaton of an :class:`~papers.models.AuthorDetails` object is correct.'''
         test_authordetail = AuthorDetails(author=Person.objects.get(pk=1), 
             order = 1, corresponding_author=True, equal_contributors=False)
         test_authordetail.save() 
-        self.assertEqual(test_authordetail.__unicode__(), '1 - None -  Dave Bridges')
+        self.assertEqual(str(test_authordetail), '1 - None -  Dave Bridges')
         
 class CommentaryModelTests(TestCase):
     '''This class tests various aspects of the :class:`~papers.models.Commentary` model.'''
@@ -167,7 +167,7 @@ class CommentaryModelTests(TestCase):
         self.assertEqual(test_commentary.pk, 1) 
         
     def test_commentary_string(self):
-        '''This test creates a :class:`~papers.models.Commentary` and then verifies the unicode representation is correct.'''
+        '''This test creates a :class:`~papers.models.Commentary` and then verifies the string representation is correct.'''
         test_commentary = Commentary(paper=Publication.objects.get(pk=1),
             comments = "Some comments")
         test_commentary.save()
@@ -322,7 +322,7 @@ class PublicationViewTests(TestCase):
 class CommentaryViewTests(TestCase):
     '''This class tests the views for :class:`~papers.models.Commentary` objects.'''
 
-    fixtures = ['test_publication', 'test_personnel', 'test_commentary','test_publication_personnel.json']
+    fixtures = ['test_publication', 'test_personnel', 'test_commentary','test_publication_personnel']
 
     def setUp(self):
         """Instantiate the test client.  Creates a test user."""
@@ -353,7 +353,7 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'disqus_snippet.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')                        
         self.assertEqual(test_response.context['commentary'].pk, 1)
-        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary'].paper.__str__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture")
         
         #verifies that a non-existent object returns a 404 error.
@@ -383,7 +383,7 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'commentary-form.html')                            
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertEqual(test_response.context['commentary'].pk, 1)
-        self.assertEqual(test_response.context['commentary'].paper.__unicode__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary'].paper.__str__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture") 
         
         #verifies that a non-existent object returns a 404 error.
@@ -413,7 +413,7 @@ class CommentaryViewTests(TestCase):
         self.assertTemplateUsed(test_response, 'commentary-list.html')                                  
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         self.assertEqual(test_response.context['commentary_list'][0].pk, 1)
-        self.assertEqual(test_response.context['commentary_list'][0].paper.__unicode__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
+        self.assertEqual(test_response.context['commentary_list'][0].paper.__str__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary_list'][0].comments, "some comments for this fixture") 
 
     def test_jc_view_list(self):

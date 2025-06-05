@@ -21,7 +21,7 @@
             "awards": [], 
             "degrees": [], 
             "email": "",
-            "alumni": true 
+            "alumni": false 
         }
     }
 ]

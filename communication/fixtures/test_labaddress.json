@@ -1,0 +1,24 @@
+[
+  {
+    "model": "personnel.address",
+    "pk": 1,
+    "fields": {
+      "line_1": "123 Science Drive",
+      "line_2": "Suite 456",
+      "line_3": null,
+      "line_4": null,
+      "city": "Ann Arbor",
+      "state": "MI",
+      "country": "US",
+      "code": "48109"
+    }
+  },
+  {
+    "model": "communication.labaddress",
+    "pk": 1,
+    "fields": {
+      "type": "Primary",
+      "address": 1
+    }
+  }
+]

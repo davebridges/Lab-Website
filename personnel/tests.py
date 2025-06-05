@@ -45,11 +45,19 @@ class PersonnelViewTests(BasicTests):
     
     fixtures = ['test_personnel']
 
+    def test_fixture_loaded(self):
+        people = Person.objects.filter(current_lab_member=True)
+        print("People current lab members:", people)
+        self.assertTrue(people.exists())
+    
     def test_laboratory_personnel(self):
         '''This function tests the laboratory-personnel view.''' 
         
         test_response = self.client.get('/people/')
-
+        print("Personnel in context:", test_response.context['personnel'])
+        print("First personnel pk:", test_response.context['personnel'][0].pk if test_response.context['personnel'] else 'No personnel')
+        print("First personnel first name:", test_response.context['personnel'][0].first_name if test_response.context['personnel'] else 'No personnel')
+        print("First personnel last name:", test_response.context['personnel'][0].last_name if test_response.context['personnel'] else 'No personnel')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('personnel' in test_response.context)
         self.assertTemplateUsed(test_response, 'personnel_list.html')
@@ -99,11 +107,11 @@ class JobPostingModelTests(BasicTests):
         test_jobposting.save()
         self.assertEqual(test_jobposting.pk, 1)
 
-    def test_jobposting_unicode(self):
+    def test_jobposting_string(self):
         '''This test creates a new :class:`~personnel.models.JobPosting` object, then tests for the unicode representation of it.'''
         test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
                               description = 'Some description',
                               link = 'http:/jobs.com/awesomejob',
                               active=True)
         test_jobposting.save()
-        self.assertEqual(test_jobposting.__unicode__(), 'Postdoctoral Researcher Job Posting (%s)' %(datetime.date.today()) )
+        self.assertEqual(str(test_jobposting), 'Postdoctoral Researcher Job Posting (%s)' %(datetime.date.today()) )
