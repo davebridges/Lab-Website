@@ -80,8 +80,7 @@ class Publication(models.Model):
         else:
             return self.get_absolute_url()       
     
-    def __unicode__(self):
-        '''The unicode representation for a :class:`~papers.models.Publication` is its title'''
+    def __str__(self):
         return self.title
         
     @models.permalink
@@ -115,8 +114,8 @@ class AuthorDetails(models.Model):
         help_text="Author contribution",
         blank=True)
                 
-    def __unicode__(self):
-        '''The unicode representation is the author name.'''
+    def __str__(self):
+        '''The string representation is the author name.'''
         return '%i - %s -  %s' %(self.order, self.publication_set.last(), self.author)
     
     def name(self):
@@ -145,8 +144,8 @@ class Commentary(models.Model):
     created = models.DateField(auto_now_add=True)
     modified = models.DateField(auto_now=True)
 
-    def __unicode__(self):
-        '''The unicode representation is "Commentary on XXX" where XXX is the paper title'''
+    def __str__(self):
+        '''The string representation is "Commentary on XXX" where XXX is the paper title'''
         return "Journal club summary on %s" %self.paper
 
     @models.permalink
@@ -182,8 +181,8 @@ class JournalClubArticle(models.Model):
         '''The meta options for this defines the ordering by the created field.'''
         ordering = ['-presentation_date',]  
         
-    def __unicode__(self):
-        '''The unicode representation is "Commentary on XXX" where XXX is the paper title'''
+    def __str__(self):
+        '''The string representation is "Commentary on XXX" where XXX is the paper title'''
         return "Journal club article: %s" %self.citation     
 
 class AuthorContributions(models.Model):
@@ -205,6 +204,6 @@ class AuthorContributions(models.Model):
         blank=True,
         null=True)
         
-    def __unicode__(self):
-        '''The unicode representation is the contribution'''
+    def __str__(self):
+        '''The string representation is the contribution'''
         return self.contribution
