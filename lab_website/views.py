@@ -3,7 +3,8 @@
 So far this includes the home page.'''
 
 import json
-import urllib, urllib2
+import urllib.request
+import urllib.error
 import time
 import datetime
 
@@ -30,10 +31,10 @@ class IndexView(TemplateView):
         
         def facebook_request(request_url):
             '''This function takes a request url and token and returns deserialized data.'''
-            request = urllib2.Request(request_url)
+            request = urllib.request.Request(request_url)
             try:
-                    response = urllib2.urlopen(request)
-            except urllib2.URLError, e:
+                    response = response = urllib.request.urlopen(request)
+            except urllib.error.URLError as e:
                     if e.code == 404:
                         data = "Facebook API is not Available."
                     else:
@@ -57,15 +58,15 @@ class IndexView(TemplateView):
         context['photo_data'] = facebook_request(photo_request_url)
         context['postings'] = JobPosting.objects.filter(active=True)
         context['twitter'] = settings.TWITTER_NAME
-    	context['google_plus'] = settings.GOOGLE_PLUS_ID
-    	context['facebook'] = settings.FACEBOOK_NAME
-    	context['lab_name'] = settings.LAB_NAME
-    	context['disqus_forum'] = settings.DISQUS_SHORTNAME
-    	context['fb_app_id'] = settings.FACEBOOK_APP_ID
-    	context['fb_admins'] = settings.FACEBOOK_ID
-    	context['analytics_tracking'] = settings.ANALYTICS_TRACKING
-    	context['analytics_root'] = settings.ANALYTICS_ROOT
-    	context['address'] = LabAddress.objects.filter(type="Primary")[0]
+        context['google_plus'] = settings.GOOGLE_PLUS_ID
+        context['facebook'] = settings.FACEBOOK_NAME
+        context['lab_name'] = settings.LAB_NAME
+        context['disqus_forum'] = settings.DISQUS_SHORTNAME
+        context['fb_app_id'] = settings.FACEBOOK_APP_ID
+        context['fb_admins'] = settings.FACEBOOK_ID
+        context['analytics_tracking'] = settings.ANALYTICS_TRACKING
+        context['analytics_root'] = settings.ANALYTICS_ROOT
+        context['address'] = LabAddress.objects.filter(type="Primary")[0]
 
         return context                            
 
@@ -83,10 +84,10 @@ class PhotoView(TemplateView):
 
         def facebook_request(request_url):
             '''This function takes a request url and token and returns deserialized data.'''
-            request = urllib2.Request(request_url)
+            request = urllib.request.Request(request_url)
             try:
-                response = urllib2.urlopen(request)
-            except urllib2.URLError as e:
+                response = response = urllib.request.urlopen(request)
+            except urllib.error.URLError as e:
                 if e.code == 404:
                     data = "Facebook API is not Available."
                 else:
