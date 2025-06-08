@@ -37,12 +37,12 @@ class BasicTests(TestCase):
 class HomeViewTests(BasicTests):
     '''This class tests the views associated with the :mod:`communication` app.'''
     
+    fixtures = ['test_address','test_labaddress']
     
     def test_feed_details_view(self):
         """This tests the feed-details view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
-        fixtures = ['test_labaddress']
 
         test_response = self.client.get('/')
         self.assertEqual(test_response.status_code, 200)       

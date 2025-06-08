@@ -43,21 +43,16 @@ class PersonnelModelTests(BasicTests):
 class PersonnelViewTests(BasicTests):
     """Tests the views of ::class:`Personnel` objects contained in the ::mod:`personnel` app."""
     
-    fixtures = ['test_personnel']
+    fixtures = ['test_personnel','test_address','test_labaddress']
 
     def test_fixture_loaded(self):
         people = Person.objects.filter(current_lab_member=True)
-        print("People current lab members:", people)
         self.assertTrue(people.exists())
     
     def test_laboratory_personnel(self):
         '''This function tests the laboratory-personnel view.''' 
         
         test_response = self.client.get('/people/')
-        print("Personnel in context:", test_response.context['personnel'])
-        print("First personnel pk:", test_response.context['personnel'][0].pk if test_response.context['personnel'] else 'No personnel')
-        print("First personnel first name:", test_response.context['personnel'][0].first_name if test_response.context['personnel'] else 'No personnel')
-        print("First personnel last name:", test_response.context['personnel'][0].last_name if test_response.context['personnel'] else 'No personnel')
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('personnel' in test_response.context)
         self.assertTemplateUsed(test_response, 'personnel_list.html')
