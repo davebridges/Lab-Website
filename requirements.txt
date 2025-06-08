@@ -3,7 +3,7 @@ Babel==2.11.0
 certifi==2021.5.30
 charset-normalizer==2.0.12
 defusedxml==0.7.1
-Django==1.11.29
+Django==3.2.25
 django-ajax-selects==2.2.1
 django-braces==1.14.0
 django-tastypie==0.15.1

@@ -56,7 +56,7 @@ class Publication(models.Model):
     issue = models.CharField(max_length=15, blank=True, null=True)
     pages = models.CharField(max_length=15, blank=True, null=True)
     abstract = models.TextField(blank=True, null=True)
-    type = models.CharField(choices = PUBLICATION_TYPES, max_length=20, blank=True, null=True)
+    type = models.CharField(choices = PUBLICATION_TYPES, max_length=25, blank=True, null=True)
     laboratory_paper = models.BooleanField(help_text="Is this paper from our lab?")
     interesting_paper = models.BooleanField(help_text="Is this paper of interest but from another lab?")
     publication_date = models.DateField(help_text="The official publicaiton date of the paper", blank=True, null=True)
