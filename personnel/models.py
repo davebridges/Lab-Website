@@ -148,7 +148,9 @@ class Role(models.Model):
     job_type = models.ForeignKey('JobType', max_length=50,on_delete=models.PROTECT)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
-    graduation_status = models.NullBooleanField(help_text='It this was a student role, did this person graduate?')
+    graduation_status = models.BooleanField(null=True, 
+                                            blank=True,
+                                            help_text='It this was a student role, did this person graduate?')
     graduation_date = models.DateField(blank=True, null=True)
     degree = models.ManyToManyField('Degree', 
                                     blank=True)  
