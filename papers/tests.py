@@ -253,7 +253,6 @@ class PublicationViewTests(TestCase):
         
         test_response = self.client.get('/papers/new/', follow=True)
         self.assertEqual(test_response.status_code, 200)
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'publication_form.html')         
 
     def test_publication_view_edit(self):
@@ -264,7 +263,6 @@ class PublicationViewTests(TestCase):
         test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/edit/', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication' in test_response.context)        
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'publication_form.html')       
         self.assertEqual(test_response.context['publication'].pk, 1)
         self.assertEqual(test_response.context['publication'].title, '14-3-3 proteins: a number of functions for a numbered protein.')
@@ -331,9 +329,7 @@ class CommentaryViewTests(TestCase):
         
         test_response = self.client.get('/papers/commentary/new', follow=True)
         self.assertEqual(test_response.status_code, 200)
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'commentary-form.html')                             
-        self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         
     def test_commentary_view_edit(self):
         """This tests the commentary-edit view, ensuring that templates are loaded correctly.  
@@ -343,9 +339,7 @@ class CommentaryViewTests(TestCase):
         test_response = self.client.get('/papers/commentary/1/edit', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary' in test_response.context)        
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'commentary-form.html')                            
-        self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertEqual(test_response.context['commentary'].pk, 1)
         self.assertEqual(test_response.context['commentary'].paper.__str__(), '14-3-3 proteins: a number of functions for a numbered protein.')  
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture") 

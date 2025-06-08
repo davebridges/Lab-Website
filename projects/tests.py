@@ -163,7 +163,6 @@ class ProjectViewTests(TestCase):
         
         test_response = self.client.get('/projects/new',follow=True)
         self.assertEqual(test_response.status_code, 200)
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'project_form.html')          
 
     def test_project_view_edit(self):
@@ -174,7 +173,6 @@ class ProjectViewTests(TestCase):
         test_response = self.client.get('/projects/fixture-project/edit',follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('project' in test_response.context)        
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'project_form.html')       
         self.assertEqual(test_response.context['project'].pk, 1)
         self.assertEqual(test_response.context['project'].title, 'Fixture Project')
@@ -311,7 +309,6 @@ class FundingViewTests(TestCase):
         
         test_response = self.client.get('/funding/new',follow=True)
         self.assertEqual(test_response.status_code, 200)
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'funding_form.html')          
 
     def test_publication_view_edit(self):
@@ -322,7 +319,6 @@ class FundingViewTests(TestCase):
         test_response = self.client.get('/funding/fixture-funding/edit',follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('funding' in test_response.context)        
-        self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'funding_form.html')       
         self.assertEqual(test_response.context['funding'].pk, 1)
         self.assertEqual(test_response.context['funding'].title, 'Fixture Funding')

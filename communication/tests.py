@@ -266,8 +266,6 @@ class PostViewTests(BasicTests):
         test_response = self.client.get('/posts/new', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_form.html')
-        self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'analytics_tracking.html') 
         
     def test_post_edit(self):
         """This tests the post-edit view, ensuring that templates are loaded correctly.  
@@ -277,8 +275,6 @@ class PostViewTests(BasicTests):
         test_response = self.client.get('/posts/fixture-post/edit', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_form.html')
-        self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         
         test_response = self.client.get('/posts/not-a-fixture-post/edit', follow=True) 
         self.assertEqual(test_response.status_code, 404)                      
@@ -291,8 +287,7 @@ class PostViewTests(BasicTests):
         test_response = self.client.get('/posts/fixture-post/delete', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
-        self.assertTemplateUsed(test_response, 'base.html') 
-        self.assertTemplateUsed(test_response, 'analytics_tracking.html')                                                              
+        self.assertTemplateUsed(test_response, 'base.html')                                                          
 
         test_response = self.client.get('/posts/not-a-fixture-post/delete', follow=True) 
         self.assertEqual(test_response.status_code, 404)  

@@ -102,5 +102,8 @@ LOGGING = {
 # This sets the default to BigAutoField to avoid warnings and future-proof migrations.
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# updated to the new form renderer
+FORM_RENDERER = 'django.forms.renderers.DjangoDivFormRenderer'
+
 from .localsettings import *
 
