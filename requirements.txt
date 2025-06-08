@@ -5,7 +5,7 @@ django-tastypie
 Sphinx
 lxml
 httplib2
-tweepy
+requests>=2.0.0
 defusedxml
 markdown
 django-ajax-selects
