@@ -27,12 +27,6 @@ class BasicTests(TestCase):
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
-
-    def tearDown(self):
-        """Depopulate created model instances from test database."""
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
                 
 class HomeViewTests(BasicTests):
     '''This class tests the views associated with the :mod:`communication` app.'''

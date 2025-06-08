@@ -39,12 +39,6 @@ class PublicationModelTests(TestCase):
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
-    
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
                 
     def test_create_new_paper_minimum(self):
         '''This test creates a :class:`~papers.models.Publication` with the required information only.'''
@@ -72,7 +66,7 @@ class PublicationModelTests(TestCase):
         '''This tests the title_slug field of a :class:`~papers.models.Publication`.'''
         test_publication = Publication(title='Test Publication', laboratory_paper=True, interesting_paper=False, preprint=False)
         test_publication.save()
-        self.assertEqual(test_publication.get_absolute_url(), "/papers/test-publication") 
+        self.assertEqual(test_publication.get_absolute_url(), "/papers/test-publication/") 
      
     def test_paper_doi_link(self):
         '''This tests the title_slug field of a :class:`~papers.models.Publication`.'''
@@ -101,12 +95,6 @@ class AuthorDetailsModelTests(TestCase):
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
     
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-                
     def test_create_new_authordetail_minimum(self):
         '''This test creates a :class:`~papers.models.AuthorDetails` with the required information only.'''
         test_authordetail = AuthorDetails(author=Person.objects.get(pk=1), 
@@ -143,12 +131,6 @@ class CommentaryModelTests(TestCase):
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
-    
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
                 
     def test_create_new_commentary_minimum(self):
         '''This test creates a :class:`~papers.models.Commentary` with the required information only.'''
@@ -188,22 +170,16 @@ class PublicationResourceTests(TestCase):
         self.assertEqual(self.test_user.is_superuser, True)
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
-    
-    def tearDown(self):
-        '''Depopulate created model instances from test database.'''
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
                 
     def api_publication_list_test(self):
         '''This tests that the API correctly renders a list of :class:`~papers.models.Publication` objects.'''
-        response = self.client.get('/api/v1/publications/?format=json')
+        response = self.client.get('/api/v1/publications/?format=json', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json; charset=utf-8')
         
     def api_publication_detail_test(self):
         '''This tests that the API correctly renders a particular :class:`~papers.models.Publication` objects.'''
-        response = self.client.get('/api/v1/publications/1/?format=json')
+        response = self.client.get('/api/v1/publications/1/?format=json', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json; charset=utf-8')  
         print(response)    
@@ -224,18 +200,12 @@ class PublicationViewTests(TestCase):
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
 
-    def tearDown(self):
-        """Depopulate created model instances from test database."""
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-
     def test_publication_view(self):
         """This tests the paper-details view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/')
+        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication' in test_response.context)        
         self.assertTemplateUsed(test_response, 'paper-detail.html')
@@ -251,7 +221,7 @@ class PublicationViewTests(TestCase):
         
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/')
+        test_response = self.client.get('/papers/', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'paper-list.html')
@@ -267,7 +237,7 @@ class PublicationViewTests(TestCase):
         
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/interesting')
+        test_response = self.client.get('/papers/interesting', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication_list' in test_response.context)       
         self.assertTemplateUsed(test_response, 'paper-list.html')
@@ -281,7 +251,7 @@ class PublicationViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/new/')
+        test_response = self.client.get('/papers/new/', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'publication_form.html')         
@@ -291,7 +261,7 @@ class PublicationViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/edit/')
+        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/edit/', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -300,7 +270,7 @@ class PublicationViewTests(TestCase):
         self.assertEqual(test_response.context['publication'].title, '14-3-3 proteins: a number of functions for a numbered protein.')
 
         #verifies that a non-existent object returns a 404 error presuming there is no object with pk=2.
-        null_response = self.client.get('/papers/not-a-real-paper/edit/')
+        null_response = self.client.get('/papers/not-a-real-paper/edit/', follow=True)
         self.assertEqual(null_response.status_code, 404)   
 
     def test_publication_view_delete(self):
@@ -308,7 +278,7 @@ class PublicationViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/delete/')
+        test_response = self.client.get('/papers/14-3-3-proteins-a-number-of-functions-for-a-numbered-protein/delete/', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('publication' in test_response.context)        
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
@@ -316,7 +286,7 @@ class PublicationViewTests(TestCase):
         self.assertEqual(test_response.context['publication'].title, '14-3-3 proteins: a number of functions for a numbered protein.')
 
         #verifies that a non-existent object returns a 404 error.
-        null_response = self.client.get('/papers/not-a-real-paper/delete/')
+        null_response = self.client.get('/papers/not-a-real-paper/delete/', follow=True)
         self.assertEqual(null_response.status_code, 404)  
         
 class CommentaryViewTests(TestCase):
@@ -335,17 +305,11 @@ class CommentaryViewTests(TestCase):
         login = self.client.login(username='testuser', password='testpassword')
         self.assertTrue(login, 'Could not log in')
 
-    def tearDown(self):
-        """Depopulate created model instances from test database."""
-        for model in MODELS:
-            for obj in model.objects.all():
-                obj.delete()
-
     def test_commentary_view(self):
         """This tests the commentary-detail view, ensuring that templates are loaded correctly.  
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
-        test_response = self.client.get('/papers/commentary/1')
+        test_response = self.client.get('/papers/commentary/1', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary' in test_response.context)        
         self.assertTemplateUsed(test_response, 'commentary-detail.html')
@@ -357,7 +321,7 @@ class CommentaryViewTests(TestCase):
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture")
         
         #verifies that a non-existent object returns a 404 error.
-        null_response = self.client.get('/papers/commentary/9999')
+        null_response = self.client.get('/papers/commentary/9999', follow=True)
         self.assertEqual(null_response.status_code, 404) 
                  
     def test_commentary_view_create(self):
@@ -365,7 +329,7 @@ class CommentaryViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/commentary/new')
+        test_response = self.client.get('/papers/commentary/new', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTemplateUsed(test_response, 'base.html')
         self.assertTemplateUsed(test_response, 'commentary-form.html')                             
@@ -376,7 +340,7 @@ class CommentaryViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/commentary/1/edit')
+        test_response = self.client.get('/papers/commentary/1/edit', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -387,7 +351,7 @@ class CommentaryViewTests(TestCase):
         self.assertEqual(test_response.context['commentary'].comments, "some comments for this fixture") 
         
         #verifies that a non-existent object returns a 404 error.
-        null_response = self.client.get('/papers/commentary/9999/edit')
+        null_response = self.client.get('/papers/commentary/9999/edit', follow=True)
         self.assertEqual(null_response.status_code, 404) 
         
     def test_commentary_view_delete(self):
@@ -395,7 +359,7 @@ class CommentaryViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/commentary/1/delete')
+        test_response = self.client.get('/papers/commentary/1/delete', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('object' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -406,7 +370,7 @@ class CommentaryViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/papers/commentaries')
+        test_response = self.client.get('/papers/commentaries', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('commentary_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')
@@ -421,7 +385,7 @@ class CommentaryViewTests(TestCase):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/journal-club')
+        test_response = self.client.get('/journal-club', follow=True)
         self.assertEqual(test_response.status_code, 200)
         self.assertTrue('journal_club_list' in test_response.context)        
         self.assertTemplateUsed(test_response, 'base.html')

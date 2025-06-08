@@ -78,7 +78,7 @@ class CommunicationViewTests(BasicTests):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/feeds')
+        test_response = self.client.get('/feeds', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'feed_details.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -91,7 +91,7 @@ class CommunicationViewTests(BasicTests):
         It also tests whether the correct context is passed (if included).
         his view uses a user with superuser permissions so does not test the permission levels for this view.'''
         
-        test_response = self.client.get('/lab-rules')
+        test_response = self.client.get('/lab-rules', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_rules.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -105,7 +105,7 @@ class CommunicationViewTests(BasicTests):
         It also tests whether the correct context is passed (if included).
         his view uses a user with superuser permissions so does not test the permission levels for this view.'''
         
-        test_response = self.client.get('/data-resource-sharing')
+        test_response = self.client.get('/data-resource-sharing', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'data_sharing_policy.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -117,7 +117,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/twitter')
+        test_response = self.client.get('/twitter', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'twitter_timeline.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -129,7 +129,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/calendar')
+        test_response = self.client.get('/calendar', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'calendar.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -141,7 +141,7 @@ class CommunicationViewTests(BasicTests):
 #         
 #         Currently it just ensures that the template is loading correctly.
 #         '''
-#         test_response = self.client.get('/wikipedia')
+#         test_response = self.client.get('/wikipedia', follow=True)
 #         self.assertEqual(test_response.status_code, 200)       
 #         self.assertTemplateUsed(test_response, 'wikipedia_edits.html')
 #         self.assertTemplateUsed(test_response, 'base.html') 
@@ -153,7 +153,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/news')
+        test_response = self.client.get('/news', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'lab_news.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -166,7 +166,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it just ensures that the template is loading correctly.
         '''
-        test_response = self.client.get('/contact/')
+        test_response = self.client.get('/contact/', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'contact.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -176,7 +176,7 @@ class CommunicationViewTests(BasicTests):
         
         Currently it ensures that the template is loading, and that that the location_list context is passed.
         ''' 
-        test_response = self.client.get('/location')
+        test_response = self.client.get('/location', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'location.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -235,7 +235,7 @@ class PostViewTests(BasicTests):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/posts/fixture-post')
+        test_response = self.client.get('/posts/fixture-post', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_detail.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -243,7 +243,7 @@ class PostViewTests(BasicTests):
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')
         self.assertTrue('post' in test_response.context)  
         
-        test_response = self.client.get('/posts/not-a-fixture-post') 
+        test_response = self.client.get('/posts/not-a-fixture-post', follow=True) 
         self.assertEqual(test_response.status_code, 404)          
         
     def test_post_list(self):
@@ -251,7 +251,7 @@ class PostViewTests(BasicTests):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/posts/')
+        test_response = self.client.get('/posts/', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_list.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -263,7 +263,7 @@ class PostViewTests(BasicTests):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/posts/new')
+        test_response = self.client.get('/posts/new', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_form.html')
         self.assertTemplateUsed(test_response, 'base.html') 
@@ -274,13 +274,13 @@ class PostViewTests(BasicTests):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/posts/fixture-post/edit')
+        test_response = self.client.get('/posts/fixture-post/edit', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'post_form.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')  
         
-        test_response = self.client.get('/posts/not-a-fixture-post/edit') 
+        test_response = self.client.get('/posts/not-a-fixture-post/edit', follow=True) 
         self.assertEqual(test_response.status_code, 404)                      
                                                                                
     def test_post_delete(self):
@@ -288,11 +288,11 @@ class PostViewTests(BasicTests):
 
         This view uses a user with superuser permissions so does not test the permission levels for this view."""
         
-        test_response = self.client.get('/posts/fixture-post/delete')
+        test_response = self.client.get('/posts/fixture-post/delete', follow=True)
         self.assertEqual(test_response.status_code, 200)       
         self.assertTemplateUsed(test_response, 'confirm_delete.html')
         self.assertTemplateUsed(test_response, 'base.html') 
         self.assertTemplateUsed(test_response, 'analytics_tracking.html')                                                              
 
-        test_response = self.client.get('/posts/not-a-fixture-post/delete') 
+        test_response = self.client.get('/posts/not-a-fixture-post/delete', follow=True) 
         self.assertEqual(test_response.status_code, 404)  
