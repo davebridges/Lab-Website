@@ -1,6 +1,6 @@
 '''This package has the url encodings for the main app.'''
 from django.conf.urls import include, url
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 from django.contrib.sitemaps import Sitemap

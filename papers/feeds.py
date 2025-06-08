@@ -18,7 +18,6 @@ A main page describing all feeds is available at **/feeds**.
 from datetime import datetime, time
 
 from django.contrib.syndication.views import Feed
-from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from papers.models import Publication, Commentary, JournalClubArticle
