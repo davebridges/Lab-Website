@@ -18,12 +18,12 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'vif6db9fb9s8vb&amp;+j*h520)c+38ahyx5#8=)uo_c&amp;0jk#ei^wr'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware'
     #'debug_toolbar.middleware.DebugToolbarMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -70,6 +70,7 @@ TEMPLATES = [
 				"django.template.context_processors.media",
 				"django.template.context_processors.static",
 				"django.template.context_processors.tz",
+                'django.contrib.messages.context_processors.messages'
                 ],
             },
     },
