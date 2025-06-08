@@ -7,7 +7,7 @@ import urllib.request
 import urllib.error
 import urllib.parse
 import datetime, time
-import tweepy
+import requests
 import dateutil
 
 from django.conf import settings
@@ -25,28 +25,41 @@ from braces.views import PermissionRequiredMixin
 from communication.models import LabAddress, LabLocation, Post
 from papers.models import Commentary
 
-def generate_twitter_timeline(count):
-    '''This function generates a timeline from a twitter username.
+def generate_twitter_timeline(count=5):
+    """
+    Fetches the most recent tweets for a given user using Twitter API v2.
 
-    This function requires a valid TWITTER_NAME as defined in localsettings.py.
-    The function also requires an integer for the number of tweets as a second argument.
-    It places a REST call to the Twitter API v1 (see https://dev.twitter.com/docs/api/1/get/statuses/user_timeline)
-    It returns a dictionary containing information on the most recent tweets from that account (excluding replies).
-    If twitter returns a HTTPError, an error message is returned.
-    It is not currently in use and is only left here for reference purposes.
-    '''
+    Requires:
+        - TWITTER_BEARER_TOKEN
+        - TWITTER_NAME (handle without @)
 
-    auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
-    auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
+    Returns:
+        List of tweets as dictionaries, or error message.
+    """
+    headers = {
+        "Authorization": f"Bearer {settings.TWITTER_BEARER_TOKEN}"
+    }
 
-    api = tweepy.API(auth)
-    values = {'count':count, 'include_rts':'true'}
-    params = urllib.parse.urlencode(values)
-    timeline = api.user_timeline(count=count)
-    #for tweet in timeline:
-    #    str_time = time.strptime(tweet['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
-    #    tweet['created_at_cleaned'] = datetime.datetime(*str_time[:6])
-    return timeline
+    # Step 1: Get user ID from username
+    user_url = f"https://api.twitter.com/2/users/by/username/{settings.TWITTER_NAME}"
+    user_resp = requests.get(user_url, headers=headers)
+    if user_resp.status_code != 200:
+        return {"error": f"User lookup failed: {user_resp.text}"}
+    
+    user_id = user_resp.json()["data"]["id"]
+
+    # Step 2: Get tweets from that user
+    timeline_url = f"https://api.twitter.com/2/users/{user_id}/tweets"
+    params = {
+        "max_results": min(count, 100),  # Twitter max is 100
+        "tweet.fields": "created_at,text,id"
+    }
+
+    tweets_resp = requests.get(timeline_url, headers=headers, params=params)
+    if tweets_resp.status_code != 200:
+        return {"error": f"Tweet fetch failed: {tweets_resp.text}"}
+
+    return tweets_resp.json().get("data", [])
     
 def facebook_status_request(type, max):
     '''This function takes a request url and token and returns deserialized data.
