@@ -98,6 +98,9 @@ LOGGING = {
     },
 }
 
+# Django 3.2+ requires explicit primary key type for new models.
+# This sets the default to BigAutoField to avoid warnings and future-proof migrations.
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from .localsettings import *
 
