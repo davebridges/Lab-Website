@@ -86,7 +86,7 @@ class Publication(models.Model):
         
     def get_absolute_url(self):
         '''the permalink for a paper detail page is **/papers/<title_slug>**'''
-        return reverse('paper-details', args=[str(self.id)]) 
+        return reverse('paper-details', args=[str(self.title_slug)]) 
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''
