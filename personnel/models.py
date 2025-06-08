@@ -115,7 +115,7 @@ class Person(models.Model):
         
     def get_absolute_url(self):
         '''the permalink for a paper detail page is /personnel/[name_slug]'''
-        return reverse('personnel-details', args=[str(self.id)])
+        return reverse('personnel-details', args=[str(self.name_slug)])
     
     def full_name(self):
         '''this function creates a full_name representation for both string and slug field displays.'''

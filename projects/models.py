@@ -62,7 +62,7 @@ class Project(models.Model):
         
     def get_absolute_url(self):
         '''the permalink for a project detail page is **/projects/<title_slug>**'''
-        return reverse('project-details', args=[str(self.id)]) 
+        return reverse('project-details', args=[str(self.title_slug)]) 
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''
@@ -133,7 +133,7 @@ class Funding(models.Model):
         
     def get_absolute_url(self):
         '''the permalink for a funding detail page is **/funding/<title_slug>**'''
-        return reverse('funding-details', args=[str(self.id)]) 
+        return reverse('funding-details', args=[str(self.title_slug)]) 
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''
