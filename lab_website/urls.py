@@ -1,11 +1,9 @@
 '''This package has the url encodings for the main app.'''
-from django.conf.urls import include, url
+from django.urls import path, re_path, include
 from django.urls import reverse
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 from django.contrib.sitemaps import Sitemap
-from django.conf.urls.static import static
-from django.conf import settings
 
 #from tastypie.api import Api
 
@@ -63,42 +61,51 @@ sitemaps = {
 
 admin.autodiscover()
 
-urlpatterns = [
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    
-    url(r'^contact/', include('communication.urls')), 
-    url(r'^posts/', include('communication.urls_posts')),
-    url(r'^papers/', include('papers.urls')),
-    url(r'^people/', include('personnel.urls')),
-    url(r'^projects/', include('projects.urls')),
-    url(r'^funding/', include('projects.funding_urls')),
-    url(r'^lab-photos/?$', PhotoView.as_view(), name="lab-photos"),    
-    
-    url(r'^location/?$', LabLocationView.as_view(), name="location"),
-    
-    url(r'^feeds/?$', FeedDetailView.as_view(), name="feed-details"),
-    url(r'^feeds/lab-papers/?$', LabPapersFeed(), name="lab-papers-feed"),
-    url(r'^feeds/interesting-papers/?$', InterestingPapersFeed(), name="interesting-papers-feed"),
-    url(r'^feeds/commentaries/?$', CommentaryFeed(), name="commentary-feed"),
-    url(r'^feeds/projects/?', ProjectsFeed(), name="projects-feed"),
-    url(r'^feeds/posts/?', PostsFeed(), name="posts-feed"), 
-    url(r'^feeds/journal-club/?', JournalClubArticleFeed(), name="jc-feed"),    
-      
-    url(r'^twitter/?$', communication.views.TwitterView.as_view(), name="twitter"),
-    url(r'^calendar/?$', communication.views.GoogleCalendarView.as_view(), name="google-calendar"),
-    url(r'^wikipedia/?$', communication.views.WikipedaEditsView.as_view(), name="wikipedia"),
-    url(r'^lab-rules/?$', communication.views.LabRulesView.as_view(), name="lab-rules"),
-    url(r'^publication-policy/?$', communication.views.PublicationPolicyView.as_view(), name="publication-policy"),
-    url(r'^data-resource-sharing/?$', communication.views.DataResourceSharingPolicyView.as_view(), name="data-resource-policy"),
-    url(r'^news/?$', communication.views.NewsView.as_view(), name='lab-news'),
-    url(r'^journal-club/?$', JournalClubList.as_view(), name='jc-list'),
- 
-    #url(r'^api/',include(v1_api.urls)),   
-    url(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
-    url(r'^$', IndexView.as_view(), name="home")
-]
 
+urlpatterns = [
+    # Admin docs and admin site
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
+    path('admin/', admin.site.urls),
+    
+    # App includes (no namespace change here assuming no 3-tuples passed)
+    path('contact/', include('communication.urls')), 
+    path('posts/', include('communication.urls_posts')),
+    path('papers/', include('papers.urls')),
+    path('people/', include('personnel.urls')),
+    path('projects/', include('projects.urls')),
+    path('funding/', include('projects.funding_urls')),
+    
+    # Views with trailing slashes made consistent (using path syntax)
+    path('lab-photos/', PhotoView.as_view(), name="lab-photos"),    
+    path('location/', LabLocationView.as_view(), name="location"),
+    path('feeds/', FeedDetailView.as_view(), name="feed-details"),
+    
+    # Feed URLs
+    path('feeds/lab-papers/', LabPapersFeed(), name="lab-papers-feed"),
+    path('feeds/interesting-papers/', InterestingPapersFeed(), name="interesting-papers-feed"),
+    path('feeds/commentaries/', CommentaryFeed(), name="commentary-feed"),
+    path('feeds/projects/', ProjectsFeed(), name="projects-feed"),
+    path('feeds/posts/', PostsFeed(), name="posts-feed"), 
+    path('feeds/journal-club/', JournalClubArticleFeed(), name="jc-feed"),    
+    
+    # Other views
+    path('twitter/', communication.views.TwitterView.as_view(), name="twitter"),
+    path('calendar/', communication.views.GoogleCalendarView.as_view(), name="google-calendar"),
+    path('wikipedia/', communication.views.WikipedaEditsView.as_view(), name="wikipedia"),
+    path('lab-rules/', communication.views.LabRulesView.as_view(), name="lab-rules"),
+    path('publication-policy/', communication.views.PublicationPolicyView.as_view(), name="publication-policy"),
+    path('data-resource-sharing/', communication.views.DataResourceSharingPolicyView.as_view(), name="data-resource-policy"),
+    path('news/', communication.views.NewsView.as_view(), name='lab-news'),
+    path('journal-club/', JournalClubList.as_view(), name='jc-list'),
+    
+    # Sitemap URLs need regex, use re_path
+    re_path(r'^sitemap\.xml$', sitemap_views.index, {'sitemaps': sitemaps}),
+    re_path(r'^sitemap-(?P<section>.+)\.xml$', sitemap_views.sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
+    
+    # Robots.txt
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
+    
+    # Home page
+    path('', IndexView.as_view(), name="home"),
+]

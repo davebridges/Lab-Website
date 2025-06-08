@@ -1,13 +1,12 @@
 '''This package has the url encodings for the :mod:`projects` app.'''
 
-from django.conf.urls import include, url
-
+from django.urls import path, re_path
 from projects import views
 
 urlpatterns = [
-    url(r'^new/?$', views.ProjectCreate.as_view(), name="project-new"),     
-    url(r'^(?P<title_slug>[-\w\d]+)/edit/?$', views.ProjectUpdate.as_view(), name="project-edit"),  
-    url(r'^(?P<title_slug>[-\w\d]+)/delete/?$', views.ProjectDelete.as_view(), name="project-delete"),    
-    url(r'^(?P<title_slug>[-\w\d]+)/?$', views.ProjectDetailView.as_view(), name="project-details"),                    
-    url(r'^$', views.ProjectList.as_view(), name="project-list"), 
+    path('new/', views.ProjectCreate.as_view(), name="project-new"),
+    re_path(r'^(?P<title_slug>[-\w\d]+)/edit/$', views.ProjectUpdate.as_view(), name="project-edit"),
+    re_path(r'^(?P<title_slug>[-\w\d]+)/delete/$', views.ProjectDelete.as_view(), name="project-delete"),
+    re_path(r'^(?P<title_slug>[-\w\d]+)/$', views.ProjectDetailView.as_view(), name="project-details"),
+    path('', views.ProjectList.as_view(), name="project-list"),
 ]
