@@ -5,6 +5,7 @@ Currently there is just one model, for laboratory addresses.
 
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 from personnel.models import Address
 
@@ -21,7 +22,9 @@ class LabAddress(models.Model):
     type = models.CharField(max_length=15,
         help_text="What type of address is this?",
         choices = ADDRESS_TYPES)
-    address = models.ForeignKey(Address, help_text = 'What is the address?"')
+    address = models.ForeignKey(Address, 
+                                help_text = 'What is the address?"',
+                                on_delete=models.CASCADE)
     
     def __str__(self):
         '''The string representation of an address is the root address.'''
@@ -48,7 +51,8 @@ class LabLocation(models.Model):
         choices = LOCATION_TYPE)
     address = models.ForeignKey(Address,
         help_text = "What is the address for this location",
-        blank = True, null = True)
+        blank = True, null = True,
+        on_delete=models.SET_NULL)
     image = models.ImageField(help_text="A representative image of this location",
         blank=True, null=True,
         upload_to = 'location_images')
@@ -83,13 +87,16 @@ class Post(models.Model):
     post_slug = models.SlugField(blank=True, null=True, 
         max_length=100, editable=False, unique=True)
     author = models.ForeignKey('personnel.Person', 
-        help_text="Who was the primary author of this post?")
+        help_text="Who was the primary author of this post?",
+        on_delete=models.PROTECT)
     markdown_url = models.URLField(help_text="Where is the raw markdown file to be parsed?")
     
     paper = models.ForeignKey('papers.Publication', blank=True, null=True,
-        help_text="Does this post refer to one of our papers?")
+        help_text="Does this post refer to one of our papers?",
+        on_delete=models.PROTECT)
     project = models.ForeignKey('projects.Project', blank=True, null=True,
-        help_text="Does this post refer to one of our projects?")
+        help_text="Does this post refer to one of our projects?",
+        on_delete=models.PROTECT)
 
 
     created = models.DateField(auto_now_add=True)
@@ -99,10 +106,9 @@ class Post(models.Model):
         '''The string representation is the post_title'''
         return "%s" %self.post_title
 
-    @models.permalink
     def get_absolute_url(self):
         '''The permalink of a post page is **post/<post_slug>**'''
-        return('post-details', [str(self.post_slug)])
+        return reverse('post-details', args=[str(self.id)])
 
     class Meta:
         '''The meta options for this defines the ordering by the created field.'''

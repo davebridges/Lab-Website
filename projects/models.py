@@ -8,6 +8,8 @@ from django.template.defaultfilters import slugify
 
 from personnel.models import Person
 from papers.models import Publication
+from django.urls import reverse
+
 
 class Project(models.Model):
     '''This model covers :class:`~projects.models.Projects`.
@@ -58,10 +60,9 @@ class Project(models.Model):
         '''The unicode representation for a :class:`~projects.models.Project` is its title'''
         return self.title
         
-    @models.permalink
     def get_absolute_url(self):
         '''the permalink for a project detail page is **/projects/<title_slug>**'''
-        return ('project-details', [str(self.title_slug)])   
+        return reverse('project-details', args=[str(self.id)]) 
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''
@@ -100,7 +101,8 @@ class Funding(models.Model):
     funding_agency = models.ForeignKey('FundingAgency',
         help_text="What was the funding agency",
         blank=True,
-        null=True)
+        null=True,
+        on_delete=models.SET_NULL)
     start_date = models.DateField(help_text="The start date of this award",
         blank=True, 
         null=True)
@@ -129,10 +131,9 @@ class Funding(models.Model):
         '''The unicode representation for a :class:`~projects.models.Funding` is its title'''
         return self.title
         
-    @models.permalink
     def get_absolute_url(self):
         '''the permalink for a funding detail page is **/funding/<title_slug>**'''
-        return ('funding-details', [str(self.title_slug)])   
+        return reverse('funding-details', args=[str(self.id)]) 
 
     def save(self, *args, **kwargs):
         '''The title is slugified upon saving into title_slug.'''
