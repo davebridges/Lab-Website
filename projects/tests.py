@@ -253,7 +253,7 @@ class FundingModelTests(TestCase):
         '''This tests the title_slug field of a :class:`~projects.models.Funding`.'''
         test_funding = Funding(title='Test Funding', active=True)
         test_funding.save()
-        self.assertEqual(test_funding.get_absolute_url(), "/funding/test-funding") 
+        self.assertEqual(test_funding.get_absolute_url(), "/funding/test-funding/") 
         
 class FundingViewTests(TestCase):
     '''This class tests the views for :class:`~project.models.Funding` objects.'''
