@@ -2,7 +2,6 @@
 Django==5.2.2
 
 # Optional API & Forms Tools
-django-ajax-selects==2.2.1
 django-tastypie==0.15.1  # Consider replacing with Django REST Framework
 
 # HTML and Image Rendering
