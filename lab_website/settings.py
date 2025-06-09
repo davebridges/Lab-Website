@@ -103,7 +103,11 @@ LOGGING = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # updated to the new form renderer
-FORM_RENDERER = 'django.forms.renderers.DjangoDivFormRenderer'
+FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
+
+# Starting with Django 6.0, forms.URLField will assume 'https://' as the default scheme
+# for URLs without one. This setting enables the new behavior now, silencing the deprecation warning.
+FORMS_URLFIELD_ASSUME_HTTPS = True
 
 from .localsettings import *
 
