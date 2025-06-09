@@ -20,7 +20,7 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.urls import reverse_lazy
 
-from braces.views import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from communication.models import LabAddress, LabLocation, Post
 from papers.models import Commentary
