@@ -25,3 +25,4 @@ media/
 test_database2
 venv/
 *.bak
+.coverage
