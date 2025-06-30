@@ -7,6 +7,7 @@ Since this app has no models there is model and view tests:
 * :class:`~communication.tests.CommunicationViewTests` 
 
 """
+from django.urls import reverse
 
 from lab_website.tests import BasicTests
 
@@ -223,7 +224,16 @@ class PostModelTests(BasicTests):
             author = Person.objects.get(pk=1),
             markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md')
         test_post.save()   
-        self.assertEqual(test_post.post_slug, "test-post")   
+        self.assertEqual(test_post.post_slug, "test-post")  
+
+    def test_get_absolute_url(self):
+        """Test the get_absolute_url method"""
+        test_post = Post(post_title="Test Post",
+            author = Person.objects.get(pk=1),
+            markdown_url = 'https://raw.githubusercontent.com/BridgesLab/Lab-Website/master/LICENSE.md')
+        test_post.save() 
+        expected_url = reverse('post-details', args=[test_post.post_slug])
+        self.assertEqual(test_post.get_absolute_url(), expected_url) 
       
 class PostViewTests(BasicTests):
     '''These test the views associated with post objects.'''

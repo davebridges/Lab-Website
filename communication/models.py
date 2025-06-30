@@ -28,7 +28,7 @@ class LabAddress(models.Model):
     
     def __str__(self):
         '''The string representation of an address is the root address.'''
-        return '%s' %self.address
+        return f"{self.address}"
         
 class LabLocation(models.Model):
     '''This object stores general information about where the group is situated.
@@ -68,7 +68,7 @@ class LabLocation(models.Model):
     
     def __str__(self):
         '''The string representation of an address is its name.'''
-        return '%s' % self.name
+        return f"{self.name}"
         
     class Meta:
        '''These objects are ordered by their priority.'''
@@ -104,11 +104,11 @@ class Post(models.Model):
 
     def __str__(self):
         '''The string representation is the post_title'''
-        return "%s" %self.post_title
+        return f"{self.post_title}"
 
     def get_absolute_url(self):
         '''The permalink of a post page is **post/<post_slug>**'''
-        return reverse('post-details', args=[str(self.id)])
+        return reverse('post-details', args=[str(self.post_slug)])
 
     class Meta:
         '''The meta options for this defines the ordering by the created field.'''
