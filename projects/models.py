@@ -56,8 +56,8 @@ class Project(models.Model):
     date_last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)      
     
-    def __unicode__(self):
-        '''The unicode representation for a :class:`~projects.models.Project` is its title'''
+    def __str__(self):
+        '''The string representation for a :class:`~projects.models.Project` is its title'''
         return self.title
         
     def get_absolute_url(self):
@@ -127,7 +127,7 @@ class Funding(models.Model):
     date_last_modified = models.DateField(auto_now=True)
     date_added = models.DateField(auto_now_add=True)            
         
-    def __unicode__(self):
+    def __str__(self):
         '''The unicode representation for a :class:`~projects.models.Funding` is its title'''
         return self.title
         
@@ -160,6 +160,6 @@ class FundingAgency(models.Model):
         blank=True,
         null=True)
         
-    def __unicode__(self):
-        '''The unicode representation for a :class:`~projects.models.FundingAgency` is its name'''
+    def __str__(self):
+        '''The string representation for a :class:`~projects.models.FundingAgency` is its name'''
         return self.name

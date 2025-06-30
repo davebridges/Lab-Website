@@ -56,10 +56,10 @@ class ProjectModelTests(TestCase):
         test_project = Project(title='Test Project') #add more fields
         test_project.save()        
         
-    def test_project_unicode(self):
+    def test_project_string(self):
         '''This tests the unicode representation of a :class:`~projects.models.Project`.'''
         test_project = Project.objects.get(title_slug='fixture-project')
-        self.assertEqual(test_project.__unicode__(), "Fixture Project")
+        self.assertEqual(str(test_project), "Fixture Project")
         
     def test_project_title_slug(self):
         '''This tests the title_slug field of a :class:`~projects.models.Project`.'''
@@ -236,10 +236,10 @@ class FundingModelTests(TestCase):
         test_funding = Funding(title='Test Funding', active=True) #add more fields
         test_funding.save()        
         
-    def test_funding_unicode(self):
-        '''This tests the unicode representation of a :class:`~projects.models.Funding`.'''
+    def test_funding_sting(self):
+        '''This tests the string representation of a :class:`~projects.models.Funding`.'''
         test_funding = Funding.objects.get(title_slug='fixture-funding')
-        self.assertEqual(test_funding.__unicode__(), "Fixture Funding")
+        self.assertEqual(str(test_funding), "Fixture Funding")
         
     def test_funding_title_slug(self):
         '''This tests the title_slug field of a :class:`~projects.models.Funding`.'''
