@@ -14,7 +14,7 @@ oauthlib==3.2.2
 urllib3==2.5.0
 idna==3.7
 charset-normalizer==3.3.2
-certifi==2024.2.2
+certifi==2024.7.4
 httplib2==0.22.0  # Keep only if you know it’s being used
 
 # Utilities
