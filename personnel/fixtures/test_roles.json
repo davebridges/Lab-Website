@@ -1,0 +1,98 @@
+[
+    {
+        "pk": 1,
+        "model": "personnel.jobtype",
+        "fields": {
+            "job_title": "Research Assistant",
+            "trainee_status": true,
+            "student_status": true,
+            "employee_status": false
+        }
+    },
+    {
+        "pk": 2,
+        "model": "personnel.jobtype", 
+        "fields": {
+            "job_title": "Graduate Student",
+            "trainee_status": true,
+            "student_status": true,
+            "employee_status": false
+        }
+    },
+    {
+        "pk": 3,
+        "model": "personnel.jobtype",
+        "fields": {
+            "job_title": "Lab Manager",
+            "trainee_status": false,
+            "student_status": false,
+            "employee_status": true
+        }
+    },
+    {
+        "pk": 1,
+        "model": "personnel.organization",
+        "fields": {
+            "name": "Test University"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "personnel.organization",
+        "fields": {
+            "name": "Research Lab"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "personnel.role",
+        "fields": {
+            "job_type": 1,
+            "organization": 1,
+            "start_date": "2023-01-15",
+            "end_date": null,
+            "graduation_status": null,
+            "graduation_date": null,
+            "public": true
+        }
+    },
+    {
+        "pk": 2,
+        "model": "personnel.role",
+        "fields": {
+            "job_type": 2,
+            "organization": 1,
+            "start_date": null,
+            "end_date": "2023-12-31",
+            "graduation_status": true,
+            "graduation_date": "2023-12-15",
+            "public": true
+        }
+    },
+    {
+        "pk": 3,
+        "model": "personnel.role",
+        "fields": {
+            "job_type": 1,
+            "organization": 2,
+            "start_date": "2022-09-01",
+            "end_date": "2023-05-31",
+            "graduation_status": null,
+            "graduation_date": null,
+            "public": true
+        }
+    },
+    {
+        "pk": 4,
+        "model": "personnel.role",
+        "fields": {
+            "job_type": 3,
+            "organization": 2,
+            "start_date": null,
+            "end_date": null,
+            "graduation_status": null,
+            "graduation_date": null,
+            "public": false
+        }
+    }
+]
