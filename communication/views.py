@@ -8,7 +8,7 @@ import urllib.error
 import urllib.parse
 import datetime, time
 import requests
-import dateutil
+import markdown
 
 from django.conf import settings
 from django.shortcuts import render
@@ -344,23 +344,20 @@ class PostDetail(DetailView):
     template_name = "post_detail.html"
     
     def get_context_data(self, **kwargs):
-        context = super(PostDetail, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         request_url = str(context['post'].markdown_url)
         
         request = urllib.request.Request(request_url)
         try:
             response = urllib.request.urlopen(request)
         except urllib.error.URLError as e:
-            if e.code == 404:
-                post_data = "Post is not Available."
-            else:
-                #this is for a non-404 URLError.
-                post_data = "Post is not Available."
+            post_data = "Post is not Available."
         except ValueError:
             post_data = "Post is not Available."        
         else:
-             #successful connection
-             post_data = response.read()         
+            post_data_raw = response.read().decode('utf-8')
+            post_data = markdown.markdown(post_data_raw)
+        
         context['post_data'] = post_data
         return context
                 

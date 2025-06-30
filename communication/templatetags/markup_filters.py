@@ -4,8 +4,6 @@ Currently there is just a markdown filter for converting RST into HTML files.'''
 
 from docutils.core import publish_parts
 
-from markdown import markdown
-
 from django import template
 from django.template.defaultfilters import stringfilter
 
@@ -18,9 +16,3 @@ def markdown_rst(value):
 
 register.filter('markdown_rst', markdown_rst)
 
-@register.filter(is_safe=True)
-@stringfilter
-def markdown_md(value):
-    return markdown(value)
-
-register.filter('markdown_md', markdown_md)

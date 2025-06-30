@@ -23,7 +23,7 @@
     <!-- Main post content -->
     <section id="post" itemprop="articleBody" class="col-12 col-lg-9">
       {% if post %}
-        {{ post_data | markdown_md | safe }}
+        {{ post_data | safe }}
       {% else %}
         <p>The source file was not available.</p>
       {% endif %}
