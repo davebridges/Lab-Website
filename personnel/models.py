@@ -160,17 +160,17 @@ class Role(models.Model):
     
     def __str__(self):
         '''The string representation for a Role object is the jobtype'''
-        if (self.start_date != None and
-            self.end_date == None):
-            return "<strong>%s</strong>, %s since %s" %(self.job_type, self.organization, self.start_date) 
-        elif (self.start_date == None and
-            self.end_date != None):
-            return "<strong>%s</strong>, %s until %s" %(self.job_type, self.organization, self.end_date) 
-        elif (self.start_date != None and
-            self.end_date != None):
-            return "<strong>%s</strong>, %s from %s to %s" %(self.job_type, self.organization, self.start_date, self.end_date) 
+        if (self.start_date is not None and
+            self.end_date is None):
+            return f"<strong>{self.job_type}</strong>, {self.organization} since {self.start_date}"
+        elif (self.start_date is None and
+            self.end_date is not None):
+            return f"<strong>{self.job_type}</strong>, {self.organization} until {self.end_date}"
+        elif (self.start_date is not None and
+            self.end_date is not None):
+            return f"<strong>{self.job_type}</strong>, {self.organization} from {self.start_date} to {self.end_date}"
         else:
-            return "<strong>%s</strong>, %s" %(self.job_type, self.organization)
+            return f"<strong>{self.job_type}</strong>, {self.organization}"
             
     class Meta:
         '''The meta options for Role models.'''
@@ -186,9 +186,9 @@ class JobType(models.Model):
     student_status = models.BooleanField(help_text='Is this person a student?', verbose_name="Student?")    
     employee_status = models.BooleanField(help_text='Is this person an employee?', verbose_name="Employee?")
     
-    def ___str_(self):
+    def __str__(self):
         '''The string representation for a JobType object is the title'''
-        return '%s' %self.job_title
+        return self.job_title
         
 class Degree(models.Model):
     '''This model describes degrees, undergraduate and graduate.

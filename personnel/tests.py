@@ -103,7 +103,7 @@ class JobPostingModelTests(BasicTests):
         self.assertEqual(test_jobposting.pk, 1)
 
     def test_jobposting_string(self):
-        '''This test creates a new :class:`~personnel.models.JobPosting` object, then tests for the unicode representation of it.'''
+        '''This test creates a new :class:`~personnel.models.JobPosting` object, then tests for the string representation of it.'''
         test_jobposting = JobPosting(title = 'Postdoctoral Researcher',
                               description = 'Some description',
                               link = 'http:/jobs.com/awesomejob',
