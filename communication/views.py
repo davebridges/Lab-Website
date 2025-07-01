@@ -25,41 +25,50 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from communication.models import LabAddress, LabLocation, Post
 from papers.models import Commentary
 
-def generate_twitter_timeline(count=5):
-    """
-    Fetches the most recent tweets for a given user using Twitter API v2.
+import requests
+from django.conf import settings
 
-    Requires:
-        - TWITTER_BEARER_TOKEN
-        - TWITTER_NAME (handle without @)
-
-    Returns:
-        List of tweets as dictionaries, or error message.
+def generate_twitter_timeline(max_results=50):
     """
+    Fetches up to `max_results` recent tweets for the user defined in settings.TWITTER_NAME.
+    Gracefully handles rate-limiting (429) and other common errors.
+    """
+    bearer_token = settings.TWITTER_BEARER_TOKEN
+    username = settings.TWITTER_NAME
+
     headers = {
-        "Authorization": f"Bearer {settings.TWITTER_BEARER_TOKEN}"
+        "Authorization": f"Bearer {bearer_token}"
     }
 
-    # Step 1: Get user ID from username
-    user_url = f"https://api.twitter.com/2/users/by/username/{settings.TWITTER_NAME}"
-    user_resp = requests.get(user_url, headers=headers)
-    if user_resp.status_code != 200:
-        return {"error": f"User lookup failed: {user_resp.text}"}
-    
-    user_id = user_resp.json()["data"]["id"]
+    try:
+        # Step 1: Get the user ID
+        user_url = f"https://api.twitter.com/2/users/by/username/{username}"
+        user_resp = requests.get(user_url, headers=headers)
+        if user_resp.status_code == 429:
+            return {"error": "Rate limit exceeded. Please try again later."}
+        user_resp.raise_for_status()
 
-    # Step 2: Get tweets from that user
-    timeline_url = f"https://api.twitter.com/2/users/{user_id}/tweets"
-    params = {
-        "max_results": min(count, 100),  # Twitter max is 100
-        "tweet.fields": "created_at,text,id"
-    }
+        user_id = user_resp.json().get("data", {}).get("id")
+        if not user_id:
+            return {"error": "User ID not found."}
 
-    tweets_resp = requests.get(timeline_url, headers=headers, params=params)
-    if tweets_resp.status_code != 200:
-        return {"error": f"Tweet fetch failed: {tweets_resp.text}"}
+        # Step 2: Get tweets
+        timeline_url = f"https://api.twitter.com/2/users/{user_id}/tweets"
+        params = {
+            "max_results": min(max_results, 100),
+            "tweet.fields": "created_at,text"
+        }
 
-    return tweets_resp.json().get("data", [])
+        tweet_resp = requests.get(timeline_url, headers=headers, params=params)
+        if tweet_resp.status_code == 429:
+            return {"error": "Rate limit exceeded. Please try again later."}
+        tweet_resp.raise_for_status()
+
+        return tweet_resp.json().get("data", [])
+
+    except RequestException as e:
+        return {"error": f"Twitter API error: {str(e)}"}
+
     
 def facebook_status_request(type, max):
     '''This function takes a request url and token and returns deserialized data.
@@ -115,18 +124,25 @@ def get_wikipedia_edits(username, count):
 class TwitterView(TemplateView):
     '''This view class generates a page showing the twitter timeline for the lab twitter feed.
     
-    This view uses the function :function:`~communication.utilities.twitter_oauth_req`.
-    The default settings are to return 20 tweets including retweets but excluding replies.
+    This view uses the function :function:`~communication.generate_twitter_timeline`.
+    The default settings are to return 50 tweets including retweets but excluding replies.
     '''
 
     template_name = "twitter_timeline.html"
     
     def get_context_data(self, **kwargs):
-        '''This function adds the google_calendar_id to the context.'''
         context = super(TwitterView, self).get_context_data(**kwargs)
-        context['timeline'] = generate_twitter_timeline(50)
+        result = generate_twitter_timeline(50)
+
+        if isinstance(result, dict) and "error" in result:
+            context['twitter_error'] = result['error']
+            context['timeline'] = []
+        else:
+            context['timeline'] = result
+            context['twitter_error'] = None
+
         context['screen_name'] = settings.TWITTER_NAME
-        return context 
+        return context
              
 class GoogleCalendarView(TemplateView):
     '''This view renders a google calendar page.
