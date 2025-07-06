@@ -1,4 +1,0 @@
-"scripts": {
-  "build-css": "sass --load-path=lab_website/node_modules --load-path=lab_website/static/scss lab_website/static/scss/custom.scss lab_website/static/css/custom.css",
-  "watch-css": "sass --watch --load-path=lab_website/node_modules --load-path=lab_website/static/scss lab_website/static/scss/custom.scss lab_website/static/css/custom.css"
-}
