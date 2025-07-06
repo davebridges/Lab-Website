@@ -9,7 +9,7 @@
 
 {% block header %}
 <div class='text-center'>
-<h1>{% if paper_list_type == "laboratory" %}{{ lab_name }} Papers <a href="{% url 'lab-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
+<h1 class="text-center display-4">{% if paper_list_type == "laboratory" %}{{ lab_name }} Papers <a href="{% url 'lab-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}
 {% if paper_list_type == "interesting" %}Interesting Papers <a href="{% url 'interesting-papers-feed' %}"><img src="{{ STATIC_URL}}img/feed-icon-14x14.png" alt="feed-icon"></a>{% endif %}</h1>
 {% endblock %}
 </div>

@@ -5,17 +5,17 @@
 {% block title %}<title>{{ lab_name}} Contact Information</title>{% endblock %}
 
 {% block header %}
-<h1>{{ lab_name}} Contact Information</h1>
+<h1 class="text-center display-4">{{ lab_name}} Contact Information</h1>
 {% endblock %}
 
 {% block content %}
 
 <section id="address" class="container span-10 first">
 
-<h2>Mailing Address</h2>
+<h2 class="text-center display-6">Mailing Address</h2>
 {% for labaddress in labaddress_list %}
 {% if labaddress.type == 'Primary' %}
-<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" >
+<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="text-center">
 <span itemprop="streetAddress">{{ labaddress.address.line_1 }}<br>
 {{ labaddress.address.line_2 }}<br>
 {{ labaddress.address.line_3 }}<br>
@@ -25,15 +25,15 @@
 {% endif %}
 {% endfor %}
 
-<h2>Email/Phone</h2>
-<p>To contact individual members of the lab, go to the <a href="{% url 'laboratory-personnel' %}">Lab Members Pages</a>.</p>
+<h2 class="text-center display-6">Email/Phone</h2>
+<p class="text-center">To contact individual members of the lab, go to the <a href="{% url 'laboratory-personnel' %}">Lab Members Pages</a>.</p>
 
 </section>
 
 <section class="container span-10 last">
-<h2>Social Media Information</h2>
+<h2 class="text-center display-6">Social Media Information</h2>
 
-<div class="twitter append-bottom">
+<div class="twitter append-bottom text-center">
 <a href="https://twitter.com/{{twitter}}" class="twitter-follow-button" data-show-count="true" data-size="large" data-width="300px">Follow @{{twitter}}</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>

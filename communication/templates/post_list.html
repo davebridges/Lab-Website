@@ -5,12 +5,12 @@
 {% block title %}<title>Bridges Lab Posts</title>{% endblock %}
 
 {% block header %}
-<h1>Bridges Lab Posts</h1>
+<h1 class="text-center display-4">Bridges Lab Posts</h1>
 {% endblock %}
 
 {% block content %}
 
-<h2>Blog Posts</h2>
+<h2 class="text-center display-6">Blog Posts</h2>
 <article id='blog' class="container-fluid">
 <ol>
 {% for post in post_list %}
@@ -20,7 +20,7 @@
 </ol>
 </article>
 
-<h2>Journal Club Summaries</h2>
+<h2 class="text-center display-6">Journal Club Summaries</h2>
 <article id='blog' class="container-fluid">
 {% for commentary in commentaries %}
 <section>
