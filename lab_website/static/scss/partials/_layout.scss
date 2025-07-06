@@ -1,0 +1,26 @@
+h1 {
+  text-align: center;
+}
+
+a.plain-link {
+  text-decoration: none;
+  color: black;
+}
+
+ul#navbar-items,
+ul#home-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li a {
+    font-size: large;
+    text-decoration: none;
+  }
+}
+
+div.facebook-post {
+  font-size: 11px;
+  font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+  border: 2px solid #8b9dc3;
+}

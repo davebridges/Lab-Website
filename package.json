@@ -1,0 +1,25 @@
+{
+  "name": "lab-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BridgesLab/Lab-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BridgesLab/Lab-Website/issues"
+  },
+  "homepage": "https://github.com/BridgesLab/Lab-Website#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "sass": "^1.89.2"
+  }
+}
