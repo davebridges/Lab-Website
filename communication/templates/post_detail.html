@@ -55,7 +55,7 @@
       </div>
 
       {% if post.project %}
-      <div id="project" class="mb-3 text-um-blue bg-um-maize">
+      <div id="project" class="mb-3">
         <p>This post is about the project
           <a href="{{ post.project.get_absolute_url }}" itemprop="about">{{ post.project }}</a>.
         </p>
@@ -63,7 +63,7 @@
       {% endif %}
 
       {% if post.paper %}
-      <div id="paper-info" class="mb-3 text-um-blue">
+      <div id="paper-info" class="mb-3">
         {% with post.paper as paper %}
           {% include 'paper-detail-snippet.html' %}
         {% endwith %}
@@ -87,7 +87,7 @@
   </footer>
 
   <!-- Comments -->
-  <section id="comments" class="container mt-5 text-um-blue">
+  <section id="comments" class="container mt-5">
     <h2>Comments</h2>
     {% include 'disqus_snippet.html' %}
   </section>
