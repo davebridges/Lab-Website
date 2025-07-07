@@ -1,0 +1,17 @@
+// Hero section
+.hero {
+  background: linear-gradient(135deg, $primary, $secondary);
+  color: white;
+  
+  h1, h2, h3 {
+    color: white;
+  }
+}
+
+// Feature sections
+.section-features {
+  .section-title {
+    color: $primary;
+    border-bottom: 2px solid $primary;
+  }
+}

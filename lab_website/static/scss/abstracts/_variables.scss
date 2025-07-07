@@ -1,0 +1,9 @@
+// See https://brand.umich.edu/design-resources/colors/ for umich colors
+// Color overrides
+$primary: #00274C;
+$secondary: #FFCB05;
+
+// Additional custom colors
+$brand-accent: #9A3324;
+$brand-light: lighten($primary, 40%);
+$brand-dark: darken($primary, 20%);

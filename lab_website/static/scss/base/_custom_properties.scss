@@ -1,0 +1,8 @@
+@use '../abstracts/variables' as *;
+
+// CSS custom properties go here
+:root {
+  --brand-primary: #{$primary};
+  --brand-secondary: #{$secondary};
+  --brand-accent: #{$brand-accent};
+}

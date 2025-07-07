@@ -1,0 +1,17 @@
+@use '../abstracts/variables' as *;
+
+.card {
+  // Style all card headers
+  .card-header {
+    background-color: $secondary;  // Yellow background
+    color: $primary;               // Dark blue text
+    font-weight: 600;              // Make text bold
+    border-bottom: 1px solid darken($secondary, 10%);
+  }
+  
+  // Style card titles (in case you're using those instead of headers)
+  .card-title {
+    color: $primary;               // Dark blue text
+    font-weight: 600;
+  }
+}

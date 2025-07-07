@@ -1,25 +1,13 @@
 {
-  "name": "lab-website",
+  "name": "Bridges Lab Website SCSS",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "SCSS compiler for Django site using Bootstrap",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BridgesLab/Lab-Website.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/BridgesLab/Lab-Website/issues"
-  },
-  "homepage": "https://github.com/BridgesLab/Lab-Website#readme",
-  "dependencies": {
-    "bootstrap": "^5.3.7",
-    "sass": "^1.89.2"
+     "build-css": "sass --load-path=node_modules --load-path=lab_website/static/scss lab_website/static/scss/custom.scss lab_website/static/css/custom.css",
+    "watch-css": "sass --watch --load-path=node_modules --load-path=lab_website/static/scss lab_website/static/scss/custom.scss lab_website/static/css/custom.css"
+ },
+  "devDependencies": {
+    "sass": "^1.77.0",
+    "bootstrap": "^5.3.3"
   }
 }

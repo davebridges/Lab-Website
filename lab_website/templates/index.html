@@ -14,7 +14,7 @@
   <div class="row">
     <div class="col-sm-3"><img src="{{ general_data.picture.data.url }}" class="img-fluid" alt="{{ lab_name }} Photo"></div>
     <div class="col-sm-6 lead"><p>{{ general_data.description }}</p></div>
-    <div class="col-sm-3">      <p class="text-center lead">Find Out More About Us:</p>
+    <div class="col-sm-3">      <p class="text-center lead" style="background-color: var(--brand-accent);color: white; padding: 1rem; margin: 1rem 0; ">Find Out More About Us</p>
       <ul id="home-links">
         <li><a class="text-center" href="{% url 'laboratory-personnel' %}"><img src="{{ STATIC_URL }}img/icons/user.png" alt="People"> The members of our group.</a></li>
         <li><a class="text-center" href="{% url 'project-list' %}"><img src="{{ STATIC_URL }}img/icons/paste.png" alt="Projects"> The projects we are working on.</a></li>
@@ -31,7 +31,7 @@
 <section id='recent-papers' class='container-xl'>
   <div class="card">
   <div class="card-header">
-    <h2 class='text-center display-6'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
+    <h2 class='text-center card-title display-6'><a href="{% url 'laboratory-papers' %}" class="text-decoration-none text-dark">Recent Publications</a></h2>
   </div>
 <div class="card-body">
   {% for paper in recent_papers %}
@@ -42,40 +42,41 @@
 </div>
 </section>
 
+<!-- Two columns on large screens, one column on small screens -->
 <div class="container-md">
 <div class="row">
-<section id='posts' class="col">
-  <div class="card">
-    <div class="card-header">
-      <h2 class='text-center display-6'><a href="{% url 'post-list' %}" class="card-title text-decoration-none text-dark">Blog Posts</a></h2>
+  
+  <!-- Blog Posts Column -->
+  <section id='posts' class="col-lg-6 col-12 mb-4">
+    <div class="card h-100">
+      <div class="card-header">
+        <h2 class='text-center card-title display-6'><a href="{% url 'post-list' %}" class="text-decoration-none text-dark">Blog Posts</a></h2>
+      </div>
+      <div class="card-body text-center">
+        <ul class="list-unstyled">
+        {% for post in recent_posts %}
+        <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
+        {% endfor %}
+        </ul>
+      </div>
     </div>
-  <div class="card-body text-center">
-    <ul class="list-unstyled">
-    {% for post in recent_posts %}
-    <li><a href="{{ post.get_absolute_url }}">{{ post }}</a></li>
-    {% endfor %}
-    </ul>
-  </div>
-</div>
-</section>
+  </section>
 
+  <!-- Journal Club Column -->
+  <section id="journal-club" class="col-lg-6 col-12 mb-4">
+    <div class="card h-100">
+      <div class="card-header">
+        <h2 class='text-center card-title display-6'><a href="{% url 'jc-list' %}" class="text-decoration-none text-dark">{{lab_name}} Journal Club</a></h2>
+      </div>
+      <div class="card-body">
+        {% include "journal-club-paper-snippet.html" %}
+        <p class="card-text mt-4 fw-bold">Click <a href="{% url 'jc-list' %}">here</a> for a full list of journal club articles.</p>
+      </div>
+    </div>
+  </section>
 
 </div>
 </div>
-
-<section id="journal-club">
-<div class="container-md">
-<div class="card">
-<div class="card-header">
-  <h2 class='text-center display-6'><a href="{% url 'jc-list' %}" class="text-decoration-none text-dark">{{lab_name}} Journal Club</a></h2>
-</div>
-<div class="card-body">
-{% include "journal-club-paper-snippet.html" %}
-<p class="card-text mt-4 fw-bold">Click <a href="{% url 'jc-list' %}">here</a> for a full list of journal club articles.</p>
-</div>
-</div>
-</div>
-</section>
 
 </article>
 {% endblock content %}

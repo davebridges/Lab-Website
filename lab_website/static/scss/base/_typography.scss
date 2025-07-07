@@ -1,0 +1,16 @@
+@use '../abstracts/variables' as *;
+
+h1, h2, h3, h4, h5, h6 {
+  color: $primary;  // Can use $primary directly
+}
+
+// Can use primary color as the lead
+.lead {
+  color: $primary; 
+}
+
+// Special typography example
+.hero-title {
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}

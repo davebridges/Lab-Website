@@ -1,0 +1,19 @@
+// main.scss
+// Variables and mixins with @use
+// Run this file using sass using sass --quiet-deps main.scss ../css/custom.css from within this location, dont forget to run django manage.py collectstatic from the root directory to host on production.
+// Running this requires the node modules files which are hidden from github, so compile this on development not production.
+
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+// Bootstrap with @import (since it requires it)
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+
+// Your custom styles with @import (to share variables)
+@import 'base/custom_properties';
+@import 'base/typography';
+@import 'components/buttons';
+@import 'components/cards';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'utilities/utilities';

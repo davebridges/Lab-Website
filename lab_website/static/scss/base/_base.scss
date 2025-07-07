@@ -1,0 +1,6 @@
+@use '../abstracts/variables' as *;
+
+:root {
+  --brand-primary: #{$primary};
+  --brand-secondary: #{$secondary};
+}
