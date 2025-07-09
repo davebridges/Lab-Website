@@ -1,5 +1,5 @@
 # Core Web Framework
-Django==5.2.2
+Django==5.2.4
 
 # Optional API & Forms Tools
 django-tastypie==0.15.1  # Consider replacing with Django REST Framework
