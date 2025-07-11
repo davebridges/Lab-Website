@@ -1,71 +1,92 @@
 {% extends 'base.html' %}
-
 {% block title %}
 <title>{{ project }}</title>
 {% endblock %}
-
 {% block header %}
 <h1 class='text-center display-4'>{{ project }}</h1>
 {% endblock %}
-
 {% block content %}
-<article>
-<section id="summary">
-<h2 class='display-6'>Project Summary</h2>
-<div class="lead">{{ project.summary | safe}}</div>
-</section>
-
-
-{% if project.current_personnel.all.count > 0 %}
-<div class="container">
-<section id="personnel" class="row">
-<h2 class='text-center display-6'>Who is Working on This?</h2>
-{% for person in project.current_personnel.all %}
-<div class="card col-4">
-{% include 'personnel_snippet.html' %}
+<div class="container-fluid">
+    <article>
+        <section id="summary" class="mb-5">
+            <h2 class='display-6 text-center mb-4'>Project Summary</h2>
+            <div class="lead">{{ project.summary | safe}}</div>
+        </section>
+        
+        {% if project.current_personnel.all.count > 0 %}
+        <section id="personnel" class="mb-5">
+            <h2 class='text-center display-6 mb-4'>Who is Working on This?</h2>
+            <div class="row g-4">
+                {% for person in project.current_personnel.all %}
+                <div class="col-12 col-lg-4">
+                    <div class="card h-100">
+                        {% include 'personnel_snippet.html' %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        
+        {% if project.funding_set.all.count > 0 %}
+        <section id="funding" class="mb-5">
+            <h3 class='text-center display-6 mb-4'>What sources of funding support this project?</h3>
+            <div class="row g-4">
+                {% for funding in project.funding_set.all %}
+                <div class="col-12 col-md-6">
+                    <div class="card h-100">
+                        {% include "funding_list_snippet.html" %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        
+        {% if project.publications.all.count > 0 %}
+        <section id="publications" class="mb-5">
+            <h2 class='text-center display-6 mb-4'>What have we published on this topic?</h2>
+            <div class="row">
+                <div class="col-12">
+                    <ol class="list-group list-group-numbered">
+                        {% for paper in project.publications.all %}
+                        <li class="list-group-item">
+                            {% include "paper-detail-snippet.html" %}
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        
+        <!--
+        {% if project.other_publications.all.count > 0 %}
+        <section id="other-publications" class="mb-5">
+            <h3 class='text-center display-6 mb-4'>What are some other key papers on this topic?</h3>
+            <div class="row">
+                <div class="col-12">
+                    <ol class="list-group list-group-numbered">
+                        {% for paper in project.other_publications.all %}
+                        <li class="list-group-item">
+                            {% include "paper-detail-snippet.html" %}
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        -->
+        
+        <section id="comments" class="mb-5">
+            <h2 class='text-center display-6 mb-4'>Comments</h2>
+            <div class="row">
+                <div class="col-12">
+                    {% include 'disqus_snippet.html' %}
+                </div>
+            </div>
+        </section>
+    </article>
 </div>
-{% endfor %}
-</section>
-</div>
-{% endif %}
-
-{% if project.funding_set.all.count > 0 %}
-<section class="row container">
-<h3 class='text-center display-8'>What sources of funding support this project?</h3>
-{% for funding in project.funding_set.all %}
-<div class="card col-6">
-{% include "funding_list_snippet.html" %}
-</div>
-{% endfor %}
-</section>
-{% endif %}
-
-<section id="publications">
-{% if project.publications.all.count > 0 %}
-<section class="span-20">
-<h2 h2 class='text-center display-6'>What have we published on this topic?</h3>
-<ol>
-{% for paper in project.publications.all %}
-{% include "paper-detail-snippet.html" %}
-{% endfor %}
-</ol>
-</section>
-{% endif %}
-<!--
-{% if project.other_publications.all.count > 0 %}
-<section class="span-20">
-<h3>What are some other key papers on this topic?</h3>
-{% for paper in project.other_publications.all %}
-{% include "paper-detail-snippet.html" %}
-{% endfor %}
-</section>
-{% endif %}
--->
-</section>
-
-<section id="comments class="span-20">
-<h2 class='text-center display-6'>Comments</h2>
-{% include 'disqus_snippet.html' %}
-</section>
-</article>
 {% endblock content %}

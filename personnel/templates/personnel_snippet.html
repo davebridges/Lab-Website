@@ -1,13 +1,19 @@
 <div class="card-header">
-<h3 class="card-title"><a href="{{ person.get_absolute_url }}" class="text-decoration-none text-dark">{{ person }}</a></h3>
+    <h3 class="card-title">
+        <a href="{{ person.get_absolute_url }}" class="text-decoration-none text-dark">
+            {{ person }}
+        </a>
+    </h3>
 </div>
 {% if person.image %}
-    <img src="{{ person.image.url }}" alt="{{ person }}" class="img-fluid"/>
+<div class="position-relative">
+    <img src="{{ person.image.url }}" alt="{{ person }}" class="card-img-top" style="height: 200px; object-fit: cover;"/>
+</div>
 {% endif %}
 <div class="card-body">
-<div id="{{person|slugify|lower}}-details" class="card-text">
-{% with person.lab_roles.all|first as first_object %}
-    {{ first_object|safe }}
-{% endwith %}
-</div>
+    <div id="{{person|slugify|lower}}-details" class="card-text">
+        {% with person.lab_roles.all|first as first_object %}
+            {{ first_object|safe }}
+        {% endwith %}
+    </div>
 </div>
